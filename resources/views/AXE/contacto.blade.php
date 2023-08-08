@@ -13,9 +13,26 @@
 @stop
 
 @section('content')
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#contacto">+ Nuevo</button>
+<style>
+    .same-width {
+        width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
+    }
+</style>
 
-<div class="modal fade bd-example-modal-sm" id="contacto" tabindex="-1">
+<style>
+    .btn-custom {
+        margin-top: 10px; /* Ajusta el valor según tus necesidades */
+    }
+</style>
+<style>
+    .spacer {
+        height: 20px; /* Ajusta la altura según tus necesidades */
+    }
+</style>
+<div class="spacer"></div>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>
+<div class="spacer"></div>
+<div class="modal fade bd-example-modal-sm" id="personas" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -67,7 +84,7 @@
 </div>
 
 <div class="table-responsive">
-    <table cellspacing="10" cellpadding="10" class="table table-hover table-dark table-striped mt-1" style="border: 2px solid lime;">
+    <table id="miTabla" class="table table-hover table-dark table-striped mt-1" style="border: 2px solid lime;">
         <thead>
             <tr>
                 <th>Código contacto de emergencia</th>
@@ -77,6 +94,7 @@
                 <th>Número de telefono contacto</th>
                 <th>Relación</th>
                 <th>Fecha de registro</th>
+                <th> </th>
             </tr>
         </thead>
         <tbody>
@@ -151,8 +169,36 @@
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
+    <!-- Agregar estilos para DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @stop
 
 @section('js')
+    
     <script> console.log('Hi!'); </script>
+    <!-- Agregar scripts para DataTables -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Script personalizado para inicializar DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#miTabla').DataTable({
+
+              "language":{
+             "search":       "Buscar: ",
+             "lengthMenu":   "Mostrar _MENU_ registros por página",
+             "info":   "Mostrando página _PAGE_ de _PAGES_",
+             "paginate": {"previous": "Anterior",
+                          "next":  "Siguiente",
+                          "first": "Primero",
+                          "last":  ""
+
+
+             }
+            }
+          });
+        });
+
+    </script>
 @stop
