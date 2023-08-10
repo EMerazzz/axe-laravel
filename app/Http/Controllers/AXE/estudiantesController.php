@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Http\Controllers\AXE;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Pagination\LengthAwarePaginator;
+
+class estudiantesController extends Controller
+{
+    private $apiUrl = 'http://localhost:4000/estudiantes'; // Declaración de la variable de la URL de la API
+    public function estudiantes()
+    {
+        // Obtener los datos de personas desde el controlador PersonasController
+        $personasController = new PersonasController();
+        $personas = Http::get('http://localhost:4000/personas');
+        $personasArreglo = json_decode($personas, true);
+
+        // Obtener los datos de teléfonos
+        $estudiantes = Http::get($this->apiUrl);
+        $estudiantesArreglo = json_decode($estudiantes, true);
+
+        return view('AXE.estudiantes', compact('personasArreglo', 'estudiantesArreglo'));
+    }
+
+    public function nuevo_estudiante(Request $request)
+    {
+        $nuevo_estudiante = Http::post($this->apiUrl, [
+            "COD_PERSONA" => $request->input("COD_PERSONA"),
+            "COD_NIVACAD_ANIOACAD" => $request->input("COD_NIVACAD_ANIOACAD"),
+            "NOMBRE_ESTUDIANTE" => $request->input("NOMBRE_ESTUDIANTE"),
+            "APELLIDO_ESTUDIANTE" => $request->input("APELLIDO_ESTUDIANTE"),
+            "TELEFONO_ESTUDIANTE" => $request->input("TELEFONO_ESTUDIANTE"),
+            "CORREO_ELECTRONICO_ESTUDIANTE" => $request->input("CORREO_ELECTRONICO_ESTUDIANTE"),
+            "JORNADA_ESTUDIANTE" => $request->input("JORNADA_ESTUDIANTE"),
+
+        ]);
+
+      // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
+      if ($nuevo_estudiante->successful()) {
+        return redirect('/estudiantes')->with('success', 'Estudiante agregado exitosamente.');
+    } else {
+        return redirect('/estudiantes')->with('error', 'No se pudo agregar el estudiante.');
+    }
+    }
+
+    public function modificar_estudiante(Request $request)
+    {
+        $modificar_estudiante =  Http::put($this->apiUrl.'/'. $request->input("COD_ESTUDIANTE"), [
+            "COD_PERSONA" => $request->input("COD_PERSONA"),
+            "COD_NIVACAD_ANIOACAD" => $request->input("COD_NIVACAD_ANIOACAD"),
+            "NOMBRE_ESTUDIANTE" => $request->input("NOMBRE_ESTUDIANTE"),
+            "APELLIDO_ESTUDIANTE" => $request->input("APELLIDO_ESTUDIANTE"),
+            "TELEFONO_ESTUDIANTE" => $request->input("TELEFONO_ESTUDIANTE"),
+            "CORREO_ELECTRONICO_ESTUDIANTE" => $request->input("CORREO_ELECTRONICO_ESTUDIANTE"),
+            "JORNADA_ESTUDIANTE" => $request->input("JORNADA_ESTUDIANTE"),
+        ]);
+
+       // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
+       if ($modificar_estudiante->successful()) {
+        return redirect('/estudiantes')->with('success', 'Estudiante agregado exitosamente.');
+    } else {
+        return redirect('/estudiantes')->with('error', 'No se pudo agregar el estudiante.');
+    }
+    }
+}

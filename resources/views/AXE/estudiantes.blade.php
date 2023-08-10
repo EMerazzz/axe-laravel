@@ -4,11 +4,11 @@
 @section('content_header')
 
 <center>
-    <h1>Detalles personas</h1>
+    <h1>Detalles estudiantes</h1>
 </center>
 <blockquote class="blockquote text-center">
-    <p class="mb-0">Personas registradas en el sistema AXE.</p>
-    <footer class="blockquote-footer">Personas <cite title="Source Title">Completados</cite></footer>
+    <p class="mb-0"> Estudiantes registrados en el sistema AXE.</p>
+    <footer class="blockquote-footer">Estudiantes <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 @stop
 

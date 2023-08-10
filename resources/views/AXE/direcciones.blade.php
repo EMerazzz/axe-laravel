@@ -49,7 +49,7 @@
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
                             <label for="COD_PERSONA" class="form-label">Persona: </label>
-                            <select class="form-select" id="COD_PERSONA" name="COD_PERSONA" required>
+                            <select class="form-control same-width" id="COD_PERSONA" name="COD_PERSONA" required>
                                 <option value="" disabled selected>Seleccione una persona</option>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
@@ -86,15 +86,14 @@
 <table id="miTabla" class="table table-hover table-dark table-striped mt-1" style="border:2px solid lime;">
         <thead>
             <tr>
-                <th>Código direccion</th>
-                <th>Código persona</th>
+                <th>#</th>
                 <th>Nombre completo</th>
                 <th>Dirección</th>
                 <th>Departamento</th>
                 <th>Ciudad</th>
                 <th>Pais</th>
                 <th>Fecha de registro</th>
-                <th>Acciones</th>
+                <th>Opciones de la Tabla</th>
             </tr>
         </thead>
         <tbody>
@@ -110,7 +109,6 @@
                 @endphp
             <tr>
                 <td>{{ $direcciones['COD_DIRECCION'] }}</td>
-                <td>{{ $direcciones['COD_PERSONA'] }}</td>
                 <td>
                         @if ($persona !== null)
                             {{ $persona['NOMBRE'] . ' ' . $persona['APELLIDO'] }}

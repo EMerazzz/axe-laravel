@@ -314,14 +314,37 @@ return [
                     [
                         'text' => 'Asignaturas',
                         'icon' =>"fa-solid fa-person",
-                        'icon_color' => 'success',
+                        'icon_color' => 'info',
                         'url'  => '#',
                     ],
                     [
                         'text' => 'jornadas',
                         'icon' =>'fas fa-fw fa-lock',
-                        'icon_color' => 'indigo',
+                        'icon_color' => 'info',
                         'url'  => 'jornadas#',
+                    ],
+                  
+                ],
+            
+            ],
+            [
+                'text'        => 'Docentes',
+                'label'       => 2,
+                'label_color' => 'success',
+                'icon' =>"fa fa-user",
+                'icon_color' => 'teal',
+                'submenu' => [
+                    [
+                        'text' => 'Docentes',
+                        'icon' =>"fa fa-address-card",
+                        'icon_color' => 'info',
+                        'url'  => 'docentes',
+                    ],
+                    [
+                        'text' => 'Asignaturas docentes',
+                        'icon' =>'fas fa-fw fa-lock',
+                        'icon_color' => 'info',
+                        'url'  => 'docenteAsignatura',
                     ],
                   
                 ],

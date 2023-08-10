@@ -49,7 +49,7 @@
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
                             <label for="COD_PERSONA" class="form-label">Persona: </label>
-                            <select class="form-select" id="COD_PERSONA" name="COD_PERSONA" required>
+                            <select class="form-control same-width" id="COD_PERSONA" name="COD_PERSONA" required>
                                 <option value="" disabled selected>Seleccione una persona</option>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
@@ -58,19 +58,19 @@
                         </div>
                         <!-- FIN --->
                         <div class="mb-3 mt-3">
-                            <label for="contacto" class="form-label">Nombre contacto</label>
+                            <label for="contacto" class="form-label">Nombre contacto:</label>
                             <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto">
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="contacto" class="form-label">Apellidos Contacto</label>
+                            <label for="contacto" class="form-label">Apellidos Contacto:</label>
                             <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto">
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="contacto" class="form-label">Número de telefon contacto emergencia</label>
+                            <label for="contacto" class="form-label">Número de telefon contacto emergencia:</label>
                             <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el Número de télefono contacto emergencia">
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="contacto" class="form-label">Relación</label>
+                            <label for="contacto" class="form-label">Relación:</label>
                             <input type="text" class="form-control" id="RELACION" name="RELACION" placeholder="Ingrese la relación">
                         </div>
                 
@@ -87,21 +87,36 @@
     <table id="miTabla" class="table table-hover table-dark table-striped mt-1" style="border: 2px solid lime;">
         <thead>
             <tr>
-                <th>Código contacto de emergencia</th>
-                <th>Código persona</th>
+                <th>#</th>
+                <th>Nombre Persona</th>
                 <th>Nombre contacto</th>
                 <th>Apellido contacto</th>
                 <th>Número de telefono contacto</th>
                 <th>Relación</th>
                 <th>Fecha de registro</th>
-                <th> </th>
+                <th>Opciones de la Tabla</th>
             </tr>
         </thead>
         <tbody>
             @foreach($contactoArreglo as $contacto)
             <tr>
+            @php
+                    $persona = null;
+                    foreach ($personasArreglo as $p) {
+                        if ($p['COD_PERSONA'] === $contacto['COD_PERSONA']) {
+                            $persona = $p;
+                            break;
+                        }
+                    }
+                @endphp
                 <td>{{ $contacto['COD_CONTACTO_EMERGENCIA'] }}</td>
-                <td>{{ $contacto['COD_PERSONA'] }}</td>
+                <td>
+                        @if ($persona !== null)
+                            {{ $persona['NOMBRE'] . ' ' . $persona['APELLIDO'] }}
+                        @else
+                            Persona no encontrada
+                        @endif
+                    </td>
                 <td>{{ $contacto['NOMBRE_CONTACTO'] }}</td>
                 <td>{{ $contacto['APELLIDO_CONTACTO'] }}</td>
                 <td>{{ $contacto['TELEFONO'] }}</td>
@@ -138,19 +153,19 @@
                        
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Nombre contacto</label>
-                            <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto" value="{{ $contacto['NOMBRE_CONTACTO'] }}">
+                            <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto" value="{{ $contacto['NOMBRE_CONTACTO'] }}"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Apellidos Contacto</label>
-                            <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto" value="{{ $contacto['APELLIDO_CONTACTO'] }}">
+                            <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto" value="{{ $contacto['APELLIDO_CONTACTO'] }}"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="contacto" class="form-label">Número de telefon contacto emergencia</label>
-                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el Número de télefono contacto emergencia" value="{{ $contacto['TELEFONO'] }}">
+                            <label for="contacto" class="form-label">Número de telefono contacto emergencia</label>
+                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el Número de télefono contacto emergencia" value="{{ $contacto['TELEFONO'] }}"pattern="[0-9]+" title="Solo se permiten números" required>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Relación</label>
-                            <input type="text" class="form-control" id="RELACION" name="RELACION" placeholder="Ingrese la relación" value="{{ $contacto['RELACION'] }}">
+                            <input type="text" class="form-control" id="RELACION" name="RELACION" placeholder="Ingrese la relación" value="{{ $contacto['RELACION'] }}"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
                         </div>
         
 

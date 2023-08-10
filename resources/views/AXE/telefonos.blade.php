@@ -13,6 +13,7 @@
 @stop
 
 @section('content')
+
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -29,6 +30,7 @@
         height: 20px; /* Ajusta la altura según tus necesidades */
     }
 </style>
+
 <div class="spacer"></div>
 <button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>
 <div class="spacer"></div>
@@ -49,7 +51,7 @@
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
                             <label for="COD_PERSONA" class="form-label">Persona: </label>
-                            <select class="form-select" id="COD_PERSONA" name="COD_PERSONA" required>
+                            <select class="form-control same-width" id="COD_PERSONA" name="COD_PERSONA" required>
                                 <option value="" disabled selected>Seleccione una persona</option>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
@@ -57,13 +59,14 @@
                             </select>
                         </div>
                         <!-- FIN --->
-                        <div class="mb-3 mt-3">
-                            <label for="TELEFONO" class="form-label">Número de teléfono</label>
-                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el número de teléfono">
-                        </div>
+                     <div class="mb-3 mt-3">
+                        <label for="TELEFONO" class="form-label">Número de teléfono:</label>
+                        <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el número de teléfono" pattern="[0-9]+" title="Solo se permiten números" required >
+                    </div>
+
                         <div class="mb-3">
                             <label for="TIPO_TELEFONO" class="form-label">Tipo de teléfono:</label>
-                            <select class="form-select" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
+                            <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
                                 <option value="Fijo" selected>Fijo</option>
                                 <option value="Movil">Móvil</option>
                             </select>
@@ -85,7 +88,7 @@
                 <th>Número de Teléfono</th>
                 <th>Tipo de Teléfono</th>
                 <th>Fecha de registro</th>
-                <th>Acciones</th>
+                <th>Opciones de la Tabla</th>
             </tr>
         </thead>
         <tbody>
@@ -143,11 +146,11 @@
                         <input type="hidden" class="form-control" name="COD_TELEFONO" value="{{ $telefonos['COD_TELEFONO'] }}">
                         <div class="mb-3 mt-3">
                             <label for="TELEFONO" class="form-label">Número de teléfono</label>
-                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el número de teléfono"value="{{ $telefonos['TELEFONO'] }}">
+                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el número de teléfono"value="{{ $telefonos['TELEFONO'] }}"pattern="[0-9]+" title="Solo se permiten números" required>
                         </div>
                         <div class="mb-3">
                             <label for="TIPO_TELEFONO" class="form-label">Tipo Telefono:</label>
-                            <select class="form-select" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
+                            <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
                                 <option value="Fijo" {{ $telefonos['TIPO_TELEFONO'] === 'Fijo' ? 'selected' : '' }}>Fijo</option>
                                 <option value="Movil" {{ $telefonos['TIPO_TELEFONO'] === 'Movil' ? 'selected' : '' }}>Movil</option>
                             </select>
@@ -169,6 +172,7 @@
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
     <!-- Agregar estilos para DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+  
 @stop
 
 @section('js')

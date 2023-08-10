@@ -2,57 +2,90 @@
 
 namespace App\Http\Controllers\AXE;
 
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use DateTime;
 
-class personasController extends Controller
-
-
+class PersonasController extends Controller
 {
-    public function personas(){
-       
-       $personas = Http::get('http://localhost:4000/personas');
-       $personasArreglo = json_decode($personas,true);
-       //return $reservaciones;
-       return view('AXE.personas', compact('personasArreglo'));
-       
+    private $apiUrl = 'http://localhost:4000/personas'; // Declaración de la variable de la URL de la API
+    public function personas()
+    {
+        $personas = Http::get($this->apiUrl);
+        $personasArreglo = json_decode($personas, true);
+        return view('AXE.personas', compact('personasArreglo'));
     }
-   
 
-    public function nueva_persona(Request $request ){
-        //print_r([$request->input("nombre"),$request->input("fecha"),$request->input("registro"),$request->input("codigo")]);die();
-        $nueva_persona = Http::post('http://localhost:4000/personas',[
-    "NOMBRE" => $request->input("NOMBRE"),
-    "APELLIDO"=> $request->input("APELLIDO"),
-    "IDENTIDAD"=> $request->input("IDENTIDAD"),
-    "GENERO"=> $request->input("GENERO"),
-    "TIPO_PERSONA"=> $request->input("TIPO_PERSONA"),
-    "EDAD"=> $request->input("EDAD"),
-    "FECHA_NACIMIENTO"=> $request->input("FECHA_NACIMIENTO"),
-    "FECHA_SALIDA "=> $request->input("FECHA_SALIDA"),
+    public function nueva_persona(Request $request)
+    {
+        $identidad = $request->input("IDENTIDAD");
+
+        // Obtener todas las personas desde la API
+        $todas_las_personas = Http::get($this->apiUrl);
     
+        if ($todas_las_personas->successful()) {
+            $personas_lista = $todas_las_personas->json();
+    
+            foreach ($personas_lista as $persona) {
+                if ($persona["IDENTIDAD"] === $identidad) {
+                    // La persona ya existe, generar mensaje de error
+                    return redirect('/personas')->with('error', 'La persona con esta identidad ya existe en la base de datos.');
+                }
+            }
+        }
+        // Resto del código para calcular la edad
+        $fecha_nacimiento = $request->input("FECHA_NACIMIENTO");
+        $edad = $this->calcularEdad($fecha_nacimiento);
+    
+        // Enviar la solicitud POST a la API para agregar la nueva persona
+        $nueva_persona = Http::post($this->apiUrl, [
+            "NOMBRE" => $request->input("NOMBRE"),
+            "APELLIDO" => $request->input("APELLIDO"),
+            "IDENTIDAD" => $request->input("IDENTIDAD"),
+            "GENERO" => $request->input("GENERO"),
+            "TIPO_PERSONA" => $request->input("TIPO_PERSONA"),
+            "EDAD" => $edad,
+            "FECHA_NACIMIENTO" => $fecha_nacimiento,
         ]);
-        return redirect('/personas');
+    
+        // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
+        if ($nueva_persona->successful()) {
+            return redirect('/personas')->with('success', 'Persona agregada exitosamente.');
+        } else {
+            return redirect('/personas')->with('error', 'No se pudo agregar la persona.');
+        }
+    }
+    
+
+    private function calcularEdad($fecha_nacimiento)
+    {
+        $hoy = new DateTime();
+        $nacimiento = new DateTime($fecha_nacimiento);
+        $diferencia = $nacimiento->diff($hoy);
+        return $diferencia->y;
     }
 
-    public function modificar_persona(Request $request ){
-        //print_r([$request->input("id"),$request->input("formato"),$request->input("servicios"),$request->input("tipo")]);die();
-        $modificar_persona = Http::put('http://localhost:4000/personas/'.$request->input("COD_PERSONA"),[
-    "NOMBRE" => $request->input("NOMBRE"),
-    "APELLIDO"=> $request->input("APELLIDO"),
-    "IDENTIDAD"=> $request->input("IDENTIDAD"),
-    "GENERO"=> $request->input("GENERO"),
-    "TIPO_PERSONA"=> $request->input("TIPO_PERSONA"),
-    "EDAD"=> $request->input("EDAD"),
-    "FECHA_NACIMIENTO"=> $request->input("FECHA_NACIMIENTO"),
-    "FECHA_SALIDA "=> $request->input("FECHA_SALIDA"),
+    public function modificar_persona(Request $request)
+    {
+        
+        //calcular edad
+        $fecha_nacimiento = $request->input("FECHA_NACIMIENTO");
+        $edad = $this->calcularEdad($fecha_nacimiento);
 
+        $modificar_persona = Http::put($this->apiUrl.'/'.$request->input("COD_PERSONA"), [
+            "NOMBRE" => $request->input("NOMBRE"),
+            "APELLIDO" => $request->input("APELLIDO"),
+            "IDENTIDAD" => $request->input("IDENTIDAD"),
+            "GENERO" => $request->input("GENERO"),
+            "TIPO_PERSONA" => $request->input("TIPO_PERSONA"),
+            "EDAD" => $edad,
+            "FECHA_NACIMIENTO" => $fecha_nacimiento,
         ]);
-       //print_r([$putformatos]);die();
-
-        return redirect('/personas');
+        if ($modificar_persona->successful()) {
+            return redirect('/personas')->with('success', 'Persona modificada exitosamente.');
+        } else {
+            return redirect('/personas')->with('error', 'No se pudo modificar la persona.');
+        }
     }
-
 }
