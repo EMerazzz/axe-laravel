@@ -3,16 +3,19 @@
 @section('title', 'AXE')
 
 @section('content_header')
-<center>
-    <h1>Detalles Correos</h1>
-</center>
-<blockquote class="blockquote text-center">
+<blockquote class="custom-blockquote">
     <p class="mb-0">Correos registrados en el sistema AXE.</p>
     <footer class="blockquote-footer">Correos <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 @stop
 
 @section('content')
+<div class="d-flex justify-content-end align-items-center">
+    <button id="mode-toggle" class="btn btn-info ms-2">
+        <i class="fas fa-adjust"></i> Cambiar Modo
+    </button>
+</div>
+
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -21,12 +24,7 @@
 
 <style>
     .btn-custom {
-        margin-top: 10px; /* Ajusta el valor según tus necesidades */
-    }
-</style>
-<style>
-    .spacer {
-        height: 20px; /* Ajusta la altura según tus necesidades */
+        margin-top: -70px; /* Ajusta el valor según tus necesidades */
     }
 </style>
 <div class="spacer"></div>
@@ -49,7 +47,7 @@
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
                             <label for="COD_PERSONA" class="form-label">Persona: </label>
-                            <select class="form-control same-width" id="COD_PERSONA" name="COD_PERSONA" required>
+                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                                 <option value="" disabled selected>Seleccione una persona</option>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
@@ -59,7 +57,8 @@
                         <!-- FIN --->
                         <div class="mb-3 mt-3">
                             <label for="correos" class="form-label">Correo Electrónico</label>
-                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico">
+                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" required>
+                            <div id="error-message-correo" style="color: red; display: none;">No se permiten espacios</div>
                         </div>
                        
                         
@@ -73,7 +72,7 @@
     </div>
 </div>
 
-<table id="miTabla" class="table table-hover table-dark table-striped mt-1" style="border:2px solid lime;">
+<table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         <thead>
             <tr>
                 <th>#</th>
@@ -136,7 +135,8 @@
                         <input type="hidden" class="form-control" name="COD_CORREO" value="{{ $correos['COD_CORREO'] }}">
                         <div class="mb-3 mt-3">
                             <label for="correos" class="form-label">Correo electrónico</label>
-                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" value="{{ $correos['CORREO_ELECTRONICO'] }}">
+                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" value="{{ $correos['CORREO_ELECTRONICO'] }}"
+                            title="No se permiten espacios" oninput="this.value = this.value.replace( /\s/g, '')" required>
                         </div>
         
 
@@ -151,40 +151,93 @@
 @endforeach
 
 @stop
-
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
-    <!-- Agregar estilos para DataTables -->
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css">
+    <link rel="stylesheet" href="https://cdn.example.com/css/styles.css">
+    
 @stop
 
 @section('js')
+      <!-- Enlace a jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
-    <script> console.log('Hi!'); </script>
-    <!-- Agregar scripts para DataTables -->
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <!-- Enlace a selectize-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
+    
+    <!-- Enlace a DataTables -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <!-- Script personalizado para inicializar DataTables -->
+     <!-- selectize -->
+     <script>
+        $(document).ready(function() {
+            $('.selectize').selectize({
+                placeholder: 'Seleccione un padre o tutor',
+                allowClear: true // Permite borrar la selección
+            });
+        });
+    </script>
+
+ <!-- Datatables -->
+
     <script>
         $(document).ready(function() {
             $('#miTabla').DataTable({
+                "language": {
+                    "search": "Buscar: ",
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "paginate": {
+                        "previous": "Anterior",
+                        "next": "Siguiente",
+                        "first": "Primero",
+                        "last": ""
+                    }
+                }
+            });
+        });
+    </script>
+    <!-- Script personalizado para validaciones -->
+    <script>
+    function setupValidation(inputId, errorMessageId, pattern) {
+        const input = document.getElementById(inputId);
+        const errorMessage = document.getElementById(errorMessageId);
 
-              "language":{
-             "search":       "Buscar: ",
-             "lengthMenu":   "Mostrar _MENU_ registros por página",
-             "info":   "Mostrando página _PAGE_ de _PAGES_",
-             "paginate": {"previous": "Anterior",
-                          "next":  "Siguiente",
-                          "first": "Primero",
-                          "last":  ""
+        input.addEventListener('input', function() {
+            const inputValue = input.value.replace(pattern, ''); // Remueve caracteres no permitidos
 
-
-             }
+            if (inputValue !== input.value) {
+                input.value = inputValue;
+                errorMessage.style.display = 'block';
+            } else {
+                errorMessage.style.display = 'none';
             }
-          });
         });
 
-    </script>
+        // Llamada inicial para aplicar la validación cuando se cargue la página
+        input.dispatchEvent(new Event('input'));
+    }
+
+    // Configuración para el campo de CORREO_ELECTRONICO
+    setupValidation('CORREO_ELECTRONICO', 'error-message-correo', /\s/g); // Evita espacios en blanco
+</script>
+
+
+    <!-- Script personalizado para CAMBIAR MODO -->
+<script>
+   const modeToggle = document.getElementById('mode-toggle');
+const body = document.body;
+const table = document.getElementById('miTabla');
+
+modeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    table.classList.toggle('table-dark'); 
+});
+</script>
+
 @stop

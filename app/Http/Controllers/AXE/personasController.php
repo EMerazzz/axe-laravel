@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AXE;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use DateTime;
 
 class PersonasController extends Controller
@@ -30,7 +31,10 @@ class PersonasController extends Controller
             foreach ($personas_lista as $persona) {
                 if ($persona["IDENTIDAD"] === $identidad) {
                     // La persona ya existe, generar mensaje de error
-                    return redirect('/personas')->with('error', 'La persona con esta identidad ya existe en la base de datos.');
+                    return redirect('/personas')->with('message', [
+                        'type' => 'error',
+                        'text' => 'Persona con esta identidad ya existe.'
+                    ]);
                 }
             }
         }
@@ -51,10 +55,17 @@ class PersonasController extends Controller
     
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
         if ($nueva_persona->successful()) {
-            return redirect('/personas')->with('success', 'Persona agregada exitosamente.');
+            return redirect('/personas')->with('message', [
+                'type' => 'success',
+                'text' => 'Persona agregada exitosamente.'
+            ]);
         } else {
-            return redirect('/personas')->with('error', 'No se pudo agregar la persona.');
+            return redirect('/personas')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo agregar la persona.'
+            ]);
         }
+        
     }
     
 
@@ -83,9 +94,15 @@ class PersonasController extends Controller
             "FECHA_NACIMIENTO" => $fecha_nacimiento,
         ]);
         if ($modificar_persona->successful()) {
-            return redirect('/personas')->with('success', 'Persona modificada exitosamente.');
+            return redirect('/personas')->with('message', [
+                'type' => 'success',
+                'text' => 'Persona modificada exitosamente.'
+            ]);
         } else {
-            return redirect('/personas')->with('error', 'No se pudo modificar la persona.');
+            return redirect('/personas')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo modificar la persona.'
+            ]);
         }
     }
 }

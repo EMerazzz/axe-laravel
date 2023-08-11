@@ -11,6 +11,7 @@ class contactoController extends Controller
 
 
 {
+    private $apiUrl = 'http://localhost:4000/contacto_emergencia'; // Declaración de la variable de la URL de la API
       public function contacto_emergencia()
     {
         // Obtener los datos de personas desde el controlador PersonasController
@@ -19,7 +20,7 @@ class contactoController extends Controller
         $personasArreglo = json_decode($personas,true);
        
         // Obtener los datos de teléfonos
-        $contacto_emergencia = Http::get('http://localhost:4000/contacto_emergencia');
+        $contacto_emergencia = Http::get($this->apiUrl);
         $contactoArreglo = json_decode($contacto_emergencia, true);
        
         // Retornar la vista con ambos conjuntos de datos
@@ -28,7 +29,7 @@ class contactoController extends Controller
    
 
     public function nuevo_contacto_emergencia(Request $request ){
-    $nuevo_correo = Http::post('http://localhost:4000/nuevo_contacto_emergencia',[
+    $nuevo_correo = Http::post($this->apiUrl,[
         
     "COD_PERSONA" => $request->input("COD_PERSONA"),
     "NOMBRE_CONTACTO"=> $request->input("NOMBRE_CONTACTO"),
@@ -43,7 +44,7 @@ class contactoController extends Controller
 
     public function modificar_contacto_emergencia(Request $request ){
        
-        $modificar_correo = Http::put('http://localhost:4000/modificar_contacto_emergencia/'.$request->input("COD_CONTACTO_EMERGENCIA"),[
+        $modificar_correo = Http::put($this->apiUrl.'/'.$request->input("COD_CONTACTO_EMERGENCIA"),[
             "COD_CONTACTO_EMERGENCIA" => $request->input("COD_CONTACTO_EMERGENCIA"),
         
             "COD_PERSONA" => $request->input("COD_PERSONA"),

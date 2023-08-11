@@ -3,16 +3,20 @@
 @section('title', 'AXE')
 
 @section('content_header')
-<center>
-    <h1>Detalles direcciones</h1>
-</center>
-<blockquote class="blockquote text-center">
+<blockquote class="custom-blockquote">
     <p class="mb-0">Direcciones registradas en el sistema AXE.</p>
     <footer class="blockquote-footer">Direcciones <cite title="Source Title">Completados</cite></footer>
 </blockquote>
+
 @stop
 
 @section('content')
+
+<div class="d-flex justify-content-end align-items-center">
+    <button id="mode-toggle" class="btn btn-info ms-2">
+        <i class="fas fa-adjust"></i> Cambiar Modo
+    </button>
+</div>
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -21,12 +25,7 @@
 
 <style>
     .btn-custom {
-        margin-top: 10px; /* Ajusta el valor según tus necesidades */
-    }
-</style>
-<style>
-    .spacer {
-        height: 20px; /* Ajusta la altura según tus necesidades */
+        margin-top: -70px; /* Ajusta el valor según tus necesidades */
     }
 </style>
 <div class="spacer"></div>
@@ -49,7 +48,7 @@
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
                             <label for="COD_PERSONA" class="form-label">Persona: </label>
-                            <select class="form-control same-width" id="COD_PERSONA" name="COD_PERSONA" required>
+                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                                 <option value="" disabled selected>Seleccione una persona</option>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
@@ -62,16 +61,19 @@
                             <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección">
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="direcciones" class="form-label">Departamento</label>
+                            <label for="DEPARTAMENTO" class="form-label">Departamento</label>
                             <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento">
+                            <div id="error-message-departamento" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="direcciones" class="form-label">Ciudad</label>
+                            <label for="CIUDAD" class="form-label">Ciudad</label>
                             <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad">
-                        </div>
+                            <div id="error-message-ciudad" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
+                            </div>
                         <div class="mb-3 mt-3">
-                            <label for="direcciones" class="form-label">País</label>
-                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el pais">
+                            <label for="PAIS" class="form-label">País</label>
+                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país">
+                            <div id="error-message-pais" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
                 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -82,8 +84,8 @@
         </div>
     </div>
 </div>
-
-<table id="miTabla" class="table table-hover table-dark table-striped mt-1" style="border:2px solid lime;">
+<div class="table-responsive">
+<table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         <thead>
             <tr>
                 <th>#</th>
@@ -155,16 +157,19 @@
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Departamento</label>
-                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" value="{{ $direcciones['DEPARTAMENTO'] }}">
+                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" value="{{ $direcciones['DEPARTAMENTO'] }}"
+                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
 
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Ciudad</label>
-                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" value="{{ $direcciones['CIUDAD'] }}">
+                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" value="{{ $direcciones['CIUDAD'] }}"
+                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">país</label>
-                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $direcciones['PAIS'] }}">
+                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $direcciones['PAIS'] }}"
+                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Editar</button>
@@ -182,8 +187,24 @@
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <!-- Agregar estilos para DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css">
+    <link rel="stylesheet" href="https://cdn.example.com/css/styles.css">
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <!-- Agregar estilos para DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css">
+    <link rel="stylesheet" href="https://cdn.example.com/css/styles.css">
 @stop
 
 @section('js')
@@ -193,6 +214,17 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Enlace a selectize-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
+    <!-- Script personalizado para inicializar PARA SELECTIZE -->
+    <script>
+    $(document).ready(function() {
+        $('.selectize').selectize({
+            placeholder: 'Seleccione un padre o tutor',
+            allowClear: true // Permite borrar la selección
+        });
+    });
+</script>
     <!-- Script personalizado para inicializar DataTables -->
     <script>
         $(document).ready(function() {
@@ -214,4 +246,47 @@
         });
 
     </script>
+
+  <!-- Script personalizado para validaciones -->
+<script>
+function setupValidation(inputId, errorMessageId, pattern) {
+    const input = document.getElementById(inputId);
+    const errorMessage = document.getElementById(errorMessageId);
+
+    input.addEventListener('input', function() {
+        const inputValue = input.value.trim();
+
+        if (!pattern.test(inputValue)) {
+            input.value = inputValue.replace(/[^a-zA-Z\s]/g, '');
+            errorMessage.style.display = 'block';
+        } else {
+            errorMessage.style.display = 'none';
+        }
+    });
+
+    // Llamada inicial para aplicar la validación cuando se cargue la página
+    input.dispatchEvent(new Event('input'));
+}
+
+// Configuración para el campo de DEPARTAMENTO
+setupValidation('DEPARTAMENTO', 'error-message-departamento', /^[a-zA-Z\s]+$/);
+
+// Configuración para el campo de CIUDAD
+setupValidation('CIUDAD', 'error-message-ciudad', /^[a-zA-Z\s]+$/);
+
+// Configuración para el campo de PAIS
+setupValidation('PAIS', 'error-message-pais', /^[a-zA-Z\s]+$/);
+</script>
+
+    <!-- Script personalizado para CAMBIAR MODO -->
+<script>
+   const modeToggle = document.getElementById('mode-toggle');
+const body = document.body;
+const table = document.getElementById('miTabla');
+
+modeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    table.classList.toggle('table-dark'); 
+});
+</script>
 @stop

@@ -90,7 +90,7 @@ return [
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
-    'layout_dark_mode' => true,
+    'layout_dark_mode' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -306,22 +306,22 @@ return [
             ],
             [
                 'text'        => 'Estudiantes',
-                'label'       => 3,
+                'label'       => 2,
                 'label_color' => 'success',
                 'icon' =>"fa fa-graduation-cap",
                 'icon_color' => 'teal',
                 'submenu' => [
                     [
-                        'text' => 'Asignaturas',
-                        'icon' =>"fa-solid fa-person",
+                        'text' => 'Padres o tutores',
+                        'icon' =>"fa fa-users",
                         'icon_color' => 'info',
-                        'url'  => '#',
+                        'url'  => 'padres',
                     ],
                     [
-                        'text' => 'jornadas',
-                        'icon' =>'fas fa-fw fa-lock',
+                        'text' => 'Estudiantes',
+                        'icon' =>'fa fa-male',
                         'icon_color' => 'info',
-                        'url'  => 'jornadas#',
+                        'url'  => 'estudiantes',
                     ],
                   
                 ],

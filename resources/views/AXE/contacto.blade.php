@@ -3,16 +3,19 @@
 @section('title', 'AXE')
 
 @section('content_header')
-<center>
-    <h1>Detalles Contactos emergencia</h1>
-</center>
-<blockquote class="blockquote text-center">
-    <p class="mb-0">Contactos emergencia registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Contactos emergencia <cite title="Source Title">Completados</cite></footer>
+<blockquote class="custom-blockquote">
+    <p class="mb-0">Contactos de emergencia registrados en el sistema AXE.</p>
+    <footer class="blockquote-footer">Contactos registrados <cite title="Source Title">Completados</cite></footer>
 </blockquote>
+
 @stop
 
 @section('content')
+<div class="d-flex justify-content-end align-items-center">
+    <button id="mode-toggle" class="btn btn-info ms-2">
+        <i class="fas fa-adjust"></i> Cambiar Modo
+    </button>
+</div>
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -21,14 +24,10 @@
 
 <style>
     .btn-custom {
-        margin-top: 10px; /* Ajusta el valor según tus necesidades */
+        margin-top: -70px; /* Ajusta el valor según tus necesidades */
     }
 </style>
-<style>
-    .spacer {
-        height: 20px; /* Ajusta la altura según tus necesidades */
-    }
-</style>
+
 <div class="spacer"></div>
 <button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>
 <div class="spacer"></div>
@@ -59,19 +58,23 @@
                         <!-- FIN --->
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Nombre contacto:</label>
-                            <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto">
+                            <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto"required>
+                            <div id="error-message-nombre" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Apellidos Contacto:</label>
-                            <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto">
+                            <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto"required>
+                            <div id="error-message-apellido" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Número de telefon contacto emergencia:</label>
-                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el Número de télefono contacto emergencia">
+                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el Número de télefono contacto emergencia" required>
+                            <div id="error-message-telefono" style="color: red; display: none;">Solo se permiten números</div>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Relación:</label>
-                            <input type="text" class="form-control" id="RELACION" name="RELACION" placeholder="Ingrese la relación">
+                            <input type="text" class="form-control" id="RELACION" name="RELACION" placeholder="Ingrese la relación" required>
+                            <div id="error-message-relacion" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
                 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -84,7 +87,7 @@
 </div>
 
 <div class="table-responsive">
-    <table id="miTabla" class="table table-hover table-dark table-striped mt-1" style="border: 2px solid lime;">
+<table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         <thead>
             <tr>
                 <th>#</th>
@@ -153,19 +156,23 @@
                        
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Nombre contacto</label>
-                            <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto" value="{{ $contacto['NOMBRE_CONTACTO'] }}"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
+                            <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto " value="{{ $contacto['NOMBRE_CONTACTO'] }}" 
+                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Apellidos Contacto</label>
-                            <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto" value="{{ $contacto['APELLIDO_CONTACTO'] }}"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
+                            <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto" value="{{ $contacto['APELLIDO_CONTACTO'] }}" 
+                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Número de telefono contacto emergencia</label>
-                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el Número de télefono contacto emergencia" value="{{ $contacto['TELEFONO'] }}"pattern="[0-9]+" title="Solo se permiten números" required>
+                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el Número de télefono contacto emergencia" value="{{ $contacto['TELEFONO'] }}" 
+                             title="Solo se permiten números"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Relación</label>
-                            <input type="text" class="form-control" id="RELACION" name="RELACION" placeholder="Ingrese la relación" value="{{ $contacto['RELACION'] }}"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
+                            <input type="text" class="form-control" id="RELACION" name="RELACION" placeholder="Ingrese la relación" value="{{ $contacto['RELACION'] }}"
+                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
         
 
@@ -184,8 +191,10 @@
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <!-- Agregar estilos para DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.example.com/css/styles.css">
 @stop
 
 @section('js')
@@ -216,4 +225,49 @@
         });
 
     </script>
+ 
+ <!-- scripts para validaciones-->
+ <script>
+    function setupValidation(inputId, errorMessageId, pattern) {
+        const input = document.getElementById(inputId);
+        const errorMessage = document.getElementById(errorMessageId);
+
+        input.addEventListener('input', function() {
+            const inputValue = input.value.trim();
+            const validInput = inputValue.replace(pattern, '');
+
+            if (inputValue !== validInput) {
+                input.value = validInput;
+                errorMessage.style.display = 'block';
+            } else {
+                errorMessage.style.display = 'none';
+            }
+        });
+
+        // Llamada inicial para aplicar la validación cuando se cargue la página
+        input.dispatchEvent(new Event('input'));
+    }
+
+    // Configuración para el campo de NOMBRE
+    setupValidation('NOMBRE_CONTACTO', 'error-message-nombre', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    // Configuración para el campo de APELLIDO
+    setupValidation('APELLIDO_CONTACTO', 'error-message-apellido', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+     // Configuración para el campo de RELACION
+     setupValidation('RELACION', 'error-message-relacion', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    // Configuración para el campo de TElEFONO
+    setupValidation('TELEFONO', 'error-message-telefono', /[^0-9]/g);
+    
+</script>
+   <!-- Script personalizado para CAMBIAR MODO -->
+   <script>
+   const modeToggle = document.getElementById('mode-toggle');
+const body = document.body;
+const table = document.getElementById('miTabla');
+
+modeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    table.classList.toggle('table-dark'); 
+});
+</script>
+
 @stop

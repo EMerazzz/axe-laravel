@@ -23,7 +23,7 @@ class loginController extends Controller
         if ( count($variable)  > 1){
             echo "nice";
             setcookie("token", $variable['token'], 0,"./");
-            return view('', compact('variable'));  
+            return view('AXE.AXE', compact('variable'));  
         } else {
             echo "Ha ocurrido un problema";
            return view('login', compact('variable'));

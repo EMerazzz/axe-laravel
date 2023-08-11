@@ -16,23 +16,33 @@ class estudiantesController extends Controller
         $personasController = new PersonasController();
         $personas = Http::get('http://localhost:4000/personas');
         $personasArreglo = json_decode($personas, true);
+        // Obtener los datos de personas desde el controlador padresController
+        $padresController = new padresController();
+        $padres = Http::get('http://localhost:4000/padres_tutores');
+        $padresArreglo = json_decode($padres, true);
+        
 
         // Obtener los datos de teléfonos
         $estudiantes = Http::get($this->apiUrl);
         $estudiantesArreglo = json_decode($estudiantes, true);
 
-        return view('AXE.estudiantes', compact('personasArreglo', 'estudiantesArreglo'));
+        return view('AXE.estudiantes', compact('personasArreglo', 'estudiantesArreglo','padresArreglo'));
     }
 
     public function nuevo_estudiante(Request $request)
     {
+        $personaSeleccionadaId = $request->input("COD_PERSONA");
+        // Obtener los datos de la persona seleccionada por su ID desde la API de personas
+        $personaSeleccionada = Http::get("http://localhost:4000/personas/{$personaSeleccionadaId}");
+       // dd($personaSeleccionada);
+        $personaSeleccionadaData = json_decode($personaSeleccionada, true);
+        //dd($personaSeleccionadaData);
         $nuevo_estudiante = Http::post($this->apiUrl, [
             "COD_PERSONA" => $request->input("COD_PERSONA"),
+            "COD_PADRE_TUTOR" => $request->input("COD_PADRE_TUTOR"),
             "COD_NIVACAD_ANIOACAD" => $request->input("COD_NIVACAD_ANIOACAD"),
-            "NOMBRE_ESTUDIANTE" => $request->input("NOMBRE_ESTUDIANTE"),
-            "APELLIDO_ESTUDIANTE" => $request->input("APELLIDO_ESTUDIANTE"),
-            "TELEFONO_ESTUDIANTE" => $request->input("TELEFONO_ESTUDIANTE"),
-            "CORREO_ELECTRONICO_ESTUDIANTE" => $request->input("CORREO_ELECTRONICO_ESTUDIANTE"),
+            "NOMBRE_ESTUDIANTE" => $personaSeleccionadaData[0]['NOMBRE'],
+            "APELLIDO_ESTUDIANTE" => $personaSeleccionadaData[0]['APELLIDO'],
             "JORNADA_ESTUDIANTE" => $request->input("JORNADA_ESTUDIANTE"),
 
         ]);
@@ -48,12 +58,6 @@ class estudiantesController extends Controller
     public function modificar_estudiante(Request $request)
     {
         $modificar_estudiante =  Http::put($this->apiUrl.'/'. $request->input("COD_ESTUDIANTE"), [
-            "COD_PERSONA" => $request->input("COD_PERSONA"),
-            "COD_NIVACAD_ANIOACAD" => $request->input("COD_NIVACAD_ANIOACAD"),
-            "NOMBRE_ESTUDIANTE" => $request->input("NOMBRE_ESTUDIANTE"),
-            "APELLIDO_ESTUDIANTE" => $request->input("APELLIDO_ESTUDIANTE"),
-            "TELEFONO_ESTUDIANTE" => $request->input("TELEFONO_ESTUDIANTE"),
-            "CORREO_ELECTRONICO_ESTUDIANTE" => $request->input("CORREO_ELECTRONICO_ESTUDIANTE"),
             "JORNADA_ESTUDIANTE" => $request->input("JORNADA_ESTUDIANTE"),
         ]);
 

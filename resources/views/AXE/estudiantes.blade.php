@@ -4,11 +4,11 @@
 @section('content_header')
 
 <center>
-    <h1>Detalles estudiantes</h1>
+    <h1>Detalles Docentes</h1>
 </center>
 <blockquote class="blockquote text-center">
-    <p class="mb-0"> Estudiantes registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Estudiantes <cite title="Source Title">Completados</cite></footer>
+    <p class="mb-0">Docentes registrados en el sistema AXE.</p>
+    <footer class="blockquote-footer">Docentes <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 @stop
 
@@ -28,24 +28,16 @@
     .spacer {
         height: 20px; /* Ajusta la altura según tus necesidades */
     }
-    
 </style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 <style>
-        /* Agrega el estilo para mostrar el mensaje de ayuda cuando el campo es inválido */
-        input:invalid {
-            border-color: red; /* Cambia el color del borde si el campo es inválido */
-        }
+    .my-select2 {
+        width: 100%;
+    }
+</style>
 
-        /* Personaliza el estilo del mensaje de ayuda */
-        input:invalid::before {
-            content: attr(title); /* Usa el atributo title como contenido del mensaje */
-            color: red;
-            display: block;
-            padding: 5px;
-        }
-    </style>
-
- @if(session('success'))
+@if(session('success'))
 <div class="alert alert-success mt-2">
     {{ session('success') }}
 </div>
@@ -56,15 +48,14 @@
     {{ session('error') }}
 </div>
 @endif 
-
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#estudiantes">+ Nuevo</button>
 <div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="personas" tabindex="-1">
+<div class="modal fade bd-example-modal-sm" id="estudiantes" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ingresa una Nueva Persona</h5>
+                <h5 class="modal-title">Ingresa un nuevo estudiante</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -72,54 +63,43 @@
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{url('personas/insertar')}}" method="post">
+                    <form action="{{url('estudiantes/insertar')}}" method="post">
                         @csrf
-                <!-- INICIO --->
+                 <!-- INICIO --->
                  <div class="mb-3 mt-3">
-                    <label for="NOMBRE" class="form-label">Nombres de la persona:</label>
-                    <input type="text" class="form-control same-width" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
-                </div>
-                 <!-- FIN --->
-                 <div class="mb-3 mt-3">
-                    <label for="APELLIDO" class="form-label">Apellidos:</label>
-                    <input type="text" class="form-control" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
-                </div>
-
-                <div class="mb-3 mt-3">
-                <label for="personas" class="form-label">Numeros de identidad:</label>
-                <input type="text" class="form-control same-width" id="IDENTIDAD" name="IDENTIDAD" placeholder="Ingrese numero de identidad de la persona"required>
-
-                </div>
-
-
-
-
-    <div class="mb-3">
-    <label for="personas" class="form-label">Género:</label>
-    <select class="form-control same-width" id="GENERO" name="GENERO">
-        <option value="M" selected>Masculino</option>
-        <option value="F">Femenino</option>
+    <label for="COD_PERSONA" class="form-label">Estudiante: </label>
+    <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+        <option value="" disabled selected>Seleccione un estudiante</option>
+        @foreach ($personasArreglo as $persona)
+            @if ($persona['TIPO_PERSONA'] === 'Estudiante')
+                <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
+            @endif
+        @endforeach
     </select>
     </div>
-
-<div class="mb-3">
-  <label for="personas" class="form-label">Tipo persona:</label>
-  <select class="form-control same-width" id="TIPO_PERSONA" name="TIPO_PERSONA">
-    <option value="Estudiante" selected>Estudiante</option>
-    <option value="Docente"selected>Docente</option>
-    <option value="Padre o tutor"selected>Padre o tutor</option>
-  </select>
+    <div class="mb-3 mt-3">
+    <label for="COD_PADRE_TUTOR" class="form-label">Padre o tutor: </label>
+    <select class="selectize" id="COD_PADRE_TUTOR" name="COD_PADRE_TUTOR" required>
+        <option value="" disabled selected>Seleccione un padre o tutor</option>
+        @foreach ($padresArreglo as $padres)
+            <option value="{{ $padres['COD_PADRE_TUTOR'] }}">{{ $padres['NOMBRE_PADRE_TUTOR'] }} {{ $padres['APELLIDO_PADRE_TUTOR'] }}</option>
+        @endforeach
+    </select>
 </div>
 
-
-<div class="mb-3">
-  <label for="personas" class="form-label">Fecha de nacimiento:</label>
-  <input type="date" class="form-control same-width" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO">
-</div>
-
-
-
-
+                        <div class="mb-3 mt-3">
+                            <label for="estudiantes" class="form-label">Nivel año académico</label>
+                            <input type="text" class="form-control" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" placeholder="Ingrese el nivel año academico"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
+                        </div>
+                        <div class="mb-3">
+                        <label for="estudiantes" class="form-label">Jornada:</label>
+                        <select class="selectize" id="JORNADA_ESTUDIANTE" name="JORNADA_ESTUDIANTE">
+                            <option value="Matutina" selected>Matutina</option>
+                            <option value="Vespertina"selected>Vespertina</option>
+                            <option value="Nocturna"selected>Nocturna</option>
+                        </select>
+                        </div>
+                       
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -130,144 +110,168 @@
     </div>
 </div>
 
-<div class="table-responsive">
-    <table id="miTabla" class="table table-hover table-dark table-striped mt-1" style="border: 2px solid lime;">
-    <thead>
-        <th>#</th> 
-        <th>Nombres</th> 
-        <th>Apellidos</th>
-        <th>Numero de identidad</th>
-        <th>Genero</th>
-        <th>Tipo de persona</th>
-        <th>Fecha nacimiento</th>
-        <th>Edad</th>
-        <th>Fecha registro</th>
-        <th>Opciones de la Tabla</th>
-    </thead>
-    <tbody>
-        @foreach($personasArreglo as $personas)
-        <tr>
-            <td>{{$personas['COD_PERSONA']}}</td>
-            <td>{{$personas['NOMBRE']}}</td>
-            <td>{{$personas['APELLIDO']}}</td>
-            <td>{{$personas['IDENTIDAD']}}</td>
-            <td>{{$personas['GENERO']}}</td>
-            <td>{{$personas['TIPO_PERSONA']}}</td>
-            <td>{{date('d, M Y', strtotime($personas['FECHA_NACIMIENTO']))}}</td>
-            <td>{{date_diff(date_create($personas['FECHA_NACIMIENTO']), date_create('today'))->y}}</td>
-            <td>{{date('d, M Y', strtotime($personas['FECHA_REGISTRO']))}}</td>
-            
-            <td>
-                <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#personas-edit-{{$personas['COD_PERSONA']}}">
-                    <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
-                </button>
-                <div class="modal fade bd-example-modal-sm" id="personas-edit-{{$personas['COD_PERSONA']}}" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Actualiza la persona seleccionada</h5>
-                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Ingresa los Nuevos Datos</p>
-                            </div>
-                            <div class="modal-footer">
-                                <div class="d-grid gap-2 col-6 mx-auto">
-                                    <form action="{{url('personas/actualizar')}}" method="post">
-                                        @csrf
-                                        <input type="hidden" class="form-control" name="COD_PERSONA" value="{{$personas['COD_PERSONA']}}">
-                                       
-                                        <div class="mb-3 mt-3">
-                                            <label for="NOMBRE" class="form-label">Nombres de la persona:</label>
-                                            <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" value="{{$personas['NOMBRE']}}"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
-                                        </div>
-                                        
-                                        <div class="mb-3 mt-3">
-                                       <label for="personas" class="form-label">Apellidos:</label>
-                                      <input type="text" class="form-control" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona"value="{{$personas['APELLIDO']}}"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
-                                      </div>
-                                      <div class="mb-3">
-  <label for="personas" class="form-label">Numeros de identidad:</label>
-  <input type="text" class="form-control" id="" name="IDENTIDAD" placeholder="Ingrese numero de identidad de la persona"value="{{$personas['IDENTIDAD']}}"required>
+    <table id="miTabla" class="table table-hover table-dark table-striped mt-1" style="border:2px solid lime;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nivel año academico</th>
+                <th>Nombres estudiantes</th>
+                <th>Apellidos estudiante</th>
+                <th>Padre o tutor</th>
+                <th>Jornada</th>
+                <th>Opciones de la Tabla</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($estudiantesArreglo as $estudiantes)
+            @php
+                    $persona = null;
+                    foreach ($personasArreglo as $p) {
+                        if ($p['COD_PERSONA'] === $estudiantes['COD_PERSONA']) {
+                            $persona = $p;
+                            break;
+                        }
+                    }
+                @endphp
+
+                @php
+                    $padres = null;
+                    foreach ($padresArreglo as $e) {
+                        if ($e['COD_PADRE_TUTOR'] === $estudiantes['COD_PADRE_TUTOR']) {
+                            $padres = $e;
+                            break;
+                        }
+                    }
+                @endphp
+            <tr>
+                <td>{{ $estudiantes['COD_ESTUDIANTE'] }}</td>
+                <td>{{ $estudiantes['COD_NIVACAD_ANIOACAD'] }}</td>
+                <td>
+                        @if ($persona !== null)
+                            {{ $persona['NOMBRE'] }}
+                        @else
+                            Persona no encontrada
+                        @endif
+                </td>
+
+                <td>
+                        @if ($persona !== null)
+                            {{ $persona['APELLIDO'] }}
+                        @else
+                            Persona no encontrada
+                        @endif
+                </td>
+                <td>
+                        @if ($padres !== null)
+                            {{ $padres['NOMBRE_PADRE_TUTOR'] . ' ' . $padres['APELLIDO_PADRE_TUTOR'] }}
+                        @else
+                            padre no encontrada
+                        @endif
+                </td>
+                    <td>{{ $estudiantes['JORNADA_ESTUDIANTE'] }}</td>
+                <td>
+                    <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
+                        data-target="#estudiantes-edit-{{ $estudiantes['COD_ESTUDIANTE'] }}">
+                        <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
+                    </button>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 
-<div class="mb-3">
-  <label for="personas" class="form-label">Tipo de persona:</label>
-  <select class="form-control same-width" id="TIPO_PERSONA" name="TIPO_PERSONA">
-    <option value="Estudiante" {{ $personas['TIPO_PERSONA'] === 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
-    <option value="Docente" {{ $personas['TIPO_PERSONA'] === 'Docente' ? 'selected' : '' }}>Docente</option>
-    <option value="Padre o tutor" {{ $personas['TIPO_PERSONA'] === 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
+@foreach($estudiantesArreglo as $estudiantes)
+<div class="modal fade bd-example-modal-sm" id="estudiantes-edit-{{ $estudiantes['COD_ESTUDIANTE'] }}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Actualiza el estudiante</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Ingresa los Nuevos Datos</p>
+            </div>
+            <div class="modal-footer">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <form action="{{ url('estudiantes/actualizar') }}" method="post">
+                        @csrf
+                        <input type="hidden" class="form-control" name="COD_ESTUDIANTE" value="{{ $estudiantes['COD_ESTUDIANTE'] }}">
 
-  </select>
-</div>
+                        <div class="mb-3 mt-3">
+                            <label for="estudiantes" class="form-label">nivel año académico</label>
+                            <input type="text" class="form-control" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" placeholder="Ingrese la ocupación" value="{{ $estudiantes['COD_NIVACAD_ANIOACAD'] }}">
+                        </div>
+                        <div class="mb-3">
+                        <label for="estudiantes" class="form-label">Jornada:</label>
+                        <select class="form-control same-width" id="JORNADA_ESTUDIANTE" name="JORNADA_ESTUDIANTE">
+                            <option value="Matutina" {{ $estudiantes['JORNADA_ESTUDIANTE'] === 'Matutina' ? 'selected' : '' }}>Matutina</option>
+                            <option value="Vespertina" {{ $estudiantes['JORNADA_ESTUDIANTE'] === 'Vespertina' ? 'selected' : '' }}>Vespertina</option>
+                            <option value="Nocturna" {{ $estudiantes['JORNADA_ESTUDIANTE'] === 'Nocturna' ? 'selected' : '' }}>Nocturna</option>
 
-<div class="mb-3">
-  <label for="personas" class="form-label">Género:</label>
-  <select class="form-control same-width" id="GENERO" name="GENERO">
-    <option value="M" {{ $personas['TIPO_PERSONA'] === 'M' ? 'selected' : '' }}>Masculino</option>
-    <option value="F" {{ $personas['TIPO_PERSONA'] === 'F' ? 'selected' : '' }}>Femenino</option>
-  </select>
-</div>
-<div class="mb-3">
-  <label for="personas" class="form-label">Fecha de nacimiento:</label>
-  <!-- Formatear la fecha de nacimiento con date() y strtotime() -->
-  <?php $fecha_nacimiento_formateada = date('Y-m-d', strtotime($personas['FECHA_NACIMIENTO'])); ?>
-  <input type="date" class="form-control" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fecha_nacimiento_formateada }}">
-</div>
+                        </select>
+                        </div>
 
-                                        <!-- ... otros campos del formulario ... -->
-                                        <button type="submit" class="btn btn-primary">Editar</button>
-                                       
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">cancelar</button>
-          </form>
-          </div><!-- DIV PARA CENTRAR FORMULARIO--->
-       
-      </div>
+                        <button type="submit" class="btn btn-primary">Editar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+@endforeach
 
 @stop
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
-    <!-- Agregar estilos para DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css">
+
 @stop
 
 @section('js')
+      <!-- Enlace a jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
-    <script> console.log('Hi!'); </script>
-    <!-- Agregar scripts para DataTables -->
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <!-- Enlace a selectize-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
+    
+    <!-- Enlace a DataTables -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <!-- Script personalizado para inicializar DataTables -->
+    <script>
+    $(document).ready(function() {
+        $('.selectize').selectize({
+            placeholder: 'Seleccione un padre o tutor',
+            allowClear: true // Permite borrar la selección
+        });
+    });
+</script>
+
+    <script>
+        console.log('Hi!'); 
+
     <script>
         $(document).ready(function() {
             $('#miTabla').DataTable({
-
-              "language":{
-             "search":       "Buscar: ",
-             "lengthMenu":   "Mostrar _MENU_ registros por página",
-             "info":   "Mostrando página _PAGE_ de _PAGES_",
-             "paginate": {"previous": "Anterior",
-                          "next":  "Siguiente",
-                          "first": "Primero",
-                          "last":  ""
-
-
-             }
-            }
-          });
+                "language": {
+                    "search": "Buscar: ",
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "paginate": {
+                        "previous": "Anterior",
+                        "next": "Siguiente",
+                        "first": "Primero",
+                        "last": ""
+                    }
+                }
+            });
         });
-
     </script>
+    
+   
 @stop

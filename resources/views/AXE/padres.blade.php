@@ -4,11 +4,11 @@
 @section('content_header')
 
 <center>
-    <h1>Detalles Docentes</h1>
+    <h1>Detalles padres o tutores</h1>
 </center>
 <blockquote class="blockquote text-center">
-    <p class="mb-0">Docentes registradss en el sistema AXE.</p>
-    <footer class="blockquote-footer">Docentes <cite title="Source Title">Completados</cite></footer>
+    <p class="mb-0">Padres o tutores registrados en el sistema AXE.</p>
+    <footer class="blockquote-footer">Padres o tutores <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 @stop
 
@@ -58,13 +58,13 @@
 @endif 
 
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#docentes">+ Nuevo</button>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#padres">+ Nuevo</button>
 <div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="docentes" tabindex="-1">
+<div class="modal fade bd-example-modal-sm" id="padres" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ingresa un nuevo docente</h5>
+                <h5 class="modal-title">Ingresa un nuevo padre o tutor</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -72,27 +72,27 @@
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{url('docentes/insertar')}}" method="post">
+                    <form action="{{url('padres/insertar')}}" method="post">
                         @csrf
                  <!-- INICIO --->
                  <div class="mb-3 mt-3">
     <label for="COD_PERSONA" class="form-label">Persona: </label>
-    <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+    <select class="form-control same-width" id="COD_PERSONA" name="COD_PERSONA" required>
         <option value="" disabled selected>Seleccione una persona</option>
         @foreach ($personasArreglo as $persona)
-            @if ($persona['TIPO_PERSONA'] === 'Docente')
+            @if ($persona['TIPO_PERSONA'] === 'Padre o tutor')
                 <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
             @endif
         @endforeach
     </select>
 </div>
                         <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Especialidad</label>
-                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese la especialidad del docente"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
+                            <label for="padres" class="form-label">Ocupación</label>
+                            <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación del padre o tutor"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Grado enseñanza</label>
-                            <input type="text" class="form-control" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" placeholder="Ingrese el grado de enseñanza"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
+                            <label for="padres" class="form-label">Relación con el estudiante</label>
+                            <input type="text" class="form-control" id="RELACION_PADRE_ESTUDIANTE" name="RELACION_PADRE_ESTUDIANTE" placeholder="Ingrese la relación con el estudiante"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
                         </div>
                        
 
@@ -110,24 +110,24 @@
             <tr>
                 <th>#</th>
                 <th>Nombre completo</th>
-                <th>Especialidad</th>
-                <th>Grado enseñanza</th>
+                <th>Ocupación</th>
+                <th>Relación con el estudiante</th>
                 <th>Opciones de la Tabla</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($docentesArreglo as $docentes)
+            @foreach($padresArreglo as $padres)
             @php
                     $persona = null;
                     foreach ($personasArreglo as $p) {
-                        if ($p['COD_PERSONA'] === $docentes['COD_PERSONA']) {
+                        if ($p['COD_PERSONA'] === $padres['COD_PERSONA']) {
                             $persona = $p;
                             break;
                         }
                     }
                 @endphp
             <tr>
-                <td>{{ $docentes['COD_DOCENTE'] }}</td>
+                <td>{{ $padres['COD_PADRE_TUTOR'] }}</td>
                 <td>
                         @if ($persona !== null)
                             {{ $persona['NOMBRE'] . ' ' . $persona['APELLIDO'] }}
@@ -136,12 +136,12 @@
                         @endif
                 </td>
 
-                 <td>{{ $docentes['ESPECIALIDAD'] }}</td>
+                 <td>{{ $padres['OCUPACION_PADRE_TUTOR'] }}</td>
                
-                    <td>{{ $docentes['GRADO_ENSENIANZA'] }}</td>
+                    <td>{{ $padres['RELACION_PADRE_ESTUDIANTE'] }}</td>
                 <td>
                     <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
-                        data-target="#docentes-edit-{{ $docentes['COD_DOCENTE'] }}">
+                        data-target="#padres-edit-{{ $padres['COD_PADRE_TUTOR'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
                 </td>
@@ -151,12 +151,12 @@
     </table>
 </div>
 
-@foreach($docentesArreglo as $docentes)
-<div class="modal fade bd-example-modal-sm" id="docentes-edit-{{ $docentes['COD_DOCENTE'] }}" tabindex="-1">
+@foreach($padresArreglo as $padres)
+<div class="modal fade bd-example-modal-sm" id="padres-edit-{{ $padres['COD_PADRE_TUTOR'] }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Actualiza el docente seleccionado</h5>
+                <h5 class="modal-title">Actualiza el padre o tutor seleccionado</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -164,16 +164,16 @@
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{ url('docentes/actualizar') }}" method="post">
+                    <form action="{{ url('padres/actualizar') }}" method="post">
                         @csrf
-                        <input type="hidden" class="form-control" name="COD_DOCENTE" value="{{ $docentes['COD_DOCENTE'] }}">
+                        <input type="hidden" class="form-control" name="COD_PADRE_TUTOR" value="{{ $padres['COD_PADRE_TUTOR'] }}">
                         <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Especialidad</label>
-                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}">
+                            <label for="padres" class="form-label">Ocupación</label>
+                            <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación" value="{{ $padres['OCUPACION_PADRE_TUTOR'] }}">
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Grado de enseñanza</label>
-                            <input type="text" class="form-control" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" placeholder="Ingrese el correo electrónico" value="{{ $docentes['GRADO_ENSENIANZA'] }}">
+                            <label for="padres" class="form-label">Relación con el estudiante</label>
+                            <input type="text" class="form-control" id="RELACION_PADRE_ESTUDIANTE" name="RELACION_PADRE_ESTUDIANTE" placeholder="Ingrese la relación con el estudiante" value="{{ $padres['RELACION_PADRE_ESTUDIANTE'] }}">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Editar</button>
@@ -191,51 +191,37 @@
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
+    <!-- Agregar estilos para DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css">
-
+    
 @stop
 
 @section('js')
-      <!-- Enlace a jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
-    <!-- Enlace a selectize-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
-    
-    <!-- Enlace a DataTables -->
+    <script> console.log('Hi!'); </script>
+    <!-- Agregar scripts para DataTables -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <script>
-    $(document).ready(function() {
-        $('.selectize').selectize({
-            placeholder: 'Seleccione un padre o tutor',
-            allowClear: true // Permite borrar la selección
-        });
-    });
-</script>
-
-    <script>
-        console.log('Hi!'); 
-
+    <!-- Script personalizado para inicializar DataTables -->
     <script>
         $(document).ready(function() {
             $('#miTabla').DataTable({
-                "language": {
-                    "search": "Buscar: ",
-                    "lengthMenu": "Mostrar _MENU_ registros por página",
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "paginate": {
-                        "previous": "Anterior",
-                        "next": "Siguiente",
-                        "first": "Primero",
-                        "last": ""
-                    }
-                }
-            });
+
+              "language":{
+             "search":       "Buscar: ",
+             "lengthMenu":   "Mostrar _MENU_ registros por página",
+             "info":   "Mostrando página _PAGE_ de _PAGES_",
+             "paginate": {"previous": "Anterior",
+                          "next":  "Siguiente",
+                          "first": "Primero",
+                          "last":  ""
+
+
+             }
+            }
+          });
         });
+
     </script>
-    
-   
 @stop

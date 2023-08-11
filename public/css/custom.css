@@ -1,0 +1,51 @@
+/* Estilos personalizados para el bloque de cita */
+.custom-blockquote {
+    background-color: #c8dbff; /* Cambia el color de fondo del bloque de cita */
+    border-color: #17a2b8; /* Cambia el color del borde del bloque de cita */
+    color: info; /* Cambia el color del texto del bloque de cita */
+    padding: 2rem; /* Añade espaciado alrededor del bloque de cita */
+    text-align: center; /* Centra el contenido del bloque de cita */
+    font-size: 1.25rem; /* Ajusta el tamaño de la letra según tus preferencias */
+}
+
+.custom-blockquote p {
+    margin: 1; /* Elimina el margen alrededor del párrafo dentro del bloque de cita */
+}
+
+.custom-blockquote footer {
+    font-style: italic;
+    color: #00b7ff; /* Cambia el color a tu elección */
+}
+
+/* custom.css */
+/* Light mode */
+.modal-content {
+    background-color: #f0f0f0;
+    /* Add more light mode styles */
+}
+
+.modal-header {
+    background-color: #c8dbff;
+    color: black;
+}
+
+.modal-body {
+    background-color: #c8dbff;
+}
+
+/* Dark mode */
+.dark-mode .modal-content {
+    background-color: #555; /* Change this to your desired dark mode background color */
+    /* Add more dark mode styles */
+}
+
+.dark-mode .modal-header {
+    background-color: #325d64; /* Change this to your desired dark mode header background color */
+    color: white;
+}
+
+.dark-mode .modal-body {
+    background-color: #325d64; /* Change this to your desired dark mode body background color */
+    color: white;
+}
+

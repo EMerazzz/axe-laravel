@@ -87,3 +87,19 @@ color: white;
 .links a{
 margin-left: 4px;
 }
+.selectize-control.single .selectize-input {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+  }
+  
+  /* Estilos para el menú desplegable */
+  .selectize-dropdown {
+    background-color: #FFC312;
+    border: 1px solid #FFC312;
+  }
+  
+  /* Estilos para los elementos en el menú desplegable */
+  .selectize-dropdown-content .option {
+    padding: 8px;
+    cursor: pointer;
+  }
