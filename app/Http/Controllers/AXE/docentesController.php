@@ -42,12 +42,17 @@ class docentesController extends Controller
             ]);
 
             // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
-            if ($nuevo_docente->successful()) {
-                return redirect('/docentes')->with('success', 'Docente agregado exitosamente.');
+            if ($nuevo_docente ->successful()) {
+                return redirect('/docentes')->with('message', [
+                    'type' => 'success',
+                    'text' => 'Agregado exitosamente.'
+                ]);
             } else {
-                return redirect('/docentes')->with('error', 'No se pudo agregar el docente.');
+                return redirect('/docentes')->with('message', [
+                    'type' => 'error',
+                    'text' => 'No se pudo agregar.'
+                ]);
             }
-        
     }
     
 
@@ -62,9 +67,16 @@ class docentesController extends Controller
 
        // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
        if ($modificar_docente->successful()) {
-        return redirect('/docentes')->with('success', 'Docente agregado exitosamente.');
+        return redirect('/docentes')->with('message', [
+            'type' => 'success',
+            'text' => 'Modificado exitosamente.'
+        ]);
     } else {
-        return redirect('/docentes')->with('error', 'No se pudo agregar el docente.');
+        return redirect('/docentes')->with('message', [
+            'type' => 'error',
+            'text' => 'No se pudo modificar.'
+        ]);
     }
     }
 }
+

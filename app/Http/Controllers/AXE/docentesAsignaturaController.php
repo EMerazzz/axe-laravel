@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class docenteAsignaturaController extends Controller
+class docentesAsignaturaController extends Controller
 {
     private $apiUrl = 'http://localhost:4000/docentes_asignaturas'; // Declaración de la variable de la URL de la API
-    public function docenteAsignatura()
+    public function docentesAsignatura()
     {
         // Obtener los datos de personas desde el controlador PersonasController
-        $docentesController = new PersonasController();
+        $docentesController = new docentesController();
         $docentes = Http::get('http://localhost:4000/docentes');
         $docentesArreglo = json_decode($docentes, true);
 
@@ -24,7 +24,7 @@ class docenteAsignaturaController extends Controller
         return view('AXE.docentesAsignatura', compact('docentesArreglo', 'docentesAsignaturaArreglo'));
     }
 
-    public function nuevo_docenteAsignatura(Request $request)
+    public function nuevo_docentesAsignatura(Request $request)
     {
         $nuevo_docentesAsignatura = Http::post($this->apiUrl, [
             "COD_DOCENTE" => $request->input("COD_DOCENTE"),
@@ -32,15 +32,21 @@ class docenteAsignaturaController extends Controller
             "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES"),
         ]);
 
-      // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
-      if ($nuevo_docentesAsignatura->successful()) {
-        return redirect('/docentesAsignatura')->with('success', 'Agregado exitosamente.');
-    } else {
-        return redirect('/docentesAsignatura')->with('error', 'No se pudo agregar.');
-    }
+      
+        if ($nuevo_docentesAsignatura->successful()) {
+            return redirect('/docentesAsignatura')->with('message', [
+                'type' => 'success',
+                'text' => 'Agregado exitosamente.'
+            ]);
+        } else {
+            return redirect('/docentesAsignatura')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo Agregar.'
+            ]);
+        }
     }
 
-    public function modificar_docenteAsignatura(Request $request)
+    public function modificar_docentesAsignatura(Request $request)
     {
         $modificar_docentesAsignatura=  Http::put($this->apiUrl.'/'. $request->input("COD_DOCENTE_ASIGNATURA"), [
             "COD_DOCENTE" => $request->input("COD_DOCENTE"),
@@ -48,11 +54,16 @@ class docenteAsignaturaController extends Controller
             "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES")
         ]);
 
-       // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
-       if ($modificar_docentesAsignatura->successful()) {
-        return redirect('/docentesAsignatura')->with('success', 'Agregado exitosamente.');
-    } else {
-        return redirect('/docentesAsignatura')->with('error', 'No se pudo agregar.');
-    }
+        if ($modificar_docentesAsignatura->successful()) {
+            return redirect('/docentesAsignatura')->with('message', [
+                'type' => 'success',
+                'text' => 'Modificado exitosamente.'
+            ]);
+        } else {
+            return redirect('/docentesAsignatura')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo modificar.'
+            ]);
+        }
     }
 }

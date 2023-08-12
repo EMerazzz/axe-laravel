@@ -32,7 +32,17 @@ class telefonosController extends Controller
             "TIPO_TELEFONO" => $request->input("TIPO_TELEFONO"),
         ]);
 
-        return redirect('/telefonos');
+        if ($nuevo_telefono ->successful()) {
+            return redirect('/telefonos')->with('message', [
+                'type' => 'success',
+                'text' => 'Teléfono agregado exitosamente.'
+            ]);
+        } else {
+            return redirect('/telefonos')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo agregar el Teléfono.'
+            ]);
+        }
     }
 
     public function modificar_telefono(Request $request)
@@ -43,6 +53,16 @@ class telefonosController extends Controller
             "TIPO_TELEFONO" => $request->input("TIPO_TELEFONO"),
         ]);
 
-        return redirect('/telefonos');
+        if ($modificar_telefono->successful()) {
+            return redirect('/telefonos')->with('message', [
+                'type' => 'success',
+                'text' => 'Teléfono modificado exitosamente.'
+            ]);
+        } else {
+            return redirect('/telefonos')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo modificar el teléfono.'
+            ]);
+        }
     }
 }

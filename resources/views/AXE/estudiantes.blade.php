@@ -3,16 +3,19 @@
 @section('title', 'AXE')
 @section('content_header')
 
-<center>
-    <h1>Detalles Docentes</h1>
-</center>
-<blockquote class="blockquote text-center">
-    <p class="mb-0">Docentes registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Docentes <cite title="Source Title">Completados</cite></footer>
+<<blockquote class="custom-blockquote">
+    <p class="mb-0">Estudiantes registrados en el sistema AXE.</p>
+    <footer class="blockquote-footer">Estudiantes <cite title="Source Title">Completados</cite></footer>
 </blockquote>
+
 @stop
 
 @section('content')
+<div class="d-flex justify-content-end align-items-center">
+    <button id="mode-toggle" class="btn btn-info ms-2">
+        <i class="fas fa-adjust"></i> Cambiar Modo
+    </button>
+</div>
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -21,33 +24,28 @@
 
 <style>
     .btn-custom {
-        margin-top: 5px; /* Ajusta el valor según tus necesidades */
-    }
-</style>
-<style>
-    .spacer {
-        height: 20px; /* Ajusta la altura según tus necesidades */
+        margin-top: -70px; /* Ajusta el valor según tus necesidades */
     }
 </style>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-<style>
-    .my-select2 {
-        width: 100%;
-    }
-</style>
-
-@if(session('success'))
-<div class="alert alert-success mt-2">
-    {{ session('success') }}
-</div>
+@if (session('message'))
+<div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #325d64; color:white;">
+                    <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color: #c8dbff;">
+                    <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
+                </div>
+            </div>
+        </div>
+    </div>
 @endif
 
-@if(session('error'))
-<div class="alert alert-danger mt-2">
-    {{ session('error') }}
-</div>
-@endif 
 <div class="spacer"></div>
 <button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#estudiantes">+ Nuevo</button>
 <div class="spacer"></div>
@@ -88,7 +86,7 @@
 </div>
 
                         <div class="mb-3 mt-3">
-                            <label for="estudiantes" class="form-label">Nivel año académico</label>
+                            <label for="estudiantes" class="form-label">Nivel año académico:</label>
                             <input type="text" class="form-control" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" placeholder="Ingrese el nivel año academico"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
                         </div>
                         <div class="mb-3">
@@ -110,7 +108,8 @@
     </div>
 </div>
 
-    <table id="miTabla" class="table table-hover table-dark table-striped mt-1" style="border:2px solid lime;">
+<div class="table-responsive">
+<table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         <thead>
             <tr>
                 <th>#</th>
@@ -199,7 +198,7 @@
                         <input type="hidden" class="form-control" name="COD_ESTUDIANTE" value="{{ $estudiantes['COD_ESTUDIANTE'] }}">
 
                         <div class="mb-3 mt-3">
-                            <label for="estudiantes" class="form-label">nivel año académico</label>
+                            <label for="estudiantes" class="form-label">nivel año académico:</label>
                             <input type="text" class="form-control" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" placeholder="Ingrese la ocupación" value="{{ $estudiantes['COD_NIVACAD_ANIOACAD'] }}">
                         </div>
                         <div class="mb-3">
@@ -227,51 +226,93 @@
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <!-- Agregar estilos para DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.example.com/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css">
-
 @stop
 
 @section('js')
-      <!-- Enlace a jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
-    <!-- Enlace a selectize-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
-    
-    <!-- Enlace a DataTables -->
+    <script> console.log('Hi!'); </script>
+    <!-- Agregar scripts para DataTables -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- Enlace a selectize-->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
+    <!-- Script personalizado para inicializar DataTables -->
     <script>
+        $(document).ready(function() {
+            $('#miTabla').DataTable({
+
+              "language":{
+             "search":       "Buscar: ",
+             "lengthMenu":   "Mostrar _MENU_ registros por página",
+             "info":   "Mostrando página _PAGE_ de _PAGES_",
+             "paginate": {"previous": "Anterior",
+                          "next":  "Siguiente",
+                          "first": "Primero",
+                          "last":  ""
+
+
+             }
+            }
+          });
+        });
+
+    </script>
+ 
+ 
+   <!-- Script personalizado para CAMBIAR MODO -->
+   <script>
+const modeToggle = document.getElementById('mode-toggle');
+const body = document.body;
+const table = document.getElementById('miTabla');
+const modals = document.querySelectorAll('.modal-content'); // Select all modal content elements
+
+// Check if the selected theme is already stored in localStorage
+const storedTheme = localStorage.getItem('theme');
+if (storedTheme) {
+    body.classList.add(storedTheme); // Apply the stored theme class
+    table.classList.toggle('table-dark', storedTheme === 'dark-mode');
+    modals.forEach(modal => {
+        modal.classList.toggle('dark-mode', storedTheme === 'dark-mode');
+    });
+}
+
+modeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    table.classList.toggle('table-dark');
+    
+    // Toggle the dark-mode class on modal content elements
+    modals.forEach(modal => {
+        modal.classList.toggle('dark-mode');
+    });
+
+    // Store the selected theme in localStorage
+    const theme = body.classList.contains('dark-mode') ? 'dark-mode' : '';
+    localStorage.setItem('theme', theme);
+});
+
+</script>
+<script>
+        $(document).ready(function() {
+            $('#messageModal').modal('show');
+        });
+    </script>
+    <!-- scripts para selectize-->
+     <script>
     $(document).ready(function() {
         $('.selectize').selectize({
-            placeholder: 'Seleccione un padre o tutor',
+            placeholder: 'Seleccione',
             allowClear: true // Permite borrar la selección
         });
     });
 </script>
-
-    <script>
-        console.log('Hi!'); 
-
-    <script>
-        $(document).ready(function() {
-            $('#miTabla').DataTable({
-                "language": {
-                    "search": "Buscar: ",
-                    "lengthMenu": "Mostrar _MENU_ registros por página",
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "paginate": {
-                        "previous": "Anterior",
-                        "next": "Siguiente",
-                        "first": "Primero",
-                        "last": ""
-                    }
-                }
-            });
-        });
-    </script>
     
    
 @stop

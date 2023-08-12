@@ -29,7 +29,7 @@ class contactoController extends Controller
    
 
     public function nuevo_contacto_emergencia(Request $request ){
-    $nuevo_correo = Http::post($this->apiUrl,[
+    $nuevo_contacto = Http::post($this->apiUrl,[
         
     "COD_PERSONA" => $request->input("COD_PERSONA"),
     "NOMBRE_CONTACTO"=> $request->input("NOMBRE_CONTACTO"),
@@ -38,13 +38,22 @@ class contactoController extends Controller
     "RELACION"=> $request->input("RELACION"),
     
         ]);
-        //dd($request->input("COD_PERSONA"));
-        return redirect('/contacto');
+        if ($nuevo_contacto ->successful()) {
+            return redirect('/contacto')->with('message', [
+                'type' => 'success',
+                'text' => 'Contacto agregada exitosamente.'
+            ]);
+        } else {
+            return redirect('/contacto')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo agregar el contacto.'
+            ]);
+        }
     }
 
     public function modificar_contacto_emergencia(Request $request ){
        
-        $modificar_correo = Http::put($this->apiUrl.'/'.$request->input("COD_CONTACTO_EMERGENCIA"),[
+        $modificar_contacto = Http::put($this->apiUrl.'/'.$request->input("COD_CONTACTO_EMERGENCIA"),[
             "COD_CONTACTO_EMERGENCIA" => $request->input("COD_CONTACTO_EMERGENCIA"),
         
             "COD_PERSONA" => $request->input("COD_PERSONA"),
@@ -56,7 +65,17 @@ class contactoController extends Controller
         ]);
       
 
-        return redirect('/contacto');
+        if ($modificar_contacto->successful()) {
+            return redirect('/contacto')->with('message', [
+                'type' => 'success',
+                'text' => 'Contacto modificado exitosamente.'
+            ]);
+        } else {
+            return redirect('/contacto')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo modificar el contacto.'
+            ]);
+        }
     }
 
 }

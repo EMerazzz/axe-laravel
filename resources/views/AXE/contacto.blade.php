@@ -27,7 +27,23 @@
         margin-top: -70px; /* Ajusta el valor según tus necesidades */
     }
 </style>
-
+@if (session('message'))
+<div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #325d64; color:white;">
+                    <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color: #c8dbff;">
+                    <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 <div class="spacer"></div>
 <button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>
 <div class="spacer"></div>
@@ -48,7 +64,7 @@
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
                             <label for="COD_PERSONA" class="form-label">Persona: </label>
-                            <select class="form-control same-width" id="COD_PERSONA" name="COD_PERSONA" required>
+                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                                 <option value="" disabled selected>Seleccione una persona</option>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
@@ -195,6 +211,8 @@
     <!-- Agregar estilos para DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.example.com/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css">
 @stop
 
 @section('js')
@@ -204,6 +222,9 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- Enlace a selectize-->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
     <!-- Script personalizado para inicializar DataTables -->
     <script>
         $(document).ready(function() {
@@ -226,6 +247,54 @@
 
     </script>
  
+ 
+   <!-- Script personalizado para CAMBIAR MODO -->
+   <script>
+const modeToggle = document.getElementById('mode-toggle');
+const body = document.body;
+const table = document.getElementById('miTabla');
+const modals = document.querySelectorAll('.modal-content'); // Select all modal content elements
+
+// Check if the selected theme is already stored in localStorage
+const storedTheme = localStorage.getItem('theme');
+if (storedTheme) {
+    body.classList.add(storedTheme); // Apply the stored theme class
+    table.classList.toggle('table-dark', storedTheme === 'dark-mode');
+    modals.forEach(modal => {
+        modal.classList.toggle('dark-mode', storedTheme === 'dark-mode');
+    });
+}
+
+modeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    table.classList.toggle('table-dark');
+    
+    // Toggle the dark-mode class on modal content elements
+    modals.forEach(modal => {
+        modal.classList.toggle('dark-mode');
+    });
+
+    // Store the selected theme in localStorage
+    const theme = body.classList.contains('dark-mode') ? 'dark-mode' : '';
+    localStorage.setItem('theme', theme);
+});
+
+</script>
+<script>
+        $(document).ready(function() {
+            $('#messageModal').modal('show');
+        });
+    </script>
+    <!-- scripts para selectize-->
+     <script>
+    $(document).ready(function() {
+        $('.selectize').selectize({
+            placeholder: 'Seleccione',
+            allowClear: true // Permite borrar la selección
+        });
+    });
+</script>
+
  <!-- scripts para validaciones-->
  <script>
     function setupValidation(inputId, errorMessageId, pattern) {
@@ -258,16 +327,4 @@
     setupValidation('TELEFONO', 'error-message-telefono', /[^0-9]/g);
     
 </script>
-   <!-- Script personalizado para CAMBIAR MODO -->
-   <script>
-   const modeToggle = document.getElementById('mode-toggle');
-const body = document.body;
-const table = document.getElementById('miTabla');
-
-modeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    table.classList.toggle('table-dark'); 
-});
-</script>
-
 @stop

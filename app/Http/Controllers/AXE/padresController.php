@@ -43,10 +43,16 @@ class padresController extends Controller
             ]);
 
             // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
-            if ($nuevo_padre->successful()) {
-                return redirect('/padres')->with('success', 'Padre o tutor agregado exitosamente.');
+            if ($nuevo_padre ->successful()) {
+                return redirect('/padres')->with('message', [
+                    'type' => 'success',
+                    'text' => 'Agregado exitosamente.'
+                ]);
             } else {
-                return redirect('/padres')->with('error', 'No se pudo agregar el padre o tutor.');
+                return redirect('/padres')->with('message', [
+                    'type' => 'error',
+                    'text' => 'No se pudo agregar.'
+                ]);
             }
         
     }
@@ -62,9 +68,15 @@ class padresController extends Controller
 
        // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
        if ($modificar_padre->successful()) {
-        return redirect('/padres')->with('success', 'Padre o tutor modificado exitosamente.');
+        return redirect('/padres')->with('message', [
+            'type' => 'success',
+            'text' => 'Modificado exitosamente.'
+        ]);
     } else {
-        return redirect('/padres')->with('error', 'No se pudo modificar el padre o tutor.');
+        return redirect('/padres')->with('message', [
+            'type' => 'error',
+            'text' => 'No se pudo modificar .'
+        ]);
     }
     }
 }

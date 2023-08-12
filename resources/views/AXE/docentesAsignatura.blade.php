@@ -3,16 +3,18 @@
 @section('title', 'AXE')
 @section('content_header')
 
-<center>
-    <h1>Detalles Docentes</h1>
-</center>
-<blockquote class="blockquote text-center">
-    <p class="mb-0">Asignaturas que da cada docente.</p>
-    <footer class="blockquote-footer">Asignaturas <cite title="Source Title">Completadas</cite></footer>
+<blockquote class="custom-blockquote">
+    <p class="mb-0">Asignaturas que imparte cada docente.</p>
+    <footer class="blockquote-footer">Asignaturas <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 @stop
 
 @section('content')
+<div class="d-flex justify-content-end align-items-center">
+    <button id="mode-toggle" class="btn btn-info ms-2">
+        <i class="fas fa-adjust"></i> Cambiar Modo
+    </button>
+</div>
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -21,41 +23,27 @@
 
 <style>
     .btn-custom {
-        margin-top: 5px; /* Ajusta el valor según tus necesidades */
+        margin-top: -70px; /* Ajusta el valor según tus necesidades */
     }
 </style>
-<style>
-    .spacer {
-        height: 20px; /* Ajusta la altura según tus necesidades */
-    }
-    
-</style>
-<style>
-        /* Agrega el estilo para mostrar el mensaje de ayuda cuando el campo es inválido */
-        input:invalid {
-            border-color: red; /* Cambia el color del borde si el campo es inválido */
-        }
 
-        /* Personaliza el estilo del mensaje de ayuda */
-        input:invalid::before {
-            content: attr(title); /* Usa el atributo title como contenido del mensaje */
-            color: red;
-            display: block;
-            padding: 5px;
-        }
-    </style>
-
- @if(session('success'))
-<div class="alert alert-success mt-2">
-    {{ session('success') }}
-</div>
+@if (session('message'))
+<div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #325d64; color:white;">
+                    <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color: #c8dbff;">
+                    <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
+                </div>
+            </div>
+        </div>
+    </div>
 @endif
-
-@if(session('error'))
-<div class="alert alert-danger mt-2">
-    {{ session('error') }}
-</div>
-@endif 
 
 <div class="spacer"></div>
 <button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#docentesAsignatura">+ Nuevo</button>
@@ -76,11 +64,11 @@
                         @csrf
                  <!-- INICIO --->
                  <div class="mb-3 mt-3">
-    <label for="COD_DOCENTE" class="form-label">Persona: </label>
+    <label for="COD_DOCENTE" class="form-label">Docentes: </label>
     <select class="form-control same-width" id="COD_DOCENTE" name="COD_DOCENTE" required>
         <option value="" disabled selected>Seleccione un docente</option>
         @foreach ($docentesArreglo as $docentes)
-                <option value="{{ docentes['COD_PERSONA'] }}">{{ $docentes['NOMBRE_DOCENTE'] }}</option>
+                <option value="{{ $docentes['COD_PERSONA'] }}">{{ $docentes['NOMBRE_DOCENTE'] }}</option>
         @endforeach
     </select>
 </div>
@@ -103,13 +91,14 @@
     </div>
 </div>
 
-    <table id="miTabla" class="table table-hover table-dark table-striped mt-1" style="border:2px solid lime;">
+<div class="table-responsive">
+<table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Nombre completo</th>
-                <th>Especialidad</th>
-                <th>Grado enseñanza</th>
+                <th>Asignatura</th>
+                <th>Horas semanales</th>
                 <th>Opciones de la Tabla</th>
             </tr>
         </thead>
@@ -117,14 +106,14 @@
             @foreach($docentesAsignaturaArreglo as $docentesAsignatura)
               @php
                     $docentes = null;
-                    foreach ($docentesArreglo as $p) {
-                        if ($p['COD_PERSONA'] === $docentes['COD_PERSONA']) {
-                            $docentes = $p;
+                    foreach ($docentesArreglo as $d) {
+                        if ($d['COD_PERSONA'] === $docentesAsignatura['COD_PERSONA']) {
+                            $docentes = $d;
                             break;
                         }
                     }
                 @endphp 
-          
+        
             <tr>
                 <td>{{ $docentesAsignatura['COD_DOCENTE_ASIGNATURA'] }}</td>
                 <td>
@@ -139,7 +128,7 @@
                     <td>{{ $docentesAsignatura['HORAS_SEMANALES'] }}</td>
                 <td>
                     <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
-                        data-target="#correos-edit-{{ $docentes['COD_DOCENTE'] }}">
+                        data-target="#docentesAsignatura-edit-{{ $docentesAsignatura['COD_DOCENTE_ASIGNATURA'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
                 </td>
@@ -150,7 +139,7 @@
 </div>
 
 @foreach($docentesAsignaturaArreglo as $docentesAsignatura)
-<div class="modal fade bd-example-modal-sm" id="docentes-edit-{{ $docentesAsignatura['COD_DOCENTE'] }}" tabindex="-1">
+<div class="modal fade bd-example-modal-sm" id="docentesAsignatura-edit-{{ $docentesAsignatura['COD_DOCENTE_ASIGNATURA'] }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -189,9 +178,12 @@
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <!-- Agregar estilos para DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    
+    <link rel="stylesheet" href="https://cdn.example.com/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css">
 @stop
 
 @section('js')
@@ -201,6 +193,9 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- Enlace a selectize-->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
     <!-- Script personalizado para inicializar DataTables -->
     <script>
         $(document).ready(function() {
@@ -222,4 +217,55 @@
         });
 
     </script>
+ 
+ 
+   <!-- Script personalizado para CAMBIAR MODO -->
+   <script>
+const modeToggle = document.getElementById('mode-toggle');
+const body = document.body;
+const table = document.getElementById('miTabla');
+const modals = document.querySelectorAll('.modal-content'); // Select all modal content elements
+
+// Check if the selected theme is already stored in localStorage
+const storedTheme = localStorage.getItem('theme');
+if (storedTheme) {
+    body.classList.add(storedTheme); // Apply the stored theme class
+    table.classList.toggle('table-dark', storedTheme === 'dark-mode');
+    modals.forEach(modal => {
+        modal.classList.toggle('dark-mode', storedTheme === 'dark-mode');
+    });
+}
+
+modeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    table.classList.toggle('table-dark');
+    
+    // Toggle the dark-mode class on modal content elements
+    modals.forEach(modal => {
+        modal.classList.toggle('dark-mode');
+    });
+
+    // Store the selected theme in localStorage
+    const theme = body.classList.contains('dark-mode') ? 'dark-mode' : '';
+    localStorage.setItem('theme', theme);
+});
+
+</script>
+<script>
+        $(document).ready(function() {
+            $('#messageModal').modal('show');
+        });
+    </script>
+    <!-- scripts para selectize-->
+     <script>
+    $(document).ready(function() {
+        $('.selectize').selectize({
+            placeholder: 'Seleccione',
+            allowClear: true // Permite borrar la selección
+        });
+    });
+</script>
+    
+   
 @stop
+

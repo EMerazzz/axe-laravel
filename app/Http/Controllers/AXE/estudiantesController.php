@@ -48,10 +48,16 @@ class estudiantesController extends Controller
         ]);
 
       // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
-      if ($nuevo_estudiante->successful()) {
-        return redirect('/estudiantes')->with('success', 'Estudiante agregado exitosamente.');
+      if ($nuevo_estudiante ->successful()) {
+        return redirect('/estudiantes')->with('message', [
+            'type' => 'success',
+            'text' => 'Agregado exitosamente.'
+        ]);
     } else {
-        return redirect('/estudiantes')->with('error', 'No se pudo agregar el estudiante.');
+        return redirect('/estudiantes')->with('message', [
+            'type' => 'error',
+            'text' => 'No se pudo agregar.'
+        ]);
     }
     }
 
@@ -63,9 +69,15 @@ class estudiantesController extends Controller
 
        // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
        if ($modificar_estudiante->successful()) {
-        return redirect('/estudiantes')->with('success', 'Estudiante agregado exitosamente.');
+        return redirect('/estudiantes')->with('message', [
+            'type' => 'success',
+            'text' => 'Modificado exitosamente.'
+        ]);
     } else {
-        return redirect('/estudiantes')->with('error', 'No se pudo agregar el estudiante.');
+        return redirect('/estudiantes')->with('message', [
+            'type' => 'error',
+            'text' => 'No se pudo modificar .'
+        ]);
     }
     }
 }

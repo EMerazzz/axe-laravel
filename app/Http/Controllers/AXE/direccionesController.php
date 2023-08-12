@@ -8,9 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class direccionesController extends Controller
-
-
 {
+    private $apiUrl = 'http://localhost:4000/direcciones';
       public function direcciones()
     {
         // Obtener los datos de personas desde el controlador PersonasController
@@ -19,7 +18,7 @@ class direccionesController extends Controller
         $personasArreglo = json_decode($personas,true);
        
         // Obtener los datos de teléfonos
-        $direcciones = Http::get('http://localhost:4000/direcciones');
+        $direcciones = Http::get($this->apiUrl);
         $direccionesArreglo = json_decode($direcciones, true);
        
         // Retornar la vista con ambos conjuntos de datos
@@ -28,7 +27,7 @@ class direccionesController extends Controller
    
 
     public function nueva_direccion(Request $request ){
-    $nueva_direccion = Http::post('http://localhost:4000/nueva_direccion',[
+    $nueva_direccion = Http::post($this->apiUrl,[
         
     "COD_PERSONA" => $request->input("COD_PERSONA"),
     "DIRECCION"=> $request->input("DIRECCION"),
@@ -36,13 +35,22 @@ class direccionesController extends Controller
     "CIUDAD"=> $request->input("CIUDAD"),
     "PAIS"=> $request->input("PAIS"),
         ]);
-        //dd($request->input("COD_PERSONA"));
-        return redirect('/direcciones');
+        if ($nueva_direccion ->successful()) {
+            return redirect('/direcciones')->with('message', [
+                'type' => 'success',
+                'text' => 'Agregado exitosamente.'
+            ]);
+        } else {
+            return redirect('/direcciones')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo agregar la dirección.'
+            ]);
+        }
     }
 
     public function modificar_direccion(Request $request ){
        
-        $modificar_direccion = Http::put('http://localhost:4000/modificar_direccion/'.$request->input("COD_DIRECCION"),[
+        $modificar_direccion = Http::put($this->apiUrl.'/'.$request->input("COD_DIRECCION"),[
             "COD_DIRECCION" => $request->input("COD_DIRECCION"),
         
             "DIRECCION"=> $request->input("DIRECCION"),
@@ -53,7 +61,17 @@ class direccionesController extends Controller
         ]);
       
 
-        return redirect('/direcciones');
+        if ($modificar_direccion->successful()) {
+            return redirect('/direcciones')->with('message', [
+                'type' => 'success',
+                'text' => 'Dirección modificada exitosamente.'
+            ]);
+        } else {
+            return redirect('/direcciones')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo modificar la dirección.'
+            ]);
+        }
     }
 
 }

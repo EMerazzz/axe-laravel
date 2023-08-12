@@ -342,9 +342,9 @@ return [
                     ],
                     [
                         'text' => 'Asignaturas docentes',
-                        'icon' =>'fas fa-fw fa-lock',
+                        'icon' =>'fa fa-address-book',
                         'icon_color' => 'info',
-                        'url'  => 'docenteAsignatura',
+                        'url'  => 'docentesAsignatura',
                     ],
                   
                 ],
