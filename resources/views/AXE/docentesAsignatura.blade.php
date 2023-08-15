@@ -68,7 +68,7 @@
     <select class="form-control same-width" id="COD_DOCENTE" name="COD_DOCENTE" required>
         <option value="" disabled selected>Seleccione un docente</option>
         @foreach ($docentesArreglo as $docentes)
-                <option value="{{ $docentes['COD_PERSONA'] }}">{{ $docentes['NOMBRE_DOCENTE'] }}</option>
+                <option value="{{ $docentes['COD_DOCENTE'] }}">{{ $docentes['NOMBRE_DOCENTE'] }}</option>
         @endforeach
     </select>
 </div>
@@ -107,7 +107,7 @@
               @php
                     $docentes = null;
                     foreach ($docentesArreglo as $d) {
-                        if ($d['COD_PERSONA'] === $docentesAsignatura['COD_PERSONA']) {
+                        if ($d['COD_DOCENTE'] === $docentesAsignatura['COD_DOCENTE']) {
                             $docentes = $d;
                             break;
                         }

@@ -21,9 +21,10 @@ class loginController extends Controller
       
         $variable= json_decode($variableLogin,true);
         if ( count($variable)  > 1){
-            echo "nice";
+          // echo "nice";
             setcookie("token", $variable['token'], 0,"./");
-            return view('AXE.AXE', compact('variable'));  
+           // return view('AXE.AXE', compact('variable'));  
+           return redirect('AXE');
         } else {
             echo "Ha ocurrido un problema";
            return view('login', compact('variable'));

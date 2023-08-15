@@ -5,8 +5,8 @@
 
 @section('content_header')
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Teléfonos registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Teléfonos <cite title="Source Title">Completados</cite></footer>
+    <p class="mb-0">Personas registrados en el sistema AXE.</p>
+    <footer class="blockquote-footer">Personas <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 
 @stop
@@ -48,7 +48,6 @@
     </div>
 @endif
 
-
 <div class="spacer"></div>
 <button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>
 <div class="spacer"></div>
@@ -62,6 +61,7 @@
             <div class="modal-body">
                <h5><p>Ingrese los Datos:</p></h5>
             </div>
+            
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <form action="{{url('personas/insertar')}}" method="post">
@@ -70,13 +70,13 @@
                 
                 <div class="mb-3 mt-3">
     <label for="NOMBRE" class="form-label">Nombres de la persona:</label>
-    <input type="text" class="form-control same-width" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" inputmode="text" required>
+    <input type="text" class="form-control same-width" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" inputmode="text" required value="{{ old('NOMBRE') }}">
     <div id="error-message-nombre" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
 </div>
 
 <div class="mb-3 mt-3">
     <label for="APELLIDO" class="form-label">Apellidos de la persona:</label>
-    <input type="text" class="form-control same-width" id="APELLIDO" name="APELLIDOS" placeholder="Ingrese los apellidos de la persona" inputmode="text" required>
+    <input type="text" class="form-control same-width" id="APELLIDO" name="APELLIDOS" placeholder="Ingrese los apellidos de la persona" inputmode="text" required value="{{ old('APELLIDOS') }}">
     <div id="error-message-apellido" style="color: red; display: none;">Solo se permiten letras y espacios</div>
 </div>
 
@@ -87,28 +87,35 @@
 </div>
 
 
-    <div class="mb-3">
+<div class="mb-3">
     <label for="personas" class="form-label">Género:</label>
     <select class="form-control same-width" id="GENERO" name="GENERO">
-        <option value="M" selected>Masculino</option>
-        <option value="F">Femenino</option>
+        <option value="M" {{ old('GENERO') == 'M' ? 'selected' : '' }}>Masculino</option>
+        <option value="F" {{ old('GENERO') == 'F' ? 'selected' : '' }}>Femenino</option>
     </select>
-    </div>
+</div>
 
 <div class="mb-3">
   <label for="personas" class="form-label">Tipo persona:</label>
   <select class="form-control same-width" id="TIPO_PERSONA" name="TIPO_PERSONA">
-    <option value="Estudiante" selected>Estudiante</option>
-    <option value="Docente"selected>Docente</option>
-    <option value="Padre o tutor"selected>Padre o tutor</option>
+    <option value="Estudiante" {{ old('TIPO_PERSONA') == 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
+    <option value="Docente" {{ old('TIPO_PERSONA') == 'Docente' ? 'selected' : '' }}>Docente</option>
+    <option value="Padre o tutor" {{ old('TIPO_PERSONA') == 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
   </select>
 </div>
 
 
 <div class="mb-3">
   <label for="personas" class="form-label">Fecha de nacimiento:</label>
-  <input type="date" class="form-control same-width" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO">
+  @php
+    $fechaNacimiento = old('FECHA_NACIMIENTO');
+    if ($fechaNacimiento) {
+        $fechaNacimiento = date('Y-m-d', strtotime($fechaNacimiento));
+    }
+  @endphp
+  <input type="date" class="form-control same-width" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fechaNacimiento }}">
 </div>
+
 
 
 

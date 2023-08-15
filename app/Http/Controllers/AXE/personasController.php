@@ -21,7 +21,7 @@ class PersonasController extends Controller
     public function nueva_persona(Request $request)
     {
         $identidad = $request->input("IDENTIDAD");
-
+    
         // Obtener todas las personas desde la API
         $todas_las_personas = Http::get($this->apiUrl);
     
@@ -31,11 +31,12 @@ class PersonasController extends Controller
             foreach ($personas_lista as $persona) {
                 if ($persona["IDENTIDAD"] === $identidad) {
                     // La persona ya existe, generar mensaje de error
-                    return redirect('/personas')->with('message', [
+                    return redirect('personas')->with('message', [
                         'type' => 'error',
                         'text' => 'Persona con esta identidad ya existe.'
-                    ]);
+                    ])->withInput(); // Agregar esta línea para mantener los datos ingresados
                 }
+                
             }
         }
         // Resto del código para calcular la edad
@@ -65,8 +66,8 @@ class PersonasController extends Controller
                 'text' => 'No se pudo agregar la persona.'
             ]);
         }
-        
     }
+    
     
 
     private function calcularEdad($fecha_nacimiento)
