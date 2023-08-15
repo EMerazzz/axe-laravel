@@ -27,7 +27,7 @@ class loginController extends Controller
            return redirect('AXE');
         } else {
             echo "Ha ocurrido un problema";
-           return view('login', compact('variable'));
+            return redirect('login');
         }
     }
 }
