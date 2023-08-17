@@ -5,8 +5,8 @@
 
 @section('content_header')
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Personas registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Personas <cite title="Source Title">Completados</cite></footer>
+    <p class="mb-0">Años academicos registrados en el sistema AXE.</p>
+    <footer class="blockquote-footer">Año <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 
 @stop
@@ -49,13 +49,13 @@
 @endif
 
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#anio_academico">+ Nuevo</button>
 <div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="personas" tabindex="-1">
+<div class="modal fade bd-example-modal-sm" id="anio_academico" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Ingresa una Nueva Persona</h4>
+              <h4 class="modal-title">Ingresa un Nuevo Año academico</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -64,57 +64,20 @@
             
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{url('personas/insertar')}}" method="post">
+                    <form action="{{url('anio_academico/insertar')}}" method="post">
                         @csrf
                 <!-- INICIO --->
-                
-                <div class="mb-3 mt-3">
-    <label for="NOMBRE" class="form-label">Nombres de la persona:</label>
-    <input type="text" class="form-control same-width" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" inputmode="text" required value="{{ old('NOMBRE') }}">
-    <div id="error-message-nombre" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
-</div>
-
-<div class="mb-3 mt-3">
-    <label for="APELLIDO" class="form-label">Apellidos de la persona:</label>
-    <input type="text" class="form-control same-width" id="APELLIDO" name="APELLIDOS" placeholder="Ingrese los apellidos de la persona" inputmode="text" required value="{{ old('APELLIDOS') }}">
-    <div id="error-message-apellido" style="color: red; display: none;">Solo se permiten letras y espacios</div>
-</div>
-
-<div class="mb-3 mt-3">
-    <label for="IDENTIDAD" class="form-label">Numeros de identidad:</label>
-    <input type="text" class="form-control same-width" id="IDENTIDAD" name="IDENTIDAD" placeholder="Ingrese numero de identidad de la persona" required>
-    <div id="error-message-identidad" style="color: red; display: none;">Solo se permiten números</div>
-</div>
-
-
-<div class="mb-3">
-    <label for="personas" class="form-label">Género:</label>
-    <select class="form-control same-width" id="GENERO" name="GENERO">
-        <option value="M" {{ old('GENERO') == 'M' ? 'selected' : '' }}>Masculino</option>
-        <option value="F" {{ old('GENERO') == 'F' ? 'selected' : '' }}>Femenino</option>
-    </select>
-</div>
-
-<div class="mb-3">
-  <label for="personas" class="form-label">Tipo persona:</label>
-  <select class="form-control same-width" id="TIPO_PERSONA" name="TIPO_PERSONA">
-    <option value="Estudiante" {{ old('TIPO_PERSONA') == 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
-    <option value="Docente" {{ old('TIPO_PERSONA') == 'Docente' ? 'selected' : '' }}>Docente</option>
-    <option value="Padre o tutor" {{ old('TIPO_PERSONA') == 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
-  </select>
-</div>
-
-
-<div class="mb-3">
-  <label for="personas" class="form-label">Fecha de nacimiento:</label>
-  @php
-    $fechaNacimiento = old('FECHA_NACIMIENTO');
-    if ($fechaNacimiento) {
-        $fechaNacimiento = date('Y-m-d', strtotime($fechaNacimiento));
-    }
-  @endphp
-  <input type="date" class="form-control same-width" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fechaNacimiento }}">
-</div>
+                    <div class="mb-3">
+                        <label for="anio_academico" class="form-label">Año Academico</label>
+                        <select class="form-control same-width" id="descripcion" name="descripcion">
+                        <option value="Septimo" selected>Septimo</option>
+                        <option value="Octavo"selected>Octavo</option>
+                        <option value="Noveno"selected>Noveno</option>
+                        <option value="Decimo"selected>Decimo</option>
+                        <option value="Onceavo"selected>Onceavo</option>
+                        <option value="Duodecimo"selected>Duodecimo</option>
+                        </select>
+                        </div>
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -128,38 +91,23 @@
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
     <thead>
         <th>#</th> 
-        <th>Nombres</th> 
-        <th>Apellidos</th>
-        <th>Número de identidad</th>
-        <th>Genero</th>
-        <th>Tipo de persona</th>
-        <th>Fecha nacimiento</th>
-        <th>Edad</th>
-        <th>Fecha registro</th>
+        <th>Año Academico</th> 
         <th>Opciones de la Tabla</th>
     </thead>
     <tbody>
-        @foreach($personasArreglo as $personas)
+        @foreach($anioArreglo as $anio_academico)
         <tr>
-            <td>{{$personas['COD_PERSONA']}}</td>
-            <td>{{$personas['NOMBRE']}}</td>
-            <td>{{$personas['APELLIDO']}}</td>
-            <td>{{$personas['IDENTIDAD']}}</td>
-            <td>{{$personas['GENERO']}}</td>
-            <td>{{$personas['TIPO_PERSONA']}}</td>
-            <td>{{date('d, M Y', strtotime($personas['FECHA_NACIMIENTO']))}}</td>
-            <td>{{date_diff(date_create($personas['FECHA_NACIMIENTO']), date_create('today'))->y}}</td>
-            <td>{{date('d, M Y', strtotime($personas['FECHA_REGISTRO']))}}</td>
-            
+            <td>{{$anio_academico['COD_ANIO_ACADEMICO']}}</td>
+            <td>{{$anio_academico['descripcion']}}</td>
             <td>
-                <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#personas-edit-{{$personas['COD_PERSONA']}}">
+                <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#anio_academico-edit-{{$anio_academico['COD_ANIO_ACADEMICO']}}">
                     <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                 </button>
-                <div class="modal fade bd-example-modal-sm" id="personas-edit-{{$personas['COD_PERSONA']}}" tabindex="-1">
+                <div class="modal fade bd-example-modal-sm" id="anio_academico-edit-{{$anio_academico['COD_ANIO_ACADEMICO']}}" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Actualiza la persona seleccionada</h5>
+                                <h5 class="modal-title">Actualiza el año academico seleccionado</h5>
                                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -167,51 +115,21 @@
                             </div>
                             <div class="modal-footer">
                                 <div class="d-grid gap-2 col-6 mx-auto">
-                                    <form action="{{url('personas/actualizar')}}" method="post">
+                                    <form action="{{url('anio_academico/actualizar')}}" method="post">
                                         @csrf
-                                        <input type="hidden" class="form-control" name="COD_PERSONA" value="{{$personas['COD_PERSONA']}}">
+                                        <input type="hidden" class="form-control" name="COD_ANIO_ACADEMICO" value="{{$anio_academico['COD_ANIO_ACADEMICO']}}">
                                        
-    <div class="mb-3 mt-3">
-        <label for="NOMBRE" class="form-label">Nombres de la persona:</label>
-        <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" value="{{$personas['NOMBRE']}}" 
-        title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
-    </div>
-                
-<div class="mb-3 mt-3">
-    <label for="APELLIDO" class="form-label">Apellidos de la persona:</label>
-    <input type="text" class="form-control" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" value="{{$personas['APELLIDO']}}" 
-    title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
-</div>
-                
-<div class="mb-3">
-    <label for="IDENTIDAD" class="form-label">Números de identidad:</label>
-    <input type="text" class="form-control" id="IDENTIDAD" name="IDENTIDAD" placeholder="Ingrese número de identidad de la persona" value="{{$personas['IDENTIDAD']}}"
-    title="Solo se permiten números"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
-</div>
-
-<div class="mb-3">
-  <label for="personas" class="form-label">Tipo de persona:</label>
-  <select class="form-control same-width" id="TIPO_PERSONA" name="TIPO_PERSONA">
-    <option value="Estudiante" {{ $personas['TIPO_PERSONA'] === 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
-    <option value="Docente" {{ $personas['TIPO_PERSONA'] === 'Docente' ? 'selected' : '' }}>Docente</option>
-    <option value="Padre o tutor" {{ $personas['TIPO_PERSONA'] === 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
-
-  </select>
-</div>
-
-<div class="mb-3">
-  <label for="personas" class="form-label">Género:</label>
-  <select class="form-control same-width" id="GENERO" name="GENERO">
-    <option value="M" {{ $personas['TIPO_PERSONA'] === 'M' ? 'selected' : '' }}>Masculino</option>
-    <option value="F" {{ $personas['TIPO_PERSONA'] === 'F' ? 'selected' : '' }}>Femenino</option>
-  </select>
-</div>
-<div class="mb-3">
-  <label for="personas" class="form-label">Fecha de nacimiento:</label>
-  <!-- Formatear la fecha de nacimiento con date() y strtotime() -->
-  <?php $fecha_nacimiento_formateada = date('Y-m-d', strtotime($personas['FECHA_NACIMIENTO'])); ?>
-  <input type="date" class="form-control" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fecha_nacimiento_formateada }}">
-</div>
+                                    <div class="mb-3">
+                                    <label for="anio_academico" class="form-label">Años Academicos:</label>
+                                    <select class="form-control same-width" id="DESCRIPCION_JOR" name="DESCRIPCION_JOR">
+                                    <option value="Septimo" {{ $anio_academico['descripcion'] === 'Septimo' ? 'selected' : '' }}>Septimo</option>
+                                    <option value="Octavo" {{ $anio_academico['descripcion'] === 'Octavo' ? 'selected' : '' }}>Octavo</option>
+                                    <option value="Noveno" {{ $anio_academico['descripcion'] === 'Noveno' ? 'selected' : '' }}>Noveno</option>
+                                    <option value="Decimo" {{ $anio_academico['descripcion'] === 'Decimo' ? 'selected' : '' }}>Decimo</option>
+                                    <option value="Onceavo" {{ $anio_academico['descripcion'] === 'Onceavo' ? 'selected' : '' }}>Onceavo</option>
+                                    <option value="Duodecimo" {{ $anio_academico['descripcion'] === 'Duodecimo' ? 'selected' : '' }}>Duodecimo</option>
+                                    </select>
+                                    </div>
 
                                         <!-- ... otros campos del formulario ... -->
                                         <button type="submit" class="btn btn-primary">Editar</button>
@@ -295,11 +213,11 @@
     }
 
     // Configuración para el campo de NOMBRE
-    setupValidation('NOMBRE', 'error-message-nombre', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    //setupValidation('NOMBRE', 'error-message-nombre', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
     // Configuración para el campo de APELLIDO
-    setupValidation('APELLIDO', 'error-message-apellido', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    //setupValidation('APELLIDO', 'error-message-apellido', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
     // Configuración para el campo de IDENTIDAD
-    setupValidation('IDENTIDAD', 'error-message-identidad', /[^0-9]/g);
+    //setupValidation('IDENTIDAD', 'error-message-identidad', /[^0-9]/g);
     
 </script>
    <!-- Script personalizado para CAMBIAR MODO -->

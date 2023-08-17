@@ -66,6 +66,20 @@ return [
     |
     */
 
+    'preloader' => [
+        'enabled' => true,
+        'img' => [
+            'path' => 'vendor/adminlte/dist/img/axe.png',
+            'alt' => 'AdminLTE Preloader Image',
+            'effect' => 'img-circle animation__shake',
+            'width' => 200,
+            'height' => 200,
+        ],
+    ],
+    
+
+
+
     'usermenu_enabled' => true,
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-danger',
@@ -282,25 +296,41 @@ return [
         ],   
             [
                 'text'        => 'Académico',
-                //'url'         => 'personas',
-                'label'       => 3,
+                'label'       => 5,
                 'label_color' => 'success',
                 'icon' =>"fa fa-university",
                 'icon_color' => 'teal',
                 'submenu' => [
                     [
                         'text' => 'Asignaturas',
-                        'icon' =>"fa-solid fa-person",
-                        'icon_color' => 'success',
+                        'icon' =>"fa fa-book",
+                        'icon_color' => 'info',
                         'url'  => 'asignaturas',
                     ],
                     [
-                        'text' => 'jornadas',
-                        'icon' =>'fas fa-fw fa-lock',
-                        'icon_color' => 'indigo',
-                        'url'  => 'jornadas#',
+                        'text' => 'Secciones',
+                        'icon' =>'fa fa-bars',
+                        'icon_color' => 'info',
+                        'url'  => 'secciones',
                     ],
-                  
+                    [
+                        'text' => 'Jornadas',
+                        'icon' =>'fa fa-clock',
+                        'icon_color' => 'info',
+                        'url'  => 'jornadas',
+                    ],
+                    [
+                        'text' => 'Nivel académico',
+                        'icon' =>'fa fa-university',
+                        'icon_color' => 'info',
+                        'url'  => 'nivel_academico',
+                    ],
+                    [
+                        'text' => 'Año Académico',
+                        'icon' =>'fa fa-calendar',
+                        'icon_color' => 'info',
+                        'url'  => 'anio_academico',
+                    ],
                 ],
             
             ],

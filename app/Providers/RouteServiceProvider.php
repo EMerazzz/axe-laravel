@@ -59,6 +59,18 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->prefix('asignaturas')
                 ->group(base_path('routes/asignaturas.php')); 
+            Route::middleware('web')
+                ->prefix('secciones')
+                ->group(base_path('routes/secciones.php')); 
+            Route::middleware('web')
+                ->prefix('jornadas')
+                ->group(base_path('routes/jornadas.php')); 
+            Route::middleware('web')
+                ->prefix('anio_academico')
+                ->group(base_path('routes/anio_academico.php'));   
+            Route::middleware('web')
+                ->prefix('nivel_academico')
+                ->group(base_path('routes/nivel_academico.php'));  
             // modulo docentes
             Route::middleware('web')
             ->prefix('docentes')
@@ -66,6 +78,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('docentesAsignatura')
             ->group(base_path('routes/docentesAsignatura.php'));  
+           
 
             //Modulo estudiantes
             Route::middleware('web')
@@ -79,6 +92,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('login')
             ->group(base_path('routes/login.php')); 
+
         });
     }
 

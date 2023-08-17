@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Http\Controllers\AXE;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
+use DateTime;
+
+class nivel_academicoController extends Controller
+{
+    private $apiUrl = 'http://localhost:4000/nivel_academico'; // Declaración de la variable de la URL de la API
+    public function nivel_academico()
+    {
+        $nivel_academico = Http::get($this->apiUrl);
+        $nivel_academicoArreglo = json_decode($nivel_academico, true);
+        return view('AXE.nivel_academico', compact('nivel_academicoArreglo'));
+    }
+
+    public function nuevo_nivel_academico(Request $request)
+    {
+       
+        // Obtener todas las personas desde la API
+        $todas_los_niveles = Http::get($this->apiUrl);
+    
+        
+        // Enviar la solicitud POST a la API para agregar la nueva persona
+        $nuevo_nivel_academico = Http::post($this->apiUrl, [
+            "descripcion" => $request->input("descripcion"),
+        ]);
+    
+        // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
+        if ($nuevo_nivel_academico->successful()) {
+            return redirect('/nivel_academico')->with('message', [
+                'type' => 'success',
+                'text' => 'Nivel academico agregado exitosamente.'
+            ]);
+        } else {
+            return redirect('/nivel_academico')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo agregar el nivel academico.'
+            ]);
+        }
+    }
+    
+
+    public function modificar_nivel_academico(Request $request)
+    {
+        
+        $modificar_nivel_academico = Http::put($this->apiUrl.'/'.$request->input("COD_NIVEL_ACADEMICO"), [
+            "descripcion" => $request->input("descripcion"),
+            
+        ]);
+        if ($modificar_nivel_academico->successful()) {
+            return redirect('/nivel_academico')->with('message', [
+                'type' => 'success',
+                'text' => 'Nivel academico modificado exitosamente.'
+            ]);
+        } else {
+            return redirect('/nivel_academico')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo modificar el nivel academico.'
+            ]);
+        }
+    }
+}

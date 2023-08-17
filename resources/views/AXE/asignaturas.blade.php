@@ -43,31 +43,40 @@
         </div>
     </div>
 @endif
+
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#asignaturas">+ Nuevo</button>
 <div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="personas" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Ingresa una Nueva Asignatura</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Ingrese los Datos:</p>
-                    <form action="{{ url('asignaturas/insertar') }}" method="post">
+<div class="modal fade bd-example-modal-sm" id="asignaturas" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Ingresa una Nueva Asignatura</h4>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               <h5><p>Ingrese los Datos:</p></h5>
+            </div>
+            
+            <div class="modal-footer">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <form action="{{url('asignaturas/insertar')}}" method="post">
+
                         @csrf
+                       
                         <div class="mb-3 mt-3">
-                            <label for="NOMBRE_ASIGNATURA" class="form-label">Nombre de la Asignatura</label>
-                            <input type="text" class="form-control" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura">
+                            <label for="NOMBRE_ASIGNATURA" class="form-label">Nombres de la persona:</label>
+                            <input type="text" class="form-control same-width" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" inputmode="text" required >
                         </div>
+
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    </form>
+                        </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
     
     <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
