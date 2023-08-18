@@ -215,5 +215,5 @@ text-decoration: underline;
 .custom-btn {
     width: 150px; /* Ajusta el ancho a tu preferencia */
     margin-right: 50px; /* Agrega espacio entre los botones */
-    margin-left: -30px; /* Ajusta el margen izquierdo */
+    margin-left: 45px; /* Ajusta el margen izquierdo */
 }
