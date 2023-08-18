@@ -76,7 +76,7 @@
 
 <div class="mb-3 mt-3">
     <label for="APELLIDO" class="form-label">Apellidos de la persona:</label>
-    <input type="text" class="form-control same-width" id="APELLIDO" name="APELLIDOS" placeholder="Ingrese los apellidos de la persona" inputmode="text" required value="{{ old('APELLIDOS') }}">
+    <input type="text" class="form-control same-width" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" inputmode="text" required value="{{ old('APELLIDO') }}">
     <div id="error-message-apellido" style="color: red; display: none;">Solo se permiten letras y espacios</div>
 </div>
 

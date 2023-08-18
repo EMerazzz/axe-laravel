@@ -13,17 +13,27 @@ class PersonasController extends Controller
     private $apiUrl = 'http://localhost:4000/personas'; // Declaración de la variable de la URL de la API
     public function personas()
     {
-        $personas = Http::get($this->apiUrl);
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        $personas = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
+
         $personasArreglo = json_decode($personas, true);
         return view('AXE.personas', compact('personasArreglo'));
     }
 
     public function nueva_persona(Request $request)
     {
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+
         $identidad = $request->input("IDENTIDAD");
     
         // Obtener todas las personas desde la API
-        $todas_las_personas = Http::get($this->apiUrl);
+        $todas_las_personas = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
     
         if ($todas_las_personas->successful()) {
             $personas_lista = $todas_las_personas->json();
@@ -44,7 +54,9 @@ class PersonasController extends Controller
         $edad = $this->calcularEdad($fecha_nacimiento);
     
         // Enviar la solicitud POST a la API para agregar la nueva persona
-        $nueva_persona = Http::post($this->apiUrl, [
+        $nueva_persona = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post($this->apiUrl, [
             "NOMBRE" => $request->input("NOMBRE"),
             "APELLIDO" => $request->input("APELLIDO"),
             "IDENTIDAD" => $request->input("IDENTIDAD"),
@@ -80,12 +92,15 @@ class PersonasController extends Controller
 
     public function modificar_persona(Request $request)
     {
-        
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
         //calcular edad
         $fecha_nacimiento = $request->input("FECHA_NACIMIENTO");
         $edad = $this->calcularEdad($fecha_nacimiento);
 
-        $modificar_persona = Http::put($this->apiUrl.'/'.$request->input("COD_PERSONA"), [
+        $modificar_persona = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put($this->apiUrl.'/'.$request->input("COD_PERSONA"), [
             "NOMBRE" => $request->input("NOMBRE"),
             "APELLIDO" => $request->input("APELLIDO"),
             "IDENTIDAD" => $request->input("IDENTIDAD"),
