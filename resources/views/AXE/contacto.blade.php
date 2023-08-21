@@ -33,7 +33,7 @@
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #325d64; color:white;">
                     <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -44,6 +44,7 @@
         </div>
     </div>
 @endif
+
 <div class="spacer"></div>
 <button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>
 <div class="spacer"></div>

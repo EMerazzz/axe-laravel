@@ -13,14 +13,19 @@ class contactoController extends Controller
 {
     private $apiUrl = 'http://localhost:4000/contacto_emergencia'; // Declaración de la variable de la URL de la API
       public function contacto_emergencia()
-    {
+    {$cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
         // Obtener los datos de personas desde el controlador PersonasController
         $personasController = new PersonasController();
-        $personas = Http::get('http://localhost:4000/personas');
+        $personas = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('http://localhost:4000/personas');
         $personasArreglo = json_decode($personas,true);
        
         // Obtener los datos de teléfonos
-        $contacto_emergencia = Http::get($this->apiUrl);
+        $contacto_emergencia = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
         $contactoArreglo = json_decode($contacto_emergencia, true);
        
         // Retornar la vista con ambos conjuntos de datos
@@ -29,7 +34,11 @@ class contactoController extends Controller
    
 
     public function nuevo_contacto_emergencia(Request $request ){
-    $nuevo_contacto = Http::post($this->apiUrl,[
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+    $nuevo_contacto = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->post($this->apiUrl,[
         
     "COD_PERSONA" => $request->input("COD_PERSONA"),
     "NOMBRE_CONTACTO"=> $request->input("NOMBRE_CONTACTO"),
@@ -52,8 +61,11 @@ class contactoController extends Controller
     }
 
     public function modificar_contacto_emergencia(Request $request ){
-       
-        $modificar_contacto = Http::put($this->apiUrl.'/'.$request->input("COD_CONTACTO_EMERGENCIA"),[
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        $modificar_contacto = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put($this->apiUrl.'/'.$request->input("COD_CONTACTO_EMERGENCIA"),[
             "COD_CONTACTO_EMERGENCIA" => $request->input("COD_CONTACTO_EMERGENCIA"),
         
             "COD_PERSONA" => $request->input("COD_PERSONA"),

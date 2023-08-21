@@ -13,20 +13,30 @@ class anio_academicoController extends Controller
     private $apiUrl = 'http://localhost:4000/anio_academico/'; // Declaración de la variable de la URL de la API
     public function anio_academico()
     {
-        $anio_academico = Http::get($this->apiUrl);
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        $anio_academico = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
         $anioArreglo = json_decode($anio_academico, true);
         return view('AXE.anio_academico', compact('anioArreglo'));
     }
 
     public function nuevo_anio_academico(Request $request)
     {
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
        
         // Obtener todas las personas desde la API
-        $todas_los_anios = Http::get($this->apiUrl);
+        $todas_los_anios = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
     
         
         // Enviar la solicitud POST a la API para agregar la nueva persona
-        $nuevo_anio_academico = Http::post($this->apiUrl, [
+        $nuevo_anio_academico = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post($this->apiUrl, [
             "descripcion" => $request->input("descripcion"),
         ]);
     
@@ -47,8 +57,11 @@ class anio_academicoController extends Controller
 
     public function modificar_anio_academico(Request $request)
     {
-        
-        $modificar_anio_academico = Http::put($this->apiUrl.'/'.$request->input("COD_ANIO_ACADEMICO"), [
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        $modificar_anio_academico = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put($this->apiUrl.'/'.$request->input("COD_ANIO_ACADEMICO"), [
             "descripcion" => $request->input("descripcion"),
             
         ]);

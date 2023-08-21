@@ -11,14 +11,19 @@ class correosController extends Controller
 {
     private $apiUrl = 'http://localhost:4000/correos';
       public function correos()
-    {
+    { $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
         // Obtener los datos de personas desde el controlador PersonasController
         $personasController = new PersonasController();
-        $personas = Http::get('http://localhost:4000/personas');
+        $personas =Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('http://localhost:4000/personas');
         $personasArreglo = json_decode($personas,true);
        
         // Obtener los datos de teléfonos
-        $correos = Http::get($this->apiUrl);
+        $correos = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
         $correosArreglo = json_decode($correos, true);
        
         // Retornar la vista con ambos conjuntos de datos
@@ -27,7 +32,11 @@ class correosController extends Controller
    
 
     public function nuevo_correo(Request $request ){
-    $nuevo_correo = Http::post($this->apiUrl,[
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+    $nuevo_correo = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->post($this->apiUrl,[
         
     "COD_PERSONA" => $request->input("COD_PERSONA"),
     "CORREO_ELECTRONICO"=> $request->input("CORREO_ELECTRONICO"),
@@ -47,8 +56,12 @@ class correosController extends Controller
     }
 
     public function modificar_correo(Request $request ){
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
        
-        $modificar_correo = Http::put($this->apiUrl.'/'.$request->input("COD_CORREO"),[
+        $modificar_correo = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put($this->apiUrl.'/'.$request->input("COD_CORREO"),[
             "COD_CORREO" => $request->input("COD_CORREO"),
         
             "CORREO_ELECTRONICO"=> $request->input("CORREO_ELECTRONICO"),

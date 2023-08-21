@@ -13,20 +13,29 @@ class jornadasController extends Controller
     private $apiUrl = 'http://localhost:4000/jornadas/'; // Declaración de la variable de la URL de la API
     public function jornadas()
     {
-        $jornadas = Http::get($this->apiUrl);
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        $jornadas = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
         $jornadasArreglo = json_decode($jornadas, true);
         return view('AXE.jornadas', compact('jornadasArreglo'));
     }
 
     public function nueva_jornada(Request $request)
     {
-       
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
         // Obtener todas las personas desde la API
-        $todas_las_jornadas = Http::get($this->apiUrl);
+        $todas_las_jornadas =Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
     
         
         // Enviar la solicitud POST a la API para agregar la nueva persona
-        $nueva_jornada = Http::post($this->apiUrl, [
+        $nueva_jornada = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post($this->apiUrl, [
             "DESCRIPCION_JOR" => $request->input("DESCRIPCION_JOR"),
         ]);
     
@@ -47,8 +56,12 @@ class jornadasController extends Controller
 
     public function modificar_jornada(Request $request)
     {
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
         
-        $modificar_jornada = Http::put($this->apiUrl.'/'.$request->input("COD_JORNADA"), [
+        $modificar_jornada =Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put($this->apiUrl.'/'.$request->input("COD_JORNADA"), [
             "DESCRIPCION_JOR" => $request->input("DESCRIPCION_JOR"),
             
         ]);

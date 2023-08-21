@@ -388,17 +388,12 @@ return [
                 'icon_color' => 'teal',
                 'submenu' => [
                     [
-                        'text' => 'Asignaturas',
-                        'icon' =>"fa-solid fa-person",
-                        'icon_color' => 'success',
-                        'url'  => '#',
+                        'text' => 'Matricular',
+                        'icon' =>"fa fa-user-plus",
+                        'icon_color' => 'info',
+                        'url'  => 'matricula',
                     ],
-                    [
-                        'text' => 'jornadas',
-                        'icon' =>'fas fa-fw fa-lock',
-                        'icon_color' => 'indigo',
-                        'url'  => 'jornadas#',
-                    ],
+                  
                   
                 ],
             
@@ -415,7 +410,11 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
-       
+        [
+            'text' => 'Cerrar sesión',  // Opción "Log Out"
+            'url'  => 'login/logout',  // Cambia 'logout' por la URL real de tu función de logout
+            'icon' => 'fas fa-fw fa-sign-out-alt',  // Icono de "Log Out"
+        ],
        
     ],
 

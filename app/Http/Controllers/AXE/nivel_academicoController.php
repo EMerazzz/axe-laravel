@@ -13,20 +13,30 @@ class nivel_academicoController extends Controller
     private $apiUrl = 'http://localhost:4000/nivel_academico'; // Declaración de la variable de la URL de la API
     public function nivel_academico()
     {
-        $nivel_academico = Http::get($this->apiUrl);
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        $nivel_academico = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
         $nivel_academicoArreglo = json_decode($nivel_academico, true);
         return view('AXE.nivel_academico', compact('nivel_academicoArreglo'));
     }
 
     public function nuevo_nivel_academico(Request $request)
     {
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
        
         // Obtener todas las personas desde la API
-        $todas_los_niveles = Http::get($this->apiUrl);
+        $todas_los_niveles = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
     
         
         // Enviar la solicitud POST a la API para agregar la nueva persona
-        $nuevo_nivel_academico = Http::post($this->apiUrl, [
+        $nuevo_nivel_academico = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post($this->apiUrl, [
             "descripcion" => $request->input("descripcion"),
         ]);
     
@@ -47,8 +57,12 @@ class nivel_academicoController extends Controller
 
     public function modificar_nivel_academico(Request $request)
     {
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
         
-        $modificar_nivel_academico = Http::put($this->apiUrl.'/'.$request->input("COD_NIVEL_ACADEMICO"), [
+        $modificar_nivel_academico = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put($this->apiUrl.'/'.$request->input("COD_NIVEL_ACADEMICO"), [
             "descripcion" => $request->input("descripcion"),
             
         ]);

@@ -1,21 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Estudiantes')
+@section('title', 'AXE')
+
 @section('content_header')
-
-<<blockquote class="custom-blockquote">
-    <p class="mb-0">Estudiantes registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Estudiantes <cite title="Source Title">Completados</cite></footer>
+<center>
+    <h1>Detalles Matriculas</h1>
+</center>
+<blockquote class="blockquote text-center">
+    <p class="mb-0">Matriculas registradas en el sistema AXE.</p>
+    <footer class="blockquote-footer">Correos <cite title="Source Title">Completados</cite></footer>
 </blockquote>
-
 @stop
 
 @section('content')
-<div class="d-flex justify-content-end align-items-center">
-    <button id="mode-toggle" class="btn btn-info ms-2">
-        <i class="fas fa-adjust"></i> Cambiar Modo
-    </button>
-</div>
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -24,10 +21,14 @@
 
 <style>
     .btn-custom {
-        margin-top: -70px; /* Ajusta el valor según tus necesidades */
+        margin-top: 10px; /* Ajusta el valor según tus necesidades */
     }
 </style>
-
+<style>
+    .spacer {
+        height: 20px; /* Ajusta la altura según tus necesidades */
+    }
+</style>
 @if (session('message'))
 <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -47,24 +48,24 @@
 @endif
 
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#estudiantes">+ Nuevo</button>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#matricula">+Matricular</button>
 <div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="estudiantes" tabindex="-1">
+<div class="modal fade bd-example-modal-sm" id="matricula" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ingresa un nuevo estudiante</h5>
+                <h5 class="modal-title">Ingresa una nueva matricula</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
+            </div>   
             <div class="modal-body">
                 <p>Ingrese los Datos:</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{url('estudiantes/insertar')}}" method="post">
+                    <form action="{{ url('matricula/insertar') }}" method="post">
                         @csrf
-                 <!-- INICIO --->
-                 <div class="mb-3 mt-3">
+                        <!-- INICIO --->
+                        <div class="mb-3 mt-3">
     <label for="COD_PERSONA" class="form-label">Estudiante: </label>
     <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
         <option value="" disabled selected>Seleccione un estudiante</option>
@@ -75,30 +76,54 @@
         @endforeach
     </select>
     </div>
-    <div class="mb-3 mt-3">
-    <label for="COD_PADRE_TUTOR" class="form-label">Padre o tutor: </label>
-    <select class="selectize" id="COD_PADRE_TUTOR" name="COD_PADRE_TUTOR" required>
-        <option value="" disabled selected>Seleccione un padre o tutor</option>
-        @foreach ($padresArreglo as $padres)
-            <option value="{{ $padres['COD_PADRE_TUTOR'] }}">{{ $padres['NOMBRE_PADRE_TUTOR'] }} {{ $padres['APELLIDO_PADRE_TUTOR'] }}</option>
-        @endforeach
-    </select>
-</div>
-
+                        <!-- FIN --->
                         <div class="mb-3 mt-3">
-                            <label for="estudiantes" class="form-label">Nivel año académico:</label>
-                            <input type="text" class="form-control" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" placeholder="Ingrese el nivel año academico"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
-                        </div>
-                        <div class="mb-3">
+                            <label for="COD_NIVEL_ACADEMICO" class="form-label">Nivel academico: </label>
+                            <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
+                                <option value="" disabled selected>Seleccione el nivel academico</option>
+                                @foreach ($nivel_academicoArreglo as $nivel_academico)
+                                    <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}">{{ $nivel_academico['descripcion'] }}</option>
+                                @endforeach
+                            </select>
+                            </div>
+
+                            <div class="mb-3 mt-3">
+                            <label for="COD_ANIO_ACADEMICO" class="form-label">Año academico: </label>
+                            <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required>
+                                <option value="" disabled selected>Seleccione el año academico</option>
+                                @foreach ($anio_academicoArreglo as $anio_academico)
+                                    <option value="{{ $anio_academico['COD_ANIO_ACADEMICO'] }}">{{ $anio_academico['descripcion'] }}</option>
+                                @endforeach
+                            </select>
+                            </div>
+
+                            <div class="mb-3">
+                            <label for="matricula" class="form-label">Estado Matricula:</label>
+                            <select class="selectize" id="ESTADO_MATRICULA" name="ESTADO_MATRICULA">
+                            <option value="Activo" {{ old('ESTADO_MATRICULA') == 'Activo' ? 'selected' : '' }}>Activo</option>
+                            <option value="Inactivo"{{ old('ESTADO_MATRICULA') == 'Inactivo' ? 'selected' : '' }}>Inactivo</option>
+                            </select>
+                            </div>
+
+                            <div class="mb-3">
                         <label for="estudiantes" class="form-label">Jornada:</label>
-                        <select class="selectize" id="JORNADA_ESTUDIANTE" name="JORNADA_ESTUDIANTE">
-                            <option value="Matutina" selected>Matutina</option>
-                            <option value="Vespertina"selected>Vespertina</option>
-                            <option value="Nocturna"selected>Nocturna</option>
+                        <select class="selectize" id="JORNADA" name="JORNADA">
+                            <option value="Matutina" {{ old('JORNADA_ESTUDIANTE') == 'Matutina' ? 'selected' : '' }}>Matutina</option>
+                            <option value="Vespertina"{{ old('JORNADA_ESTUDIANTE') == 'Vespertina' ? 'selected' : '' }}>Vespertina</option>
+                            <option value="Nocturna"{{ old('JORNADA_ESTUDIANTE') == 'Nocturna' ? 'selected' : '' }}>Nocturna</option>
                         </select>
                         </div>
-                       
 
+                            <div class="mb-3 mt-3">
+                            <label for="SECCION" class="form-label">Seccion Academica: </label>
+                            <select class="selectize" id="SECCION" name="SECCION" required>
+                                <option value="" disabled selected>Seleccione la seccion academica</option>
+                                @foreach ($seccionesArreglo as $secciones)
+                                    <option value="{{ $secciones['DESCRIPCION_SECCIONES'] }}">{{ $secciones['DESCRIPCION_SECCIONES'] }}</option>
+                                @endforeach
+                            </select>
+                            </div>
+                
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -113,56 +138,78 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Nivel año academico</th>
-                <th>Nombre completo estudiantes</th>
-               
-                <th>Padre o tutor</th>
+                <th>Estudiante</th>
+                <th>Nivel Academico</th>
+                <th>Año Academico</th>
+                <th>Sección</th>
                 <th>Jornada</th>
+                <th>Estado Matricula</th>
+                <th>Fecha Matricula </th>
                 <th>Opciones de la Tabla</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($estudiantesArreglo as $estudiantes)
+            @foreach($matriculaArreglo as $matricula)
+            
             @php
-                    $persona = null;
-                    foreach ($personasArreglo as $p) {
-                        if ($p['COD_PERSONA'] === $estudiantes['COD_PERSONA']) {
-                            $persona = $p;
+                    $estudiantes = null;
+                    foreach ($estudiantesArreglo as $e) {
+                        if ($e['COD_ESTUDIANTE'] === $matricula['COD_ESTUDIANTE']) {
+                            $estudiantes = $e;
+                            break;
+                        }
+                    }
+                @endphp
+                @php
+                    $nivel_academico = null;
+                    foreach ($nivel_academicoArreglo as $n) {
+                        if ($n['COD_NIVEL_ACADEMICO'] === $matricula['COD_NIVEL_ACADEMICO']) {
+                            $nivel_academico = $n;
                             break;
                         }
                     }
                 @endphp
 
                 @php
-                    $padres = null;
-                    foreach ($padresArreglo as $e) {
-                        if ($e['COD_PADRE_TUTOR'] === $estudiantes['COD_PADRE_TUTOR']) {
-                            $padres = $e;
+                    $anio_academico = null;
+                    foreach ($anio_academicoArreglo as $a) {
+                        if ($a['COD_ANIO_ACADEMICO'] === $matricula['COD_ANIO_ACADEMICO']) {
+                            $anio_academico = $a;
                             break;
                         }
                     }
                 @endphp
+                
             <tr>
-                <td>{{ $estudiantes['COD_ESTUDIANTE'] }}</td>
-                <td>{{ $estudiantes['COD_NIVACAD_ANIOACAD'] }}</td>
+                <td>{{ $matricula['COD_MATRICULA'] }}</td>
                 <td>
-                        @if ($persona !== null)
-                            {{ $persona['NOMBRE']. ' ' . $persona['APELLIDO'] }}
+                        @if ($estudiantes !== null)
+                            {{ $estudiantes['NOMBRE_ESTUDIANTE'] . ' ' . $estudiantes['APELLIDO_ESTUDIANTE'] }}
                         @else
                             Persona no encontrada
                         @endif
-                </td>
-                <td>
-                        @if ($padres !== null)
-                            {{ $padres['NOMBRE_PADRE_TUTOR'] . ' ' . $padres['APELLIDO_PADRE_TUTOR'] }}
+                 </td>
+                 <td>
+                        @if ($nivel_academico !== null)
+                            {{ $nivel_academico['descripcion']}}
                         @else
-                            padre no encontrada
+                             no encontrado
                         @endif
-                </td>
-                    <td>{{ $estudiantes['JORNADA_ESTUDIANTE'] }}</td>
+                 </td>
+                 <td>
+                        @if ($anio_academico !== null)
+                            {{ $anio_academico['descripcion']}}
+                        @else
+                             no encontrado
+                        @endif
+                 </td>
+                 <td>{{ $matricula['SECCION'] }}</td>
+                 <td>{{ $matricula['JORNADA'] }}</td>
+                 <td>{{ $matricula['ESTADO_MATRICULA'] }}</td>
+                 <td>{{date('d, M Y', strtotime($matricula['FECHA_MATRICULA']))}}</td>
                 <td>
                     <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
-                        data-target="#estudiantes-edit-{{ $estudiantes['COD_ESTUDIANTE'] }}">
+                        data-target="#matricula-edit-{{ $matricula['COD_MATRICULA'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
                 </td>
@@ -172,12 +219,13 @@
     </table>
 </div>
 
-@foreach($estudiantesArreglo as $estudiantes)
-<div class="modal fade bd-example-modal-sm" id="estudiantes-edit-{{ $estudiantes['COD_ESTUDIANTE'] }}" tabindex="-1">
+
+@foreach($matriculaArreglo as $matricula)
+<div class="modal fade bd-example-modal-sm" id="matricula-edit-{{ $matricula['COD_MATRICULA'] }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Actualiza el estudiante</h5>
+                <h5 class="modal-title">Actualiza la matricula seleccionada</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -185,23 +233,11 @@
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{ url('estudiantes/actualizar') }}" method="post">
+                    <form action="{{ url('matricula/actualizar') }}" method="post">
                         @csrf
-                        <input type="hidden" class="form-control" name="COD_ESTUDIANTE" value="{{ $estudiantes['COD_ESTUDIANTE'] }}">
-
-                        <div class="mb-3 mt-3">
-                            <label for="estudiantes" class="form-label">nivel año académico:</label>
-                            <input type="text" class="form-control" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" placeholder="Ingrese el nivel año académico" value="{{ $estudiantes['COD_NIVACAD_ANIOACAD'] }}">
-                        </div>
-                        <div class="mb-3">
-                        <label for="estudiantes" class="form-label">Jornada:</label>
-                        <select class="form-control same-width" id="JORNADA_ESTUDIANTE" name="JORNADA_ESTUDIANTE">
-                            <option value="Matutina" {{ $estudiantes['JORNADA_ESTUDIANTE'] === 'Matutina' ? 'selected' : '' }}>Matutina</option>
-                            <option value="Vespertina" {{ $estudiantes['JORNADA_ESTUDIANTE'] === 'Vespertina' ? 'selected' : '' }}>Vespertina</option>
-                            <option value="Nocturna" {{ $estudiantes['JORNADA_ESTUDIANTE'] === 'Nocturna' ? 'selected' : '' }}>Nocturna</option>
-
-                        </select>
-                        </div>
+                        <input type="hidden" class="form-control" name="COD_MATRICULA" value="{{ $matricula['COD_MATRICULA'] }}">
+                        
+        
 
                         <button type="submit" class="btn btn-primary">Editar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -258,7 +294,7 @@
 
     </script>
  
- 
+    
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>
 const modeToggle = document.getElementById('mode-toggle');
@@ -305,6 +341,4 @@ modeToggle.addEventListener('click', () => {
         });
     });
 </script>
-    
-   
 @stop

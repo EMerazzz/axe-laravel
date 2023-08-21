@@ -30,4 +30,9 @@ class loginController extends Controller
             return redirect('login');
         }
     }
+
+    public function logout(Request $request){
+        // Eliminar la cookie de token
+        return redirect('login')->withCookie(Cookie::forget('token'));
+    }
 }

@@ -9,7 +9,11 @@ class asignaturasController extends Controller
 {
     private $apiUrl = 'http://localhost:4000/asignaturas'; // Declaración de la variable de la URL de la API
     public function asignaturas(){
-       $asignaturas = Http::get($this->apiUrl);
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+       $asignaturas = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->get($this->apiUrl);
        $citaArreglo = json_decode($asignaturas,true);
        //return $reservaciones;
        return view('AXE.asignaturas', compact('citaArreglo'));
@@ -18,8 +22,11 @@ class asignaturasController extends Controller
 
 
     public function nueva_asignatura(Request $request ){
-        //print_r([$request->input("nombre"),$request->input("fecha"),$request->input("registro"),$request->input("codigo")]);die();
-        $nueva_asignatura = Http::post($this->apiUrl,[
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        $nueva_asignatura = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post($this->apiUrl,[
         "NOMBRE_ASIGNATURA" => $request->input("NOMBRE_ASIGNATURA"),
         ]);
          // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -37,8 +44,11 @@ class asignaturasController extends Controller
     }
 
     public function modificar_asignaturas(Request $request ){
-        //print_r([$request->input("id"),$request->input("formato"),$request->input("servicios"),$request->input("tipo")]);die();
-        $modificar_asignatura = Http::put($this->apiUrl.'/'.$request->input("COD_ASIGNATURA"),[
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        $modificar_asignatura = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put($this->apiUrl.'/'.$request->input("COD_ASIGNATURA"),[
         "COD_ASIGNATURA"=> $request->input("COD_ASIGNATURA"),
         "NOMBRE_ASIGNATURA" => $request->input("NOMBRE_ASIGNATURA"),
         ]);

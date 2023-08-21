@@ -12,13 +12,19 @@ class docentesAsignaturaController extends Controller
     private $apiUrl = 'http://localhost:4000/docentes_asignaturas'; // Declaración de la variable de la URL de la API
     public function docentesAsignatura()
     {
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
         // Obtener los datos de personas desde el controlador PersonasController
         $docentesController = new docentesController();
-        $docentes = Http::get('http://localhost:4000/docentes');
+        $docentes = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('http://localhost:4000/docentes');
         $docentesArreglo = json_decode($docentes, true);
 
         // Obtener los datos
-        $docentesAsignatura = Http::get($this->apiUrl);
+        $docentesAsignatura = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
         $docentesAsignaturaArreglo = json_decode($docentesAsignatura, true);
 
         return view('AXE.docentesAsignatura', compact('docentesArreglo', 'docentesAsignaturaArreglo'));
@@ -26,7 +32,11 @@ class docentesAsignaturaController extends Controller
 
     public function nuevo_docentesAsignatura(Request $request)
     {
-        $nuevo_docentesAsignatura = Http::post($this->apiUrl, [
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        $nuevo_docentesAsignatura = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post($this->apiUrl, [
             "COD_DOCENTE" => $request->input("COD_DOCENTE"),
             "COD_ASIGNATURA" => $request->input("COD_ASIGNATURA"),
             "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES"),
@@ -48,7 +58,11 @@ class docentesAsignaturaController extends Controller
 
     public function modificar_docentesAsignatura(Request $request)
     {
-        $modificar_docentesAsignatura=  Http::put($this->apiUrl.'/'. $request->input("COD_DOCENTE_ASIGNATURA"), [
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        $modificar_docentesAsignatura= Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put($this->apiUrl.'/'. $request->input("COD_DOCENTE_ASIGNATURA"), [
             "COD_DOCENTE" => $request->input("COD_DOCENTE"),
             "COD_ASIGNATURA" => $request->input("COD_ASIGNATURA"),
             "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES")

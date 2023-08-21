@@ -78,8 +78,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('docentesAsignatura')
             ->group(base_path('routes/docentesAsignatura.php'));  
-           
-
+           //modulo matricula
+           Route::middleware('web')
+           ->prefix('matricula')
+           ->group(base_path('routes/matricula.php')); 
             //Modulo estudiantes
             Route::middleware('web')
             ->prefix('padres')
@@ -92,6 +94,8 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('login')
             ->group(base_path('routes/login.php')); 
+            
+
 
         });
     }
