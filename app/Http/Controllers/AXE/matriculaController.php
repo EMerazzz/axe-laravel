@@ -57,7 +57,7 @@ class matriculaController extends Controller
         $matriculaArreglo = json_decode($matricula, true);
        
         // Retornar la vista con ambos conjuntos de datos
-        return view('AXE.matricula', compact('estudiantesArreglo','nivel_academicoArreglo','anio_academicoArreglo','jornadasArreglo','seccionesArreglo','matriculaArreglo'));
+        return view('AXE.matricula', compact('personasArreglo','nivel_academicoArreglo','anio_academicoArreglo','jornadasArreglo','seccionesArreglo','matriculaArreglo'));
     }
    
 
@@ -96,7 +96,6 @@ class matriculaController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_MATRICULA"),[
             
-            "COD_ESTUDIANTE" => $request->input("COD_ESTUDIANTE"),
             "COD_NIVEL_ACADEMICO"=> $request->input("COD_NIVEL_ACADEMICO"),
             "COD_ANIO_ACADEMICO"=> $request->input("COD_ANIO_ACADEMICO"),
             "ESTADO_MATRICULA"=> $request->input("ESTADO_MATRICULA"),

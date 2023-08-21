@@ -293,47 +293,16 @@ return [
                     'url'  => 'contacto',
                 ],
             ],
-        ],   
-            [
-                'text'        => 'Académico',
-                'label'       => 5,
-                'label_color' => 'success',
-                'icon' =>"fa fa-university",
-                'icon_color' => 'teal',
-                'submenu' => [
-                    [
-                        'text' => 'Asignaturas',
-                        'icon' =>"fa fa-book",
-                        'icon_color' => 'info',
-                        'url'  => 'asignaturas',
-                    ],
-                    [
-                        'text' => 'Secciones',
-                        'icon' =>'fa fa-bars',
-                        'icon_color' => 'info',
-                        'url'  => 'secciones',
-                    ],
-                    [
-                        'text' => 'Jornadas',
-                        'icon' =>'fa fa-clock',
-                        'icon_color' => 'info',
-                        'url'  => 'jornadas',
-                    ],
-                    [
-                        'text' => 'Nivel académico',
-                        'icon' =>'fa fa-university',
-                        'icon_color' => 'info',
-                        'url'  => 'nivel_academico',
-                    ],
-                    [
-                        'text' => 'Año Académico',
-                        'icon' =>'fa fa-calendar',
-                        'icon_color' => 'info',
-                        'url'  => 'anio_academico',
-                    ],
-                ],
-            
-            ],
+        ],  
+        [
+            'text'        => 'Matrícula',
+            //'label'       => 3,
+            'label_color' => 'success',
+            'icon' =>"fa fa-archive",
+            'icon_color' => 'teal',
+            'url'  => 'matricula',
+        
+        ], 
             [
                 'text'        => 'Estudiantes',
                 'label'       => 2,
@@ -381,39 +350,92 @@ return [
             
             ],
             [
-                'text'        => 'Matrícula',
-                'label'       => 3,
+                'text'        => 'Académico',
+                'label'       => 5,
                 'label_color' => 'success',
-                'icon' =>"fa fa-archive",
+                'icon' =>"fa fa-university",
                 'icon_color' => 'teal',
                 'submenu' => [
                     [
-                        'text' => 'Matricular',
-                        'icon' =>"fa fa-user-plus",
+                        'text' => 'Asignaturas',
+                        'icon' =>"fa fa-book",
                         'icon_color' => 'info',
-                        'url'  => 'matricula',
+                        'url'  => 'asignaturas',
                     ],
-                  
-                  
+                    [
+                        'text' => 'Secciones',
+                        'icon' =>'fa fa-bars',
+                        'icon_color' => 'info',
+                        'url'  => 'secciones',
+                    ],
+                    [
+                        'text' => 'Jornadas',
+                        'icon' =>'fa fa-clock',
+                        'icon_color' => 'info',
+                        'url'  => 'jornadas',
+                    ],
+                    [
+                        'text' => 'Nivel académico',
+                        'icon' =>'fa fa-university',
+                        'icon_color' => 'info',
+                        'url'  => 'nivel_academico',
+                    ],
+                    [
+                        'text' => 'Año Académico',
+                        'icon' =>'fa fa-calendar',
+                        'icon_color' => 'info',
+                        'url'  => 'anio_academico',
+                    ],
                 ],
             
             ],
 
-        ['header' => 'account_settings'],
+        ['header' => 'Seguridad'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text'        => 'Usuarios',
+            'label'       => 4,
+           'label_color' => 'grey',
+            'icon' =>"fa fa-user-circle",
+          //  'icon_color' => 'teal',
+            'submenu' => [
+                [
+                    'text' => 'usuarios',
+                    'icon' =>"fa fa-user",
+                    //'icon_color' => 'info',
+                    'url'  => '#',
+                ],
+              
+                [
+                    'text' => 'Estado usuarios',
+                    'icon' =>"fa fa-user-times",
+                    //'icon_color' => 'info',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Roles',
+                    'icon' =>"fa fa-users",
+                    //'icon_color' => 'info',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Permisos',
+                    'icon' =>"fa fa-file",
+                    //'icon_color' => 'info',
+                    'url'  => '#',
+                ],
+            ],
+        
         ],
-        [
+       /* [
             'text' => 'change_password',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
-        ],
+        ],*/
         [
             'text' => 'Cerrar sesión',  // Opción "Log Out"
             'url'  => 'login/logout',  // Cambia 'logout' por la URL real de tu función de logout
             'icon' => 'fas fa-fw fa-sign-out-alt',  // Icono de "Log Out"
+            'icon_color' => 'red',
         ],
        
     ],

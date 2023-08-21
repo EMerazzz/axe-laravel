@@ -26,11 +26,10 @@ class loginController extends Controller
             // Establecer la cookie encriptada
             return redirect('AXE')->withCookie(Cookie::make('token', $valorEncriptado, 0, "./"));
         } else {
-            echo "Ha ocurrido un problema";
-            return redirect('login');
+            $errorMessage = "Ha ocurrido un problema. Usuario o contraseña incorrectos.";
+            return redirect('login')->with('errorMessage', $errorMessage);
         }
     }
-
     public function logout(Request $request){
         // Eliminar la cookie de token
         return redirect('login')->withCookie(Cookie::forget('token'));

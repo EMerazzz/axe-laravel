@@ -1,18 +1,21 @@
 @extends('adminlte::page')
 
-@section('title', 'AXE')
+@section('title', 'Matriculas')
 
 @section('content_header')
-<center>
-    <h1>Detalles Matriculas</h1>
-</center>
-<blockquote class="blockquote text-center">
+<<blockquote class="custom-blockquote">
     <p class="mb-0">Matriculas registradas en el sistema AXE.</p>
-    <footer class="blockquote-footer">Correos <cite title="Source Title">Completados</cite></footer>
+    <footer class="blockquote-footer">Matriculas <cite title="Source Title">Completadas</cite></footer>
 </blockquote>
+
 @stop
 
 @section('content')
+<div class="d-flex justify-content-end align-items-center">
+    <button id="mode-toggle" class="btn btn-info ms-2">
+        <i class="fas fa-adjust"></i> Cambiar Modo
+    </button>
+</div>
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -21,12 +24,7 @@
 
 <style>
     .btn-custom {
-        margin-top: 10px; /* Ajusta el valor según tus necesidades */
-    }
-</style>
-<style>
-    .spacer {
-        height: 20px; /* Ajusta la altura según tus necesidades */
+        margin-top: -70px; /* Ajusta el valor según tus necesidades */
     }
 </style>
 @if (session('message'))
@@ -152,10 +150,10 @@
             @foreach($matriculaArreglo as $matricula)
             
             @php
-                    $estudiantes = null;
-                    foreach ($estudiantesArreglo as $e) {
-                        if ($e['COD_ESTUDIANTE'] === $matricula['COD_ESTUDIANTE']) {
-                            $estudiantes = $e;
+                    $persona = null;
+                    foreach ($personasArreglo as $p) {
+                        if ($p['COD_PERSONA'] === $matricula['COD_PERSONA']) {
+                            $persona = $p;
                             break;
                         }
                     }
@@ -183,12 +181,12 @@
             <tr>
                 <td>{{ $matricula['COD_MATRICULA'] }}</td>
                 <td>
-                        @if ($estudiantes !== null)
-                            {{ $estudiantes['NOMBRE_ESTUDIANTE'] . ' ' . $estudiantes['APELLIDO_ESTUDIANTE'] }}
+                        @if ($persona !== null)
+                            {{ $persona['NOMBRE']. ' ' . $persona['APELLIDO'] }}
                         @else
                             Persona no encontrada
                         @endif
-                 </td>
+                </td>
                  <td>
                         @if ($nivel_academico !== null)
                             {{ $nivel_academico['descripcion']}}

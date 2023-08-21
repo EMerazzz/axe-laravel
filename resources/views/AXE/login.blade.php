@@ -18,6 +18,11 @@
     <!-- <link rel="stylesheet" href="{{ asset('css/custom.css') }}">-->
 </head>
 <body>
+@if(session('errorMessage'))
+    <div class="alert alert-danger">
+        {{ session('errorMessage') }}
+    </div>
+@endif
     <div class="main">
         <div class="container">
             <center>
