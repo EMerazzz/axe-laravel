@@ -18,11 +18,6 @@
     <!-- <link rel="stylesheet" href="{{ asset('css/custom.css') }}">-->
 </head>
 <body>
-@if(session('errorMessage'))
-    <div class="alert alert-danger">
-        {{ session('errorMessage') }}
-    </div>
-@endif
     <div class="main">
         <div class="container">
             <center>
@@ -42,6 +37,13 @@
                                         <button type="submit" class="btn btn-primary custom-btn">Iniciar sesión</button>
                                     </div>
                                 </div>
+
+                                @if(session('errorMessage'))
+                                    <div  class="text-white font-weight-bold">
+                                    <br>
+                                    <p>{{ session('errorMessage') }}</p>
+                                    </div>
+                                @endif
                             </fieldset>
                         </form>
                     </div>
@@ -70,6 +72,7 @@
                         <input type="email" class="form-control" name="email" placeholder="Correo electrónico" required>
                         <button type="submit" class="btn btn-primary mt-3">Enviar</button>
                     </form>
+                    
                 </div>
             </div>
         </div>
