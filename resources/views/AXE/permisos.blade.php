@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Asignaturas')
+@section('title', 'Permisos')
 @section('content_header')
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Asignaturas registradas en el sistema AXE.</p>
-    <footer class="blockquote-footer">Asignaturas <cite title="Source Title">Completadas</cite></footer>
+    <p class="mb-0">Permisos registrados en el sistema AXE.</p>
+    <footer class="blockquote-footer">Permisos<cite title="Source Title">Completadas</cite></footer>
 </blockquote>
 @stop
 
@@ -43,56 +43,82 @@
         </div>
     </div>
 @endif
-
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#asignaturas">+ Nuevo</button>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#permisos">+ Nuevo</button>
 <div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="asignaturas" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Ingresa una Nueva Asignatura</h4>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <h5><p>Ingrese los Datos:</p></h5>
-            </div>
-            
-            <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{url('asignaturas/insertar')}}" method="post">
-
+<div class="modal fade bd-example-modal-sm" id="permisos" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ingresa un Nuevo Permiso</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Ingrese los Datos:</p>
+                    <form action="{{ url('permisos/insertar') }}" method="post">
                         @csrf
-                       
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="permiso_insercion" name="PERMISO_INSERCION" value="1">
+                        <label class="form-check-label" for="permiso_insercion">Permiso Insertar</label>
+                        </div>
+
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="permiso_eliminacion" name="PERMISO_ELIMINACION" value="1">
+                        <label class="form-check-label" for="permiso_eliminacion">Permiso Eliminar</label>
+                        </div>
+
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="permiso_actualizacion" name="PERMISO_ACTUALIZACION" value="1">
+                        <label class="form-check-label" for="permiso_actualizacion">Permiso Actualizar</label>
+                        </div>
+
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="permiso_consultar" name="PERMISO_CONSULTAR" value="1">
+                        <label class="form-check-label" for="permiso_consultar">Permiso Consultar</label>
+                        </div>
+                          
                         <div class="mb-3 mt-3">
-                            <label for="NOMBRE_ASIGNATURA" class="form-label">Nombres de la persona:</label>
-                            <input type="text" class="form-control same-width" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" inputmode="text" required >
+                            <label for="COD_ROL" class="form-label">Rol: </label>
+                            <select class="selectize" id="COD_ROL" name="COD_ROL" required>
+                                <option value="" disabled selected>Seleccione el Rol</option>
+                                @foreach ($rolesArreglo as $roles)
+                                    <option value="{{ $roles['COD_ROL'] }}">{{ $roles['DESCRIPCION'] }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
     
     <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         
             <thead>
                 <tr>
-                    <th>Código Asignatura</th> 
-                    <th>Nombre Asignatura</th> 
+                    <th>#</th> 
+                    <th>Permiso Insertar</th>
+                    <th>Permiso Eliminar</th>
+                    <th>Permiso Actualizar</th>
+                    <th>Permiso Consultar</th> 
+                    <th>Fecha Creación</th>
+                    <th>Modificado Por</th>
                     <th>Opciones de la Tabla</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($citaArreglo as $asignatura)
+                @foreach($permisosArreglo as $permisos)
                     <tr>
-                        <td>{{ $asignatura['COD_ASIGNATURA'] }}</td>
-                        <td>{{ $asignatura['NOMBRE_ASIGNATURA'] }}</td>
+                        <td>{{ $permisos['COD_PERMISO'] }}</td>
+                        <td>{{ $permisos['PERMISO_INSERCION'] }}</td>
+                        <td>{{ $permisos['PERMISO_ELIMINACION'] }}</td>
+                        <td>{{ $permisos['PERMISO_ACTUALIZACION'] }}</td>
+                        <td>{{ $permisos['PERMISO_CONSULTAR'] }}</td>
+                        <td>{{ $permisos['MODIFICADO_POR'] }}</td>
                         <td>
                             <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#asignaturas-edit-{{ $asignatura['COD_ASIGNATURA'] }}">
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
@@ -104,23 +130,38 @@
         </table>
     </div>
 
-    @foreach($citaArreglo as $asignatura)
-        <div class="modal fade bd-example-modal-sm" id="asignaturas-edit-{{ $asignatura['COD_ASIGNATURA'] }}" tabindex="-1">
+    @foreach($permisosArreglo as $permisos)
+        <div class="modal fade bd-example-modal-sm" id="permisos-edit-{{ $permisos['COD_PERMISO'] }}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualiza la asignatura seleccionada</h5>
+                        <h5 class="modal-title">Actualiza el permiso seleccionado</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p>Ingrese los Nuevos Datos</p>
-                        <form action="{{ url('asignaturas/actualizar') }}" method="post">
+                        <form action="{{ url('permisos/actualizar') }}" method="post">
                             @csrf
-                            <input type="hidden" class="form-control" name="COD_ASIGNATURA" value="{{ $asignatura['COD_ASIGNATURA'] }}">
-                            <div class="mb-3 mt-3">
-                                <label for="NOMBRE_ASIGNATURA" class="form-label">Nombres de la Asignatura</label>
-                                <input type="text" class="form-control" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" value="{{ $asignatura['NOMBRE_ASIGNATURA'] }}">
+                            <input type="hidden" class="form-control" name="COD_PERMISO" value="{{ $permisos['COD_PERMISO'] }}">
+                            <div>
+                            <input type="checkbox" id="permiso_insercion" name="PERMISO_INSERCION" value="1" {{ $permisos['PERMISO_INSERCION_INSERCION'] === '1' ? 'checked' : '' }}>
+                            <label for="permiso_insercion">Permiso Insertar</label>
                             </div>
+                             
+                            <div>
+                            <input type="checkbox" id="permiso_eliminacion" name="PERMISO_ELIMINACION" value="1" {{ $permisos['PERMISO_ELIMINACION'] === '1' ? 'checked' : '' }}>
+                            <label for="permiso_eliminacion">Permiso Eliminar</label>
+                             </div>
+
+                            <div>
+                            <input type="checkbox" id="permiso_actualizacion" name="PERMISO_ACTUALIZACION" value="1" {{ $permisos['PERMISO_ACTUALIZACION'] === '1' ? 'checked' : '' }}>
+                            <label for="permiso_actualizacion">Permiso Actualizar</label>
+                            </div>
+
+                             <div>
+                            <input type="checkbox" id="permiso_consultar" name="PERMISO_CONSULTAR" value="1" {{ $permisos['PERMISO_CONSULTAR'] === '1' ? 'checked' : '' }}>
+                            <label for="permiso_consultar">Permiso Consultar</label>
+                             </div>
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

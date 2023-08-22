@@ -1,9 +1,12 @@
 @extends('adminlte::page')
 
-@section('title', 'AXE')
+@section('title', 'Personas')
 @section('content_header')
 
+
+
 @section('content_header')
+
 <blockquote class="custom-blockquote">
     <p class="mb-0">Personas registrados en el sistema AXE.</p>
     <footer class="blockquote-footer">Personas <cite title="Source Title">Completados</cite></footer>
@@ -12,12 +15,30 @@
 @stop
 
 
+   
+
 @section('content')
+<!-- boton de cambiar modo -->
 <div class="d-flex justify-content-end align-items-center">
     <button id="mode-toggle" class="btn btn-info ms-2">
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
 </div>
+
+<!-- Agregar botones de Exportar -->
+
+<div class="d-flex justify-content-end align-items-center mt-3">
+    <button id="export-pdf" class="btn btn-danger ms-2"onclick="generarPDF()">
+        <i class="far fa-file-pdf"></i> Exportar a PDF
+    </button>
+    <div style="width: 10px;"></div> <!-- Agrega espacio vertical -->
+    <button id="export-excel" class="btn btn-success ms-2" onclick="exportToExcel()">
+        <i class="far fa-file-excel"></i> Exportar a Excel
+    </button>
+</div>
+
+        
+   
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -101,6 +122,7 @@
     <option value="Estudiante" {{ old('TIPO_PERSONA') == 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
     <option value="Docente" {{ old('TIPO_PERSONA') == 'Docente' ? 'selected' : '' }}>Docente</option>
     <option value="Padre o tutor" {{ old('TIPO_PERSONA') == 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
+    <option value="Personal Administrativo" {{ old('TIPO_PERSONA') == 'Personal Administrativo' ? 'selected' : '' }}>Personal Administrativo</option>
   </select>
 </div>
 
@@ -249,6 +271,13 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- Reportes -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+  
 
     <!-- Script personalizado para inicializar DataTables -->
     <script>
@@ -274,6 +303,7 @@
  
  <!-- scripts para validaciones-->
  <script>
+    
     function setupValidation(inputId, errorMessageId, pattern) {
         const input = document.getElementById(inputId);
         const errorMessage = document.getElementById(errorMessageId);
@@ -339,5 +369,124 @@ modeToggle.addEventListener('click', () => {
             $('#messageModal').modal('show');
         });
     </script>
+<!-- ********************************************************* -->
+<!-- Script generar reportes excel y pdf -->
+<script>
+  function generarPDF() {
+    const tableData = [];
+    const headerData = [];
+
+    // Obtén los datos del encabezado de la tabla (excluyendo la columna "Opciones de la Tabla")
+    const tableHeader = document.querySelectorAll('#miTabla thead th');
+    tableHeader.forEach(headerCell => {
+        if (headerCell.textContent !== 'Opciones de la Tabla') {
+            headerData.push({ text: headerCell.textContent, bold: true });
+        }
+    });
+
+    // Obtén todos los datos de la tabla, incluyendo todas las páginas
+    const table = $('#miTabla').DataTable();
+    const allData = table.rows().data();
+    
+    allData.each(function (rowData) {
+        const row = [];
+        rowData.forEach((cell, index) => {
+            // Excluir la última columna y la columna "Opciones de la Tabla"
+            if (headerData[index] && index !== rowData.length - 1) {
+                row.push(cell);
+            }
+        });
+        tableData.push(row);
+    });
+
+    const documentDefinition = {
+        pageOrientation: 'landscape', // Establece la orientación de la página a horizontal
+        content: [
+            {
+                text: 'Reporte de Tabla en PDF',
+                fontSize: 16,
+                bold: true,
+                alignment: 'center',
+                margin: [0, 0, 0, 10]
+            },
+            {
+                table: {
+                    headerRows: 1,
+                    widths: Array(headerData.length).fill('auto'),
+                    body: [
+                        headerData, // Encabezado de la tabla
+                        ...tableData // Datos de la tabla
+                    ],
+                    style: {
+                        lineHeight: 1.2 // Ajusta este valor para reducir o aumentar el espacio entre filas
+                    }
+                }
+            }
+        ]
+    };
+
+    pdfMake.createPdf(documentDefinition).download('reporte.pdf');
+}
+
+function exportToExcel() {
+    const tableData = [];
+    const headerData = [];
+
+    // Obtén los datos del encabezado de la tabla (excluyendo la columna "Opciones de la Tabla")
+    const tableHeader = document.querySelectorAll('#miTabla thead th');
+    tableHeader.forEach(headerCell => {
+        if (headerCell.textContent !== 'Opciones de la Tabla') {
+            headerData.push(headerCell.textContent);
+        }
+    });
+
+    // Obtén todos los datos de la tabla, incluyendo todas las páginas
+    const table = $('#miTabla').DataTable();
+    const allData = table.rows().data();
+    
+    allData.each(function (rowData) {
+        const row = [];
+        rowData.forEach((cell, index) => {
+            // Excluir la última columna y la columna "Opciones de la Tabla"
+            if (index !== rowData.length - 1) {
+                row.push(cell);
+            }
+        });
+        tableData.push(row);
+    });
+
+    const worksheetData = [headerData, ...tableData];
+
+    // Crear un objeto WorkBook y hoja de cálculo
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(worksheetData);
+
+    // Agregar la hoja de cálculo al WorkBook
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    // Generar el archivo Excel como una matriz binaria
+    const excelBinary = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+    // Convertir la matriz binaria en un Blob
+    const excelBlob = new Blob([s2ab(excelBinary)], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    });
+
+    // Descargar el archivo usando la biblioteca FileSaver.js
+    saveAs(excelBlob, 'reporte.xlsx');
+}
+
+// Función para convertir una cadena binaria en una matriz de bytes
+function s2ab(s) {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+    return view;
+}
+
+</script>
+
+
+
 
 @stop

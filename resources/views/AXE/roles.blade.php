@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Asignaturas')
+@section('title', 'Roles')
 @section('content_header')
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Asignaturas registradas en el sistema AXE.</p>
-    <footer class="blockquote-footer">Asignaturas <cite title="Source Title">Completadas</cite></footer>
+    <p class="mb-0">Roles registrados en el sistema AXE.</p>
+    <footer class="blockquote-footer">Roles <cite title="Source Title">Completadas</cite></footer>
 </blockquote>
 @stop
 
@@ -43,56 +43,54 @@
         </div>
     </div>
 @endif
-
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#asignaturas">+ Nuevo</button>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#roles">+ Nuevo</button>
 <div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="asignaturas" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Ingresa una Nueva Asignatura</h4>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <h5><p>Ingrese los Datos:</p></h5>
-            </div>
-            
-            <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{url('asignaturas/insertar')}}" method="post">
-
+<div class="modal fade bd-example-modal-sm" id="roles" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ingresa un Nuevo Rol</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Ingrese los Datos:</p>
+                    <form action="{{ url('roles/insertar') }}" method="post">
                         @csrf
-                       
                         <div class="mb-3 mt-3">
-                            <label for="NOMBRE_ASIGNATURA" class="form-label">Nombres de la persona:</label>
-                            <input type="text" class="form-control same-width" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" inputmode="text" required >
+                        <label for="roles" class="form-label">Roles</label>
+                        <select class="form-select" id="DESCRIPCION" name="DESCRIPCION">
+                        <option value="ADMINISTRADOR" selected>ADMINISTRADORr</option>
+                        <option value="USUARIO"selected>USUARIO</option>
+                        </select>
                         </div>
-
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
     
     <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         
             <thead>
                 <tr>
-                    <th>Código Asignatura</th> 
-                    <th>Nombre Asignatura</th> 
+                    <th>#</th> 
+                    <th>Rol</th>
+                    <th>Fecha Creación</th>
+                    <th>Fecha Modificación</th>
+                    <th>Modificado Por</th> 
                     <th>Opciones de la Tabla</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($citaArreglo as $asignatura)
+                @foreach($rolesArreglo as $roles)
                     <tr>
-                        <td>{{ $asignatura['COD_ASIGNATURA'] }}</td>
-                        <td>{{ $asignatura['NOMBRE_ASIGNATURA'] }}</td>
+                        <td>{{ $roles['COD_ROL'] }}</td>
+                        <td>{{ $roles['DESCRIPCION'] }}</td>
+                        <td>{{ $roles['MODIFICADO_POR'] }}</td>
                         <td>
                             <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#asignaturas-edit-{{ $asignatura['COD_ASIGNATURA'] }}">
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
@@ -104,22 +102,25 @@
         </table>
     </div>
 
-    @foreach($citaArreglo as $asignatura)
-        <div class="modal fade bd-example-modal-sm" id="asignaturas-edit-{{ $asignatura['COD_ASIGNATURA'] }}" tabindex="-1">
+    @foreach($rolesArreglo as $roles)
+        <div class="modal fade bd-example-modal-sm" id="roles-edit-{{ $roles['COD_ROL'] }}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualiza la asignatura seleccionada</h5>
+                        <h5 class="modal-title">Actualiza el rol seleccionado</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p>Ingrese los Nuevos Datos</p>
-                        <form action="{{ url('asignaturas/actualizar') }}" method="post">
+                        <form action="{{ url('roles/actualizar') }}" method="post">
                             @csrf
-                            <input type="hidden" class="form-control" name="COD_ASIGNATURA" value="{{ $asignatura['COD_ASIGNATURA'] }}">
+                            <input type="hidden" class="form-control" name="COD_ROL" value="{{ $roles['COD_ROL'] }}">
                             <div class="mb-3 mt-3">
-                                <label for="NOMBRE_ASIGNATURA" class="form-label">Nombres de la Asignatura</label>
-                                <input type="text" class="form-control" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" value="{{ $asignatura['NOMBRE_ASIGNATURA'] }}">
+                            <label for="roles" class="form-label">Roles</label>
+                                    <select class="form-select" id="DESCRIPCION" name="DESCRIPCION">
+                                    <option value="ADMINISTRADOR" {{ $roles['DESCRIPCION'] === 'ADMINISTRADOR' ? 'selected' : '' }}>ADMINISTRADOR</option>
+                                    <option value="USUARIO" {{ $roles['DESCRIPCION'] === 'USUARIO' ? 'selected' : '' }}>USUARIO</option>
+                                    </select>
                             </div>
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>

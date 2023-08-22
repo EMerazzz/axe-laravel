@@ -402,26 +402,26 @@ return [
                     'text' => 'usuarios',
                     'icon' =>"fa fa-user",
                     //'icon_color' => 'info',
-                    'url'  => '#',
+                    'url'  => 'usuarios',
                 ],
               
                 [
                     'text' => 'Estado usuarios',
                     'icon' =>"fa fa-user-times",
                     //'icon_color' => 'info',
-                    'url'  => '#',
+                    'url'  => 'estado_usuario',
                 ],
                 [
                     'text' => 'Roles',
                     'icon' =>"fa fa-users",
                     //'icon_color' => 'info',
-                    'url'  => '#',
+                    'url'  => 'roles',
                 ],
                 [
                     'text' => 'Permisos',
                     'icon' =>"fa fa-file",
                     //'icon_color' => 'info',
-                    'url'  => '#',
+                    'url'  => 'permisos',
                 ],
             ],
         

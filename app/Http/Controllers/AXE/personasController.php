@@ -13,8 +13,10 @@ class PersonasController extends Controller
     private $apiUrl = 'http://localhost:4000/personas'; // Declaración de la variable de la URL de la API
     public function personas()
     {
-        $cookieEncriptada = request()->cookie('token');
-        $token = decrypt($cookieEncriptada);
+    
+        $cookieEncriptada = request()->cookie('token');//trae la cookie encriptada
+        $token = decrypt($cookieEncriptada);//desencripta la cookie
+
         $personas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
