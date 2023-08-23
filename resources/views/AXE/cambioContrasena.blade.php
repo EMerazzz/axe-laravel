@@ -26,7 +26,7 @@
                         <form action="{{ url('login') }}" method="post">
                             @csrf
                             <fieldset class="clearfix">
-                            <h3 class="login-heading" style="color: white;">Iniciar Sesión</h3> 
+                            <h3 class="login-heading" style="color: white;">Restablecer contraseña</h3> 
                                 <p><span class="fa fa-user"></span><input id="username-input" type="text" placeholder="Nombre de usuario" name="USUARIO" required></p>
                                 <p><span class="fa fa-lock"></span><input id="password-input" type="password" placeholder="Contraseña" name="CONTRASENA" required></p>
                                 <!-- Agrega el enlace de recuperación de contraseña -->
@@ -62,14 +62,16 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Recuperar contraseña</h4>
+                    <h4 class="modal-title">Cambiar contraseña</h4>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Ingresa tu usuario:</p>
+                    <p>Escribe tu nueva contraseña:</p>
+                    <input type="text" class="form-control" name="USUARIO" placeholder="Contraseña" required>
+                    <p>Confirma tu contraseña:</p>
+                    <input type="text" class="form-control" name="USUARIO" placeholder="Contraseña" required>
                     <form action="{{ url('login/usuario') }}" method="post">
                         @csrf
-                        <input type="text" class="form-control" name="USUARIO" placeholder="Usuario" required>
                         <button type="submit" class="btn btn-primary mt-3">Enviar</button>
                     </form>
                     

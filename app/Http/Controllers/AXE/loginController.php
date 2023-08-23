@@ -34,4 +34,14 @@ class loginController extends Controller
         // Eliminar la cookie de token
         return redirect('login')->withCookie(Cookie::forget('token'));
     }
+
+    public function existeUsuario(Request $request){
+        $variableLogin = Http::post('http://localhost:4000/usuario_contrasena/', [
+            "USUARIO" => $request->input("USUARIO"),
+        ]);
+      
+        $variable = json_decode($variableLogin, true);
+            
+        return view('AXE/cambioContrasena');
+    }
 }
