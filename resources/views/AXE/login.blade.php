@@ -16,6 +16,23 @@
     <!-- Agrega las hojas de estilo de Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="{{ asset('css/custom.css') }}">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .error-message {
+            display: none;
+            position: absolute;
+            background-color: #f44336;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            z-index: 1;
+            margin-top: -30px;
+        }
+        .input-container {
+            position: relative;
+        }
+    </style>
 </head>
 <body>
     <div class="main">
@@ -27,7 +44,12 @@
                             @csrf
                             <fieldset class="clearfix">
                             <h3 class="login-heading" style="color: white;">Iniciar Sesión</h3> 
-                                <p><span class="fa fa-user"></span><input id="username-input" type="text" placeholder="Nombre de usuario" name="USUARIO" required></p>
+                          
+                            <div class="input-container">
+                                <span class="fa fa-user"></span>
+                                <input id="username-input" type="text" placeholder="Nombre de usuario" name="USUARIO" oninput="convertToUppercaseAndValidate(this)" required>
+                                <div class="error-message" id="error-message">No se permiten números en el usuario.</div>
+                            </div>
                                 <p><span class="fa fa-lock"></span><input id="password-input" type="password" placeholder="Contraseña" name="CONTRASENA" required></p>
                                 <!-- Agrega el enlace de recuperación de contraseña -->
                                 <p><a href="#" id="forgot-password-link">¿Olvidaste tu contraseña?</a></p>
@@ -87,5 +109,18 @@
     // Cambiar el color del enlace
     document.getElementById("forgot-password-link").style.color = "white"; // Cambia el color a rojo
 </script>
+
+<script>
+        function convertToUppercaseAndValidate(inputElement) {
+            const errorMessage = document.getElementById("error-message");
+            if (/\d/.test(inputElement.value)) {
+                errorMessage.style.display = "block";
+                inputElement.value = inputElement.value.toUpperCase().replace(/[0-9]/g, '');
+            } else {
+                errorMessage.style.display = "none";
+                inputElement.value = inputElement.value.toUpperCase();
+            }
+        }
+    </script>
 </body>
 </html>
