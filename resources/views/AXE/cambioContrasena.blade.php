@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar sesión</title>
+    <title>Cambiar contraseña</title>
     <!-- Scripts de Bootstrap y otros aquí -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
@@ -66,25 +66,41 @@
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    
-                    <form action="{{ url('login/nuevaContrasena') }}" method="post">
-                    @csrf
-                        <p>Usuario:</p>
-                        <input type="text" value = "{{ $variable }}" class="form-control" name="USUARIO" placeholder="Contraseña" readonly required>
-
-                        <p>Escribe tu nueva contraseña:</p>
-                        <input type="text"  class="form-control" name="CONTRASENA" placeholder="Contraseña" required>
-                        <p>Confirma tu contraseña:</p>
-                        <input type="text" class="form-control" name="CONTRASENA1" placeholder="Contraseña" required>
-                        
-                    <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+                    <p>Escribe tu nueva contraseña:</p>
+                    <input type="text" class="form-control" name="USUARIO" placeholder="Contraseña" required>
+                    <p>Confirma tu contraseña:</p>
+                    <input type="text" class="form-control" name="USUARIO" placeholder="Contraseña" required>
+                    <form action="{{ url('login/usuario') }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-primary mt-3">Enviar</button>
                     </form>
                     
                 </div>
             </div>
         </div>
     </div>
-    
+</div>
+
+<script>
+    const newPasswordInput = document.getElementById("newPassword");
+    const confirmPasswordInput = document.getElementById("confirmPassword");
+    const message = document.getElementById("message");
+
+    confirmPasswordInput.addEventListener("keyup", () => {
+        if (newPasswordInput.value !== confirmPasswordInput.value) {
+            message.textContent = "Las contraseñas no coinciden";
+        } else {
+            message.textContent = "";
+        }
+    });
+
+    document.querySelector("#forgotPasswordModal form").addEventListener("submit", (event) => {
+        if (newPasswordInput.value !== confirmPasswordInput.value) {
+            event.preventDefault();
+            message.innerHTML = "Las contraseñas no coinciden.<br>No se puede cambiar la contraseña.";
+        }
+    });
+</script>
     <script>
     // Manejar el clic en el enlace "¿Olvidaste tu contraseña?"
     document.getElementById("forgot-password-link").addEventListener("click", function() {
@@ -94,5 +110,6 @@
     // Cambiar el color del enlace
     document.getElementById("forgot-password-link").style.color = "white"; // Cambia el color a rojo
 </script>
+
 </body>
 </html>
