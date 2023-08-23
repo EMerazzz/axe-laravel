@@ -66,13 +66,18 @@
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Escribe tu nueva contraseña:</p>
-                    <input type="text" class="form-control" name="USUARIO" placeholder="Contraseña" required>
-                    <p>Confirma tu contraseña:</p>
-                    <input type="text" class="form-control" name="USUARIO" placeholder="Contraseña" required>
-                    <form action="{{ url('login/usuario') }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+                    
+                    <form action="{{ url('login/nuevaContrasena') }}" method="post">
+                    @csrf
+                        <p>Usuario:</p>
+                        <input type="text" value = "{{ $variable }}" class="form-control" name="USUARIO" placeholder="Contraseña" readonly required>
+
+                        <p>Escribe tu nueva contraseña:</p>
+                        <input type="text"  class="form-control" name="CONTRASENA" placeholder="Contraseña" required>
+                        <p>Confirma tu contraseña:</p>
+                        <input type="text" class="form-control" name="CONTRASENA1" placeholder="Contraseña" required>
+                        
+                    <button type="submit" class="btn btn-primary mt-3">Enviar</button>
                     </form>
                     
                 </div>
