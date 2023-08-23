@@ -92,7 +92,7 @@
                         <td>{{ $roles['DESCRIPCION'] }}</td>
                         <td>{{ $roles['MODIFICADO_POR'] }}</td>
                         <td>
-                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#asignaturas-edit-{{ $asignatura['COD_ASIGNATURA'] }}">
+                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#roles-edit-{{ $roles['COD_ROL'] }}">
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
                         </td>

@@ -4,8 +4,8 @@
 
 @section('content_header')
 <<blockquote class="custom-blockquote">
-    <p class="mb-0">Matriculas registradas en el sistema AXE.</p>
-    <footer class="blockquote-footer">Matriculas <cite title="Source Title">Completadas</cite></footer>
+    <p class="mb-0">Estudiantes registrados en el sistema AXE.</p>
+    <footer class="blockquote-footer">Estudiantes <cite title="Source Title">Completadas</cite></footer>
 </blockquote>
 
 @stop
@@ -76,16 +76,16 @@
                         @csrf
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
-    <label for="COD_PERSONA" class="form-label">Estudiante: </label>
-    <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-        <option value="" disabled selected>Seleccione un estudiante</option>
-        @foreach ($personasArreglo as $persona)
-            @if ($persona['TIPO_PERSONA'] === 'Estudiante')
-                <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
-            @endif
-        @endforeach
-    </select>
-    </div>
+                            <label for="COD_PERSONA" class="form-label">Estudiante: </label>
+                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                                <option value="" disabled selected>Seleccione un estudiante</option>
+                                @foreach ($personasArreglo as $persona)
+                                    @if ($persona['TIPO_PERSONA'] === 'Estudiante')
+                                        <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
                         <!-- FIN --->
                         <div class="mb-3 mt-3">
                             <label for="COD_NIVEL_ACADEMICO" class="form-label">Nivel academico: </label>
@@ -133,7 +133,15 @@
                                 @endforeach
                             </select>
                             </div>
-                
+                            <div class="mb-3 mt-3">
+                            <label for="COD_PADRE_TUTOR" class="form-label">Padre o encargado: </label>
+                            <select class="selectize" id="COD_PADRE_TUTOR" name="COD_PADRE_TUTOR" required>
+                                <option value="" disabled selected>Seleccione un padre o encargado</option>
+                                @foreach ($padresArreglo as $padres)
+                                    <option value="{{ $padres['COD_PADRE_TUTOR'] }}">{{ $padres['NOMBRE_PADRE_TUTOR'] }}{{ $padres['APELLIDO_PADRE_TUTOR'] }}</option>
+                                @endforeach
+                            </select>
+                            </div>
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -155,6 +163,7 @@
                 <th>Jornada</th>
                 <th>Estado Matricula</th>
                 <th>Fecha Matricula </th>
+                <th>Padre o encargado </th>
                 <th>Opciones de la Tabla</th>
             </tr>
         </thead>
@@ -189,7 +198,15 @@
                         }
                     }
                 @endphp
-                
+                @php
+                    $padres = null;
+                    foreach ($padresArreglo as $p) {
+                        if ($p['COD_PADRE_TUTOR'] === $matricula['COD_PADRE_TUTOR']) {
+                            $padres = $p;
+                            break;
+                        }
+                    }
+                @endphp
             <tr>
                 <td>{{ $matricula['COD_MATRICULA'] }}</td>
                 <td>
@@ -217,6 +234,13 @@
                  <td>{{ $matricula['JORNADA'] }}</td>
                  <td>{{ $matricula['ESTADO_MATRICULA'] }}</td>
                  <td>{{date('d, M Y', strtotime($matricula['FECHA_MATRICULA']))}}</td>
+                 <td>
+                        @if ($padres !== null)
+                            {{ $padres['NOMBRE_PADRE_TUTOR']. ' ' .$padres['APELLIDO_PADRE_TUTOR']}}
+                        @else
+                             no encontrado
+                        @endif
+                 </td>
                 <td>
                     <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#matricula-edit-{{ $matricula['COD_MATRICULA'] }}">
@@ -246,9 +270,88 @@
                     <form action="{{ url('matricula/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_MATRICULA" value="{{ $matricula['COD_MATRICULA'] }}">
-                        
-        
+                        <div class="mb-3 mt-3">
+                            <label for="COD_PERSONA" class="form-label">Estudiante: </label>
+                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                                <option value="" disabled>Seleccione un estudiante</option>
+                                @foreach ($personasArreglo as $persona)
+                                    @if ($persona['TIPO_PERSONA'] === 'Estudiante')
+                                        <option value="{{ $persona['COD_PERSONA'] }}"
+                                            @if ($persona['COD_PERSONA'] == $matricula['COD_PERSONA']) selected @endif>
+                                            {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="COD_NIVEL_ACADEMICO" class="form-label">Nivel académico: </label>
+                            <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
+                                <option value="" disabled selected>Seleccione el nivel académico</option>
+                                @foreach ($nivel_academicoArreglo as $nivel_academico)
+                                    <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}"
+                                        {{ $nivel_academico['COD_NIVEL_ACADEMICO'] == $matricula['COD_NIVEL_ACADEMICO'] ? 'selected' : '' }}>
+                                        {{ $nivel_academico['descripcion'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
+                        <div class="mb-3 mt-3">
+                            <label for="COD_ANIO_ACADEMICO" class="form-label">Año académico: </label>
+                            <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required>
+                                <option value="" disabled selected>Seleccione el año académico</option>
+                                @foreach ($anio_academicoArreglo as $anio_academico)
+                                    <option value="{{ $anio_academico['COD_ANIO_ACADEMICO'] }}"
+                                        {{ $anio_academico['COD_ANIO_ACADEMICO'] == $matricula['COD_ANIO_ACADEMICO'] ? 'selected' : '' }}>
+                                        {{ $anio_academico['descripcion'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ESTADO_MATRICULA" class="form-label">Estado Matrícula:</label>
+                            <select class="selectize" id="ESTADO_MATRICULA" name="ESTADO_MATRICULA">
+                                <option value="Activo" {{ $matricula['ESTADO_MATRICULA'] == 'Activo' ? 'selected' : '' }}>Activo</option>
+                                <option value="Inactivo" {{ $matricula['ESTADO_MATRICULA'] == 'Inactivo' ? 'selected' : '' }}>Inactivo</option>
+                                
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="JORNADA" class="form-label">Jornada:</label>
+                            <select class="selectize" id="JORNADA" name="JORNADA">
+                                <option value="Matutina" {{ $matricula['JORNADA'] == 'Matutina' ? 'selected' : '' }}>Matutina</option>
+                                <option value="Vespertina" {{ $matricula['JORNADA'] == 'Vespertina' ? 'selected' : '' }}>Vespertina</option>
+                                <option value="Nocturna" {{ $matricula['JORNADA'] == 'Nocturna' ? 'selected' : '' }}>Nocturna</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 mt-3">
+                            <label for="SECCION" class="form-label">Sección Académica: </label>
+                            <select class="selectize" id="SECCION" name="SECCION" required>
+                                <option value="" disabled selected>Seleccione la sección académica</option>
+                                @foreach ($seccionesArreglo as $seccion)
+                                    <option value="{{ $seccion['DESCRIPCION_SECCIONES'] }}"
+                                        @if ($seccion['DESCRIPCION_SECCIONES'] == $matricula['SECCION']) selected @endif>
+                                        {{ $seccion['DESCRIPCION_SECCIONES'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="COD_PADRE_TUTOR" class="form-label">Padre o encargado: </label>
+                            <select class="selectize" id="COD_PADRE_TUTOR" name="COD_PADRE_TUTOR" required>
+                                <option value="" disabled>Seleccione un padre o encargado</option>
+                                @foreach ($padresArreglo as $padre)
+                                    <option value="{{ $padre['COD_PADRE_TUTOR'] }}"
+                                        @if ($padre['COD_PADRE_TUTOR'] == $matricula['COD_PADRE_TUTOR']) selected @endif>
+                                        {{ $padre['NOMBRE_PADRE_TUTOR'] }} {{ $padre['APELLIDO_PADRE_TUTOR'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-primary">Editar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>

@@ -27,7 +27,13 @@ class docentesAsignaturaController extends Controller
         ])->get($this->apiUrl);
         $docentesAsignaturaArreglo = json_decode($docentesAsignatura, true);
 
-        return view('AXE.docentesAsignatura', compact('docentesArreglo', 'docentesAsignaturaArreglo'));
+        $asignaturasController = new asignaturasController();
+        $asignaturas = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('http://localhost:4000/asignaturas');
+        $asignaturasArreglo = json_decode($asignaturas, true);
+
+        return view('AXE.docentesAsignatura', compact('docentesArreglo', 'docentesAsignaturaArreglo','asignaturasArreglo'));
     }
 
     public function nuevo_docentesAsignatura(Request $request)

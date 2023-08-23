@@ -33,14 +33,23 @@ class estudiantesController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $estudiantesArreglo = json_decode($estudiantes, true);
+        // Obtener los datos de personas desde el nivel academico
+            $nivel_academicoController = new nivel_academicoController();
+            $nivel_academico =Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->get('http://localhost:4000/nivel_academico');
+            $nivel_academicoArreglo = json_decode($nivel_academico,true);
 
-        return view('AXE.estudiantes', compact('personasArreglo', 'estudiantesArreglo','padresArreglo'));
+
+        return view('AXE.estudiantes', compact('personasArreglo', 'estudiantesArreglo','padresArreglo','nivel_academicoArreglo'));
     }
 
     public function nuevo_estudiante(Request $request)
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+
+  
         $personaSeleccionadaId = $request->input("COD_PERSONA");
         // Obtener los datos de la persona seleccionada por su ID desde la API de personas
         $personaSeleccionada = Http::withHeaders([
@@ -54,7 +63,7 @@ class estudiantesController extends Controller
         ])->post($this->apiUrl, [
             "COD_PERSONA" => $request->input("COD_PERSONA"),
             "COD_PADRE_TUTOR" => $request->input("COD_PADRE_TUTOR"),
-            "COD_NIVACAD_ANIOACAD" => $request->input("COD_NIVACAD_ANIOACAD"),
+            "COD_NIVEL_ACADEMICO" => $request->input("COD_NIVEL_ACADEMICO"),
             "NOMBRE_ESTUDIANTE" => $personaSeleccionadaData[0]['NOMBRE'],
             "APELLIDO_ESTUDIANTE" => $personaSeleccionadaData[0]['APELLIDO'],
             "JORNADA_ESTUDIANTE" => $request->input("JORNADA_ESTUDIANTE"),

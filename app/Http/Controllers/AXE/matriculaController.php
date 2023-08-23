@@ -49,7 +49,13 @@ class matriculaController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get('http://localhost:4000/Secciones/');
          $seccionesArreglo = json_decode($secciones,true);
-
+            // Obtener los datos de personas desde el controlador padresController
+            $padresController = new padresController();
+            $padres = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->get('http://localhost:4000/padres_tutores');
+            $padresArreglo = json_decode($padres, true);
+            
         // Obtener los datos de matricula
         $matricula = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
@@ -57,13 +63,40 @@ class matriculaController extends Controller
         $matriculaArreglo = json_decode($matricula, true);
        
         // Retornar la vista con ambos conjuntos de datos
-        return view('AXE.matricula', compact('personasArreglo','nivel_academicoArreglo','anio_academicoArreglo','jornadasArreglo','seccionesArreglo','matriculaArreglo'));
+        return view('AXE.matricula', compact('personasArreglo','nivel_academicoArreglo','anio_academicoArreglo','jornadasArreglo','seccionesArreglo','matriculaArreglo','padresArreglo'));
     }
    
 
-    public function nueva_matricula(Request $request ){
+    public function nueva_matricula(Request $request) {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+    
+        $identidad = $request->input("COD_PERSONA");
+    
+        // Obtener todas las matrículas desde la API
+        $todas_las_matriculas = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
+    
+        if ($todas_las_matriculas->successful()) {
+            $matriculas_lista = $todas_las_matriculas->json();
+    
+            // Verificar si la matrícula ya existe en la lista
+            foreach ($matriculas_lista as $matricula) {
+                if ($matricula["COD_PERSONA"] === $identidad) {
+                    // La matrícula ya existe, generar mensaje de error
+                    return redirect('/matricula')->with('message', [
+                        'type' => 'error',
+                        'text' => 'Ya existe una matrícula para esta persona.'
+                    ])->withInput(); // Agregar esta línea para mantener los datos ingresados
+                }
+            }
+        } else {
+            return redirect('/matricula')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo obtener la lista de matrículas.'
+            ]);
+        }
     $nueva_matricula = Http::withHeaders([
         'Authorization' => 'Bearer ' . $token,
     ])->post($this->apiUrl,[    
@@ -73,6 +106,7 @@ class matriculaController extends Controller
     "ESTADO_MATRICULA"=> $request->input("ESTADO_MATRICULA"),
     "JORNADA"=> $request->input("JORNADA"),
     "SECCION"=> $request->input("SECCION"),
+    "COD_PADRE_TUTOR"=> $request->input("COD_PADRE_TUTOR"),
         ]);
         
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -92,7 +126,7 @@ class matriculaController extends Controller
     public function modificar_matricula(Request $request ){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
-        $modificar_correo = Http::withHeaders([
+        $modificar_matricula = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_MATRICULA"),[
             
@@ -104,8 +138,17 @@ class matriculaController extends Controller
             
         ]);
       
-
-        return redirect('/matricula');
+        if ($modificar_matricula ->successful()) {
+            return redirect('/matricula')->with('message', [
+                'type' => 'success',
+                'text' => 'Se ha modificado el estudiante.'
+            ]);
+        } else {
+            return redirect('/matricula')->with('message', [
+                'type' => 'error',
+                'text' => 'No se pudo modificar.'
+            ]);
+        }
     }
 
 }

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AXE')
+@section('title', 'Docentes')
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Docentes registrados en el sistema AXE.</p>
@@ -88,12 +88,17 @@
                             <label for="docentes" class="form-label">Especialidad:</label>
                             <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese la especialidad del docente"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Grado enseñanza:</label>
-                            <input type="text" class="form-control" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" placeholder="Ingrese el grado de enseñanza"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
-                        </div>
-                       
 
+                        <div class="mb-3 mt-3">
+                            <label for="docentes" class="form-label">Grado de enseñanza: </label>
+                            <select class="selectize" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
+                                <option value="" disabled selected>Seleccione</option>
+                                @foreach ($nivel_academicoArreglo as $nivel_academico) 
+                                        <option value="{{ $nivel_academico['descripcion'] }}">{{ $nivel_academico['descripcion'] }}</option> 
+                                @endforeach
+                            </select>
+                        </div>
+ 
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -170,8 +175,16 @@
                             <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}">
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Grado de enseñanza:</label>
-                            <input type="text" class="form-control" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" placeholder="Ingrese el correo electrónico" value="{{ $docentes['GRADO_ENSENIANZA'] }}">
+                            <label for="GRADO_ENSENIANZA" class="form-label">Grado de enseñanza: </label>
+                            <select class="selectize" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
+                                <option value="" disabled selected>Seleccione</option>
+                                @foreach ($nivel_academicoArreglo as $nivel_academico)
+                                    <option value="{{ $nivel_academico['descripcion'] }}"
+                                        {{ $nivel_academico['descripcion'] == $docentes['GRADO_ENSENIANZA'] ? 'selected' : '' }}>
+                                        {{ $nivel_academico['descripcion'] }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Editar</button>

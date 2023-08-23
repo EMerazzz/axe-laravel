@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AXE')
+@section('title', 'Correos')
 
 @section('content_header')
 <blockquote class="custom-blockquote">

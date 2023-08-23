@@ -21,13 +21,21 @@ class docentesController extends Controller
         ])->get('http://localhost:4000/personas');
         $personasArreglo = json_decode($personas, true);
 
-        // Obtener los datos de teléfonos
+        // Obtener los datos docentes
         $docentes = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $docentesArreglo = json_decode($docentes, true);
 
-        return view('AXE.docentes', compact('personasArreglo', 'docentesArreglo'));
+         // Obtener los datos de nivel academico desde el controlador nivel_academicoController
+         $nivel_academicoController = new nivel_academicoController();
+         $nivel_academico = Http::withHeaders([
+             'Authorization' => 'Bearer ' . $token,
+         ])->get('http://localhost:4000/nivel_academico');
+         $nivel_academicoArreglo = json_decode($nivel_academico,true);
+ 
+
+        return view('AXE.docentes', compact('personasArreglo', 'docentesArreglo','nivel_academicoArreglo'));
     }
 
     public function nuevo_docente(Request $request)

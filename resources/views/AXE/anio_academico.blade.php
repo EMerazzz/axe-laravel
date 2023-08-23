@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AXE')
+@section('title', 'Año académico')
 @section('content_header')
 
 @section('content_header')

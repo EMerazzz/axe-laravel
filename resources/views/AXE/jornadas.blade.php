@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AXE')
+@section('title', 'Jornadas')
 @section('content_header')
 
 @section('content_header')

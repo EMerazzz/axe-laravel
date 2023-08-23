@@ -97,10 +97,15 @@
     </select>
 </div>
 
-                        <div class="mb-3 mt-3">
-                            <label for="estudiantes" class="form-label">Nivel año académico:</label>
-                            <input type="text" class="form-control" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" placeholder="Ingrese el nivel año academico"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
-                        </div>
+<div class="mb-3 mt-3">
+    <label for="COD_NIVEL_ACADEMICO" class="form-label">Nivel académico: </label>
+    <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
+        <option value="" disabled selected>Seleccione un nivel académico</option>
+        @foreach ($nivel_academicoArreglo as $nivel_academico)
+            <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}">{{ $nivel_academico['descripcion'] }}</option>
+        @endforeach
+    </select>
+</div>
                         <div class="mb-3">
                         <label for="estudiantes" class="form-label">Jornada:</label>
                         <select class="selectize" id="JORNADA_ESTUDIANTE" name="JORNADA_ESTUDIANTE">
@@ -154,9 +159,24 @@
                         }
                     }
                 @endphp
+                @php
+                    $nivel_academico = null;
+                    foreach ($nivel_academicoArreglo as $n) {
+                        if ($n['COD_NIVEL_ACADEMICO'] === $estudiantes['COD_NIVEL_ACADEMICO']) {
+                            $nivel_academico = $n;
+                            break;
+                        }
+                    }
+                @endphp
             <tr>
                 <td>{{ $estudiantes['COD_ESTUDIANTE'] }}</td>
-                <td>{{ $estudiantes['COD_NIVACAD_ANIOACAD'] }}</td>
+                <td>
+                        @if ($nivel_academico !== null)
+                            {{ $nivel_academico['descripcion'] }}
+                        @else
+                            Persona no encontrada
+                        @endif
+                </td>
                 <td>
                         @if ($persona !== null)
                             {{ $persona['NOMBRE']. ' ' . $persona['APELLIDO'] }}

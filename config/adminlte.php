@@ -264,7 +264,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Personas',
-                    'icon' =>'fa fa-user-plus',
+                    'icon' =>'fa fa-user',
                     'icon_color' => 'info',
                     'url'  => 'personas',
                 ],
@@ -294,16 +294,27 @@ return [
                 ],
             ],
         ],  
+
+        [
+            'text'        => 'Padres o encargados',
+            //'label'       => 3,
+            'label_color' => 'success',
+            'icon' =>"fa fa-users",
+            'icon_color' => 'teal',
+            'url'  => 'padres',
+        
+        ], 
+
         [
             'text'        => 'Matrícula',
             //'label'       => 3,
             'label_color' => 'success',
-            'icon' =>"fa fa-archive",
+            'icon' =>"fa fa-user-plus",
             'icon_color' => 'teal',
             'url'  => 'matricula',
         
         ], 
-            [
+          /*  [
                 'text'        => 'Estudiantes',
                 'label'       => 2,
                 'label_color' => 'success',
@@ -325,30 +336,8 @@ return [
                   
                 ],
             
-            ],
-            [
-                'text'        => 'Docentes',
-                'label'       => 2,
-                'label_color' => 'success',
-                'icon' =>"fa fa-user",
-                'icon_color' => 'teal',
-                'submenu' => [
-                    [
-                        'text' => 'Docentes',
-                        'icon' =>"fa fa-address-card",
-                        'icon_color' => 'info',
-                        'url'  => 'docentes',
-                    ],
-                    [
-                        'text' => 'Asignaturas docentes',
-                        'icon' =>'fa fa-address-book',
-                        'icon_color' => 'info',
-                        'url'  => 'docentesAsignatura',
-                    ],
-                  
-                ],
-            
-            ],
+            ],*/
+           
             [
                 'text'        => 'Académico',
                 'label'       => 5,
@@ -386,6 +375,29 @@ return [
                         'icon_color' => 'info',
                         'url'  => 'anio_academico',
                     ],
+                ],
+            
+            ],
+            [
+                'text'        => 'Docentes',
+                'label'       => 2,
+                'label_color' => 'success',
+                'icon' =>"fa fa-graduation-cap",
+                'icon_color' => 'teal',
+                'submenu' => [
+                    [
+                        'text' => 'Docentes',
+                        'icon' =>"fa fa-address-card",
+                        'icon_color' => 'info',
+                        'url'  => 'docentes',
+                    ],
+                    [
+                        'text' => 'Asignaturas docentes',
+                        'icon' =>'fa fa-address-book',
+                        'icon_color' => 'info',
+                        'url'  => 'docentesAsignatura',
+                    ],
+                  
                 ],
             
             ],

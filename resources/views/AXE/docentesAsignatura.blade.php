@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AXE')
+@section('title', 'Asignatura docentes')
 @section('content_header')
 
 <blockquote class="custom-blockquote">
@@ -75,21 +75,27 @@
                         @csrf
                  <!-- INICIO --->
                  <div class="mb-3 mt-3">
-    <label for="COD_DOCENTE" class="form-label">Docentes: </label>
-    <select class="form-control same-width" id="COD_DOCENTE" name="COD_DOCENTE" required>
-        <option value="" disabled selected>Seleccione un docente</option>
-        @foreach ($docentesArreglo as $docentes)
-                <option value="{{ $docentes['COD_DOCENTE'] }}">{{ $docentes['NOMBRE_DOCENTE'] }}</option>
-        @endforeach
-    </select>
-</div>
+                    <label for="COD_DOCENTE" class="form-label">Docentes: </label>
+                    <select class="selectize" id="COD_DOCENTE" name="COD_DOCENTE" required>
+                        <option value="" disabled selected>Seleccione un docente</option>
+                        @foreach ($docentesArreglo as $docentes)
+                                <option value="{{ $docentes['COD_DOCENTE'] }}">{{ $docentes['NOMBRE_DOCENTE'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                         <div class="mb-3 mt-3">
-                            <label for="docentesAsignatura" class="form-label">ASIGNATURA</label>
-                            <input type="text" class="form-control" id="COD_ASIGNATURA" name="COD_ASIGNATURA" placeholder="Ingrese la especialidad del docente"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
-                        </div>
+                    <label for="docentesAsignatura" class="form-label">Asignatura: </label>
+                    <select class="selectize" id="COD_ASIGNATURA" name="COD_ASIGNATURA" required>
+                        <option value="" disabled selected>Seleccione un docente</option>
+                        @foreach ($asignaturasArreglo as $asignaturas)
+                                <option value="{{ $asignaturas['COD_ASIGNATURA'] }}">{{ $asignaturas['NOMBRE_ASIGNATURA'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
                         <div class="mb-3 mt-3">
-                            <label for="docentesAsignatura" class="form-label">HORAS SEMANALES</label>
-                            <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese el grado de enseñanza"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
+                            <label for="docentesAsignatura" class="form-label">Horas semanales</label>
+                            <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese Las horas semanales">
                         </div>
                        
 
@@ -124,7 +130,15 @@
                         }
                     }
                 @endphp 
-        
+              @php
+                    $asignaturas = null;
+                    foreach ($asignaturasArreglo as $a) {
+                        if ($a['COD_ASIGNATURA'] === $docentesAsignatura['COD_ASIGNATURA']) {
+                            $asignaturas = $a;
+                            break;
+                        }
+                    }
+                @endphp 
             <tr>
                 <td>{{ $docentesAsignatura['COD_DOCENTE_ASIGNATURA'] }}</td>
                 <td>
@@ -134,7 +148,14 @@
                             Persona no encontrada
                         @endif
                     </td>
-                    <td>{{ $docentesAsignatura['COD_ASIGNATURA'] }}</td>
+                    <td>
+                        @if ($asignaturas !== null)
+                            {{ $asignaturas['NOMBRE_ASIGNATURA']}}
+                        @else
+                            No encontrada
+                        @endif
+                    </td>
+                  
                
                     <td>{{ $docentesAsignatura['HORAS_SEMANALES'] }}</td>
                 <td>
@@ -164,14 +185,21 @@
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <form action="{{ url('docentesAsignatura/actualizar') }}" method="post">
                         @csrf
-                        <input type="hidden" class="form-control" name="COD_DOCENTE_ASIGNATURA" value="{{ $docentesAsignatura['COD_DOCENTE_ASIGNATURA'] }}">
                         <div class="mb-3 mt-3">
-                            <label for="COD_ASIGNATURA" class="form-label">Especialidad</label>
-                            <input type="text" class="form-control" id="COD_ASIGNATURA" name="COD_ASIGNATURA" placeholder="Ingrese el correo electrónico" value="{{ $docentesAsignatura['COD_ASIGNATURA'] }}">
+                            <label for="COD_ASIGNATURA" class="form-label">Asignaturas: </label>
+                            <select class="selectize" id="COD_ASIGNATURA" name="COD_ASIGNATURA" required>
+                                <option value="" disabled selected>Seleccione</option>
+                                @foreach ($asignaturasArreglo as $asignaturas)
+                                    <option value="{{ $asignaturas['COD_ASIGNATURA'] }}"
+                                        {{ $asignaturas['COD_ASIGNATURA'] == $docentesAsignatura['COD_ASIGNATURA'] ? 'selected' : '' }}>
+                                        {{ $asignaturas['NOMBRE_ASIGNATURA'] }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="COD_ASIGNATURA" class="form-label">Grado de enseñanza</label>
-                            <input type="text" class="form-control" id="COD_ASIGNATURA" name="COD_ASIGNATURA" placeholder="Ingrese el correo electrónico" value="{{ $docentesAsignatura['COD_ASIGNATURA'] }}">
+                            <label for="HORAS_SEMANALES" class="form-label">Horas Semanales:</label>
+                            <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese el correo electrónico" value="{{ $docentesAsignatura['COD_ASIGNATURA'] }}">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Editar</button>
