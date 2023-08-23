@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\AXE;
 
 use App\Http\Controllers\Controller;
@@ -19,7 +18,6 @@ class asignaturasController extends Controller
        return view('AXE.asignaturas', compact('citaArreglo'));
        
     }
-
 
     public function nueva_asignatura(Request $request ){
         $cookieEncriptada = request()->cookie('token');
