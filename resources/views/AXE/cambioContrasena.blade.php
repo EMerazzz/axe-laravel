@@ -8,8 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Scripts de Bootstrap y otros aquí -->
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -63,9 +62,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Cambiar contraseña</h4>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="close"></button>
             </div>
+
+
             <div class="modal-body">
+            <p>Usuario</p>
+                <input type="text" value = "{{$variable}}" class="form-control"  placeholder="Contraseña" readonly required>
                 <p>Escribe tu nueva contraseña:</p>
                 <input type="password" class="form-control" id="newPassword" placeholder="Contraseña" required>
                 
@@ -95,12 +98,14 @@
         }
     });
 
-    document.querySelector("#forgotPasswordModal form").addEventListener("submit", (event) => {
-        if (newPasswordInput.value !== confirmPasswordInput.value) {
-            event.preventDefault();
-            message.innerHTML = "Las contraseñas no coinciden.<br>No se puede cambiar la contraseña.";
-        }
-    });
+   document.querySelector("#forgotPasswordModal form").addEventListener("submit", (event) => {
+    if (newPasswordInput.value !== confirmPasswordInput.value) {
+        event.preventDefault();
+        message.innerHTML = "Las contraseñas no coinciden.<br>No se puede cambiar la contraseña.";
+    } else {
+        message.textContent = ""; // Reiniciar el mensaje de error si las contraseñas coinciden
+    }
+});
 </script>
     <script>
     // Manejar el clic en el enlace "¿Olvidaste tu contraseña?"

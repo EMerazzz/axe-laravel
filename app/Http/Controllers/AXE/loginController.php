@@ -39,9 +39,12 @@ class loginController extends Controller
         $variableLogin = Http::post('http://localhost:4000/usuario_contrasena/', [
             "USUARIO" => $request->input("USUARIO"),
         ]);
-      
-        $variable = json_decode($variableLogin, true);
-            
-        return view('AXE/cambioContrasena');
+        
+        $variable = $request->input("USUARIO");
+        //$variable = json_decode($variableLogin, true);
+
+        return view('AXE/cambioContrasena', compact('variable'));
     }
+
+
 }
