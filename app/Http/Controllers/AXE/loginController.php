@@ -55,7 +55,7 @@ class loginController extends Controller
         $variable = json_decode($variableLogin, true);
         
         
-        dd( $variable);
+        dd($variable);
         return view('AXE/cambioContrasena');
     }
 }
