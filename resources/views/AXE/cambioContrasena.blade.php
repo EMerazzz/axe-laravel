@@ -57,31 +57,35 @@
 
 
    <!-- Modal de Recuperación de Contraseña -->
+<!-- Modal de Recuperación de Contraseña -->
 <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Cambiar contraseña</h4>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
 
 
             <div class="modal-body">
+            <form action="{{ url('login/nuevaContrasena') }}" method="post">
+                <p>Usuario</p>
+                <input type="text" value = "{{$variable}}" class="form-control" name="USUARIO" placeholder="Contraseña" readonly required>
                 <p>Escribe tu nueva contraseña:</p>
                 <input type="password" class="form-control" id="newPassword" name="CONTRASENA" placeholder="Contraseña" required>
-                
+
                 <p>Confirma tu contraseña:</p>
                 <input type="password" class="form-control" id="confirmPassword" placeholder="Confirma Contraseña" required>
                 <span id="message" style="color: red;"></span>
-                
-               
+
+
                     @csrf
                     <button type="submit" class="btn btn-primary mt-3">Enviar</button>
                 </form>
             </div>
         </div>
     </div>
-</div>
+
 
 <script>
     const newPasswordInput = document.getElementById("newPassword");
@@ -96,12 +100,14 @@
         }
     });
 
-    document.querySelector("#forgotPasswordModal form").addEventListener("submit", (event) => {
-        if (newPasswordInput.value !== confirmPasswordInput.value) {
-            event.preventDefault();
-            message.innerHTML = "Las contraseñas no coinciden.<br>No se puede cambiar la contraseña.";
-        }
-    });
+   document.querySelector("#forgotPasswordModal form").addEventListener("submit", (event) => {
+    if (newPasswordInput.value !== confirmPasswordInput.value) {
+        event.preventDefault();
+        message.textContent = "Las contraseñas no coinciden. No se puede cambiar la contraseña.";
+    } else {
+        message.textContent = ""; // Reiniciar el mensaje de error si las contraseñas coinciden
+    }
+});
 </script>
     <script>
     // Manejar el clic en el enlace "¿Olvidaste tu contraseña?"
