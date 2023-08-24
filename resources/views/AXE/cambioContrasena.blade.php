@@ -67,16 +67,14 @@
 
 
             <div class="modal-body">
-            <p>Usuario</p>
-                <input type="text" value = "{{$variable}}" class="form-control"  placeholder="Contraseña" readonly required>
                 <p>Escribe tu nueva contraseña:</p>
-                <input type="password" class="form-control" id="newPassword" placeholder="Contraseña" required>
+                <input type="password" class="form-control" id="newPassword" name="CONTRASENA" placeholder="Contraseña" required>
                 
                 <p>Confirma tu contraseña:</p>
                 <input type="password" class="form-control" id="confirmPassword" placeholder="Confirma Contraseña" required>
                 <span id="message" style="color: red;"></span>
                 
-                <form action="{{ url('login/usuario') }}" method="post">
+               
                     @csrf
                     <button type="submit" class="btn btn-primary mt-3">Enviar</button>
                 </form>
@@ -98,14 +96,12 @@
         }
     });
 
-   document.querySelector("#forgotPasswordModal form").addEventListener("submit", (event) => {
-    if (newPasswordInput.value !== confirmPasswordInput.value) {
-        event.preventDefault();
-        message.innerHTML = "Las contraseñas no coinciden.<br>No se puede cambiar la contraseña.";
-    } else {
-        message.textContent = ""; // Reiniciar el mensaje de error si las contraseñas coinciden
-    }
-});
+    document.querySelector("#forgotPasswordModal form").addEventListener("submit", (event) => {
+        if (newPasswordInput.value !== confirmPasswordInput.value) {
+            event.preventDefault();
+            message.innerHTML = "Las contraseñas no coinciden.<br>No se puede cambiar la contraseña.";
+        }
+    });
 </script>
     <script>
     // Manejar el clic en el enlace "¿Olvidaste tu contraseña?"
