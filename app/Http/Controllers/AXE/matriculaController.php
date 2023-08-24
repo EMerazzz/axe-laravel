@@ -83,11 +83,11 @@ class matriculaController extends Controller
     
             // Verificar si la matrícula ya existe en la lista
             foreach ($matriculas_lista as $matricula) {
-                if ($matricula["COD_PERSONA"] === $identidad) {
+                if ((string)$matricula["COD_PERSONA"] === (string)$identidad) {
                     // La matrícula ya existe, generar mensaje de error
                     return redirect('/matricula')->with('message', [
                         'type' => 'error',
-                        'text' => 'Ya existe una matrícula para esta persona.'
+                        'text' => 'Este estudiante ya está matriculado.'
                     ])->withInput(); // Agregar esta línea para mantener los datos ingresados
                 }
             }
@@ -107,6 +107,7 @@ class matriculaController extends Controller
     "JORNADA"=> $request->input("JORNADA"),
     "SECCION"=> $request->input("SECCION"),
     "COD_PADRE_TUTOR"=> $request->input("COD_PADRE_TUTOR"),
+    
         ]);
         
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -135,7 +136,7 @@ class matriculaController extends Controller
             "ESTADO_MATRICULA"=> $request->input("ESTADO_MATRICULA"),
             "JORNADA"=> $request->input("JORNADA"),
             "SECCION"=> $request->input("SECCION"),
-            
+            "COD_PADRE_TUTOR"=> $request->input("COD_PADRE_TUTOR"),
         ]);
       
         if ($modificar_matricula ->successful()) {

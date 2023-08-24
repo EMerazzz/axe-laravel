@@ -76,35 +76,46 @@
                         @csrf
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
-                            <label for="COD_PERSONA" class="form-label">Estudiante: </label>
-                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-                                <option value="" disabled selected>Seleccione un estudiante</option>
-                                @foreach ($personasArreglo as $persona)
-                                    @if ($persona['TIPO_PERSONA'] === 'Estudiante')
-                                        <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
-                                    @endif
+                                <label for="COD_PERSONA" class="form-label">Estudiante: </label>
+                                <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                                    <option value="" disabled selected>Seleccione un estudiante</option>
+                                    @foreach ($personasArreglo as $persona)
+                                        @if ($persona['TIPO_PERSONA'] === 'Estudiante')
+                                            <option value="{{ $persona['COD_PERSONA'] }}"
+                                                    {{ old('COD_PERSONA') == $persona['COD_PERSONA'] ? 'selected' : '' }}>
+                                                {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+
+                        <!-- FIN --->
+                        <div class="mb-3 mt-3">
+                            <label for="COD_NIVEL_ACADEMICO" class="form-label">Nivel académico: </label>
+                            <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
+                                <option value="" disabled selected>Seleccione el nivel académico</option>
+                                @foreach ($nivel_academicoArreglo as $nivel_academico)
+                                    <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}"
+                                            {{ old('COD_NIVEL_ACADEMICO') == $nivel_academico['COD_NIVEL_ACADEMICO'] ? 'selected' : '' }}>
+                                        {{ $nivel_academico['descripcion'] }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
-                        <!-- FIN --->
-                        <div class="mb-3 mt-3">
-                            <label for="COD_NIVEL_ACADEMICO" class="form-label">Nivel academico: </label>
-                            <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
-                                <option value="" disabled selected>Seleccione el nivel academico</option>
-                                @foreach ($nivel_academicoArreglo as $nivel_academico)
-                                    <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}">{{ $nivel_academico['descripcion'] }}</option>
-                                @endforeach
-                            </select>
-                            </div>
+
 
                             <div class="mb-3 mt-3">
-                            <label for="COD_ANIO_ACADEMICO" class="form-label">Año academico: </label>
-                            <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required>
-                                <option value="" disabled selected>Seleccione el año academico</option>
-                                @foreach ($anio_academicoArreglo as $anio_academico)
-                                    <option value="{{ $anio_academico['COD_ANIO_ACADEMICO'] }}">{{ $anio_academico['descripcion'] }}</option>
-                                @endforeach
-                            </select>
+                                <label for="COD_ANIO_ACADEMICO" class="form-label">Año académico: </label>
+                                <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required>
+                                    <option value="" disabled selected>Seleccione el año académico</option>
+                                    @foreach ($anio_academicoArreglo as $anio_academico)
+                                        <option value="{{ $anio_academico['COD_ANIO_ACADEMICO'] }}"
+                                                {{ old('COD_ANIO_ACADEMICO') == $anio_academico['COD_ANIO_ACADEMICO'] ? 'selected' : '' }}>
+                                            {{ $anio_academico['descripcion'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="mb-3">
@@ -124,24 +135,32 @@
                         </select>
                         </div>
 
-                            <div class="mb-3 mt-3">
-                            <label for="SECCION" class="form-label">Seccion Academica: </label>
+                        <div class="mb-3 mt-3">
+                            <label for="SECCION" class="form-label">Sección Académica: </label>
                             <select class="selectize" id="SECCION" name="SECCION" required>
-                                <option value="" disabled selected>Seleccione la seccion academica</option>
-                                @foreach ($seccionesArreglo as $secciones)
-                                    <option value="{{ $secciones['DESCRIPCION_SECCIONES'] }}">{{ $secciones['DESCRIPCION_SECCIONES'] }}</option>
+                                <option value="" disabled selected>Seleccione la sección académica</option>
+                                @foreach ($seccionesArreglo as $seccion)
+                                    <option value="{{ $seccion['DESCRIPCION_SECCIONES'] }}"
+                                            {{ old('SECCION') == $seccion['DESCRIPCION_SECCIONES'] ? 'selected' : '' }}>
+                                        {{ $seccion['DESCRIPCION_SECCIONES'] }}
+                                    </option>
                                 @endforeach
                             </select>
-                            </div>
-                            <div class="mb-3 mt-3">
+                        </div>
+
+                        <div class="mb-3 mt-3">
                             <label for="COD_PADRE_TUTOR" class="form-label">Padre o encargado: </label>
                             <select class="selectize" id="COD_PADRE_TUTOR" name="COD_PADRE_TUTOR" required>
                                 <option value="" disabled selected>Seleccione un padre o encargado</option>
-                                @foreach ($padresArreglo as $padres)
-                                    <option value="{{ $padres['COD_PADRE_TUTOR'] }}">{{ $padres['NOMBRE_PADRE_TUTOR'] }}{{ $padres['APELLIDO_PADRE_TUTOR'] }}</option>
+                                @foreach ($padresArreglo as $padre)
+                                    <option value="{{ $padre['COD_PADRE_TUTOR'] }}"
+                                            {{ old('COD_PADRE_TUTOR') == $padre['COD_PADRE_TUTOR'] ? 'selected' : '' }}>
+                                        {{ $padre['NOMBRE_PADRE_TUTOR'] }} {{ $padre['APELLIDO_PADRE_TUTOR'] }}
+                                    </option>
                                 @endforeach
                             </select>
-                            </div>
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
