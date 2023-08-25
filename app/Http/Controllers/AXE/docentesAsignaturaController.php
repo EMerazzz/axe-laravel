@@ -48,7 +48,7 @@ class docentesAsignaturaController extends Controller
             "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES"),
         ]);
 
-      
+        dd(json_decode($nuevo_docentesAsignatura));
         if ($nuevo_docentesAsignatura->successful()) {
             return redirect('/docentesAsignatura')->with('message', [
                 'type' => 'success',
@@ -68,12 +68,11 @@ class docentesAsignaturaController extends Controller
         $token = decrypt($cookieEncriptada);
         $modificar_docentesAsignatura= Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->put($this->apiUrl.'/'. $request->input("COD_DOCENTE_ASIGNATURA"), [
-            "COD_DOCENTE" => $request->input("COD_DOCENTE"),
+            ])->put($this->apiUrl.'/'.$request->input("COD_DOCENTE_ASIGNATURA"), [
             "COD_ASIGNATURA" => $request->input("COD_ASIGNATURA"),
-            "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES")
+            "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES"),
         ]);
-
+     
         if ($modificar_docentesAsignatura->successful()) {
             return redirect('/docentesAsignatura')->with('message', [
                 'type' => 'success',

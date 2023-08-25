@@ -185,8 +185,9 @@
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <form action="{{ url('docentesAsignatura/actualizar') }}" method="post">
                         @csrf
+                        <input type="hidden" class="form-control" name="COD_DOCENTE_ASIGNATURA" value="{{ $docentesAsignatura['COD_DOCENTE_ASIGNATURA'] }}">
                         <div class="mb-3 mt-3">
-                            <label for="COD_ASIGNATURA" class="form-label">Asignaturas: </label>
+                            <label for="docentesAsignatura" class="form-label">Asignaturas: </label>
                             <select class="selectize" id="COD_ASIGNATURA" name="COD_ASIGNATURA" required>
                                 <option value="" disabled selected>Seleccione</option>
                                 @foreach ($asignaturasArreglo as $asignaturas)
@@ -198,9 +199,9 @@
                             </select>
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="HORAS_SEMANALES" class="form-label">Horas Semanales:</label>
-                            <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese el correo electrónico" value="{{ $docentesAsignatura['COD_ASIGNATURA'] }}">
-                            <div class="error-message" id="error-message">No se permiten números en el usuario.</div>
+                            <label for="docentesAsignatura" class="form-label">Horas Semanales:</label>
+                            <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese las horas semanales" value="{{ $docentesAsignatura['HORAS_SEMANALES'] }}">
+               
                         </div>
 
                         <button type="submit" class="btn btn-primary">Editar</button>
@@ -460,17 +461,6 @@ function s2ab(s) {
 
 </script>
 
-<script>
-        function convertToUppercaseAndValidate(inputElement) {
-            const errorMessage = document.getElementById("error-message");
-            if (/\d/.test(inputElement.value)) {
-                errorMessage.style.display = "block";
-                inputElement.value = inputElement.value.toUpperCase().replace(/[0-9]/g, '');
-            } else {
-                errorMessage.style.display = "none";
-                inputElement.value = inputElement.value.toUpperCase();
-            }
-        }
-    </script>
+
 @stop
 
