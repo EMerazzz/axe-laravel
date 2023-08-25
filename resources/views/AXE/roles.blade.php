@@ -60,10 +60,17 @@
                         <div class="mb-3 mt-3">
                         <label for="roles" class="form-label">Roles</label>
                         <select class="form-select" id="DESCRIPCION" name="DESCRIPCION">
-                        <option value="ADMINISTRADOR" selected>ADMINISTRADORr</option>
+                        <option value="ADMINISTRADOR" selected>ADMINISTRADOR</option>
                         <option value="USUARIO"selected>USUARIO</option>
                         </select>
                         </div>
+                        
+                        <div class="mb-3 mt-3">
+                        <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
+                        <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
+                         </div>
+
+
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -85,11 +92,15 @@
                     <th>Opciones de la Tabla</th>
                 </tr>
             </thead>
+          
             <tbody>
                 @foreach($rolesArreglo as $roles)
                     <tr>
                         <td>{{ $roles['COD_ROL'] }}</td>
                         <td>{{ $roles['DESCRIPCION'] }}</td>
+                        <td>{{date('d, M Y', strtotime($roles['FECHA_CREACION']))}}</td>
+                        <td>{{date('d, M Y', strtotime($roles['FECHA_MODIFICACION']))}}</td>
+                        <!-- <td>{{$UsuarioValue}}</td> -->
                         <td>{{ $roles['MODIFICADO_POR'] }}</td>
                         <td>
                             <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#roles-edit-{{ $roles['COD_ROL'] }}">
@@ -122,6 +133,12 @@
                                     <option value="USUARIO" {{ $roles['DESCRIPCION'] === 'USUARIO' ? 'selected' : '' }}>USUARIO</option>
                                     </select>
                             </div>
+
+                            <div class="mb-3 mt-3">
+                            <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
+                            <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
+                            </div>
+
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

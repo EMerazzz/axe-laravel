@@ -58,23 +58,23 @@
                     <form action="{{ url('permisos/insertar') }}" method="post">
                         @csrf
                         <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="permiso_insercion" name="PERMISO_INSERCION" value="1">
-                        <label class="form-check-label" for="permiso_insercion">Permiso Insertar</label>
+                        <input class="form-check-input" type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="1">
+                        <label class="form-check-label" for="PERMISO_INSERCION">Permiso Insertar</label>
                         </div>
 
                         <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="permiso_eliminacion" name="PERMISO_ELIMINACION" value="1">
-                        <label class="form-check-label" for="permiso_eliminacion">Permiso Eliminar</label>
+                        <input class="form-check-input" type="checkbox" id="PERMISO_ELIMINACION" name="PERMISO_ELIMINACION" value="1">
+                        <label class="form-check-label" for="PERMISO_ELIMINACION">Permiso Eliminar</label>
                         </div>
 
                         <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="permiso_actualizacion" name="PERMISO_ACTUALIZACION" value="1">
-                        <label class="form-check-label" for="permiso_actualizacion">Permiso Actualizar</label>
+                        <input class="form-check-input" type="checkbox" id="PERMISO_ACTUALIZACION" name="PERMISO_ACTUALIZACION" value="1">
+                        <label class="form-check-label" for="PERMISO_ACTUALIZACION">Permiso Actualizar</label>
                         </div>
 
                         <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="permiso_consultar" name="PERMISO_CONSULTAR" value="1">
-                        <label class="form-check-label" for="permiso_consultar">Permiso Consultar</label>
+                        <input class="form-check-input" type="checkbox" id="PERMISO_CONSULTAR" name="PERMISO_CONSULTAR" value="1">
+                        <label class="form-check-label" for="PERMISO_CONSULTAR">Permiso Consultar</label>
                         </div>
                           
                         <div class="mb-3 mt-3">
@@ -86,6 +86,11 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="mb-3 mt-3">
+                        <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
+                        <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
+                         </div>
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -118,9 +123,10 @@
                         <td>{{ $permisos['PERMISO_ELIMINACION'] }}</td>
                         <td>{{ $permisos['PERMISO_ACTUALIZACION'] }}</td>
                         <td>{{ $permisos['PERMISO_CONSULTAR'] }}</td>
+                        <td>{{ $permisos['FECHA_CREACION'] }}</td>
                         <td>{{ $permisos['MODIFICADO_POR'] }}</td>
                         <td>
-                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#asignaturas-edit-{{ $asignatura['COD_ASIGNATURA'] }}">
+                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#permisos-edit-{{ $permisos['COD_PERMISO'] }}">
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
                         </td>
@@ -144,7 +150,7 @@
                             @csrf
                             <input type="hidden" class="form-control" name="COD_PERMISO" value="{{ $permisos['COD_PERMISO'] }}">
                             <div>
-                            <input type="checkbox" id="permiso_insercion" name="PERMISO_INSERCION" value="1" {{ $permisos['PERMISO_INSERCION_INSERCION'] === '1' ? 'checked' : '' }}>
+                            <input type="checkbox" id="permiso_insercion" name="PERMISO_INSERCION" value="1" {{ $permisos['PERMISO_INSERCION'] === '1' ? 'checked' : '' }}>
                             <label for="permiso_insercion">Permiso Insertar</label>
                             </div>
                              
@@ -161,6 +167,11 @@
                              <div>
                             <input type="checkbox" id="permiso_consultar" name="PERMISO_CONSULTAR" value="1" {{ $permisos['PERMISO_CONSULTAR'] === '1' ? 'checked' : '' }}>
                             <label for="permiso_consultar">Permiso Consultar</label>
+                             </div>
+
+                             <div class="mb-3 mt-3">
+                             <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
+                             <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
                              </div>
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>

@@ -9,16 +9,17 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class permisosController extends Controller
 {
-    private $apiUrl = 'http://localhost:4000/permisos'; // Declaración de la variable de la URL de la API
+    private $apiUrl = 'http://82.180.162.18:4000/permisos'; // Declaración de la variable de la URL de la API
     public function permisos()
     {
+        $UsuarioValue = $_COOKIE["Usuario"];
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
         // Obtener los datos de roles desde el controlador rolesController
         $rolesController = new rolesController();
         $roles = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:4000/roles');
+        ])->get('http://82.180.162.18:4000/roles');
         $rolesArreglo = json_decode($roles, true);
         
         // Obtener los datos de teléfonos
@@ -27,7 +28,7 @@ class permisosController extends Controller
         ])->get($this->apiUrl);
         $permisosArreglo = json_decode($permisos, true);
 
-        return view('AXE.permisos', compact('rolesArreglo', 'permisosArreglo'));
+        return view('AXE.permisos', compact('UsuarioValue','rolesArreglo', 'permisosArreglo'));
     }
 
     public function nuevo_permiso(Request $request)
@@ -38,30 +39,30 @@ class permisosController extends Controller
         // Obtener los datos de la persona seleccionada por su ID desde la API de personas
         $rolSeleccionado = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get("http://localhost:4000/roles/{$rolSeleccionadoId}");
+        ])->get("http://82.180.162.18:4000/roles/{$rolSeleccionadoId}");
        // dd($personaSeleccionada);
         $rolSeleccionadoData = json_decode($rolSeleccionado, true);
          
        // Obtener los datos de la persona seleccionada por su ID desde la API de personas
     $rolSeleccionado = Http::withHeaders([
         'Authorization' => 'Bearer ' . $token,
-    ])->get("http://localhost:4000/roles/{$rolSeleccionadoId}");
+    ])->get("http://82.180.162.18:4000/roles/{$rolSeleccionadoId}");
     $rolSeleccionadoData = json_decode($rolSeleccionado, true);
 
       // Obtener el valor del checkbox y asignar el valor adecuado
-      $permisoInsercion = $request->input("PERMISO_INSERCION") ? 1 : 0;
+      /* $permisoInsercion = $request->input("PERMISO_INSERCION") ? 1 : 0;
       $permisoEliminacion = $request->input("PERMISO_ELIMINACION") ? 1 : 0;
       $permisoActualizacion = $request->input("PERMISO_ACTUALIZACION") ? 1 : 0;
-      $permisoConsultar = $request->input("PERMISO_CONSULTAR") ? 1 : 0;
+      $permisoConsultar = $request->input("PERMISO_CONSULTAR") ? 1 : 0; */
 
    
         $nuevo_permiso = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->post($this->apiUrl, [
-            "PERMISO_INSERCION" => $permisoInsercion,
-            "PERMISO_ELIMINACION" => $permisoEliminacion,
-            "PERMISO_ACTUALIZACION" => $permisoActualizacion,
-            "PERMISO_CONSULTAR" => $permisoConsultar,
+            "PERMISO_INSERCION" => $request->input("PERMISO_INSERCION") ? 1 : 0,
+            "PERMISO_ELIMINACION" =>  $request->input("PERMISO_ELIMINACION") ? 1 : 0,
+            "PERMISO_ACTUALIZACION" => $request->input("PERMISO_ACTUALIZACION") ? 1 : 0,
+            "PERMISO_CONSULTAR" => $request->input("PERMISO_CONSULTAR") ? 1 : 0,
             "MODIFICADO_POR" => $request->input("MODIFICADO_POR"),
             "COD_ROL" => $request->input("COD_ROL"),
 

@@ -10,7 +10,7 @@ use DateTime;
 
 class PersonasController extends Controller
 {
-    private $apiUrl = 'http://localhost:4000/personas'; // Declaración de la variable de la URL de la API
+    private $apiUrl = 'http://82.180.162.18:4000/personas'; // Declaración de la variable de la URL de la API
     public function personas()
     {
     

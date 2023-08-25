@@ -80,10 +80,9 @@
                  </div>
                  
                  <div class="mb-3 mt-3">
-                 <label for="usuarios" class="form-label">Modificado por:</label>
-                 <input type="text" class="form-control" id="MODIFICADO_POR" name=" MODIFICADO_POR" placeholder="Ingrese el modificado por:" value="USER" readonly>
-                 </div>
-                
+                <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
+                <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
+                </div>
                  
                  <div class="mb-3 mt-3">
                 <label for="COD_PERSONA" class="form-label">Personal: </label>
@@ -109,7 +108,7 @@
 
 
                 <div class="mb-3 mt-3">
-                <label for="COD_ROL" class="form-label">Persona: </label>
+                <label for="COD_ROL" class="form-label">Rol: </label>
                     <select class="selectize" id="COD_ROL" name="COD_ROL" required>
                     <option value="" disabled selected>Seleccione el Rol</option>
                     @foreach ($rolesArreglo as $roles)
@@ -135,14 +134,11 @@
                 <th>Usuario</th>
                 <th>Contraseña</th>
                 <th>Primer Ingreso</th>
-                <th>Fecha Creación</th>
                 <th>Numero Intentos</th>
                 <th>Modificado Por</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Estado</th>
-                <th>Rol</th>
-                <th></th>
                 <th>Opciones de la Tabla</th>
             </tr>
         </thead>
@@ -157,16 +153,7 @@
                         }
                     }
                 @endphp
-                
-                @php
-                    $rol = null;
-                    foreach ($rolesArreglo as $r) {
-                        if ($r['COD_ROL'] === $usuarios['COD_ROL']) {
-                            $rol = $r;
-                            break;
-                        }
-                    }
-                @endphp
+             
 
                 @php
                     $estado = null;
@@ -182,7 +169,7 @@
                 <td>{{ $usuarios['USUARIO'] }}</td>
                 <td>{{ $usuarios['CONTRASENA'] }}</td>
                 <td>{{ $usuarios['PRIMER_INGRESO'] }}</td>
-                <td>{{ $usuarios['NUMERO_INTENTOS'] }}</td>
+                <td>{{ $usuarios['N_INTENTOS'] }}</td>
                 <td>{{ $usuarios['MODIFICADO_POR'] }}</td>
                 <td>
                         @if ($persona !== null)
@@ -206,17 +193,11 @@
                             estado no valido
                         @endif
                 </td>
-                <td>
-                        @if ($rol !== null)
-                            {{ $rol['DESCRIPCION']}}
-                        @else
-                            rol no valido
-                        @endif
-                </td>
+              
                     
                 <td>
                     <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
-                        data-target="#usuarios-edit-{{ $estudiantes['COD_USUARIO'] }}">
+                        data-target="#usuarios-edit-{{ $usuarios['COD_USUARIO'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
                 </td>

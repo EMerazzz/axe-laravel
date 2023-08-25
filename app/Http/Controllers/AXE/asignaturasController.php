@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 class asignaturasController extends Controller
 {
-    private $apiUrl = 'http://localhost:4000/asignaturas'; // Declaración de la variable de la URL de la API
+    private $apiUrl = 'http://82.180.162.18:4000/asignaturas'; // Declaración de la variable de la URL de la API
     public function asignaturas(){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);

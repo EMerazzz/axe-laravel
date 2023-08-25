@@ -9,7 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class docentesAsignaturaController extends Controller
 {
-    private $apiUrl = 'http://localhost:4000/docentes_asignaturas'; // Declaración de la variable de la URL de la API
+    private $apiUrl = 'http://82.180.162.18:4000/docentes_asignaturas'; // Declaración de la variable de la URL de la API
     public function docentesAsignatura()
     {
         $cookieEncriptada = request()->cookie('token');
@@ -18,7 +18,7 @@ class docentesAsignaturaController extends Controller
         $docentesController = new docentesController();
         $docentes = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:4000/docentes');
+        ])->get('http://82.180.162.18:4000/docentes');
         $docentesArreglo = json_decode($docentes, true);
 
         // Obtener los datos
@@ -30,7 +30,7 @@ class docentesAsignaturaController extends Controller
         $asignaturasController = new asignaturasController();
         $asignaturas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:4000/asignaturas');
+        ])->get('http://82.180.162.18:4000/asignaturas');
         $asignaturasArreglo = json_decode($asignaturas, true);
 
         return view('AXE.docentesAsignatura', compact('docentesArreglo', 'docentesAsignaturaArreglo','asignaturasArreglo'));

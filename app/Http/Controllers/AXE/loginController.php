@@ -13,7 +13,7 @@ class loginController extends Controller
     }
     
     public function ingresar(Request $request ){
-        $variableLogin = Http::post('http://localhost:4000/login', [
+        $variableLogin = Http::post('http://82.180.162.18:4000/login', [
             "USUARIO" => $request->input("USUARIO"),
             "CONTRASENA" => $request->input("CONTRASENA"),
         ]);
@@ -22,7 +22,9 @@ class loginController extends Controller
         if (count($variable) > 1) {
             // Encriptar el token antes de establecer la cookie
             $valorEncriptado = encrypt($variable['token']);
-            
+
+            $Usuario = $request->input("USUARIO");
+            setcookie("Usuario",$Usuario);
             // Establecer la cookie encriptada
             return redirect('AXE')->withCookie(Cookie::make('token', $valorEncriptado, 0, "./"));
         } else {
@@ -36,7 +38,7 @@ class loginController extends Controller
     }
 
     public function existeUsuario(Request $request){
-        $variableLogin = Http::post('http://localhost:4000/usuario_contrasena/', [
+        $variableLogin = Http::post('http://82.180.162.18:4000/usuario_contrasena/', [
             "USUARIO" => $request->input("USUARIO"),
         ]);
         
@@ -47,7 +49,7 @@ class loginController extends Controller
     }
 
     public function cambiarContrasena(Request $request){
-        $variableLogin = Http::post('http://localhost:4000/cambiarContrasena/', [
+        $variableLogin = Http::post('http://82.180.162.18:4000/cambiarContrasena/', [
             "USUARIO" => $request->input("USUARIO"),
             "CONTRASENA" => $request->input("CONTRASENA"),
         ]);
@@ -55,7 +57,7 @@ class loginController extends Controller
         $variable = json_decode($variableLogin, true);
         
         
-        dd($variable);
+        //dd($variable);
         return view('AXE/login');
     }
 

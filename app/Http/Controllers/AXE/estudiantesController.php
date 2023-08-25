@@ -9,7 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class estudiantesController extends Controller
 {
-    private $apiUrl = 'http://localhost:4000/estudiantes'; // Declaración de la variable de la URL de la API
+    private $apiUrl = 'http://82.180.162.18:4000/estudiantes'; // Declaración de la variable de la URL de la API
     public function estudiantes()
     {
         $cookieEncriptada = request()->cookie('token');
@@ -18,13 +18,13 @@ class estudiantesController extends Controller
         $personasController = new PersonasController();
         $personas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:4000/personas');
+        ])->get('http://82.180.162.18:4000/personas');
         $personasArreglo = json_decode($personas, true);
         // Obtener los datos de personas desde el controlador padresController
         $padresController = new padresController();
         $padres = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:4000/padres_tutores');
+        ])->get('http://82.180.162.18:4000/padres_tutores');
         $padresArreglo = json_decode($padres, true);
         
 
@@ -37,7 +37,7 @@ class estudiantesController extends Controller
             $nivel_academicoController = new nivel_academicoController();
             $nivel_academico =Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
-            ])->get('http://localhost:4000/nivel_academico');
+            ])->get('http://82.180.162.18:4000/nivel_academico');
             $nivel_academicoArreglo = json_decode($nivel_academico,true);
 
 
@@ -54,7 +54,7 @@ class estudiantesController extends Controller
         // Obtener los datos de la persona seleccionada por su ID desde la API de personas
         $personaSeleccionada = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get("http://localhost:4000/personas/{$personaSeleccionadaId}");
+        ])->get("http://82.180.162.18:4000/personas/{$personaSeleccionadaId}");
        // dd($personaSeleccionada);
         $personaSeleccionadaData = json_decode($personaSeleccionada, true);
         //dd($personaSeleccionadaData);

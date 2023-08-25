@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 
 class direccionesController extends Controller
 {
-    private $apiUrl = 'http://localhost:4000/direcciones';
+    private $apiUrl = 'http://82.180.162.18:4000/direcciones';
       public function direcciones()
     { $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
@@ -17,7 +17,7 @@ class direccionesController extends Controller
         $personasController = new PersonasController();
         $personas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:4000/personas');
+        ])->get('http://82.180.162.18:4000/personas');
         $personasArreglo = json_decode($personas,true);
        
         // Obtener los datos de teléfonos

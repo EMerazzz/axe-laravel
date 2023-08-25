@@ -11,7 +11,7 @@ class contactoController extends Controller
 
 
 {
-    private $apiUrl = 'http://localhost:4000/contacto_emergencia'; // Declaración de la variable de la URL de la API
+    private $apiUrl = 'http://82.180.162.18:4000/contacto_emergencia'; // Declaración de la variable de la URL de la API
       public function contacto_emergencia()
     {$cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
@@ -19,7 +19,7 @@ class contactoController extends Controller
         $personasController = new PersonasController();
         $personas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:4000/personas');
+        ])->get('http://82.180.162.18:4000/personas');
         $personasArreglo = json_decode($personas,true);
        
         // Obtener los datos de teléfonos

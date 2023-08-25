@@ -10,37 +10,39 @@ use DateTime;
 
 class usuariosController extends Controller
 {
-    private $apiUrl = 'http://localhost:4000/usuarios'; // Declaración de la variable de la URL de la API
+    private $apiUrl = 'http://82.180.162.18:4000/usuarios'; // Declaración de la variable de la URL de la API
     public function usuarios()
     {
+        $UsuarioValue = $_COOKIE["Usuario"];
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
          // Obtener los datos de PERSONAS desde el controlador PersonasController
          $personasController = new PersonasController();
          $personas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:4000/personas');
+        ])->get('http://82.180.162.18:4000/personas');
          $personasArreglo = json_decode($personas, true);
 
         // Obtener los datos de roles desde el controlador rolesController
         $rolesController = new rolesController();
         $roles = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:4000/roles');
+        ])->get('http://82.180.162.18:4000/roles');
         $rolesArreglo = json_decode($roles, true);
 
          // Obtener los datos de roles desde el controlador rolesController
          $estado_usuarioController = new estado_usuarioController();
          $estado_usuario = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:4000/estado_usuario');
+        ])->get('http://82.180.162.18:4000/estado_usuario');
          $estado_usuarioArreglo = json_decode($estado_usuario, true);
 
         $usuarios = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $usuariosArreglo = json_decode($usuarios, true);
-        return view('AXE.usuarios', compact('personasArreglo','rolesArreglo','estado_usuarioArreglo','usuariosArreglo'));
+        //dd($usuariosArreglo);
+        return view('AXE.usuarios', compact('UsuarioValue','personasArreglo','rolesArreglo','estado_usuarioArreglo','usuariosArreglo'));
     }
 
     public function nuevo_usuario(Request $request)
@@ -66,7 +68,7 @@ class usuariosController extends Controller
             "MODIFICADO_POR" => $request->input("MODIFICADO_POR"),
             "COD_PERSONA" => $request->input("COD_PERSONA"),
             "COD_ESTADO_USUARIO" => $request->input("COD_ESTADO_USUARIO"),
-            "COD_ROL" => $request->input("COD_ROL"),
+            //"COD_ROL" => $request->input("COD_ROL"),
         ]);
     
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error

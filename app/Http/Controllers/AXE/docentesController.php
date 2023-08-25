@@ -9,7 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class docentesController extends Controller
 {
-    private $apiUrl = 'http://localhost:4000/docentes'; // Declaración de la variable de la URL de la API
+    private $apiUrl = 'http://82.180.162.18:4000/docentes'; // Declaración de la variable de la URL de la API
     public function docentes()
     {
         $cookieEncriptada = request()->cookie('token');
@@ -18,7 +18,7 @@ class docentesController extends Controller
         $personasController = new PersonasController();
         $personas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:4000/personas');
+        ])->get('http://82.180.162.18:4000/personas');
         $personasArreglo = json_decode($personas, true);
 
         // Obtener los datos docentes
@@ -31,7 +31,7 @@ class docentesController extends Controller
          $nivel_academicoController = new nivel_academicoController();
          $nivel_academico = Http::withHeaders([
              'Authorization' => 'Bearer ' . $token,
-         ])->get('http://localhost:4000/nivel_academico');
+         ])->get('http://82.180.162.18:4000/nivel_academico');
          $nivel_academicoArreglo = json_decode($nivel_academico,true);
  
 
@@ -46,7 +46,7 @@ class docentesController extends Controller
         // Obtener los datos de la persona seleccionada por su ID desde la API de personas
         $personaSeleccionada = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get("http://localhost:4000/personas/{$personaSeleccionadaId}");
+        ])->get("http://82.180.162.18:4000/personas/{$personaSeleccionadaId}");
        // dd($personaSeleccionada);
         $personaSeleccionadaData = json_decode($personaSeleccionada, true);
         //dd($personaSeleccionadaData);
