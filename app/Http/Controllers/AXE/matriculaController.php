@@ -17,7 +17,7 @@ class matriculaController extends Controller
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
         // Obtener los datos de personas desde el controlador PersonasController
-        $personasController = new PersonasController();
+        $personasController = new personasController();
         $personas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get('http://82.180.162.18:4000/personas');
