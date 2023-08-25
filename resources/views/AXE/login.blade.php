@@ -15,10 +15,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- Agrega las hojas de estilo de Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="{{ asset('css/custom.css') }}">-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        /* Estilos personalizados */
         .error-message {
             display: none;
             position: absolute;
@@ -29,8 +28,20 @@
             z-index: 1;
             margin-top: -30px;
         }
+        
         .input-container {
             position: relative;
+        }
+        
+        /* Estilos para dispositivos móviles */
+        @media (max-width: 767px) {
+            .main {
+                padding: 10px;
+            }
+            
+            .logo img {
+                max-width: 150px;
+            }
         }
     </style>
 </head>
@@ -43,27 +54,24 @@
                         <form action="{{ url('login') }}" method="post">
                             @csrf
                             <fieldset class="clearfix">
-                            <h3 class="login-heading" style="color: white;">Iniciar Sesión</h3> 
-                          
-                            <div class="input-container">
-                                <span class="fa fa-user"></span>
-                                <input id="username-input" type="text" placeholder="Nombre de usuario" name="USUARIO" oninput="convertToUppercaseAndValidate(this)" required>
-                                <div class="error-message" id="error-message">No se permiten números en el usuario.</div>
-                            </div>
+                                <h3 class="login-heading" style="color: white;">Iniciar Sesión</h3> 
+                                <div class="input-container">
+                                    <span class="fa fa-user"></span>
+                                    <input id="username-input" type="text" placeholder="Nombre de usuario" name="USUARIO" oninput="convertToUppercaseAndValidate(this)" required>
+                                    <div class="error-message" id="error-message">No se permiten números en el usuario.</div>
+                                </div>
                                 <p><span class="fa fa-lock"></span><input id="password-input" type="password" placeholder="Contraseña" name="CONTRASENA" required></p>
                                 <!-- Agrega el enlace de recuperación de contraseña -->
-                                <p><a href="#" id="forgot-password-link">¿Olvidaste tu contraseña?</a></p>
+                                <p><a href="#" id="forgot-password-link" style="color: white;">¿Olvidaste tu contraseña?</a></p>
                                 <div class="buttons-container d-flex justify-content-between align-items-center">
-            
                                     <div>
                                         <button type="submit" class="btn btn-primary custom-btn">Iniciar sesión</button>
                                     </div>
                                 </div>
-
                                 @if(session('errorMessage'))
-                                    <div  class="text-white font-weight-bold">
-                                    <br>
-                                    <p>{{ session('errorMessage') }}</p>
+                                    <div class="text-white font-weight-bold">
+                                        <br>
+                                        <p>{{ session('errorMessage') }}</p>
                                     </div>
                                 @endif
                             </fieldset>
@@ -77,7 +85,6 @@
             </center>
         </div>
     </div>
-
 
     <!-- Modal de Recuperación de Contraseña -->
     <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
@@ -94,23 +101,19 @@
                         <input type="text" class="form-control" name="USUARIO" placeholder="Usuario" required>
                         <button type="submit" class="btn btn-primary mt-3">Enviar</button>
                     </form>
-                    
                 </div>
             </div>
         </div>
     </div>
     
     <script>
-    // Manejar el clic en el enlace "¿Olvidaste tu contraseña?"
-    document.getElementById("forgot-password-link").addEventListener("click", function() {
-        $('#forgotPasswordModal').modal('show');
-    });
+        // Manejar el clic en el enlace "¿Olvidaste tu contraseña?"
+        document.getElementById("forgot-password-link").addEventListener("click", function() {
+            $('#forgotPasswordModal').modal('show');
+        });
+    </script>
 
-    // Cambiar el color del enlace
-    document.getElementById("forgot-password-link").style.color = "white"; // Cambia el color a rojo
-</script>
-
-<script>
+    <script>
         function convertToUppercaseAndValidate(inputElement) {
             const errorMessage = document.getElementById("error-message");
             if (/\d/.test(inputElement.value)) {
