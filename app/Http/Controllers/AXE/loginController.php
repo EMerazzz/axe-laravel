@@ -42,10 +42,19 @@ class loginController extends Controller
             "USUARIO" => $request->input("USUARIO"),
         ]);
         
-        $variable = $request->input("USUARIO");
-        //$variable = json_decode($variableLogin, true);
+        // Cambiar a la direccion ip cuando suba los cambios
+        // http://localhost:4000/pregunta_usuario/
 
-        return view('AXE/cambioContrasena', compact('variable'));
+        $variablePreguntas = Http::post('http://localhost:4000/pregunta_usuario/JOSUE', [
+            "USUARIO" => $request->input("USUARIO"),
+        ]);
+
+        // "USUARIO" => $request->input("USUARIO"),
+        $variable = $request->input("USUARIO");
+        $preguntasUsuario = json_decode($variablePreguntas, true);
+        //dd($preguntasUsuario);
+
+        return view('AXE/cambioContrasena', compact('variable', 'preguntasUsuario'));
     }
 
     public function cambiarContrasena(Request $request){
