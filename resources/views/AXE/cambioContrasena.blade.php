@@ -56,23 +56,24 @@
                             <fieldset class="clearfix">
                             <h3 class="login-heading" style="color: white;">Restablecer contraseña</h3> 
 
-                                
+                            <p style="color: white; " ><em>{{$variable}}</em></p>
+
+                            
                             <div class="form-group">
-    <label for="pregunta1Respuesta">Respuesta a la pregunta 1:</label>
-    <input type="text" class="form-control" id="pregunta1Respuesta"style="width: 200px; height: 30px;">
-</div>
+                                
+                        <label for="pregunta1Respuesta" style="color: white; " >{{ $preguntasUsuario[0]['PREGUNTA'] }}</label>
+                        <input type="text" class="form-control" id="pregunta1Respuesta"style="width: 200px; height: 30px;">
+                    </div>    
+                    
+                    <div class="form-group">
+                        <label for="pregunta2Respuesta" style="color: white; ">{{ $preguntasUsuario[1]['PREGUNTA'] }}</label>
+                        <input type="text" class="form-control" id="pregunta2Respuesta" style="width: 200px; height: 30px;" readonly>
+                    </div>
+                    
 
-<div class="form-group">
-    <label for="pregunta2Respuesta">Respuesta a la pregunta 2:</label>
-    <input type="text" class="form-control" id="pregunta2Respuesta"style="width: 200px; height: 30px;">
-</div>
-
-                        <div class="form-group">
-                            <button type="button" class="btn btn-primary" id="checkAnswersButton">Verificar respuestas</button>
-                        </div>
                             
                         <div>
-                            <button type="button" class="open-modal-button btn btn-primary" id="openModalButton" disabled>Recuperar contraseña</button>
+                            <button type="button" class="open-modal-button btn btn-primary" data-toggle="modal" data-target="#forgotPasswordModal" id="openModalButton" disabled>Recuperar contraseña</button>
                         </div>
 
 
@@ -92,18 +93,18 @@
                 </div>
             </center>
         </div>
-    </div>
-
+    </div>    
 
    <!-- Modal de Recuperación de Contraseña -->
     <!-- Modal de Recuperación de Contraseña -->
     <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" id="cambiarContrasenaHeader" disabled>
                 <h4 class="modal-title">Cambiar contraseña</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
+            
 
 
             <div class="modal-body">
@@ -112,7 +113,6 @@
                 <input type="text" value = "{{$variable}}" class="form-control" name="USUARIO" placeholder="Contraseña" readonly required>
                 <p>Escribe tu nueva contraseña:</p>
                 <input type="password" class="form-control" id="newPassword" name="CONTRASENA" placeholder="Contraseña" required>
-
                 <p>Confirma tu contraseña:</p>
                 <input type="password" class="form-control" id="confirmPassword" placeholder="Confirma Contraseña" required>
                 <span id="message" style="color: red;"></span>
@@ -157,13 +157,61 @@
     document.getElementById("forgot-password-link").style.color = "white"; // Cambia el color a rojo
 </script>
 
+<!-- Agrega tu script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const RespuestaTexbox1 = document.getElementById("pregunta1Respuesta");
+        const RespuestaTexbox2 = document.getElementById("pregunta2Respuesta");
+        const openModalButton = document.getElementById("openModalButton");
+        const forgotPasswordModal = document.getElementById("forgotPasswordModal");
+
+        const respuesta1 = "{{ $preguntasUsuario[0]['RESPUESTA'] }}";
+        const respuesta2 = "{{ $preguntasUsuario[1]['RESPUESTA'] }}";
+
+        const pregunta1Respuesta = document.getElementById("pregunta1Respuesta");
+        const pregunta2Respuesta = document.getElementById("pregunta2Respuesta");
+
+        RespuestaTexbox1.addEventListener("blur", function() {
+            const respuestaIngresada = RespuestaTexbox1.value;
+
+            if (respuestaIngresada === respuesta1) {
+                pregunta2Respuesta.removeAttribute("readonly");
+                pregunta1Respuesta.setAttribute("readonly", "readonly");
+            } else {
+                pregunta2Respuesta.setAttribute("readonly", "readonly");
+                RespuestaTexbox2.value = "";
+                pregunta1Respuesta.removeAttribute("readonly");
+            }
+        });
+
+        RespuestaTexbox2.addEventListener("blur", function() {
+            const respuestaIngresada = RespuestaTexbox2.value;
+
+            if (respuestaIngresada === respuesta2) {
+                openModalButton.removeAttribute("disabled");
+                openModalButton.addEventListener("click", 
+                function() {
+                forgotPasswordModal.classList.add("show");});
+            } else {
+                openModalButton.setAttribute("disabled", "disabled");
+            }
+        });
+
+
+    });
+</script>
+
+
+
+
+
 
 <script>
     // ... Tu código actual ...
+    
 
     // Define una variable para controlar si se respondieron las preguntas
     let answeredQuestions = false;
-
     // Función para habilitar el botón si se respondieron las preguntas
     function enableRecoveryButton() {
         answeredQuestions = true;
