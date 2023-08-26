@@ -12,26 +12,37 @@ class loginController extends Controller
        return view('AXE/login');
     }
     
-    public function ingresar(Request $request ){
-        $variableLogin = Http::post('http://82.180.162.18:4000/login', [
-            "USUARIO" => $request->input("USUARIO"),
-            "CONTRASENA" => $request->input("CONTRASENA"),
-        ]);
-      
-        $variable = json_decode($variableLogin, true);
-        if (count($variable) > 1) {
-            // Encriptar el token antes de establecer la cookie
-            $valorEncriptado = encrypt($variable['token']);
-
-            $Usuario = $request->input("USUARIO");
-            setcookie("Usuario",$Usuario);
-            // Establecer la cookie encriptada
-            return redirect('AXE')->withCookie(Cookie::make('token', $valorEncriptado, 0, "./"));
-        } else {
-            $errorMessage =  $variable['mensaje'];
-            return redirect('login')->with('errorMessage', $errorMessage);
+    //Agregando try-catch
+    public function ingresar(Request $request) {
+        try {
+            $variableLogin = Http::post('http://82.180.162.18:4000/login', [
+                "USUARIO" => $request->input("USUARIO"),
+                "CONTRASENA" => $request->input("CONTRASENA"),
+            ]);
+    
+            $variable = json_decode($variableLogin, true);
+    
+            if (count($variable) > 1) {
+                // Encriptar el token antes de establecer la cookie
+                $valorEncriptado = encrypt($variable['token']);
+    
+                $Usuario = $request->input("USUARIO");
+                setcookie("Usuario", $Usuario);
+                // Establecer la cookie encriptada
+                return redirect('AXE')->withCookie(Cookie::make('token', $valorEncriptado, 0, "./"));
+            } else {
+                $errorMessage = $variable['mensaje'];
+                return redirect('login')->with('errorMessage', $errorMessage);
+            }
+        } catch (\Exception $e) {
+            // Manejo de excepciones: puedes mostrar un mensaje genérico o registrar el error
+            return redirect('login')->with('errorMessage', 'Ocurrió un error al intentar ingresar.');
+            // También puedes agregar un log de errores para registrar la excepción
+            // Log::error($e->getMessage());
         }
     }
+    
+
     public function logout(Request $request){
         // Eliminar la cookie de token
         return redirect('login')->withCookie(Cookie::forget('token'));
