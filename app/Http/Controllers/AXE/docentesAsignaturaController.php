@@ -48,7 +48,7 @@ class docentesAsignaturaController extends Controller
             "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES"),
         ]);
 
-        dd(json_decode($nuevo_docentesAsignatura));
+       // dd(json_decode($nuevo_docentesAsignatura));
         if ($nuevo_docentesAsignatura->successful()) {
             return redirect('/docentesAsignatura')->with('message', [
                 'type' => 'success',
