@@ -9,8 +9,15 @@ use Illuminate\Support\Facades\Cookie;
 class loginController extends Controller
 {   
     public function login(){
-       return view('AXE/login');
+        try {
+            // Tu código para mostrar la vista 'AXE/login'
+            return view('AXE/login');
+        } catch (\Exception $e) {
+            // Manejo de la excepción
+            return "Ha ocurrido un error: " . $e->getMessage();
+        }
     }
+    
     
     //Agregando try-catch
     public function ingresar(Request $request) {
@@ -35,6 +42,7 @@ class loginController extends Controller
                 return redirect('login')->with('errorMessage', $errorMessage);
             }
         } catch (\Exception $e) {
+            dd($e->getMessage());
             // Manejo de excepciones: puedes mostrar un mensaje genérico o registrar el error
             return redirect('login')->with('errorMessage', 'Ocurrió un error al intentar ingresar.');
             // También puedes agregar un log de errores para registrar la excepción
@@ -44,10 +52,15 @@ class loginController extends Controller
     
 
     public function logout(Request $request){
-        // Eliminar la cookie de token
-        return redirect('login')->withCookie(Cookie::forget('token'));
+        try {
+            // Eliminar la cookie de token
+            return redirect('login')->withCookie(Cookie::forget('token'));
+        } catch (\Exception $e) {
+            // Manejo de la excepción
+            return "Ha ocurrido un error: " . $e->getMessage();
+        }
     }
-
+    
     public function existeUsuario(Request $request){
         $variableLogin = Http::post('http://82.180.162.18:4000/usuario_contrasena/', [
             "USUARIO" => $request->input("USUARIO"),
@@ -69,17 +82,19 @@ class loginController extends Controller
     }
 
     public function cambiarContrasena(Request $request){
-        $variableLogin = Http::post('http://82.180.162.18:4000/cambiarContrasena/', [
-            "USUARIO" => $request->input("USUARIO"),
-            "CONTRASENA" => $request->input("CONTRASENA"),
-        ]);
-      
-        $variable = json_decode($variableLogin, true);
-        
-        
-        //dd($variable);
-        return view('AXE/login');
+        try {
+            $variableLogin = Http::post('http://82.180.162.18:4000/cambiarContrasena/', [
+                "USUARIO" => $request->input("USUARIO"),
+                "CONTRASENA" => $request->input("CONTRASENA"),
+            ]);
+    
+            $variable = json_decode($variableLogin, true);
+    
+            return view('AXE/login');
+        } catch (\Exception $e) {
+            // Manejo de la excepción
+            return "Ha ocurrido un error: " . $e->getMessage();
+        }
     }
-
-
+    
 }

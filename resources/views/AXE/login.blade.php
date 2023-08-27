@@ -57,7 +57,7 @@
                                 <h3 class="login-heading" style="color: white;">Iniciar Sesión</h3> 
                                 <div class="input-container">
                                     <span class="fa fa-user"></span>
-                                    <input id="username-input" type="text" placeholder="Nombre de usuario" name="USUARIO" oninput="convertToUppercaseAndValidate(this)" required>
+                                    <input type="text" placeholder="Nombre de usuario"  name="USUARIO" oninput="convertToUppercaseAndValidate(this)"  required>
                                     <div class="error-message" id="error-message">No se permiten números en el usuario.</div>
                                 </div>
                                 <p><span class="fa fa-lock"></span><input id="password-input" type="password" placeholder="Contraseña" name="CONTRASENA" required></p>
@@ -98,7 +98,8 @@
                     <p>Ingresa tu usuario:</p>
                     <form action="{{ url('login/usuario') }}" method="post">
                         @csrf
-                        <input type="text" class="form-control" name="USUARIO" placeholder="Usuario" required>
+                        <input type="text" class="form-control" name="USUARIO" placeholder="Usuario" required
+                        oninput="validarInput(this)">
                         <button type="submit" class="btn btn-primary mt-3">Enviar</button>
                     </form>
                 </div>
@@ -125,5 +126,30 @@
             }
         }
     </script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const usuarioInput = document.getElementById("usuarioInput");
+
+  usuarioInput.addEventListener("input", function() {
+    const inputValue = usuarioInput.value;
+    const filteredValue = inputValue.replace(/[^a-zA-Z0-9]/g, ''); // Filtra caracteres no permitidos
+    usuarioInput.value = filteredValue; // Actualiza el valor en el input
+  });
+});
+</script>
+
+<script>
+    // Función para validar el contenido de un campo de entrada
+    function validarInput(input) {
+      const regex = /^[A-Za-z0-9]+$/; // Expresión regular para letras y números
+      if (!regex.test(input.value)) {
+        alert("El campo solo puede contener letras y números");
+        input.value = ""; // Limpiar el campo
+      }
+    }
+  </script>
+    
 </body>
 </html>

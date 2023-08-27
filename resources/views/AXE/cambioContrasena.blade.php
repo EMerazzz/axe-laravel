@@ -62,12 +62,12 @@
                             <div class="form-group">
                                 
                         <label for="pregunta1Respuesta" style="color: white; " >{{ $preguntasUsuario[0]['PREGUNTA'] }}</label>
-                        <input type="text" class="form-control" id="pregunta1Respuesta"style="width: 200px; height: 30px;">
+                        <input type="text" class="form-control" id="pregunta1Respuesta"style="width: 200px; height: 30px;"  oninput="validarInput(this)" >
                     </div>    
                     
                     <div class="form-group">
                         <label for="pregunta2Respuesta" style="color: white; ">{{ $preguntasUsuario[1]['PREGUNTA'] }}</label>
-                        <input type="text" class="form-control" id="pregunta2Respuesta" style="width: 200px; height: 30px;" readonly>
+                        <input type="text" class="form-control" id="pregunta2Respuesta" style="width: 200px; height: 30px;" readonly  oninput="validarInput(this)" >
                     </div>
                     
 
@@ -108,11 +108,11 @@
 
 
             <div class="modal-body">
-            <form action="{{ url('login/nuevaContrasena') }}" method="post">
+            <form id="passwordForm" action="{{ url('login/nuevaContrasena') }}" method="post">
                 <p>Usuario</p>
-                <input type="text" value = "{{$variable}}" class="form-control" name="USUARIO" placeholder="Contraseña" readonly required>
+                <input type="text" value = "{{$variable}}" class="form-control" name="USUARIO" readonly required >
                 <p>Escribe tu nueva contraseña:</p>
-                <input type="password" class="form-control" id="newPassword" name="CONTRASENA" placeholder="Contraseña" required>
+                <input type="password" class="form-control" id="newPassword" name="CONTRASENA" placeholder="Contraseña" required>    
                 <p>Confirma tu contraseña:</p>
                 <input type="password" class="form-control" id="confirmPassword" placeholder="Confirma Contraseña" required>
                 <span id="message" style="color: red;"></span>
@@ -124,6 +124,51 @@
             </div>
         </div>
     </div>
+
+    <script>
+    const passwordForm = document.getElementById('passwordForm');
+    const newPasswordInput = document.getElementById('newPassword');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    
+    passwordForm.addEventListener('submit', function(event) {
+      if (newPasswordInput.value !== confirmPasswordInput.value) {
+        alert('Las contraseñas no coinciden');
+        event.preventDefault();
+      } else if (newPasswordInput.value.length < 8) {
+        alert('La contraseña debe tener al menos 8 caracteres');
+        event.preventDefault();
+      } else if (!/[a-z]/.test(newPasswordInput.value) || !/[A-Z]/.test(newPasswordInput.value)) {
+        alert('La contraseña debe contener al menos una letra minúscula y una mayúscula');
+        event.preventDefault();
+      } else if (!/\d/.test(newPasswordInput.value)) {
+        alert('La contraseña debe contener al menos un número');
+        event.preventDefault();
+      } else if (!/[!@#$%^&*]/.test(newPasswordInput.value)) {
+        alert('La contraseña debe contener al menos un carácter especial: !@#$%^&*');
+        event.preventDefault();
+      }else{
+        alert('Contraseña actualizada exitosamente');
+      }
+      // Puedes agregar más validaciones según tus requerimientos aquí
+      
+      // Si todo está en orden, el formulario se enviará
+    });
+    
+      
+</script>
+
+<script>
+    // Obtener una referencia al botón
+    const loginButton = document.getElementById('openModalButton');
+    
+    // Agregar un event listener para el clic en el botón
+    loginButton.addEventListener('click', function() {
+        // Coloca aquí el código que deseas que se ejecute al hacer clic en el botón
+        alert("¡Tu contraseña debe contener números, mayúsculas, minúsculas y caracteres especiales!");
+    });
+</script>
+
+
 
 <script>
     const newPasswordInput = document.getElementById("newPassword");
@@ -159,56 +204,70 @@
 
 <!-- Agrega tu script -->
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const RespuestaTexbox1 = document.getElementById("pregunta1Respuesta");
-        const RespuestaTexbox2 = document.getElementById("pregunta2Respuesta");
-        const openModalButton = document.getElementById("openModalButton");
-        const forgotPasswordModal = document.getElementById("forgotPasswordModal");
+document.addEventListener("DOMContentLoaded", function() {
+    const RespuestaTexbox1 = document.getElementById("pregunta1Respuesta");
+    const RespuestaTexbox2 = document.getElementById("pregunta2Respuesta");
+    const openModalButton = document.getElementById("openModalButton");
+    const forgotPasswordModal = document.getElementById("forgotPasswordModal");
 
-        const respuesta1 = "{{ $preguntasUsuario[0]['RESPUESTA'] }}";
-        const respuesta2 = "{{ $preguntasUsuario[1]['RESPUESTA'] }}";
+    const preguntasUsuario = [
+        { RESPUESTA: "{{ $preguntasUsuario[0]['RESPUESTA'] }}" },
+        { RESPUESTA: "{{ $preguntasUsuario[1]['RESPUESTA'] }}" }
+    ];
 
-        const pregunta1Respuesta = document.getElementById("pregunta1Respuesta");
-        const pregunta2Respuesta = document.getElementById("pregunta2Respuesta");
+    const pregunta1Respuesta = document.getElementById("pregunta1Respuesta");
+    const pregunta2Respuesta = document.getElementById("pregunta2Respuesta");
 
-        RespuestaTexbox1.addEventListener("blur", function() {
-            const respuestaIngresada = RespuestaTexbox1.value;
+    RespuestaTexbox1.addEventListener("blur", function() {
+        const respuestaIngresada = RespuestaTexbox1.value;
 
-            if (respuestaIngresada === respuesta1) {
-                pregunta2Respuesta.removeAttribute("readonly");
-                pregunta1Respuesta.setAttribute("readonly", "readonly");
-            } else {
-                pregunta2Respuesta.setAttribute("readonly", "readonly");
-                RespuestaTexbox2.value = "";
-                pregunta1Respuesta.removeAttribute("readonly");
-            }
-        });
-
-        RespuestaTexbox2.addEventListener("blur", function() {
-            const respuestaIngresada = RespuestaTexbox2.value;
-
-            if (respuestaIngresada === respuesta2) {
-                openModalButton.removeAttribute("disabled");
-                openModalButton.addEventListener("click", 
-                function() {
-                forgotPasswordModal.classList.add("show");});
-            } else {
-                openModalButton.setAttribute("disabled", "disabled");
-            }
-        });
-
-
+        if (respuestaIngresada === preguntasUsuario[0].RESPUESTA) {
+            pregunta2Respuesta.removeAttribute("readonly");
+            pregunta1Respuesta.setAttribute("readonly", "readonly");
+        } else {
+            pregunta2Respuesta.setAttribute("readonly", "readonly");
+            RespuestaTexbox2.value = "";
+            pregunta1Respuesta.removeAttribute("readonly");
+        }
     });
+
+    RespuestaTexbox2.addEventListener("blur", function() {
+        const respuestaIngresada = RespuestaTexbox2.value;
+
+        if (respuestaIngresada === preguntasUsuario[1].RESPUESTA) {
+            openModalButton.removeAttribute("disabled");
+            openModalButton.addEventListener("click", function() {
+                forgotPasswordModal.classList.add("show");
+            });
+        } else {
+            openModalButton.setAttribute("disabled", "disabled");
+        }
+    });
+});
+
 </script>
+<script>
+    // Función para validar el contenido de un campo de entrada
+    function validarInput(input) {
+        const regex = /^[A-Za-z0-9\s]+$/; // Expresión regular para letras, números y espacios
+        
+        // Verificar si la tecla presionada es 'Delete' o 'Backspace'
+        if (event.key === 'Delete' || event.key === 'Backspace') {
+            // Verificar si el campo está vacío o solo tiene un carácter
+            if (input.value.length <= 1) {
+                return; // No se realiza la validación ni se muestra la alerta
+            }
+        }
 
-
-
-
-
-
+        if (!regex.test(input.value)) {
+            alert("El campo solo puede contener letras, números y espacios");
+            input.value = ""; // Limpiar el campo
+        }
+    }
+</script>
 <script>
     // ... Tu código actual ...
-    
+
 
     // Define una variable para controlar si se respondieron las preguntas
     let answeredQuestions = false;
