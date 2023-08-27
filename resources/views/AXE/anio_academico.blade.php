@@ -121,7 +121,7 @@
                                        
                                     <div class="mb-3">
                                     <label for="anio_academico" class="form-label">Años Academicos:</label>
-                                    <select class="form-control same-width" id="DESCRIPCION_JOR" name="DESCRIPCION_JOR">
+                                    <select class="form-control same-width" id="descripcion" name="descripcion">
                                     <option value="Septimo" {{ $anio_academico['descripcion'] === 'Septimo' ? 'selected' : '' }}>Septimo</option>
                                     <option value="Octavo" {{ $anio_academico['descripcion'] === 'Octavo' ? 'selected' : '' }}>Octavo</option>
                                     <option value="Noveno" {{ $anio_academico['descripcion'] === 'Noveno' ? 'selected' : '' }}>Noveno</option>

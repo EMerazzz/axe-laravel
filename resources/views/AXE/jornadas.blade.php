@@ -64,7 +64,7 @@
             
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{url('secciones/insertar')}}" method="post">
+                    <form action="{{url('jornadas/insertar')}}" method="post">
                         @csrf
                 <!-- INICIO --->
                         <div class="mb-3">
