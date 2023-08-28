@@ -167,7 +167,7 @@
             <tr>
                 <td>{{ $usuarios['COD_USUARIO'] }}</td>
                 <td>{{ $usuarios['USUARIO'] }}</td>
-                <td>{{ $usuarios['CONTRASENA'] }}</td>
+                <td>{{ str_repeat('*', strlen($usuarios['CONTRASENA'])) }}</td>
                 <td>{{ $usuarios['PRIMER_INGRESO'] }}</td>
                 <td>{{ $usuarios['N_INTENTOS'] }}</td>
                 <td>{{ $usuarios['MODIFICADO_POR'] }}</td>
