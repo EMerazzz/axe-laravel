@@ -42,11 +42,8 @@ class loginController extends Controller
                 return redirect('login')->with('errorMessage', $errorMessage);
             }
         } catch (\Exception $e) {
-            dd($e->getMessage());
             // Manejo de excepciones: puedes mostrar un mensaje genérico o registrar el error
             return redirect('login')->with('errorMessage', 'Ocurrió un error al intentar ingresar.');
-            // También puedes agregar un log de errores para registrar la excepción
-            // Log::error($e->getMessage());
         }
     }
     
@@ -76,7 +73,6 @@ class loginController extends Controller
         // "USUARIO" => $request->input("USUARIO"),
         $variable = $request->input("USUARIO");
         $preguntasUsuario = json_decode($variablePreguntas, true);
-        //dd($preguntasUsuario);
 
         return view('AXE/cambioContrasena', compact('variable', 'preguntasUsuario'));
     }
