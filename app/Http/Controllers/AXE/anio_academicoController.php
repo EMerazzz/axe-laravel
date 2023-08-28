@@ -10,7 +10,7 @@ use DateTime;
 
 class anio_academicoController extends Controller
 {
-    private $apiUrl = 'http://82.180.162.18:4000/anio_academico/'; // Declaración de la variable de la URL de la API
+    private $apiUrl = 'http://82.180.162.18:4000/anio_academico'; // Declaración de la variable de la URL de la API
     public function anio_academico()
     {
         $cookieEncriptada = request()->cookie('token');
