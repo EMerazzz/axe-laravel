@@ -112,7 +112,7 @@
                             </div>
                             <div class="modal-footer">
                                 <div class="d-grid gap-2 col-6 mx-auto">
-                                    <form action="{{url('secciones/actualizar')}}" method="post">
+                                    <form action="{{url('jornadas/actualizar')}}" method="post">
                                         @csrf
                                         <input type="hidden" class="form-control" name="COD_JORNADA" value="{{$jornadas['COD_JORNADA']}}">
                                         <div class="mb-3">
