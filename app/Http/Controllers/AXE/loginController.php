@@ -28,6 +28,7 @@ class loginController extends Controller
             ]);
     
             $variable = json_decode($variableLogin, true);
+            
     
             if (count($variable) > 1) {
                 // Encriptar el token antes de establecer la cookie
@@ -35,8 +36,38 @@ class loginController extends Controller
     
                 $Usuario = $request->input("USUARIO");
                 setcookie("Usuario", $Usuario);
-                // Establecer la cookie encriptada
-                return redirect('AXE')->withCookie(Cookie::make('token', $valorEncriptado, 0, "./"));
+                // Establecer la cookie encriptad
+
+                //Primera vez?
+                $variablePrimeraVez = Http::post('http://82.180.162.18:4000/primera_vez', [
+                    "USUARIO" => $request->input("USUARIO")
+                ]);
+
+                $variablePrimera = json_decode( $variablePrimeraVez, true);
+                if (count($variablePrimera) > 0){
+
+                    $COD_USUARIO_RECIBIDO = Http::post('http://82.180.162.18:/dame_cod_usuario', [
+                        "USUARIO" =>  $Usuario
+                    ]);
+                
+                    $COD_USUARIO = json_decode( $COD_USUARIO_RECIBIDO, true);
+                    $COD_USUARIO = $COD_USUARIO[0]['COD_USUARIO'];
+                
+                    $TOTAL_PREGUNTAS_USUARIO = Http::post('http://82.180.162.18:4000/cuenta_preguntas', [
+                        "COD_USUARIO" =>  $COD_USUARIO,
+                        "USUARIO" =>  $Usuario
+                    ]);
+                    
+                    $TOTALPREGUNTAS = json_decode( $TOTAL_PREGUNTAS_USUARIO, true);
+                    $TOTALPREGUNTAS = $TOTALPREGUNTAS['COUNT(PREGUNTA)']; 
+    
+                    $mensaje = "";
+
+                    return view('AXE/establecer_preguntas', compact('Usuario','mensaje', 'TOTALPREGUNTAS'));
+                }else{
+                    return redirect('AXE')->withCookie(Cookie::make('token', $valorEncriptado, 0, "./"));
+                }
+
             } else {
                 $errorMessage = $variable['mensaje'];
                 return redirect('login')->with('errorMessage', $errorMessage);
@@ -63,10 +94,8 @@ class loginController extends Controller
             "USUARIO" => $request->input("USUARIO"),
         ]);
         
-        // Cambiar a la direccion ip cuando suba los cambios
-        // http://localhost:4000/pregunta_usuario/
 
-        $variablePreguntas = Http::post('http://localhost:4000/pregunta_usuario/JOSUE', [
+        $variablePreguntas = Http::post('http://82.180.162.18:4000/pregunta_usuario/JOSUE', [
             "USUARIO" => $request->input("USUARIO"),
         ]);
 
