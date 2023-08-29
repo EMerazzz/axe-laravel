@@ -445,6 +445,48 @@ return [
             //'icon_color' => 'red',
         ],
         [
+            'text'        => 'Reportes',
+            'label'       => 4,
+           'label_color' => 'grey',
+            'icon' =>"fa fa-book",
+          //  'icon_color' => 'teal',
+            'submenu' => [
+                [
+                    'text' => 'Reportes personas',
+                    'icon' =>"fa fa-file-pdf",
+                    //'icon_color' => 'info',
+                    'url'  => 'Reportepersonas',
+                ],
+              
+                [
+                    'text' => 'Reportes Matricula',
+                    'icon' =>"fa fa-file-pdf",
+                    //'icon_color' => 'info',
+                    'url'  => 'Reportematriculas',
+                ],
+                [
+                    'text' => 'Reportes bitacora',
+                    'icon' =>"fa fa-file-pdf",
+                    //'icon_color' => 'info',
+                    'url'  => 'Reportebitacora',
+                ],
+                [
+                    'text' => 'Reportes docentes',
+                    'icon' =>"fa fa-file-pdf",
+                    //'icon_color' => 'info',
+                    'url'  => 'Reportedocentes',
+                ],
+                [
+                    'text' => 'Reportes Padres',
+                    'icon' =>"fa fa-file-pdf",
+                    //'icon_color' => 'info',
+                    'url'  => 'Reportepadres',
+                ],
+              
+            ],
+        
+        ],
+        [
             'text' => 'Cerrar sesión',  // Opción "Log Out"
             'url'  => 'login/logout',  // Cambia 'logout' por la URL real de tu función de logout
             'icon' => 'fas fa-fw fa-sign-out-alt',  // Icono de "Log Out"
