@@ -63,12 +63,9 @@ class usuariosController extends Controller
         ])->post($this->apiUrl, [
             "USUARIO" => $request->input("USUARIO"),
             "CONTRASENA" => bcrypt($request->input('CONTRASENA')),
-            "PRIMER_INGRESO" => $PRIMER_INGRESO,
-            "NUMERO_INTENTOS" => $request->input("NUMERO_INTENTOS"),
             "MODIFICADO_POR" => $request->input("MODIFICADO_POR"),
             "COD_PERSONA" => $request->input("COD_PERSONA"),
             "COD_ESTADO_USUARIO" => $request->input("COD_ESTADO_USUARIO"),
-            //"COD_ROL" => $request->input("COD_ROL"),
         ]);
     
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error

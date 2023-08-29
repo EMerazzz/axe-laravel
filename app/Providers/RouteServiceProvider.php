@@ -110,6 +110,9 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('estado_usuario')
             ->group(base_path('routes/estado_usuario.php'));
+            Route::middleware('web')
+            ->prefix('bitacora')
+            ->group(base_path('routes/bitacora.php'));
         });
     }
 
