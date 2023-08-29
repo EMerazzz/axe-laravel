@@ -416,6 +416,13 @@ return [
                     //'icon_color' => 'info',
                     'url'  => 'usuarios',
                 ],
+
+                [
+                    'text' => 'preguntas usuarios',
+                    'icon' =>"fa fa-user",
+                    //'icon_color' => 'info',
+                    'url'  => 'preguntas_usuarios',
+                ],
               
                 [
                     'text' => 'Estado usuarios',
