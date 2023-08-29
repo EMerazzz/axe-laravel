@@ -91,18 +91,27 @@ class loginController extends Controller
     
     public function existeUsuario(Request $request){
         try {
+            
             $variableLogin = Http::post('http://82.180.162.18:4000/usuario_contrasena/', [
                 "USUARIO" => $request->input("USUARIO"),
             ]);
-    
-            $variablePreguntas = Http::post('http://82.180.162.18:4000/pregunta_usuario/JOSUE', [
-                "USUARIO" => $request->input("USUARIO"),
-            ]);
-    
-            $variable = $request->input("USUARIO");
-            $preguntasUsuario = json_decode($variablePreguntas, true);
-    
-            return view('AXE/cambioContrasena', compact('variable', 'preguntasUsuario'));
+            
+            $variableExiste = json_decode($variableLogin, true);
+
+            if (count($variableExiste) > 0) {
+                $variablePreguntas = Http::post('http://82.180.162.18:4000/pregunta_usuario/JOSUE', [
+                    "USUARIO" => $request->input("USUARIO"),
+                ]);
+        
+                $variable = $request->input("USUARIO");
+                $preguntasUsuario = json_decode($variablePreguntas, true);
+        
+                return view('AXE/cambioContrasena', compact('variable', 'preguntasUsuario'));
+
+            }else{
+                return view('AXE/login');
+            }
+
         } catch (\Exception $e) {
 
             return "Ha ocurrido un error: " . $e->getMessage();

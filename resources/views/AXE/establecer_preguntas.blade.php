@@ -226,13 +226,13 @@
         if (TOTALPREGUNTAS > 1) {
             makeInputsReadOnly();
             disableSubmitButton();
-        }
 
-        // Agregar el listener para mostrar el modal al hacer clic en la pantalla
-        document.addEventListener('click', function() {
+            document.addEventListener('click', function() {
             $('#forgotPasswordModal').modal('show');
-        });
-    });
+            });
+
+        }
+        // Agregar el listener para mostrar el modal al hacer clic en la pantalla
 
     function makeInputsReadOnly() {
         document.getElementById('pregunta1').readOnly = true;
@@ -245,6 +245,19 @@
             submitButton.disabled = true;
         }
     }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var TOTALPREGUNTAS = {{ $TOTALPREGUNTAS }}; // Asigna el valor de TOTALPREGUNTAS desde PHP
+
+        if (TOTALPREGUNTAS > 1) {
+            document.addEventListener('click', function() {
+            $('#forgotPasswordModal').modal('show');
+        });
+        }
+        // Agregar el listener para mostrar el modal al hacer clic en la pantalla
+    });
 </script>
 
 </body>
