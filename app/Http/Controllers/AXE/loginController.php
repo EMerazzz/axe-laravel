@@ -90,21 +90,25 @@ class loginController extends Controller
     }
     
     public function existeUsuario(Request $request){
-        $variableLogin = Http::post('http://82.180.162.18:4000/usuario_contrasena/', [
-            "USUARIO" => $request->input("USUARIO"),
-        ]);
-        
+        try {
+            $variableLogin = Http::post('http://82.180.162.18:4000/usuario_contrasena/', [
+                "USUARIO" => $request->input("USUARIO"),
+            ]);
+    
+            $variablePreguntas = Http::post('http://82.180.162.18:4000/pregunta_usuario/JOSUE', [
+                "USUARIO" => $request->input("USUARIO"),
+            ]);
+    
+            $variable = $request->input("USUARIO");
+            $preguntasUsuario = json_decode($variablePreguntas, true);
+    
+            return view('AXE/cambioContrasena', compact('variable', 'preguntasUsuario'));
+        } catch (\Exception $e) {
 
-        $variablePreguntas = Http::post('http://82.180.162.18:4000/pregunta_usuario/JOSUE', [
-            "USUARIO" => $request->input("USUARIO"),
-        ]);
-
-        // "USUARIO" => $request->input("USUARIO"),
-        $variable = $request->input("USUARIO");
-        $preguntasUsuario = json_decode($variablePreguntas, true);
-
-        return view('AXE/cambioContrasena', compact('variable', 'preguntasUsuario'));
+            return "Ha ocurrido un error: " . $e->getMessage();
+        }
     }
+    
 
     public function cambiarContrasena(Request $request){
         try {

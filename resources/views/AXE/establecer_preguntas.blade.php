@@ -197,8 +197,11 @@
 <script>
     // Función para validar el contenido de un campo de entrada
     function validarInput(input) {
-        const regex = /^[A-Za-z0-9\s]+$/; // Expresión regular para letras, números y espacios
-        
+        const regex = /^[A-Za-z0-9\s]*$/; // Expresión regular para letras, números y espacios
+
+        // Obtener el evento del teclado
+        const event = window.event || arguments.callee.caller.arguments[0];
+
         // Verificar si la tecla presionada es 'Delete' o 'Backspace'
         if (event.key === 'Delete' || event.key === 'Backspace') {
             // Verificar si el campo está vacío o solo tiene un carácter
@@ -214,26 +217,35 @@
     }
 </script>
 
-<!-- Coloca este fragmento en el lugar correspondiente de tu HTML -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var TOTALPREGUNTAS = {{ $TOTALPREGUNTAS}}; // Asigna el valor de TOTALPREGUNTAS desde PHP
 
-        if (TOTALPREGUNTAS > 2) {
-            $('#forgotPasswordModal').modal('show');
-        }
-    });
-</script>
+<!-- Coloca este fragmento en el lugar correspondiente de tu HTML -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var TOTALPREGUNTAS = {{ $TOTALPREGUNTAS }}; // Asigna el valor de TOTALPREGUNTAS desde PHP
 
         if (TOTALPREGUNTAS > 1) {
-            $('#forgotPasswordModal').modal('show');
+            makeInputsReadOnly();
+            disableSubmitButton();
         }
-    });
-</script>
 
+        // Agregar el listener para mostrar el modal al hacer clic en la pantalla
+        document.addEventListener('click', function() {
+            $('#forgotPasswordModal').modal('show');
+        });
+    });
+
+    function makeInputsReadOnly() {
+        document.getElementById('pregunta1').readOnly = true;
+        document.getElementById('respuesta1').readOnly = true;
+    }
+
+    function disableSubmitButton() {
+        var submitButton = document.querySelector('button[type="submit"]');
+        if (submitButton) {
+            submitButton.disabled = true;
+        }
+    }
+</script>
 
 </body>
 </html>

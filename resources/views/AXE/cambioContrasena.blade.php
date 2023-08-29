@@ -246,11 +246,15 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 </script>
+
 <script>
     // Función para validar el contenido de un campo de entrada
     function validarInput(input) {
-        const regex = /^[A-Za-z0-9\s]+$/; // Expresión regular para letras, números y espacios
-        
+        const regex = /^[A-Za-z0-9\s]*$/; // Expresión regular para letras, números y espacios
+
+        // Obtener el evento del teclado
+        const event = window.event || arguments.callee.caller.arguments[0];
+
         // Verificar si la tecla presionada es 'Delete' o 'Backspace'
         if (event.key === 'Delete' || event.key === 'Backspace') {
             // Verificar si el campo está vacío o solo tiene un carácter
@@ -265,6 +269,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 </script>
+
 <script>
     // ... Tu código actual ...
 
