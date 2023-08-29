@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Estado usuarios')
+@section('title', 'Preguntas Usuarios')
 @section('content_header')
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Estados Usuarios registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Estados<cite title="Source Title">Completadas</cite></footer>
+    <p class="mb-0">Preguntas registradas en el sistema AXE.</p>
+    <footer class="blockquote-footer">Preguntas Usuario <cite title="Source Title">Completadas</cite></footer>
 </blockquote>
 @stop
 
@@ -43,52 +43,46 @@
         </div>
     </div>
 @endif
-<div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#estado_usuario">+ Nuevo</button>
-<div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="estado_usuario" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Ingresa un Nuevo Estado Usuario</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Ingrese los Datos:</p>
-                    <form action="{{ url('estado_usuario/insertar') }}" method="post">
-                        @csrf
-                        <div class="mb-3">
-                        <label for="estado_usuario" class="form-label">Estado:</label>
-                        <select class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION">
-                        <option value="1" selected>Activo</option>
-                        <option value="2" selected>Inactivo</option>
-                        </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Añadir</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    
+
 <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         
             <thead>
                 <tr>
                     <th>#</th> 
-                    <th>Estado</th>
+                    <th>Pregunta</th>
+                    <th>Respuesta</th>
+                    <th>Usuario</th>
                     <th>Opciones de la Tabla</th>
                 </tr>
             </thead>
+          
             <tbody>
-                @foreach($estado_usuarioArreglo as $estado_usuario)
+                @foreach($pregunta_usuarioArreglo as $pregunta_usuario )
+                    @php
+                      $user = null;
+                        foreach ($usuariosArreglo as $u) {
+                        if ($u['COD_USUARIO'] === $pregunta_usuario['COD_USUARIO']) {
+                            $user = $u;
+                            break;
+                            }
+                        }
+                    @endphp
+ 
                     <tr>
-                        <td>{{ $estado_usuario['COD_ESTADO_USUARIO'] }}</td>
-                        <td>{{ $estado_usuario['DESCRIPCION'] }}</td>
+                        <td>{{ $pregunta_usuario ['COD_PREGUNTA'] }}</td>
+                        <td>{{ str_repeat('*', strlen($pregunta_usuario['PREGUNTA'])) }}</td>
+                        <td>{{ str_repeat('*', strlen($pregunta_usuario['RESPUESTA'])) }}</td>
                         <td>
-                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#estado_usuario-edit-{{ $estado_usuario['COD_ESTADO_USUARIO'] }}">
+                        @if ($user !== null)
+                            {{ $user['USUARIO']}}
+                        @else
+                            usuario no valido
+                        @endif
+                        </td>
+                        <td>
+                    
+                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#pregunta-edit-{{ $pregunta_usuario['COD_PREGUNTA'] }}">
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
                         </td>
@@ -98,26 +92,39 @@
         </table>
     </div>
 
-    @foreach($estado_usuarioArreglo as $estado_usuario)
-        <div class="modal fade bd-example-modal-sm" id="estado_usuario-edit-{{ $estado_usuario['COD_ESTADO_USUARIO'] }}" tabindex="-1">
+    @foreach($pregunta_usuarioArreglo as $pregunta_usuario)
+        <div class="modal fade bd-example-modal-sm" id="roles-edit-{{ $pregunta_usuario['COD_PREGUNTA'] }}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualiza el permiso seleccionado</h5>
+                        <h5 class="modal-title">Actualiza la pregunta seleccionado</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p>Ingrese los Nuevos Datos</p>
-                        <form action="{{ url('estado_usuario/actualizar') }}" method="post">
+                        <form action="{{ url('preguntas_usuarios/actualizar') }}" method="post">
                             @csrf
-                            <input type="hidden" class="form-control" name="COD_ESTADO_USUARIO" value="{{$estado_usuario['COD_ESTADO_USUARIO']}}">
-                                        <div class="mb-3">
-                                        <label for="estado_usuario" class="form-control same-width">Estado:</label>
-                                        <select class="form-select" id="DESCRIPCION" name="DESCRIPCION">
-                                        <option value="1" {{ $estado_usuario['DESCRIPCION'] === '1' ? 'selected' : '' }}>Activo</option>
-                                        <option value="2" {{ $estado_usuario['DESCRIPCION'] === '2' ? 'selected' : '' }}>Inactivo</option>
-                                        </select>
-                                </div>
+                            <input type="hidden" class="form-control" name="COD_PREGUNTA" value="{{ $pregunta_usuario['COD_PREGUNTA'] }}">
+                           
+                            <div class="mb-3 mt-3">
+                            <label for="pregunta_usuarios" class="form-label">Pregunta:</label>
+                            <input type="text" class="form-control" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" value="{{$pregunta_usuario['PREGUNTA'] }}"
+                            pattern="^[A-Za-z0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?">
+                            </div>
+
+                            <div class="mb-3 mt-3">
+                            <label for="pregunta_usuarios" class="form-label">RESPUESTA:</label>
+                            <input type="text" class="form-control" id="RESPUESTA" name="RESPUESTA" placeholder="Ingrese la respuesta" value="{{$pregunta_usuario['RESPUESTA'] }}"
+                            pattern="^[A-Za-z0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?">
+                            </div>
+
+                            <div class="mb-3 mt-3">
+                            <label for="pregunta_usuarios" class="form-label">Usuario:</label>
+                            <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuarop" value="{{$pregunta_usuario['COD_USUARIO'] }}"
+                            pattern="^[A-Za-z0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?" readonly>
+                            </div>
+
+
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

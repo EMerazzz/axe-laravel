@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 namespace App\Http\Controllers\AXE;
 
 use App\Http\Controllers\Controller;
