@@ -2,20 +2,30 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Facades\Http; // Importa la clase Http
 use Closure;
 
 class VerificarUsuario
 {
     public function handle($request, Closure $next)
     {
+        $PERMITIDO = 1;
         $usuarioValue = $_COOKIE["Usuario"];;
+
+        $ACCESO_PERMITIDO = Http::post('http://82.180.162.18:4000/acceso_permitido', [
+            "USUARIO" =>  $usuarioValue
+        ]);
+
+        $ACCESO = json_decode( $ACCESO_PERMITIDO, true);
+
+
         //dd($usuarioValue);
-        if ($usuarioValue === "JOSUE") {
-            // Si el usuario es "JOSUE", permitir el acceso
+        if ($ACCESO === $PERMITIDO) {
+            // Si el usuario es 1, permitir el acceso
             return $next($request);
         } else {
-            // Si el usuario no es "JOSUE", redirigir o mostrar un mensaje de error
-            abort(403, 'Acceso denegado');
+            // Si el usuario no es 1, redirigir o mostrar un mensaje de error
+            abort(403, 'Solo administradores');
         }
     }
 }
