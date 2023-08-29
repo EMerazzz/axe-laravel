@@ -416,6 +416,13 @@ return [
                     //'icon_color' => 'info',
                     'url'  => 'usuarios',
                 ],
+
+                [
+                    'text' => 'preguntas usuarios',
+                    'icon' =>"fa fa-user",
+                    //'icon_color' => 'info',
+                    'url'  => 'preguntas_usuarios',
+                ],
               
                 [
                     'text' => 'Estado usuarios',
@@ -438,11 +445,12 @@ return [
             ],
         
         ],
-       /* [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],*/
+        [
+            'text' => 'Bitacora',  // Opción "Log Out"
+            'url'  => 'bitacora',  // Cambia 'logout' por la URL real de tu función de logout
+            'icon' => 'fa fa-file',  // Icono de "Log Out"
+            //'icon_color' => 'red',
+        ],
         [
             'text' => 'Cerrar sesión',  // Opción "Log Out"
             'url'  => 'login/logout',  // Cambia 'logout' por la URL real de tu función de logout
