@@ -4,7 +4,8 @@
 
 @section('content_header')
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Bitacora de el sistema AXE.</p>
+    <p class="mb-0"><strong>Reportes bitacora.</strong></p>
+    <p class="mb-0">Para descargar en pdf poner fecha.</p>
    
 </blockquote>
 @stop
@@ -15,14 +16,22 @@
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
 </div>
-<style>
-        /* Agrega margen derecho al botón */
-        .btn-with-margin {
-            margin-right: 10px; /* Ajusta el valor según tus necesidades */
-            margin-bottom: 20px; /* Ajusta el valor según tus necesidades */
-        }
-    </style>
 
+<div class="d-flex justify-content-end align-items-center mt-3" style="margin-bottom: 20px;">
+    <button id="export-excel" class="btn btn-success ms-2" onclick="exportToExcel()">
+        <i class="far fa-file-excel"></i> Exportar a Excel
+    </button>
+</div>
+<div class="d-flex align-items-center mb-3">
+    <label for="start-date" class="me-2">Fecha de inicio:</label>
+    <input type="date" id="start-date" class="form-control">
+    <label for="end-date" class="mx-2">Fecha de fin:</label>
+    <input type="date" id="end-date" class="form-control">
+    <button id="apply-filter" class="btn btn-danger mx-2">
+    
+    <i class="far fa-file-pdf"></i> Descargar PDF
+    </button>
+</div>
 <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         <thead>
@@ -127,46 +136,6 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/vfs_fonts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-    <!-- Script personalizado para inicializar DataTables -->
-
-    <script>
-$(document).ready(function() {
-    const table = $('#miTabla').DataTable({
-        paging: false // Desactivar la paginación
-    });
-
-    function applyDateRangeFilter() {
-        const startDate = $('#start-date').val();
-        const endDate = $('#end-date').val();
-
-        table.columns().every(function() {
-            const columnIndex = this.index();
-
-            if (columnIndex === 4) { // Índice de la columna "Fecha de registro"
-                const column = this;
-                const formattedStartDate = new Date(startDate).toISOString().split('T')[0];
-                const formattedEndDate = new Date(endDate).toISOString().split('T')[0];
-
-                column.data().each(function(value, index) {
-                    const dateValue = new Date(value).toISOString().split('T')[0];
-                    const row = table.row(index).nodes().to$();
-
-                    if (dateValue >= formattedStartDate && dateValue <= formattedEndDate) {
-                        row.show();
-                    } else {
-                        row.hide();
-                    }
-                });
-            }
-        });
-    }
-
-    $('#apply-filter').on('click', function() {
-        applyDateRangeFilter();
-    });
-});
-
-</script>
  
  
    <!-- Script personalizado para CAMBIAR MODO -->
@@ -215,6 +184,175 @@ modeToggle.addEventListener('click', () => {
         });
     });
 </script>
+ <!--           *****     *****      Script genera pdf  *****       *****                     -->
+
+
+<script>
+$(document).ready(function() {
+    const table = $('#miTabla').DataTable({
+         
+            
+        paging: false // Desactivar la paginación
+    });
+
+    function applyDateRangeFilter() {
+        const startDate = $('#start-date').val();
+        const endDate = $('#end-date').val();
+
+        table.columns().every(function() {
+            const columnIndex = this.index();
+
+            if (columnIndex === 4) { // Índice de la columna "Fecha de registro"
+                const column = this;
+                const formattedStartDate = new Date(startDate).toISOString().split('T')[0];
+                const formattedEndDate = new Date(endDate).toISOString().split('T')[0];
+
+                column.data().each(function(value, index) {
+                    const dateValue = new Date(value).toISOString().split('T')[0];
+                    const row = table.row(index).nodes().to$();
+
+                    if (dateValue >= formattedStartDate && dateValue <= formattedEndDate) {
+                        row.show();
+                    } else {
+                        row.hide();
+                    }
+                });
+            }
+        });
+    }
+
+    $('#apply-filter').on('click', function() {
+        applyDateRangeFilter();
+        const filteredData = gatherFilteredData(); // Obtener los datos filtrados
+        generarPDF(filteredData); // Llamar a la función generarPDF después de aplicar el filtro
+    });
+
+    function gatherFilteredData() {
+    const filteredData = [];
+
+    // Iterar sobre las filas visibles de la tabla después de aplicar el filtro
+    $('#miTabla tbody tr:visible').each(function() {
+        const rowData = [];
+        $(this).find('td').each(function() {
+            rowData.push($(this).text());
+        });
+        filteredData.push(rowData);
+    });
+
+    return filteredData;
+}
+
+    function generarPDF(filteredData) {
+        const tableData = [];
+        const headerData = [];
+
+        // Obtén los encabezados de la tabla
+        const tableHeader = document.querySelectorAll('#miTabla thead th');
+        tableHeader.forEach(headerCell => {
+            headerData.push({ text: headerCell.textContent, bold: true });
+        });
+
+        // Usar los datos filtrados directamente
+        filteredData.forEach(rowData => {
+            const row = [];
+            rowData.forEach(cell => {
+                row.push(cell);
+            });
+            tableData.push(row);
+        });
+
+        const documentDefinition = {
+            pageSize: 'A0', // Tamaño de página
+    pageOrientation: 'landscape',
+    content: [
+        {
+            text: 'REPORTES DE BITACORA',
+            fontSize: 16,
+            bold: true,
+            alignment: 'center',
+            margin: [0, 0, 0, 10]
+        },
+        {
+            table: {
+                image: 'public/4e9c-a66d-c243a9eb7b33-removebg-preview.png', // Ruta relativa a la imagen en "public"
+                headerRows: 1,
+                widths: '*',
+                body: [
+                    headerData,
+                    ...tableData
+                ],
+                style: {
+                    lineHeight: 1.2
+                }
+            }
+        }
+    ]
+};
+
+
+        pdfMake.createPdf(documentDefinition).download('reporte.pdf');
+    }
+});
+
+function exportToExcel() {
+    const tableData = [];
+    const headerData = [];
+
+    // Obtén los datos del encabezado de la tabla (excluyendo la columna "Opciones de la Tabla")
+    const tableHeader = document.querySelectorAll('#miTabla thead th');
+    tableHeader.forEach(headerCell => {
+        if (headerCell.textContent !== 'Opciones de la Tabla') {
+            headerData.push(headerCell.textContent);
+        }
+    });
+
+    // Obtén todos los datos de la tabla, incluyendo todas las páginas
+    const table = $('#miTabla').DataTable();
+    const allData = table.rows().data();
+    
+    allData.each(function (rowData) {
+        const row = [];
+        rowData.forEach((cell, index) => {
+            // Excluir la última columna y la columna "Opciones de la Tabla"
+            if (index !== rowData.length - 1) {
+                row.push(cell);
+            }
+        });
+        tableData.push(row);
+    });
+
+    const worksheetData = [headerData, ...tableData];
+
+    // Crear un objeto WorkBook y hoja de cálculo
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(worksheetData);
+
+    // Agregar la hoja de cálculo al WorkBook
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    // Generar el archivo Excel como una matriz binaria
+    const excelBinary = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+    // Convertir la matriz binaria en un Blob
+    const excelBlob = new Blob([s2ab(excelBinary)], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    });
+
+    // Descargar el archivo usando la biblioteca FileSaver.js
+    saveAs(excelBlob, 'reporte.xlsx');
+}
+
+// Función para convertir una cadena binaria en una matriz de bytes
+function s2ab(s) {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+    return view;
+}
+</script>
+
+
+
 
 
 

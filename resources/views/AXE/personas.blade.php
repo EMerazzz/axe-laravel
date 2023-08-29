@@ -25,19 +25,15 @@
     </button>
 </div>
 
-<!-- Agregar botones de Exportar -->
-
-<div class="d-flex justify-content-end align-items-center mt-3">
+<!-- <div class="d-flex justify-content-end align-items-center mt-3">
     <button id="export-pdf" class="btn btn-danger ms-2"onclick="generarPDF()">
         <i class="far fa-file-pdf"></i> Exportar a PDF
     </button>
-    <div style="width: 10px;"></div> <!-- Agrega espacio vertical -->
+    <div style="width: 10px;"></div>
     <button id="export-excel" class="btn btn-success ms-2" onclick="exportToExcel()">
         <i class="far fa-file-excel"></i> Exportar a Excel
     </button>
-</div>
-
-        
+</div> -->
    
 <style>
     .same-width {

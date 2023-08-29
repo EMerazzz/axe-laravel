@@ -26,5 +26,6 @@ class bitacoraController extends Controller
         // Retornar la vista con ambos conjuntos de datos
         return view('AXE.bitacora', compact('bitacoraArreglo'));
     }
+
    
 }

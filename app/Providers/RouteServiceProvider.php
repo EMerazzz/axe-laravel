@@ -113,6 +113,27 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('bitacora')
             ->group(base_path('routes/bitacora.php'));
+            //Reportes
+            Route::middleware('web')
+            ->prefix('Reportebitacora')
+            ->group(base_path('routes/Rbitacora.php'));
+            Route::middleware('web')
+            ->prefix('Reportepersonas')
+            ->group(base_path('routes/Rpersonas.php'));
+            Route::middleware('web')
+            ->prefix('Reportepersonas')
+            ->group(base_path('routes/Rpersonas.php'));
+            Route::middleware('web')
+            ->prefix('Reportematriculas')
+            ->group(base_path('routes/Rmatriculas.php'));
+            Route::middleware('web')
+            ->prefix('Reportedocentes')
+            ->group(base_path('routes/Rdocentes.php'));
+            Route::middleware('web')
+            ->prefix('Reportepadres')
+            ->group(base_path('routes/Rpadres.php'));
+
+
         });
     }
 
