@@ -250,8 +250,22 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var TOTALPREGUNTAS = {{ $TOTALPREGUNTAS }}; // Asigna el valor de TOTALPREGUNTAS desde PHP
+        function makeInputsReadOnly() {
+            document.getElementById('pregunta1').readOnly = true;
+            document.getElementById('respuesta1').readOnly = true;
+         }
+
+        function disableSubmitButton() {
+            var submitButton = document.querySelector('button[type="submit"]');
+            if (submitButton) {
+                submitButton.disabled = true;
+            }
+        }
 
         if (TOTALPREGUNTAS > 1) {
+            makeInputsReadOnly();
+            disableSubmitButton();
+
             document.addEventListener('click', function() {
             $('#forgotPasswordModal').modal('show');
         });
