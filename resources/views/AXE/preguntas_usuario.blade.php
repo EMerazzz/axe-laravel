@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Roles')
+@section('title', 'Preguntas Usuarios')
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Preguntas registradas en el sistema AXE.</p>
-    <footer class="blockquote-footer">Roles <cite title="Source Title">Completadas</cite></footer>
+    <footer class="blockquote-footer">Preguntas Usuario <cite title="Source Title">Completadas</cite></footer>
 </blockquote>
 @stop
 
@@ -43,43 +43,8 @@
         </div>
     </div>
 @endif
-<!-- <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#preguntas_usuario">+ Nuevo</button>
-<div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="preguntas_usuario" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Ingresa una Nueva Pregunta</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Ingrese los Datos:</p>
-                    <form action="{{ url('preguntas_usuario/insertar') }}" method="post">
-                        @csrf
-                        <div class="mb-3 mt-3">
-                        <label for="roles" class="form-label">Roles</label>
-                        <select class="form-select" id="DESCRIPCION" name="DESCRIPCION">
-                        <option value="ADMINISTRADOR" selected>ADMINISTRADOR</option>
-                        <option value="USUARIO"selected>USUARIO</option>
-                        </select>
-                        </div>
-                        
-                        <div class="mb-3 mt-3">
-                        <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
-                        <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
-                         </div>
 
-
-                        <button type="submit" class="btn btn-primary">Añadir</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    
-    <div class="table-responsive">
+<div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         
             <thead>
@@ -93,18 +58,17 @@
             </thead>
           
             <tbody>
-            @foreach($pregunta_usuarioArreglo as $pregunta_usuario )
-            @php
-                    $user = null;
-                    foreach ($usuariosArreglo as $u) {
-                        if ($p['COD_USUARIO'] === $pregunta_usuario['COD_USUARIO']) {
+                @foreach($pregunta_usuarioArreglo as $pregunta_usuario )
+                    @php
+                      $user = null;
+                        foreach ($usuariosArreglo as $u) {
+                        if ($u['COD_USUARIO'] === $pregunta_usuario['COD_USUARIO']) {
                             $user = $u;
                             break;
+                            }
                         }
-                    }
-                @endphp
-
-                @foreach($pregunta_usuarioArreglo as $pregunta_usuario )
+                    @endphp
+ 
                     <tr>
                         <td>{{ $pregunta_usuario ['COD_PREGUNTA'] }}</td>
                         <td>{{ str_repeat('*', strlen($pregunta_usuario['PREGUNTA'])) }}</td>
@@ -133,14 +97,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualiza el rol seleccionado</h5>
+                        <h5 class="modal-title">Actualiza la pregunta seleccionado</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p>Ingrese los Nuevos Datos</p>
-                        <form action="{{ url('preguntas_usuario/actualizar') }}" method="post">
+                        <form action="{{ url('preguntas_usuarios/actualizar') }}" method="post">
                             @csrf
-                            <input type="hidden" class="form-control" name="COD_ROL" value="{{ $preguntas_usuario['COD_PREGUNTA'] }}">
+                            <input type="hidden" class="form-control" name="COD_PREGUNTA" value="{{ $pregunta_usuario['COD_PREGUNTA'] }}">
                            
                             <div class="mb-3 mt-3">
                             <label for="pregunta_usuarios" class="form-label">Pregunta:</label>
