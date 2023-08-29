@@ -46,7 +46,7 @@ class loginController extends Controller
                 $variablePrimera = json_decode( $variablePrimeraVez, true);
                 if (count($variablePrimera) > 0){
 
-                    $COD_USUARIO_RECIBIDO = Http::post('http://82.180.162.18:/dame_cod_usuario', [
+                    $COD_USUARIO_RECIBIDO = Http::post('http://82.180.162.18:4000/dame_cod_usuario', [
                         "USUARIO" =>  $Usuario
                     ]);
                 
