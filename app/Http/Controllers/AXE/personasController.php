@@ -11,12 +11,15 @@ use DateTime;
 class PersonasController extends Controller
 {
     private $apiUrl = 'http://82.180.162.18:4000/personas'; // Declaración de la variable de la URL de la API
+   
     public function personas()
     {
     
         $cookieEncriptada = request()->cookie('token');//trae la cookie encriptada
         $token = decrypt($cookieEncriptada);//desencripta la cookie
-        $UsuarioValue = $_COOKIE["Usuario"];
+       
+
+       // dd ( $UsuarioValue);
         $personas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
@@ -29,7 +32,8 @@ class PersonasController extends Controller
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
-
+        //usuario
+        $UsuarioValue = $_COOKIE["Usuario"];
         $identidad = $request->input("IDENTIDAD");
     
         // Obtener todas las personas desde la API
@@ -97,6 +101,8 @@ class PersonasController extends Controller
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        //usuario
+        $UsuarioValue = $_COOKIE["Usuario"];
         //calcular edad
         $fecha_nacimiento = $request->input("FECHA_NACIMIENTO");
         $edad = $this->calcularEdad($fecha_nacimiento);
