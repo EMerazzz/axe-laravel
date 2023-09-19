@@ -33,6 +33,7 @@
                 <th>Tipo evento</th>
                 <th>Fecha de registro</th>
                 <th>Fecha de modificación</th>
+                <th>Usuario que modificó</th>
                 <th>Código registro tabla</th>
                 <th>Primera FK</th>
                 <th>Segunda FK</th>
@@ -68,6 +69,7 @@
                 <td>{{ $bitacora['TIPO_EVENTO'] }}</td>
                 <td>{{ date('Y-m-d', strtotime($bitacora['FECHA_REGISTRO'])) }}</td>
                 <td>{{ date('d, M Y', strtotime($bitacora['FECHA_MODIFICACION'])) }}</td>
+                <td>{{ $bitacora['USUARIO'] }}</td>
                 <td>{{ $bitacora['COD_REGISTRO_TABLA'] }}</td>
                 <td>{{ $bitacora['PRIMERA_FK'] }}</td>
                 <td>{{ $bitacora['SEGUNDA_FK'] }}</td>
@@ -130,43 +132,25 @@
     <!-- Script personalizado para inicializar DataTables -->
 
     <script>
-$(document).ready(function() {
-    const table = $('#miTabla').DataTable({
-        paging: false // Desactivar la paginación
-    });
+        $(document).ready(function() {
+            $('#miTabla').DataTable({
 
-    function applyDateRangeFilter() {
-        const startDate = $('#start-date').val();
-        const endDate = $('#end-date').val();
+              "language":{
+             "search":       "Buscar: ",
+             "lengthMenu":   "Mostrar _MENU_ registros por página",
+             "info":   "Mostrando página _PAGE_ de _PAGES_",
+             "paginate": {"previous": "Anterior",
+                          "next":  "Siguiente",
+                          "first": "Primero",
+                          "last":  ""
 
-        table.columns().every(function() {
-            const columnIndex = this.index();
 
-            if (columnIndex === 4) { // Índice de la columna "Fecha de registro"
-                const column = this;
-                const formattedStartDate = new Date(startDate).toISOString().split('T')[0];
-                const formattedEndDate = new Date(endDate).toISOString().split('T')[0];
-
-                column.data().each(function(value, index) {
-                    const dateValue = new Date(value).toISOString().split('T')[0];
-                    const row = table.row(index).nodes().to$();
-
-                    if (dateValue >= formattedStartDate && dateValue <= formattedEndDate) {
-                        row.show();
-                    } else {
-                        row.hide();
-                    }
-                });
+             }
             }
+          });
         });
-    }
 
-    $('#apply-filter').on('click', function() {
-        applyDateRangeFilter();
-    });
-});
-
-</script>
+    </script>
  
  
    <!-- Script personalizado para CAMBIAR MODO -->
