@@ -16,7 +16,7 @@ class PersonasController extends Controller
     
         $cookieEncriptada = request()->cookie('token');//trae la cookie encriptada
         $token = decrypt($cookieEncriptada);//desencripta la cookie
-
+        $UsuarioValue = $_COOKIE["Usuario"];
         $personas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
@@ -66,6 +66,7 @@ class PersonasController extends Controller
             "TIPO_PERSONA" => $request->input("TIPO_PERSONA"),
             "EDAD" => $edad,
             "FECHA_NACIMIENTO" => $fecha_nacimiento,
+            "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
     
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -110,6 +111,7 @@ class PersonasController extends Controller
             "TIPO_PERSONA" => $request->input("TIPO_PERSONA"),
             "EDAD" => $edad,
             "FECHA_NACIMIENTO" => $fecha_nacimiento,
+            "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
         if ($modificar_persona->successful()) {
             return redirect('/personas')->with('message', [
