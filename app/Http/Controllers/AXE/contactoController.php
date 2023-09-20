@@ -36,6 +36,8 @@ class contactoController extends Controller
     public function nuevo_contacto_emergencia(Request $request ){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $UsuarioValue = $_COOKIE["Usuario"];
+
     $nuevo_contacto = Http::withHeaders([
         'Authorization' => 'Bearer ' . $token,
     ])->post($this->apiUrl,[
@@ -45,7 +47,7 @@ class contactoController extends Controller
     "APELLIDO_CONTACTO"=> $request->input("APELLIDO_CONTACTO"),
     "TELEFONO"=> $request->input("TELEFONO"),
     "RELACION"=> $request->input("RELACION"),
-    
+    "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
         if ($nuevo_contacto ->successful()) {
             return redirect('/contacto')->with('message', [
@@ -63,6 +65,8 @@ class contactoController extends Controller
     public function modificar_contacto_emergencia(Request $request ){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $UsuarioValue = $_COOKIE["Usuario"];
+        
         $modificar_contacto = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_CONTACTO_EMERGENCIA"),[
@@ -73,6 +77,7 @@ class contactoController extends Controller
             "APELLIDO_CONTACTO"=> $request->input("APELLIDO_CONTACTO"),
             "TELEFONO"=> $request->input("TELEFONO"),
             "RELACION"=> $request->input("RELACION"),
+            "USUARIO_MODIFICADOR" => $UsuarioValue,
 
         ]);
       

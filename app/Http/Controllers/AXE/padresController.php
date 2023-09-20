@@ -34,6 +34,7 @@ class padresController extends Controller
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $UsuarioValue = $_COOKIE["Usuario"];
         $personaSeleccionadaId = $request->input("COD_PERSONA");
         // Obtener los datos de la persona seleccionada por su ID desde la API de personas
         $personaSeleccionada =Http::withHeaders([
@@ -52,6 +53,7 @@ class padresController extends Controller
                 "APELLIDO_PADRE_TUTOR" => $personaSeleccionadaData[0]['APELLIDO'],
                 "OCUPACION_PADRE_TUTOR" => $request->input("OCUPACION_PADRE_TUTOR"),
                 "RELACION_PADRE_ESTUDIANTE" => $request->input("RELACION_PADRE_ESTUDIANTE"),
+                "USUARIO_MODIFICADOR" => $UsuarioValue,
             ]);
 
             // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -74,12 +76,14 @@ class padresController extends Controller
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $UsuarioValue = $_COOKIE["Usuario"];
         $modificar_padre=Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'. $request->input("COD_PADRE_TUTOR"), [
            
             "OCUPACION_PADRE_TUTOR" => $request->input("OCUPACION_PADRE_TUTOR"),
             "RELACION_PADRE_ESTUDIANTE" => $request->input("RELACION_PADRE_ESTUDIANTE"),
+            "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
 
        // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error

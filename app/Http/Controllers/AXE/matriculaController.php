@@ -70,7 +70,8 @@ class matriculaController extends Controller
     public function nueva_matricula(Request $request) {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
-    
+        $UsuarioValue = $_COOKIE["Usuario"];
+
         $identidad = $request->input("COD_PERSONA");
     
         // Obtener todas las matrículas desde la API
@@ -107,7 +108,7 @@ class matriculaController extends Controller
     "JORNADA"=> $request->input("JORNADA"),
     "SECCION"=> $request->input("SECCION"),
     "COD_PADRE_TUTOR"=> $request->input("COD_PADRE_TUTOR"),
-    
+    "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
         
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -127,6 +128,8 @@ class matriculaController extends Controller
     public function modificar_matricula(Request $request ){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+
+        $UsuarioValue = $_COOKIE["Usuario"];
         $modificar_matricula = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_MATRICULA"),[
@@ -137,6 +140,7 @@ class matriculaController extends Controller
             "JORNADA"=> $request->input("JORNADA"),
             "SECCION"=> $request->input("SECCION"),
             "COD_PADRE_TUTOR"=> $request->input("COD_PADRE_TUTOR"),
+            "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
       
         if ($modificar_matricula ->successful()) {

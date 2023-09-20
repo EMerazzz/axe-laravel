@@ -42,6 +42,7 @@ class docentesController extends Controller
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $UsuarioValue = $_COOKIE["Usuario"];
         $personaSeleccionadaId = $request->input("COD_PERSONA");
         // Obtener los datos de la persona seleccionada por su ID desde la API de personas
         $personaSeleccionada = Http::withHeaders([
@@ -59,6 +60,7 @@ class docentesController extends Controller
                 "NOMBRE_DOCENTE" => $personaSeleccionadaData[0]['NOMBRE']. ' ' . $personaSeleccionadaData[0]['APELLIDO'],
                 "ESPECIALIDAD" => $request->input("ESPECIALIDAD"),
                 "GRADO_ENSENIANZA" => $request->input("GRADO_ENSENIANZA"),
+                "USUARIO_MODIFICADOR" => $UsuarioValue,
             ]);
 
             // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -80,6 +82,7 @@ class docentesController extends Controller
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $UsuarioValue = $_COOKIE["Usuario"];
         $modificar_docente= Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'. $request->input("COD_DOCENTE"), [
@@ -87,6 +90,7 @@ class docentesController extends Controller
             "NOMBRE_DOCENTE" => $request->input("NOMBRE_DOCENTE"),
             "ESPECIALIDAD" => $request->input("ESPECIALIDAD"),
             "GRADO_ENSENIANZA" => $request->input("GRADO_ENSENIANZA"),
+            "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
 
        // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error

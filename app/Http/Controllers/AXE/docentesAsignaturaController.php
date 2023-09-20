@@ -14,6 +14,7 @@ class docentesAsignaturaController extends Controller
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $UsuarioValue = $_COOKIE["Usuario"];
         // Obtener los datos de personas desde el controlador PersonasController
         $docentesController = new docentesController();
         $docentes = Http::withHeaders([
@@ -40,12 +41,14 @@ class docentesAsignaturaController extends Controller
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $UsuarioValue = $_COOKIE["Usuario"];
         $nuevo_docentesAsignatura = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->post($this->apiUrl, [
             "COD_DOCENTE" => $request->input("COD_DOCENTE"),
             "COD_ASIGNATURA" => $request->input("COD_ASIGNATURA"),
             "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES"),
+            "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
 
        // dd(json_decode($nuevo_docentesAsignatura));
@@ -66,11 +69,13 @@ class docentesAsignaturaController extends Controller
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $UsuarioValue = $_COOKIE["Usuario"];
         $modificar_docentesAsignatura= Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
             ])->put($this->apiUrl.'/'.$request->input("COD_DOCENTE_ASIGNATURA"), [
             "COD_ASIGNATURA" => $request->input("COD_ASIGNATURA"),
             "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES"),
+            "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
      
         if ($modificar_docentesAsignatura->successful()) {

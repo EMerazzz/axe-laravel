@@ -34,13 +34,14 @@ class correosController extends Controller
     public function nuevo_correo(Request $request ){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $UsuarioValue = $_COOKIE["Usuario"];
     $nuevo_correo = Http::withHeaders([
         'Authorization' => 'Bearer ' . $token,
     ])->post($this->apiUrl,[
         
     "COD_PERSONA" => $request->input("COD_PERSONA"),
     "CORREO_ELECTRONICO"=> $request->input("CORREO_ELECTRONICO"),
-    
+    "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
         if ($nuevo_correo->successful()) {
             return redirect('/correos')->with('message', [
@@ -58,14 +59,13 @@ class correosController extends Controller
     public function modificar_correo(Request $request ){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
-       
+        $UsuarioValue = $_COOKIE["Usuario"];
         $modificar_correo = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_CORREO"),[
-            "COD_CORREO" => $request->input("COD_CORREO"),
         
             "CORREO_ELECTRONICO"=> $request->input("CORREO_ELECTRONICO"),
-            
+            "USUARIO_MODIFICADOR" => $UsuarioValue,
 
         ]);
       

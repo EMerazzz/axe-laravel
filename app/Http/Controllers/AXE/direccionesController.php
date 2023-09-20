@@ -35,6 +35,7 @@ class direccionesController extends Controller
 
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $UsuarioValue = $_COOKIE["Usuario"];
     $nueva_direccion = Http::withHeaders([
         'Authorization' => 'Bearer ' . $token,
     ])->post($this->apiUrl,[
@@ -44,6 +45,7 @@ class direccionesController extends Controller
     "DEPARTAMENTO"=> $request->input("DEPARTAMENTO"),
     "CIUDAD"=> $request->input("CIUDAD"),
     "PAIS"=> $request->input("PAIS"),
+    "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
         if ($nueva_direccion ->successful()) {
             return redirect('/direcciones')->with('message', [
@@ -61,6 +63,7 @@ class direccionesController extends Controller
     public function modificar_direccion(Request $request ){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $UsuarioValue = $_COOKIE["Usuario"];
         $modificar_direccion = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_DIRECCION"),[
@@ -70,7 +73,7 @@ class direccionesController extends Controller
             "DEPARTAMENTO"=> $request->input("DEPARTAMENTO"),
             "CIUDAD"=> $request->input("CIUDAD"),
             "PAIS"=> $request->input("PAIS"),
-
+            "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
       
 
