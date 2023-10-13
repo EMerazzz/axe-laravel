@@ -132,7 +132,6 @@
             <tr>
                 <th>#</th>
                 <th>Usuario</th>
-                <th>Contraseña</th>
                 <th>Primer Ingreso</th>
                 <th>Numero Intentos</th>
                 <th>Modificado Por</th>
@@ -167,7 +166,6 @@
             <tr>
                 <td>{{ $usuarios['COD_USUARIO'] }}</td>
                 <td>{{ $usuarios['USUARIO'] }}</td>
-                <td>{{ str_repeat('*', strlen($usuarios['CONTRASENA'])) }}</td>
                 <td>{{ $usuarios['PRIMER_INGRESO'] }}</td>
                 <td>{{ $usuarios['N_INTENTOS'] }}</td>
                 <td>{{ $usuarios['MODIFICADO_POR'] }}</td>

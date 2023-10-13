@@ -88,22 +88,22 @@
                         <!-- FIN --->
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Dirección</label>
-                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección">
+                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required >
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="DEPARTAMENTO" class="form-label">Departamento</label>
                             <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento">
-                            <div id="error-message-departamento" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
+                            <div id="error-message-departamento" class="error-message" style="color: red; display: none;" required >Solo se permiten letras y espacios</div>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="CIUDAD" class="form-label">Ciudad</label>
                             <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad">
-                            <div id="error-message-ciudad" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
+                            <div id="error-message-ciudad" class="error-message" style="color: red; display: none;" required >Solo se permiten letras y espacios</div>
                             </div>
                         <div class="mb-3 mt-3">
                             <label for="PAIS" class="form-label">País</label>
                             <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país">
-                            <div id="error-message-pais" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
+                            <div id="error-message-pais" class="error-message" style="color: red; display: none;" required >Solo se permiten letras y espacios</div>
                         </div>
                 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -180,10 +180,10 @@
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <form action="{{ url('direcciones/actualizar') }}" method="post">
                         @csrf
-                        <input type="hidden" class="form-control" name="COD_DIRECCION" value="{{ $direcciones['COD_DIRECCION'] }}">
+                        <input type="hidden" class="form-control" name="COD_DIRECCION" value="{{ $direcciones['COD_DIRECCION'] }}" required >
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Dirección</label>
-                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" value="{{ $direcciones['DIRECCION'] }}">
+                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" value="{{ $direcciones['DIRECCION'] }}" required >
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Departamento</label>

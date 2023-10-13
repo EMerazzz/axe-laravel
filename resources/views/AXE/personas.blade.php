@@ -99,9 +99,10 @@
 
 <div class="mb-3 mt-3">
     <label for="IDENTIDAD" class="form-label">Numeros de identidad:</label>
-    <input type="text" class="form-control same-width" id="IDENTIDAD" name="IDENTIDAD" placeholder="Ingrese numero de identidad de la persona" required>
-    <div id="error-message-identidad" style="color: red; display: none;">Solo se permiten números</div>
+    <input type="text" class="form-control same-width" id="IDENTIDAD" name="IDENTIDAD" placeholder="Ingrese número de identidad de la persona" required maxlength="20">
+    <div id="error-message-identidad" style="color: red; display: none;">Solo se permiten numeros</div>
 </div>
+
 
 
 <div class="mb-3">
@@ -203,7 +204,7 @@
                 
 <div class="mb-3">
     <label for="IDENTIDAD" class="form-label">Números de identidad:</label>
-    <input type="text" class="form-control" id="IDENTIDAD" name="IDENTIDAD" placeholder="Ingrese número de identidad de la persona" value="{{$personas['IDENTIDAD']}}"
+    <input type="text" class="form-control" id="IDENTIDAD" name="IDENTIDAD" placeholder="Ingrese número de identidad de la persona" value="{{$personas['IDENTIDAD']}}" maxlength="20"
     title="Solo se permiten números"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
 </div>
 

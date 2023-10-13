@@ -65,7 +65,7 @@
                         @csrf
                        
                         <div class="mb-3 mt-3">
-                            <label for="NOMBRE_ASIGNATURA" class="form-label">Nombres de la persona:</label>
+                            <label for="NOMBRE_ASIGNATURA" class="form-label">Nombre de la asignatura:</label>
                             <input type="text" class="form-control same-width" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" inputmode="text" required >
                         </div>
 
