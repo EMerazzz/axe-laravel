@@ -4,7 +4,6 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Estados Usuarios registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Estados<cite title="Source Title">Completadas</cite></footer>
 </blockquote>
 @stop
 
@@ -50,11 +49,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Ingresa un Nuevo Estado Usuario</h5>
+                    <h5 class="modal-title">Ingresa Estado Usuario</h5>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Ingrese los Datos:</p>
                     <form action="{{ url('estado_usuario/insertar') }}" method="post">
                         @csrf
                         <div class="mb-3">
@@ -79,7 +77,7 @@
                 <tr>
                     <th>#</th> 
                     <th>Estado</th>
-                    <th>Opciones de la Tabla</th>
+                    <th>Opciones Tabla</th>
                 </tr>
             </thead>
             <tbody>
@@ -103,11 +101,10 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualiza el permiso seleccionado</h5>
+                        <h5 class="modal-title">Actualiza Permiso</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Ingrese los Nuevos Datos</p>
                         <form action="{{ url('estado_usuario/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ESTADO_USUARIO" value="{{$estado_usuario['COD_ESTADO_USUARIO']}}">

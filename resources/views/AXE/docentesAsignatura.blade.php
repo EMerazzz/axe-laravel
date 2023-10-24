@@ -5,7 +5,6 @@
 
 <blockquote class="custom-blockquote">
     <p class="mb-0">Asignaturas que imparte cada docente.</p>
-    <footer class="blockquote-footer">Asignaturas <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 @stop
 
@@ -66,9 +65,6 @@
                 <h5 class="modal-title">Ingrese</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p>Ingrese los Datos:</p>
-            </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <form action="{{url('docentesAsignatura/insertar')}}" method="post">
@@ -77,7 +73,7 @@
                  <div class="mb-3 mt-3">
                     <label for="COD_DOCENTE" class="form-label">Docentes: </label>
                     <select class="selectize" id="COD_DOCENTE" name="COD_DOCENTE" required>
-                        <option value="" disabled selected>Seleccione un docente</option>
+                        <option value="" disabled selected>Seleccione Docente</option>
                         @foreach ($docentesArreglo as $docentes)
                                 <option value="{{ $docentes['COD_DOCENTE'] }}">{{ $docentes['NOMBRE_DOCENTE'] }}</option>
                         @endforeach
@@ -94,8 +90,8 @@
                     </select>
                 </div>
                         <div class="mb-3 mt-3">
-                            <label for="docentesAsignatura" class="form-label">Horas semanales</label>
-                            <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese Las horas semanales">
+                            <label for="docentesAsignatura" class="form-label">Horas Semanales</label>
+                            <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese horas semanales">
                         </div>
                        
 
@@ -113,10 +109,10 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Nombre completo</th>
+                <th>Nombre Completo</th>
                 <th>Asignatura</th>
-                <th>Horas semanales</th>
-                <th>Opciones de la Tabla</th>
+                <th>Horas Semanales</th>
+                <th>Opciones Tabla</th>
             </tr>
         </thead>
         <tbody>
@@ -175,11 +171,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Actualiza el docente seleccionado</h5>
+                <h5 class="modal-title">Actualiza Docente</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingresa los Nuevos Datos</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">

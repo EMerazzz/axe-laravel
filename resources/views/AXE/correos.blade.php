@@ -5,7 +5,6 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Correos registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Correos <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 @stop
 
@@ -63,12 +62,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ingresa un nuevo correo</h5>
+                <h5 class="modal-title">Ingresa Nuevo Correo</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>   
-            <div class="modal-body">
-                <p>Ingrese los Datos:</p>
-            </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <form action="{{ url('correos/insertar') }}" method="post">
@@ -77,7 +73,7 @@
                         <div class="mb-3 mt-3">
                             <label for="COD_PERSONA" class="form-label">Persona: </label>
                             <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-                                <option value="" disabled selected>Seleccione una persona</option>
+                                <option value="" disabled selected>Seleccione Persona</option>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
                                 @endforeach
@@ -108,7 +104,7 @@
                 <th>Nombre completo</th>
                 <th>Correo electrónico</th>
                 <th>Fecha registro</th>
-                <th>Opciones de la Tabla</th>
+                <th>Opciones Tabla</th>
             </tr>
         </thead>
         <tbody>
@@ -151,11 +147,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Actualiza el correo seleccionado</h5>
+                <h5 class="modal-title">Actualiza Correo</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingresa los Nuevos Datos</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">

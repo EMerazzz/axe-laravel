@@ -4,8 +4,8 @@
 
 @section('content_header')
 <blockquote class="custom-blockquote">
-    <p class="mb-0"><strong>Reportes docentes.</strong></p>
-    <p class="mb-0">Para descargar en pdf poner fecha.</p>
+    <p class="mb-0"><strong>Reportes docentes</strong></p>
+    <p class="mb-0">Para descargar en pdf poner fecha</p>
    
 </blockquote>
 @stop
@@ -34,9 +34,9 @@
 <thead>
             <tr>
                 <th>#</th>
-                <th>Nombre completo</th>
+                <th>Nombre Completo</th>
                 <th>Especialidad</th>
-                <th>Grado enseñanza</th>
+                <th>Grado Enseñanza</th>
                 <th></th>
             </tr>
         </thead>

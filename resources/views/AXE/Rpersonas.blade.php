@@ -4,8 +4,8 @@
 
 @section('content_header')
 <blockquote class="custom-blockquote">
-    <p class="mb-0"><strong>Reportes personas.</strong></p>
-    <p class="mb-0">Para descargar en pdf poner fecha.</p>
+    <p class="mb-0"><strong>Reportes personas</strong></p>
+    <p class="mb-0">Para descargar en pdf poner fecha</p>
    
 </blockquote>
 @stop
@@ -23,9 +23,9 @@
     </button>
 </div>
 <div class="d-flex align-items-center mb-3">
-    <label for="start-date" class="me-2">Fecha de inicio:</label>
+    <label for="start-date" class="me-2">Fecha Inicio:</label>
     <input type="date" id="start-date" class="form-control">
-    <label for="end-date" class="mx-2">Fecha de fin:</label>
+    <label for="end-date" class="mx-2">Fecha Fin:</label>
     <input type="date" id="end-date" class="form-control">
     <button id="apply-filter" class="btn btn-danger mx-2">
     
@@ -39,12 +39,12 @@
             <th>#</th> 
         <th>Nombres</th> 
         <th>Apellidos</th>
-        <th>Número de identidad</th>
-        <th>Genero</th>
-        <th>Tipo de persona</th>
-        <th>Fecha nacimiento</th>
+        <th>Número Identidad</th>
+        <th>Género</th>
+        <th>Tipo Persona</th>
+        <th>Fecha Nacimiento</th>
         <th>Edad</th>
-        <th>Fecha registro</th>
+        <th>Fecha Registro</th>
 
             </tr>
         </thead>

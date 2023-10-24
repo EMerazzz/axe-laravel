@@ -5,7 +5,7 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0"><strong>Reportes Matricula.</strong></p>
-    <p class="mb-0">Para descargar en pdf poner fecha.</p>
+    <p class="mb-0">Para descargar en pdf poner fecha</p>
    
 </blockquote>
 @stop
@@ -23,9 +23,9 @@
     </button>
 </div>
 <div class="d-flex align-items-center mb-3">
-    <label for="start-date" class="me-2">Fecha de inicio:</label>
+    <label for="start-date" class="me-2">Fecha Inicio:</label>
     <input type="date" id="start-date" class="form-control">
-    <label for="end-date" class="mx-2">Fecha de fin:</label>
+    <label for="end-date" class="mx-2">Fecha Fin:</label>
     <input type="date" id="end-date" class="form-control">
     <button id="apply-filter" class="btn btn-danger mx-2">
     
@@ -38,13 +38,13 @@
             <tr>
                 <th>#</th>
                 <th>Estudiante</th>
-                <th>Nivel Academico</th>
-                <th>Año Academico</th>
+                <th>Nivel Académico</th>
+                <th>Año Académico</th>
                 <th>Sección</th>
                 <th>Jornada</th>
-                <th>Estado Matricula</th>
-                <th>Fecha Matricula </th>
-                <th>Padre o encargado </th>
+                <th>Estado Matrícula</th>
+                <th>Fecha Matrícula </th>
+                <th>Encargado </th>
                
             </tr>
         </thead>

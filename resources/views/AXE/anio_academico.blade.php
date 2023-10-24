@@ -5,8 +5,7 @@
 
 @section('content_header')
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Años academicos registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Año <cite title="Source Title">Completados</cite></footer>
+    <p class="mb-0">Años académicos registrados en el sistema AXE.</p>
 </blockquote>
 
 @stop
@@ -55,11 +54,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Ingresa un Nuevo Año academico</h4>
+              <h4 class="modal-title">Ingresa Año Académico</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <h5><p>Ingrese los Datos:</p></h5>
             </div>
             
             <div class="modal-footer">
@@ -68,14 +64,14 @@
                         @csrf
                 <!-- INICIO --->
                     <div class="mb-3">
-                        <label for="anio_academico" class="form-label">Año Academico</label>
+                        <label for="anio_academico" class="form-label">Año Académico</label>
                         <select class="form-control same-width" id="descripcion" name="descripcion">
-                        <option value="Septimo" selected>Septimo</option>
+                        <option value="Septimo" selected>Séptimo</option>
                         <option value="Octavo"selected>Octavo</option>
                         <option value="Noveno"selected>Noveno</option>
-                        <option value="Decimo"selected>Decimo</option>
+                        <option value="Decimo"selected>Décimo</option>
                         <option value="Onceavo"selected>Onceavo</option>
-                        <option value="Duodecimo"selected>Duodecimo</option>
+                        <option value="Duodecimo"selected>Duodécimo</option>
                         </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -91,8 +87,8 @@
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
     <thead>
         <th>#</th> 
-        <th>Año Academico</th> 
-        <th>Opciones de la Tabla</th>
+        <th>Año Académico</th> 
+        <th>Opciones Tabla</th>
     </thead>
     <tbody>
         @foreach($anioArreglo as $anio_academico)
@@ -107,11 +103,8 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Actualiza el año academico seleccionado</h5>
+                                <h5 class="modal-title">Actualiza Académico</h5>
                                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Ingresa los Nuevos Datos</p>
                             </div>
                             <div class="modal-footer">
                                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -120,14 +113,14 @@
                                         <input type="hidden" class="form-control" name="COD_ANIO_ACADEMICO" value="{{$anio_academico['COD_ANIO_ACADEMICO']}}">
                                        
                                     <div class="mb-3">
-                                    <label for="anio_academico" class="form-label">Años Academicos:</label>
+                                    <label for="anio_academico" class="form-label">Años Académicos:</label>
                                     <select class="form-control same-width" id="descripcion" name="descripcion">
-                                    <option value="Septimo" {{ $anio_academico['descripcion'] === 'Septimo' ? 'selected' : '' }}>Septimo</option>
+                                    <option value="Septimo" {{ $anio_academico['descripcion'] === 'Septimo' ? 'selected' : '' }}>Séptimo</option>
                                     <option value="Octavo" {{ $anio_academico['descripcion'] === 'Octavo' ? 'selected' : '' }}>Octavo</option>
                                     <option value="Noveno" {{ $anio_academico['descripcion'] === 'Noveno' ? 'selected' : '' }}>Noveno</option>
-                                    <option value="Decimo" {{ $anio_academico['descripcion'] === 'Decimo' ? 'selected' : '' }}>Decimo</option>
+                                    <option value="Decimo" {{ $anio_academico['descripcion'] === 'Decimo' ? 'selected' : '' }}>Décimo</option>
                                     <option value="Onceavo" {{ $anio_academico['descripcion'] === 'Onceavo' ? 'selected' : '' }}>Onceavo</option>
-                                    <option value="Duodecimo" {{ $anio_academico['descripcion'] === 'Duodecimo' ? 'selected' : '' }}>Duodecimo</option>
+                                    <option value="Duodecimo" {{ $anio_academico['descripcion'] === 'Duodecimo' ? 'selected' : '' }}>Duodécimo</option>
                                     </select>
                                     </div>
 

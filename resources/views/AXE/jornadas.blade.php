@@ -6,7 +6,6 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Jornadas registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Jornadas <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 
 @stop
@@ -55,11 +54,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Ingresa una Nueva Jornada</h4>
+              <h4 class="modal-title">Ingresa Jornada</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <h5><p>Ingrese los Datos:</p></h5>
             </div>
             
             <div class="modal-footer">
@@ -88,8 +84,8 @@
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
     <thead>
         <th>#</th> 
-        <th>Jornada Academica</th> 
-        <th>Opciones de la Tabla</th>
+        <th>Jornada Académica</th> 
+        <th>Opciones Tabla</th>
     </thead>
     <tbody>
         @foreach($jornadasArreglo as $jornadas)
@@ -104,12 +100,10 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Actualiza la jornada seleccionada</h5>
+                                <h5 class="modal-title">Actualiza Jornada</h5>
                                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <p>Ingresa los Nuevos Datos</p>
-                            </div>
+                            
                             <div class="modal-footer">
                                 <div class="d-grid gap-2 col-6 mx-auto">
                                     <form action="{{url('jornadas/actualizar')}}" method="post">

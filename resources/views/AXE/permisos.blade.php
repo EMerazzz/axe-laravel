@@ -4,7 +4,6 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Permisos registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Permisos<cite title="Source Title">Completadas</cite></footer>
 </blockquote>
 @stop
 
@@ -50,11 +49,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Ingresa un Nuevo Permiso</h5>
+                    <h5 class="modal-title">Ingresa Permiso</h5>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Ingrese los Datos:</p>
                     <form action="{{ url('permisos/insertar') }}" method="post">
                         @csrf
                         <div class="form-check">
@@ -112,7 +110,7 @@
                     <th>Permiso Consultar</th> 
                     <th>Fecha Creación</th>
                     <th>Modificado Por</th>
-                    <th>Opciones de la Tabla</th>
+                    <th>Opciones Tabla</th>
                 </tr>
             </thead>
             <tbody>
@@ -141,11 +139,10 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualiza el permiso seleccionado</h5>
+                        <h5 class="modal-title">Actualiza Permiso</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Ingrese los Nuevos Datos</p>
                         <form action="{{ url('permisos/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_PERMISO" value="{{ $permisos['COD_PERMISO'] }}">

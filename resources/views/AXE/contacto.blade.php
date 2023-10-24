@@ -5,7 +5,6 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Contactos de emergencia registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Contactos registrados <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 
 @stop
@@ -62,12 +61,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ingresa un nuevo Contacto emergencia</h5>
+                <h5 class="modal-title">Ingresa Contacto emergencia</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>   
-            <div class="modal-body">
-                <p>Ingrese los Datos:</p>
-            </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <form action="{{ url('contacto/insertar') }}" method="post">
@@ -76,7 +72,7 @@
                         <div class="mb-3 mt-3">
                             <label for="COD_PERSONA" class="form-label">Persona: </label>
                             <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-                                <option value="" disabled selected>Seleccione una persona</option>
+                                <option value="" disabled selected>Seleccione Persona</option>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
                                 @endforeach
@@ -84,7 +80,7 @@
                         </div>
                         <!-- FIN --->
                         <div class="mb-3 mt-3">
-                            <label for="contacto" class="form-label">Nombre contacto:</label>
+                            <label for="contacto" class="form-label">Nombre Contacto:</label>
                             <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto"required>
                             <div id="error-message-nombre" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
@@ -94,7 +90,7 @@
                             <div id="error-message-apellido" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="contacto" class="form-label">Número de telefon contacto emergencia:</label>
+                            <label for="contacto" class="form-label">Teléfono Contacto Emergencia:</label>
                             <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el Número de télefono contacto emergencia" required>
                             <div id="error-message-telefono" style="color: red; display: none;">Solo se permiten números</div>
                         </div>
@@ -121,10 +117,10 @@
                 <th>Nombre Persona</th>
                 <th>Nombre contacto</th>
                 <th>Apellido contacto</th>
-                <th>Número de telefono contacto</th>
+                <th>Número Telefono Contacto</th>
                 <th>Relación</th>
-                <th>Fecha de registro</th>
-                <th>Opciones de la Tabla</th>
+                <th>Fecha Registro</th>
+                <th>Opciones Tabla</th>
             </tr>
         </thead>
         <tbody>
@@ -169,11 +165,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Actualiza el contacto seleccionado</h5>
+                <h5 class="modal-title">Actualiza Contacto</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingresa los Nuevos Datos</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -192,7 +185,7 @@
                              title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="contacto" class="form-label">Número de telefono contacto emergencia</label>
+                            <label for="contacto" class="form-label">Teléfono Contacto Emergencia</label>
                             <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el Número de télefono contacto emergencia" value="{{ $contacto['TELEFONO'] }}" 
                              title="Solo se permiten números"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                         </div>

@@ -4,7 +4,6 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Asignaturas registradas en el sistema AXE.</p>
-    <footer class="blockquote-footer">Asignaturas <cite title="Source Title">Completadas</cite></footer>
 </blockquote>
 @stop
 
@@ -51,12 +50,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Ingresa una Nueva Asignatura</h4>
+              <h4 class="modal-title">Ingresa Asignatura</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-               <h5><p>Ingrese los Datos:</p></h5>
-            </div>
+           
             
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -65,8 +62,8 @@
                         @csrf
                        
                         <div class="mb-3 mt-3">
-                            <label for="NOMBRE_ASIGNATURA" class="form-label">Nombre de la asignatura:</label>
-                            <input type="text" class="form-control same-width" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" inputmode="text" required >
+                            <label for="NOMBRE_ASIGNATURA" class="form-label">Nombre Asignatura:</label>
+                            <input type="text" class="form-control same-width" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese asignatura" inputmode="text" required >
                         </div>
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -85,7 +82,7 @@
                 <tr>
                     <th>Código Asignatura</th> 
                     <th>Nombre Asignatura</th> 
-                    <th>Opciones de la Tabla</th>
+                    <th>Opciones Tabla</th>
                 </tr>
             </thead>
             <tbody>
@@ -109,16 +106,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualiza la asignatura seleccionada</h5>
+                        <h5 class="modal-title">Actualiza Asignatura</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Ingrese los Nuevos Datos</p>
                         <form action="{{ url('asignaturas/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ASIGNATURA" value="{{ $asignatura['COD_ASIGNATURA'] }}">
                             <div class="mb-3 mt-3">
-                                <label for="NOMBRE_ASIGNATURA" class="form-label">Nombres de la Asignatura</label>
+                                <label for="NOMBRE_ASIGNATURA" class="form-label">Nombre Asignatura</label>
                                 <input type="text" class="form-control" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" value="{{ $asignatura['NOMBRE_ASIGNATURA'] }}">
                             </div>
                             <!-- ... otros campos del formulario ... -->

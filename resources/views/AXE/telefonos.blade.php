@@ -5,7 +5,6 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Teléfonos registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Teléfonos <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 
 @stop
@@ -65,11 +64,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ingresa un nuevo Teléfono</h5>
+                <h5 class="modal-title">Ingresa Nuevo Teléfono</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingrese los Datos:</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -87,13 +83,13 @@
                         </div>
                         <!-- FIN --->
                      <div class="mb-3 mt-3">
-                        <label for="TELEFONO" class="form-label">Número de teléfono:</label>
+                        <label for="TELEFONO" class="form-label">Número Teléfono:</label>
                         <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el número de teléfono" pattern="[0-9]+" title="Solo se permiten números" required >
                         <div id="error-message-telefono" style="color: red; display: none;">Solo se permiten números</div>
                     </div>
 
                         <div class="mb-3">
-                            <label for="TIPO_TELEFONO" class="form-label">Tipo de teléfono:</label>
+                            <label for="TIPO_TELEFONO" class="form-label">Tipo Teléfono:</label>
                             <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
                                 <option value="Fijo" selected>Fijo</option>
                                 <option value="Movil">Móvil</option>
@@ -113,10 +109,10 @@
             <tr>
                 <th>#</th>
                 <th>Nombre completo</th>
-                <th>Número de Teléfono</th>
-                <th>Tipo de Teléfono</th>
-                <th>Fecha de registro</th>
-                <th>Opciones de la Tabla</th>
+                <th>Número Teléfono</th>
+                <th>Tipo Teléfono</th>
+                <th>Fecha Registro</th>
+                <th>Opciones Tabla</th>
             </tr>
         </thead>
         <tbody>
@@ -161,11 +157,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Actualiza el teléfono seleccionado</h5>
+                <h5 class="modal-title">Actualiza Teléfono</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingresa los Nuevos Datos</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -173,7 +166,7 @@
                         @csrf
                         <input type="hidden" class="form-control" name="COD_TELEFONO" value="{{ $telefonos['COD_TELEFONO'] }}">
                         <div class="mb-3 mt-3">
-                            <label for="TELEFONO" class="form-label">Número de teléfono</label>
+                            <label for="TELEFONO" class="form-label">Número Teléfono</label>
                             <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el número de teléfono"value="{{ $telefonos['TELEFONO'] }}" title="Solo se permiten números" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                         </div>
                         <div class="mb-3">

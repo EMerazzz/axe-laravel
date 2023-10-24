@@ -4,7 +4,6 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Roles registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Roles <cite title="Source Title">Completadas</cite></footer>
 </blockquote>
 @stop
 
@@ -50,11 +49,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Ingresa un Nuevo Rol</h5>
+                    <h5 class="modal-title">Ingresa Rol</h5>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Ingrese los Datos:</p>
                     <form action="{{ url('roles/insertar') }}" method="post">
                         @csrf
                         <div class="mb-3 mt-3">
@@ -89,7 +87,7 @@
                     <th>Fecha Creación</th>
                     <th>Fecha Modificación</th>
                     <th>Modificado Por</th> 
-                    <th>Opciones de la Tabla</th>
+                    <th>Opciones Tabla</th>
                 </tr>
             </thead>
           
@@ -118,11 +116,10 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualiza el rol seleccionado</h5>
+                        <h5 class="modal-title">Actualiza Rol</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Ingrese los Nuevos Datos</p>
                         <form action="{{ url('roles/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ROL" value="{{ $roles['COD_ROL'] }}">

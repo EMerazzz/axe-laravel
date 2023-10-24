@@ -4,8 +4,8 @@
 
 @section('content_header')
 <blockquote class="custom-blockquote">
-    <p class="mb-0"><strong>Reportes bitacora.</strong></p>
-    <p class="mb-0">Para descargar en pdf poner fecha.</p>
+    <p class="mb-0"><strong>Reportes bitacora</strong></p>
+    <p class="mb-0">Para descargar en pdf poner fecha</p>
    
 </blockquote>
 @stop
@@ -23,9 +23,9 @@
     </button>
 </div>
 <div class="d-flex align-items-center mb-3">
-    <label for="start-date" class="me-2">Fecha de inicio:</label>
+    <label for="start-date" class="me-2">Fecha Inicio:</label>
     <input type="date" id="start-date" class="form-control">
-    <label for="end-date" class="mx-2">Fecha de fin:</label>
+    <label for="end-date" class="mx-2">Fecha Fin:</label>
     <input type="date" id="end-date" class="form-control">
     <button id="apply-filter" class="btn btn-danger mx-2">
     
@@ -38,11 +38,11 @@
             <tr>
                 <th>#</th>
                 <th>Nombre Tabla</th>
-                <th>Modulo tabla</th>
-                <th>Tipo evento</th>
-                <th>Fecha de registro</th>
-                <th>Fecha de modificación</th>
-                <th>Código registro tabla</th>
+                <th>Módulo Tabla</th>
+                <th>Tipo Evento</th>
+                <th>Fecha Registro</th>
+                <th>Fecha Modificación</th>
+                <th>Código Tabla</th>
                 <th>Primera FK</th>
                 <th>Segunda FK</th>
                 <th>Tercera FK</th>

@@ -5,8 +5,7 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Bienvenidos al sistema AXE ..</p>
-    <p class="mb-0">Este sistema tiene como objetivo llevar el control
-de matriculas de un colegio..</p>
+    
 </blockquote>
 @stop
 

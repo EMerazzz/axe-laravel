@@ -4,8 +4,7 @@
 @section('content_header')
 
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Padres o tutores registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Padres o tutores <cite title="Source Title">Completados</cite></footer>
+    <p class="mb-0">Encargados registrados en el sistema AXE.</p>
 </blockquote>
 @stop
 
@@ -64,11 +63,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ingresa un nuevo padre o tutor</h5>
+                <h5 class="modal-title">Ingresa Encargado</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingrese los Datos:</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -76,7 +72,7 @@
                         @csrf
                  <!-- INICIO --->
                  <div class="mb-3 mt-3">
-    <label for="COD_PERSONA" class="form-label">Padre o tutor: </label>
+    <label for="COD_PERSONA" class="form-label">Encargado: </label>
     <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
         <option value="" disabled selected>Seleccione una persona</option>
         @foreach ($personasArreglo as $persona)
@@ -91,7 +87,7 @@
                             <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación del padre o tutor"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="padres" class="form-label">Relación con el estudiante:</label>
+                            <label for="padres" class="form-label">Relación Estudiante:</label>
                             <input type="text" class="form-control" id="RELACION_PADRE_ESTUDIANTE" name="RELACION_PADRE_ESTUDIANTE" placeholder="Ingrese la relación con el estudiante"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
                         </div>
                        
@@ -112,8 +108,8 @@
                 <th>#</th>
                 <th>Nombre completo</th>
                 <th>Ocupación</th>
-                <th>Relación con el estudiante</th>
-                <th>Opciones de la Tabla</th>
+                <th>Relación Estudiante</th>
+                <th>Opciones Tabla</th>
             </tr>
         </thead>
         <tbody>
@@ -157,11 +153,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Actualiza el padre o tutor seleccionado</h5>
+                <h5 class="modal-title">Actualiza Encargado</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingresa los Nuevos Datos</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -173,7 +166,7 @@
                             <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación" value="{{ $padres['OCUPACION_PADRE_TUTOR'] }}">
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="padres" class="form-label">Relación con el estudiante:</label>
+                            <label for="padres" class="form-label">Relación Estudiante:</label>
                             <input type="text" class="form-control" id="RELACION_PADRE_ESTUDIANTE" name="RELACION_PADRE_ESTUDIANTE" placeholder="Ingrese la relación con el estudiante" value="{{ $padres['RELACION_PADRE_ESTUDIANTE'] }}">
                         </div>
 

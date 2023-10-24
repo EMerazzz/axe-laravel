@@ -5,8 +5,7 @@
 
 @section('content_header')
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Niveles academicos registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Niveles <cite title="Source Title">Completados</cite></footer>
+    <p class="mb-0">Niveles académicos registrados en el sistema AXE.</p>
 </blockquote>
 
 @stop
@@ -55,11 +54,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Ingresa un Nuevo Nivel academico</h4>
+              <h4 class="modal-title">Ingresa Nivel Académico</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <h5><p>Ingrese los Datos:</p></h5>
             </div>
             
             <div class="modal-footer">
@@ -68,10 +64,10 @@
                         @csrf
                 <!-- INICIO --->
                 <div class="mb-3">
-                        <label for="nivel_academico" class="form-label">Niveles Academicos:</label>
+                        <label for="nivel_academico" class="form-label">Niveles Académicos:</label>
                         <select class="form-control same-width" id="descripcion" name="descripcion">
-                        <option value="Ciclo Comun" selected>Ciclo Comun</option>
-                        <option value="Bachillerato Informatica"selected>Bachillerato Informatica</option>
+                        <option value="Ciclo Comun" selected>Ciclo Común</option>
+                        <option value="Bachillerato Informatica"selected>Bachillerato Informática</option>
                         <option value="Bachillerato Finanzas"selected>Bachillerato Finanzas</option>
                         <option value="Bachillerato Humanidades"selected>Bachillerato Humanidades</option>
                         </select>
@@ -90,8 +86,8 @@
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
     <thead>
         <th>#</th> 
-        <th>Nivel Academico</th> 
-        <th>Opciones de la Tabla</th>
+        <th>Nivel Académico</th> 
+        <th>Opciones Tabla</th>
     </thead>
     <tbody>
         @foreach($nivel_academicoArreglo as $nivel_academico)
@@ -106,11 +102,8 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Actualiza el nivel academico seleccionado</h5>
+                                <h5 class="modal-title">Actualiza Academico</h5>
                                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Ingresa los Nuevos Datos</p>
                             </div>
                             <div class="modal-footer">
                                 <div class="d-grid gap-2 col-6 mx-auto">

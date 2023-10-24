@@ -9,7 +9,6 @@
 
 <blockquote class="custom-blockquote">
     <p class="mb-0">Personas registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Personas <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 
 @stop
@@ -84,19 +83,19 @@
                 <!-- INICIO --->
                 
                 <div class="mb-3 mt-3">
-    <label for="NOMBRE" class="form-label">Nombres de la persona:</label>
+    <label for="NOMBRE" class="form-label">Nombres:</label>
     <input type="text" class="form-control same-width" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" inputmode="text" required value="{{ old('NOMBRE') }}">
     <div id="error-message-nombre" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
 </div>
 
 <div class="mb-3 mt-3">
-    <label for="APELLIDO" class="form-label">Apellidos de la persona:</label>
+    <label for="APELLIDO" class="form-label">Apellidos:</label>
     <input type="text" class="form-control same-width" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" inputmode="text" required value="{{ old('APELLIDO') }}">
     <div id="error-message-apellido" style="color: red; display: none;">Solo se permiten letras y espacios</div>
 </div>
 
 <div class="mb-3 mt-3">
-    <label for="IDENTIDAD" class="form-label">Numeros de identidad:</label>
+    <label for="IDENTIDAD" class="form-label">Número Identidad:</label>
     <input type="text" class="form-control same-width" id="IDENTIDAD" name="IDENTIDAD" placeholder="Ingrese número de identidad de la persona" required maxlength="20">
     <div id="error-message-identidad" style="color: red; display: none;">Solo se permiten numeros</div>
 </div>
@@ -112,7 +111,7 @@
 </div>
 
 <div class="mb-3">
-  <label for="personas" class="form-label">Tipo persona:</label>
+  <label for="personas" class="form-label">Tipo Persona:</label>
   <select class="form-control same-width" id="TIPO_PERSONA" name="TIPO_PERSONA">
     <option value="Estudiante" {{ old('TIPO_PERSONA') == 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
     <option value="Docente" {{ old('TIPO_PERSONA') == 'Docente' ? 'selected' : '' }}>Docente</option>
@@ -123,7 +122,7 @@
 
 
 <div class="mb-3">
-  <label for="personas" class="form-label">Fecha de nacimiento:</label>
+  <label for="personas" class="form-label">Fecha Nacimiento:</label>
   @php
     $fechaNacimiento = old('FECHA_NACIMIENTO');
     if ($fechaNacimiento) {
@@ -148,12 +147,12 @@
         <th>Nombres</th> 
         <th>Apellidos</th>
         <th>Identidad</th>
-        <th>Genero</th>
+        <th>Género</th>
         <th>Tipo Persona</th>
         <th>Fecha nacimiento</th>
         <th>Edad</th>
         <th>Fecha registro</th>
-        <th>Opciones de la Tabla</th>
+        <th>Opciones Tabla</th>
     </thead>
     <tbody>
         @foreach($personasArreglo as $personas)
@@ -179,9 +178,7 @@
                                 <h5 class="modal-title">Actualiza la persona seleccionada</h5>
                                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <p>Ingresa los Nuevos Datos</p>
-                            </div>
+                            
                             <div class="modal-footer">
                                 <div class="d-grid gap-2 col-6 mx-auto">
                                     <form action="{{url('personas/actualizar')}}" method="post">
@@ -189,25 +186,25 @@
                                         <input type="hidden" class="form-control" name="COD_PERSONA" value="{{$personas['COD_PERSONA']}}">
                                        
     <div class="mb-3 mt-3">
-        <label for="NOMBRE" class="form-label">Nombres de la persona:</label>
+        <label for="NOMBRE" class="form-label">Nombre:</label>
         <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" value="{{$personas['NOMBRE']}}" 
         title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
     </div>
                 
 <div class="mb-3 mt-3">
-    <label for="APELLIDO" class="form-label">Apellidos de la persona:</label>
+    <label for="APELLIDO" class="form-label">Apellido:</label>
     <input type="text" class="form-control" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" value="{{$personas['APELLIDO']}}" 
     title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
 </div>
                 
 <div class="mb-3">
-    <label for="IDENTIDAD" class="form-label">Números de identidad:</label>
+    <label for="IDENTIDAD" class="form-label">Número Identidad:</label>
     <input type="text" class="form-control" id="IDENTIDAD" name="IDENTIDAD" placeholder="Ingrese número de identidad de la persona" value="{{$personas['IDENTIDAD']}}" maxlength="20"
     title="Solo se permiten números"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
 </div>
 
 <div class="mb-3">
-  <label for="personas" class="form-label">Tipo de persona:</label>
+  <label for="personas" class="form-label">Tipo Persona:</label>
   <select class="form-control same-width" id="TIPO_PERSONA" name="TIPO_PERSONA">
     <option value="Estudiante" {{ $personas['TIPO_PERSONA'] === 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
     <option value="Docente" {{ $personas['TIPO_PERSONA'] === 'Docente' ? 'selected' : '' }}>Docente</option>
@@ -224,7 +221,7 @@
   </select>
 </div>
 <div class="mb-3">
-  <label for="personas" class="form-label">Fecha de nacimiento:</label>
+  <label for="personas" class="form-label">Fecha Nacimiento:</label>
   <!-- Formatear la fecha de nacimiento con date() y strtotime() -->
   <?php $fecha_nacimiento_formateada = date('Y-m-d', strtotime($personas['FECHA_NACIMIENTO'])); ?>
   <input type="date" class="form-control" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fecha_nacimiento_formateada }}">

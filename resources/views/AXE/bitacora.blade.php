@@ -29,12 +29,12 @@
             <tr>
                 <th>#</th>
                 <th>Nombre Tabla</th>
-                <th>Modulo tabla</th>
+                <th>Módulo tabla</th>
                 <th>Tipo evento</th>
-                <th>Fecha de registro</th>
-                <th>Fecha de modificación</th>
-                <th>Usuario que modificó</th>
-                <th>Código registro tabla</th>
+                <th>Fecha Registro</th>
+                <th>Fecha Modificación</th>
+                <th>Usuario Modificador</th>
+                <th>Código Tabla</th>
                 <th>Primera FK</th>
                 <th>Segunda FK</th>
                 <th>Tercera FK</th>

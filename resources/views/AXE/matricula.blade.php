@@ -5,7 +5,6 @@
 @section('content_header')
 <<blockquote class="custom-blockquote">
     <p class="mb-0">Estudiantes registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Estudiantes <cite title="Source Title">Completadas</cite></footer>
 </blockquote>
 
 @stop
@@ -66,12 +65,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ingresa una nueva matricula</h5>
+                <h5 class="modal-title">Ingresa Matricula</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>   
-            <div class="modal-body">
-                <p>Ingrese los Datos:</p>
-            </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <form action="{{ url('matricula/insertar') }}" method="post">
@@ -94,7 +90,7 @@
 
                         <!-- FIN --->
                         <div class="mb-3 mt-3">
-                            <label for="COD_NIVEL_ACADEMICO" class="form-label">Nivel académico: </label>
+                            <label for="COD_NIVEL_ACADEMICO" class="form-label">Nivel Adémico: </label>
                             <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
                                 <option value="" disabled selected>Seleccione el nivel académico</option>
                                 @foreach ($nivel_academicoArreglo as $nivel_academico)
@@ -108,7 +104,7 @@
 
 
                             <div class="mb-3 mt-3">
-                                <label for="COD_ANIO_ACADEMICO" class="form-label">Año académico: </label>
+                                <label for="COD_ANIO_ACADEMICO" class="form-label">Año Académico: </label>
                                 <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required>
                                     <option value="" disabled selected>Seleccione el año académico</option>
                                     @foreach ($anio_academicoArreglo as $anio_academico)
@@ -151,7 +147,7 @@
                         </div>
 
                         <div class="mb-3 mt-3">
-                            <label for="COD_PADRE_TUTOR" class="form-label">Padre o encargado: </label>
+                            <label for="COD_PADRE_TUTOR" class="form-label">Encargado: </label>
                             <select class="selectize" id="COD_PADRE_TUTOR" name="COD_PADRE_TUTOR" required>
                                 <option value="" disabled selected>Seleccione un padre o encargado</option>
                                 @foreach ($padresArreglo as $padre)
@@ -178,14 +174,14 @@
             <tr>
                 <th>#</th>
                 <th>Estudiante</th>
-                <th>Nivel Academico</th>
-                <th>Año Academico</th>
+                <th>Nivel Académico</th>
+                <th>Año Académico</th>
                 <th>Sección</th>
                 <th>Jornada</th>
                 <th>Estado Matricula</th>
                 <th>Fecha Matricula </th>
-                <th>Padre o encargado </th>
-                <th>Opciones de la Tabla</th>
+                <th>Encargado </th>
+                <th>Opciones Tabla</th>
             </tr>
         </thead>
         <tbody>
@@ -280,11 +276,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Actualiza la matricula seleccionada</h5>
+                <h5 class="modal-title">Actualiza Matricula</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingresa los Nuevos Datos</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -306,7 +299,7 @@
                             </select>
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="COD_NIVEL_ACADEMICO" class="form-label">Nivel académico: </label>
+                            <label for="COD_NIVEL_ACADEMICO" class="form-label">Nivel Académico: </label>
                             <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
                                 <option value="" disabled selected>Seleccione el nivel académico</option>
                                 @foreach ($nivel_academicoArreglo as $nivel_academico)
@@ -319,7 +312,7 @@
                         </div>
 
                         <div class="mb-3 mt-3">
-                            <label for="COD_ANIO_ACADEMICO" class="form-label">Año académico: </label>
+                            <label for="COD_ANIO_ACADEMICO" class="form-label">Año Académico: </label>
                             <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required>
                                 <option value="" disabled selected>Seleccione el año académico</option>
                                 @foreach ($anio_academicoArreglo as $anio_academico)
@@ -362,7 +355,7 @@
                             </select>
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="COD_PADRE_TUTOR" class="form-label">Padre o encargado: </label>
+                            <label for="COD_PADRE_TUTOR" class="form-label">Encargado: </label>
                             <select class="selectize" id="COD_PADRE_TUTOR" name="COD_PADRE_TUTOR" required>
                                 <option value="" disabled>Seleccione un padre o encargado</option>
                                 @foreach ($padresArreglo as $padre)

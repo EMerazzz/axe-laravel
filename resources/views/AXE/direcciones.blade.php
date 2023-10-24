@@ -5,7 +5,6 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Direcciones registradas en el sistema AXE.</p>
-    <footer class="blockquote-footer">Direcciones <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 
 @stop
@@ -65,11 +64,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ingresa una nueva direccion</h5>
+                <h5 class="modal-title">Ingresa Nueva Direccion</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingrese los Datos:</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -79,7 +75,7 @@
                         <div class="mb-3 mt-3">
                             <label for="COD_PERSONA" class="form-label">Persona: </label>
                             <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-                                <option value="" disabled selected>Seleccione una persona</option>
+                                <option value="" disabled selected>Seleccione Persona</option>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
                                 @endforeach
@@ -124,8 +120,8 @@
                 <th>Departamento</th>
                 <th>Ciudad</th>
                 <th>Pais</th>
-                <th>Fecha de registro</th>
-                <th>Opciones de la Tabla</th>
+                <th>Fecha Registro</th>
+                <th>Opciones Tabla</th>
             </tr>
         </thead>
         <tbody>
@@ -170,11 +166,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Actualiza la dirección seleccionada</h5>
+                <h5 class="modal-title">Actualiza Dirección</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingresa los Nuevos Datos</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">

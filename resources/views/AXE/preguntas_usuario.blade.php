@@ -4,7 +4,6 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Preguntas registradas en el sistema AXE.</p>
-    <footer class="blockquote-footer">Preguntas Usuario <cite title="Source Title">Completadas</cite></footer>
 </blockquote>
 @stop
 
@@ -53,7 +52,7 @@
                     <th>Pregunta</th>
                     <th>Respuesta</th>
                     <th>Usuario</th>
-                    <th>Opciones de la Tabla</th>
+                    <th>Opciones Tabla</th>
                 </tr>
             </thead>
           
@@ -97,11 +96,10 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualiza la pregunta seleccionado</h5>
+                        <h5 class="modal-title">Actualiza Pregunta</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Ingrese los Nuevos Datos</p>
                         <form action="{{ url('preguntas_usuarios/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_PREGUNTA" value="{{ $pregunta_usuario['COD_PREGUNTA'] }}">

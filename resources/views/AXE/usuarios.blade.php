@@ -5,7 +5,6 @@
 
 <<blockquote class="custom-blockquote">
     <p class="mb-0">Usuarios registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Usuarios <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 
 @stop
@@ -53,11 +52,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ingresa un nuevo Usuario</h5>
+                <h5 class="modal-title">Ingresa Usuario</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingrese los Datos:</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -133,12 +129,12 @@
                 <th>#</th>
                 <th>Usuario</th>
                 <th>Primer Ingreso</th>
-                <th>Numero Intentos</th>
+                <th>Número Intentos</th>
                 <th>Modificado Por</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Estado</th>
-                <th>Opciones de la Tabla</th>
+                <th>Opciones Tabla</th>
             </tr>
         </thead>
         <tbody>
@@ -210,11 +206,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Actualiza el usuario</h5>
+                <h5 class="modal-title">Actualiza Usuario</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingresa los Nuevos Datos</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">

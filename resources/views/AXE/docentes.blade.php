@@ -4,7 +4,6 @@
 @section('content_header')
 <blockquote class="custom-blockquote">
     <p class="mb-0">Docentes registrados en el sistema AXE.</p>
-    <footer class="blockquote-footer">Docentes <cite title="Source Title">Completados</cite></footer>
 </blockquote>
 @stop
 
@@ -52,11 +51,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ingresa un nuevo docente</h5>
+                <h5 class="modal-title">Ingresa Docente</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingrese los Datos:</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -66,7 +62,7 @@
                  <div class="mb-3 mt-3">
     <label for="COD_PERSONA" class="form-label">Persona: </label>
     <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-        <option value="" disabled selected>Seleccione una persona</option>
+        <option value="" disabled selected>Seleccione Persona</option>
         @foreach ($personasArreglo as $persona)
             @if ($persona['TIPO_PERSONA'] === 'Docente')
                 <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
@@ -76,11 +72,11 @@
 </div>
                         <div class="mb-3 mt-3">
                             <label for="docentes" class="form-label">Especialidad:</label>
-                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese la especialidad del docente"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
+                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese especialidad del docente"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
                         </div>
 
                         <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Grado de enseñanza: </label>
+                            <label for="docentes" class="form-label">Grado Enseñanza: </label>
                             <select class="selectize" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
                                 <option value="" disabled selected>Seleccione</option>
                                 @foreach ($nivel_academicoArreglo as $nivel_academico) 
@@ -105,7 +101,7 @@
                 <th>Nombre completo</th>
                 <th>Especialidad</th>
                 <th>Grado enseñanza</th>
-                <th>Opciones de la Tabla</th>
+                <th>Opciones Tabla</th>
             </tr>
         </thead>
         <tbody>
@@ -149,11 +145,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Actualiza el docente seleccionado</h5>
+                <h5 class="modal-title">Actualiza Docente</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Ingresa los Nuevos Datos</p>
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -165,7 +158,7 @@
                             <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}">
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="GRADO_ENSENIANZA" class="form-label">Grado de enseñanza: </label>
+                            <label for="GRADO_ENSENIANZA" class="form-label">Grado Enseñanza: </label>
                             <select class="selectize" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
                                 <option value="" disabled selected>Seleccione</option>
                                 @foreach ($nivel_academicoArreglo as $nivel_academico)
