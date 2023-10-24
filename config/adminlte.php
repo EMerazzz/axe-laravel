@@ -253,7 +253,7 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        ['header' => 'Opciones de Módulos'],
+        
         [
             'text'        => 'Personas',
             //'url'         => 'personas',

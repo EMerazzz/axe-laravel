@@ -6,9 +6,16 @@
 
 
 @section('content_header')
+<style>
+  .custom-blockquote {
+    line-height: 0; /* Reducción de la altura */
+    margin-top: -5px; 
+    margin-bottom:-3px; /* Reducción del espacio inferior del bloquequote */
+  }
+</style>
 
-<blockquote class="custom-blockquote">
-    <p class="mb-0">Personas registrados en el sistema AXE.</p>
+ <blockquote class="custom-blockquote"> 
+    <p class="mb-0">Personas registradas en el sistema AXE.</p>
 </blockquote>
 
 @stop
@@ -96,8 +103,8 @@
 
 <div class="mb-3 mt-3">
     <label for="IDENTIDAD" class="form-label">Número Identidad:</label>
-    <input type="text" class="form-control same-width" id="IDENTIDAD" name="IDENTIDAD" placeholder="Ingrese número de identidad de la persona" required maxlength="20">
-    <div id="error-message-identidad" style="color: red; display: none;">Solo se permiten numeros</div>
+    <input type="text" class="form-control same-width" id="IDENTIDAD" name="IDENTIDAD" placeholder="____-____-_____" required>
+    <div id="error-message-identidad" style="color: red; display: none;">Solo se permiten números</div>
 </div>
 
 
@@ -199,8 +206,7 @@
                 
 <div class="mb-3">
     <label for="IDENTIDAD" class="form-label">Número Identidad:</label>
-    <input type="text" class="form-control" id="IDENTIDAD" name="IDENTIDAD" placeholder="Ingrese número de identidad de la persona" value="{{$personas['IDENTIDAD']}}" maxlength="20"
-    title="Solo se permiten números"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+    <input type="text" class="form-control" id="IDENTIDAD" name="IDENTIDAD" placeholder="____-____-_____" value="{{$personas['IDENTIDAD']}}" maxlength="15" title="Solo se permiten números" oninput="formatIdentidad(this)" required>
 </div>
 
 <div class="mb-3">
@@ -269,7 +275,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/vfs_fonts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
-  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js"></script>
+
 
     <!-- Script personalizado para inicializar DataTables -->
     <script>
@@ -478,7 +485,30 @@ function s2ab(s) {
 
 </script>
 
+<script>
+// Asegúrate de que jQuery esté cargado y disponible
+$(document).ready(function () {
+    // Aplica el formato deseado con inputmask.js
+    $('#IDENTIDAD').inputmask('9999-9999-99999');
+});
+</script>
+<script>
+function formatIdentidad(input) {
+    // Elimina cualquier guión o caracteres no numéricos del valor del campo
+    let value = input.value.replace(/-/g, '').replace(/\D/g, '');
 
+    // Formatea el valor con guiones después de cada grupo de 4 caracteres
+    let formattedValue = "";
+    for (let i = 0; i < value.length; i++) {
+        if (i === 4 || i === 8) {
+            formattedValue += '-';
+        }
+        formattedValue += value.charAt(i);
+    }
 
+    // Asigna el valor formateado de vuelta al campo de entrada
+    input.value = formattedValue;
+}
+</script>
 
 @stop
