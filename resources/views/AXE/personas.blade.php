@@ -75,9 +75,7 @@
               <h4 class="modal-title">Ingresa una Nueva Persona</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-               <h5><p>Ingrese los Datos:</p></h5>
-            </div>
+    
             
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -149,9 +147,9 @@
         <th>#</th> 
         <th>Nombres</th> 
         <th>Apellidos</th>
-        <th>Número de identidad</th>
+        <th>Identidad</th>
         <th>Genero</th>
-        <th>Tipo de persona</th>
+        <th>Tipo Persona</th>
         <th>Fecha nacimiento</th>
         <th>Edad</th>
         <th>Fecha registro</th>
