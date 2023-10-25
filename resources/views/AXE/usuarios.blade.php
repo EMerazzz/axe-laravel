@@ -51,6 +51,8 @@
     </div>
 @endif
 
+
+
 <div class="spacer"></div>
 <button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#usuarios">+ Nuevo</button>
 <div class="spacer"></div>

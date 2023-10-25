@@ -6,6 +6,7 @@ use App\Http\Controllers\AXE\usuariosController;
 
 Route::middleware(['checkToken', 'verificar.usuario'])->group(function () {
 Route::get('',[usuariosController::class,'usuarios']);
+
 //de aqui 
 Route::post('/insertar',[usuariosController::class,'nuevo_usuario']);
 Route::post('/actualizar',[usuariosController::class,'modificar_usuario']);
