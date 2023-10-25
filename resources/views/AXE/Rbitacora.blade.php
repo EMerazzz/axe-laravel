@@ -3,9 +3,15 @@
 @section('title', 'Bitacoras')
 
 @section('content_header')
+<style>
+  .custom-blockquote {
+    line-height: 0; /* Reducción de la altura */
+    margin-top: -5px; 
+    margin-bottom:-5px; /* Reducción del espacio inferior del bloquequote */
+  }
+</style>
 <blockquote class="custom-blockquote">
-    <p class="mb-0"><strong>Reportes bitacora</strong></p>
-    <p class="mb-0">Para descargar en pdf poner fecha</p>
+    <p class="mb-0"><strong>Reportes Bítacora</strong></p>
    
 </blockquote>
 @stop

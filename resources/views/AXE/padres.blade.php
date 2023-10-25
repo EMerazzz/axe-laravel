@@ -1,11 +1,19 @@
 @extends('adminlte::page')
 
-@section('title', 'Padres o encargados')
-@section('content_header')
+@section('title', 'Encargados')
 
+@section('content_header')
+<style>
+  .custom-blockquote {
+    line-height: 0; /* Reducción de la altura */
+    margin-top: -5px; 
+    margin-bottom:-5px; /* Reducción del espacio inferior del bloquequote */
+  }
+</style>
 <blockquote class="custom-blockquote">
     <p class="mb-0">Encargados registrados en el sistema AXE.</p>
 </blockquote>
+
 @stop
 
 @section('content')
