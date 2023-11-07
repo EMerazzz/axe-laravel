@@ -23,9 +23,10 @@
     </button>
 </div>
 <div class="d-flex justify-content-center align-items-center mt-3">
-    <button id="export-pdf" class="btn btn-danger ms-2" onclick="generarPDF()">
-        <i class="far fa-file-pdf"></i> Exportar a PDF
-    </button>
+<button id="export-pdf" class="btn btn-danger ms-2">
+    <i class="far fa-file-pdf"></i> Exportar a PDF
+</button>
+
   
     <div style="width: 10px;"></div>
     <button id="export-excel" class="btn btn-success ms-2" onclick="exportToExcel()">
@@ -90,12 +91,10 @@
                             </select>
                         </div>
                         <!-- FIN --->
-                     <div class="mb-3 mt-3">
-                        <label for="TELEFONO" class="form-label">Número Teléfono:</label>
-                        <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el número de teléfono" pattern="[0-9]+" title="Solo se permiten números" required >
-                        <div id="error-message-telefono" style="color: red; display: none;">Solo se permiten números</div>
-                    </div>
-
+                        <div class="mb-3 mt-3">
+    <label for="TELEFONO" class="form-label">Número Teléfono:</label>
+    <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" required>
+</div>
                         <div class="mb-3">
                             <label for="TIPO_TELEFONO" class="form-label">Tipo Teléfono:</label>
                             <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
@@ -174,9 +173,21 @@
                         @csrf
                         <input type="hidden" class="form-control" name="COD_TELEFONO" value="{{ $telefonos['COD_TELEFONO'] }}">
                         <div class="mb-3 mt-3">
-                            <label for="TELEFONO" class="form-label">Número Teléfono</label>
-                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el número de teléfono"value="{{ $telefonos['TELEFONO'] }}" title="Solo se permiten números" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                            <label for="COD_PERSONA" class="form-label">Persona:</label>
+                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                                @foreach ($personasArreglo as $persona)
+                                    <option value="{{ $persona['COD_PERSONA'] }}" {{ $persona['COD_PERSONA'] == $telefonos['COD_PERSONA'] ? 'selected' : '' }}>
+                                        {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
+
+                        <div class="mb-3 mt-3">
+                            <label for="TELEFONO" class="form-label">Número Teléfono:</label>
+                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" oninput="formatTelefono(this)" pattern="[0-9]{8}" value="{{$telefonos['TELEFONO']}}"  required>
+                        </div>
+
                         <div class="mb-3">
                             <label for="TIPO_TELEFONO" class="form-label">Tipo Telefono:</label>
                             <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
@@ -222,6 +233,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/vfs_fonts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <!-- Script personalizado para inicializar DataTables -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#miTabla').DataTable({
@@ -329,97 +342,43 @@ modeToggle.addEventListener('click', () => {
 });
 </script>
 <!-- scripts para generar reportes excel y pdf-->
+
 <script>
- function generarPDF() {
-    const tableData = [];
-    const headerData = [];
+        document.getElementById('export-pdf').addEventListener('click', function () {
+            const tableHeader = Array.from(document.querySelectorAll('#miTabla thead th')).map(th => th.textContent);
+            const tableData = [];
+            const tableRows = document.querySelectorAll('#miTabla tbody tr');
+            
+            tableRows.forEach(row => {
+                const rowData = Array.from(row.querySelectorAll('td')).map(cell => cell.textContent);
+                tableData.push(rowData);
+            });
 
-    // Obtén los datos del encabezado de la tabla (excluyendo la columna "Opciones de la Tabla")
-    const tableHeader = document.querySelectorAll('#miTabla thead th');
-    tableHeader.forEach(headerCell => {
-        if (headerCell.textContent !== 'Opciones de la Tabla') {
-            headerData.push({ text: headerCell.textContent, bold: true });
-        }
-    });
-
-    // Obtén todos los datos de la tabla, incluyendo todas las páginas
-    const table = $('#miTabla').DataTable();
-    const allData = table.rows().data();
-    
-    allData.each(function (rowData) {
-        const row = [];
-        rowData.forEach((cell, index) => {
-            // Excluir la última columna y la columna "Opciones de la Tabla"
-            if (headerData[index] && index !== rowData.length - 1) {
-                row.push(cell);
-            }
-        });
-        tableData.push(row);
-    });
-
-    const documentDefinition = {
-        pageOrientation: 'landscape', // Establece la orientación de la página a horizontal
-        content: [
-            {
-                text: 'Reporte de Tabla en PDF',
-                fontSize: 16,
-                bold: true,
-                alignment: 'center',
-                margin: [0, 0, 0, 10]
-            },
-            {
-                table: {
-                    headerRows: 1,
-                    widths: Array(headerData.length).fill('auto'),
-                    body: [
-                        headerData, // Encabezado de la tabla
-                        ...tableData // Datos de la tabla
-                    ],
-                    style: {
-                        lineHeight: 1.2 // Ajusta este valor para reducir o aumentar el espacio entre filas
+            const documentDefinition = {
+                pageOrientation: 'landscape', // Establece la orientación de la página a horizontal
+                content: [
+                    { text: 'Reporte de Tabla en PDF', fontSize: 16, bold: true, alignment: 'center', margin: [0, 0, 0, 10] },
+                    {
+                        table: {
+                            headerRows: 1,
+                            widths: Array(tableHeader.length).fill('*'),
+                            body: [
+                                tableHeader, // Encabezado de la tabla
+                                ...tableData // Datos de la tabla
+                            ],
+                            style: {
+                                lineHeight: 1.2 // Ajusta este valor para reducir o aumentar el espacio entre filas
+                            }
+                        }
                     }
-                }
-            }
-        ]
-    };
+                ]
+            };
 
-    pdfMake.createPdf(documentDefinition).download('reporte.pdf');
-}
-function generarExcel() {
-    const tableData = [];
-    const headerData = [];
-
-    // Obtén los datos del encabezado de la tabla (excluyendo la columna "Opciones de la Tabla")
-    const tableHeader = document.querySelectorAll('#miTabla thead th');
-    tableHeader.forEach(headerCell => {
-        if (headerCell.textContent !== 'Opciones de la Tabla') {
-            headerData.push(headerCell.textContent);
-        }
-    });
-
-    // Obtén todos los datos de la tabla, incluyendo todas las páginas
-    const table = $('#miTabla').DataTable();
-    const allData = table.rows().data();
-    
-    allData.each(function (rowData) {
-        const row = [];
-        rowData.forEach((cell, index) => {
-            // Excluir la última columna y la columna "Opciones de la Tabla"
-            if (index !== rowData.length - 1) {
-                row.push(cell);
-            }
+            pdfMake.createPdf(documentDefinition).download('reporte.pdf');
         });
-        tableData.push(row);
-    });
+    </script>
 
-    const workbook = XLSX.utils.book_new();
-    const worksheetData = [headerData, ...tableData];
-    const ws = XLSX.utils.aoa_to_sheet(worksheetData);
-    XLSX.utils.book_append_sheet(workbook, ws, 'Sheet1');
-    const excelFile = XLSX.write(workbook, { bookType: 'xlsx', type: 'blob' });
-
-    saveAs(excelFile, 'reporte.xlsx'); // Descargar el archivo Excel con un nombre específico
-}
+<script>
 function exportToExcel() {
     const tableData = [];
     const headerData = [];
@@ -475,6 +434,45 @@ function s2ab(s) {
     for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
     return view;
 }
+
+</script>
+
+<script>
+    document.getElementById('TELEFONO').addEventListener('input', function () {
+        let input = this;
+        let value = input.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
+
+        // Formatea el número de teléfono
+        if (value.length >= 4) {
+            input.value = value.slice(0, 4) + '-' + value.slice(4, 8);
+        } else {
+            input.value = value;
+        }
+    });
+</script>
+<script>
+ function formatTelefono(input) {
+    // Elimina cualquier carácter no numérico
+    let cleanedValue = input.value.replace(/\D/g, '');
+
+    // Asegura que la longitud sea de 8 caracteres
+    if (cleanedValue.length > 8) {
+        cleanedValue = cleanedValue.slice(0, 8);
+    }
+
+    // Formatea el valor con guiones después de cada grupo de 4 caracteres
+    let formattedValue = '';
+    for (let i = 0; i < cleanedValue.length; i++) {
+        if (i === 4) {
+            formattedValue += '-';
+        }
+        formattedValue += cleanedValue.charAt(i);
+    }
+
+    // Asigna el valor formateado de vuelta al campo de entrada
+    input.value = formattedValue;
+}
+
 
 </script>
 @stop

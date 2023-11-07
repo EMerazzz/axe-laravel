@@ -23,9 +23,9 @@
     </button>
 </div>
 <div class="d-flex justify-content-center align-items-center mt-3">
-    <button id="export-pdf" class="btn btn-danger ms-2" onclick="generarPDF()">
-        <i class="far fa-file-pdf"></i> Exportar a PDF
-    </button>
+<button id="export-pdf" class="btn btn-danger ms-2">
+    <i class="far fa-file-pdf"></i> Exportar a PDF
+</button>
   
     <div style="width: 10px;"></div>
     <button id="export-excel" class="btn btn-success ms-2" onclick="exportToExcel()">
@@ -342,64 +342,44 @@ modeToggle.addEventListener('click', () => {
     setupValidation('TELEFONO', 'error-message-telefono', /[^0-9]/g);
     
 </script>
- <!-- Generar reportes excel y pdf-->
+<!-- scripts para generar reportes excel y pdf-->
+
 <script>
-  function generarPDF() {
-    const tableData = [];
-    const headerData = [];
+        document.getElementById('export-pdf').addEventListener('click', function () {
+            const tableHeader = Array.from(document.querySelectorAll('#miTabla thead th')).map(th => th.textContent);
+            const tableData = [];
+            const tableRows = document.querySelectorAll('#miTabla tbody tr');
+            
+            tableRows.forEach(row => {
+                const rowData = Array.from(row.querySelectorAll('td')).map(cell => cell.textContent);
+                tableData.push(rowData);
+            });
 
-    // Obtén los datos del encabezado de la tabla (excluyendo la columna "Opciones de la Tabla")
-    const tableHeader = document.querySelectorAll('#miTabla thead th');
-    tableHeader.forEach(headerCell => {
-        if (headerCell.textContent !== 'Opciones de la Tabla') {
-            headerData.push({ text: headerCell.textContent, bold: true });
-        }
-    });
-
-    // Obtén todos los datos de la tabla, incluyendo todas las páginas
-    const table = $('#miTabla').DataTable();
-    const allData = table.rows().data();
-    
-    allData.each(function (rowData) {
-        const row = [];
-        rowData.forEach((cell, index) => {
-            // Excluir la última columna y la columna "Opciones de la Tabla"
-            if (headerData[index] && index !== rowData.length - 1) {
-                row.push(cell);
-            }
-        });
-        tableData.push(row);
-    });
-
-    const documentDefinition = {
-        pageOrientation: 'landscape', // Establece la orientación de la página a horizontal
-        content: [
-            {
-                text: 'Reporte de Tabla en PDF',
-                fontSize: 16,
-                bold: true,
-                alignment: 'center',
-                margin: [0, 0, 0, 10]
-            },
-            {
-                table: {
-                    headerRows: 1,
-                    widths: Array(headerData.length).fill('auto'),
-                    body: [
-                        headerData, // Encabezado de la tabla
-                        ...tableData // Datos de la tabla
-                    ],
-                    style: {
-                        lineHeight: 1.2 // Ajusta este valor para reducir o aumentar el espacio entre filas
+            const documentDefinition = {
+                pageOrientation: 'landscape', // Establece la orientación de la página a horizontal
+                content: [
+                    { text: 'Reporte de Tabla en PDF', fontSize: 16, bold: true, alignment: 'center', margin: [0, 0, 0, 10] },
+                    {
+                        table: {
+                            headerRows: 1,
+                            widths: Array(tableHeader.length).fill('*'),
+                            body: [
+                                tableHeader, // Encabezado de la tabla
+                                ...tableData // Datos de la tabla
+                            ],
+                            style: {
+                                lineHeight: 1.2 // Ajusta este valor para reducir o aumentar el espacio entre filas
+                            }
+                        }
                     }
-                }
-            }
-        ]
-    };
+                ]
+            };
 
-    pdfMake.createPdf(documentDefinition).download('reporte.pdf');
-}
+            pdfMake.createPdf(documentDefinition).download('reporte.pdf');
+        });
+    </script>
 
+<script>
 function exportToExcel() {
     const tableData = [];
     const headerData = [];
