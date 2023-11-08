@@ -67,8 +67,8 @@ class direccionesController extends Controller
         $modificar_direccion = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_DIRECCION"),[
-            "COD_DIRECCION" => $request->input("COD_DIRECCION"),
         
+            "COD_PERSONA" => $request->input("COD_PERSONA"),
             "DIRECCION"=> $request->input("DIRECCION"),
             "DEPARTAMENTO"=> $request->input("DEPARTAMENTO"),
             "CIUDAD"=> $request->input("CIUDAD"),

@@ -70,7 +70,7 @@ class contactoController extends Controller
         $modificar_contacto = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_CONTACTO_EMERGENCIA"),[
-            "COD_CONTACTO_EMERGENCIA" => $request->input("COD_CONTACTO_EMERGENCIA"),
+        
         
             "COD_PERSONA" => $request->input("COD_PERSONA"),
             "NOMBRE_CONTACTO"=> $request->input("NOMBRE_CONTACTO"),

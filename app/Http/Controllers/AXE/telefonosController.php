@@ -67,7 +67,8 @@ class telefonosController extends Controller
         $modificar_telefono = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'. $request->input("COD_TELEFONO"), [
-            "COD_TELEFONO" => $request->input("COD_TELEFONO"),
+
+            "COD_PERSONA" => $request->input("COD_PERSONA"),
             "TELEFONO" => $request->input("TELEFONO"),
             "TIPO_TELEFONO" => $request->input("TIPO_TELEFONO"),
             "USUARIO_MODIFICADOR" => $UsuarioValue,

@@ -63,7 +63,7 @@ class correosController extends Controller
         $modificar_correo = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_CORREO"),[
-        
+            "COD_PERSONA" => $request->input("COD_PERSONA"),
             "CORREO_ELECTRONICO"=> $request->input("CORREO_ELECTRONICO"),
             "USUARIO_MODIFICADOR" => $UsuarioValue,
 
