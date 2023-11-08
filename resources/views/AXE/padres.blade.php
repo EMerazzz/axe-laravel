@@ -221,26 +221,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <!-- Script personalizado para inicializar DataTables -->
     <script>
-        $(document).ready(function() {
-            $('#miTabla').DataTable({
-
-              "language":{
-             "search":       "Buscar: ",
-             "lengthMenu":   "Mostrar _MENU_ registros por página",
-             "info":   "Mostrando página _PAGE_ de _PAGES_",
-             "paginate": {"previous": "Anterior",
-                          "next":  "Siguiente",
-                          "first": "Primero",
-                          "last":  ""
-
-
-             }
-            }
-          });
+    $(document).ready(function() {
+        $('#miTabla').DataTable({
+            "language": {
+                "search": "Buscar: ",
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente",
+                    "first": "Primero",
+                    "last": ""
+                }
+            },
+            "lengthMenu": [5, 10, 30, 50,100,200], // Opciones disponibles en el menú
+            "pageLength": 5 // Establece la longitud de página predeterminada en 5
         });
-
-    </script>
- 
+    });
+</script>
  
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>
