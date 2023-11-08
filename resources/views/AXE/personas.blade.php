@@ -55,20 +55,19 @@
 
 @if (session('message'))
 <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #325d64; color:white;">
-                    <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="background-color: #c8dbff;">
-                    <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
-                </div>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #325d64; color:white;">
+                <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- El botón "Cerrar" con la clase "btn-close" cierra el modal -->
+            </div>
+            <div class="modal-body" style="background-color: #c8dbff;">
+                <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
             </div>
         </div>
     </div>
+</div>
 @endif
 
 <div class="spacer"></div>

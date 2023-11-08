@@ -38,20 +38,19 @@
 
 @if (session('message'))
 <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #325d64; color:white;">
-                    <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="background-color: #c8dbff;">
-                    <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
-                </div>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #325d64; color:white;">
+                <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- El botón "Cerrar" con la clase "btn-close" cierra el modal -->
+            </div>
+            <div class="modal-body" style="background-color: #c8dbff;">
+                <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
             </div>
         </div>
     </div>
+</div>
 @endif
 
 <div class="spacer"></div>
@@ -70,15 +69,10 @@
                     <form action="{{url('secciones/insertar')}}" method="post">
                         @csrf
                 <!-- INICIO --->
-                        <div class="mb-3">
-                        
-                        <label for="secciones" class="form-label">Secciones:</label>
-                        <select class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES">
-                        <option value="Seccion A" selected>Sección A</option>
-                        <option value="Seccion B"selected>Sección B</option>
-                        <option value="Seccion C"selected>Sección C</option>
-                        </select>
-                        </div>
+                <div class="mb-3 mt-3">
+                    <label for="DESCRIPCION_SECCIONES" class="form-label">Sección </label>
+                    <input type="text" class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES" placeholder="Ingrese la sección" required maxlength="15">
+                </div>
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -119,13 +113,9 @@
                                         @csrf
                                         <input type="hidden" class="form-control same-width" name="COD_SECCIONES" value="{{$secciones['COD_SECCIONES']}}">
                                        
-                                        <div class="mb-3">
-                                        <label for="secciones" class="form-label">Secciones:</label>
-                                        <select class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES">
-                                        <option value="Seccion A" {{ $secciones['DESCRIPCION_SECCIONES'] === 'Seccion A' ? 'selected' : '' }}>Sección A</option>
-                                        <option value="Seccion B" {{ $secciones['DESCRIPCION_SECCIONES'] === 'Seccion B' ? 'selected' : '' }}>Sección B</option>
-                                        <option value="Seccion C" {{ $secciones['DESCRIPCION_SECCIONES'] === 'Seccion C' ? 'selected' : '' }}>Sección C</option>
-                                        </select>
+                                        <div class="mb-3 mt-3">
+                                            <label for="DESCRIPCION_SECCIONES" class="form-label">Sección </label>
+                                            <input type="text" class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES" placeholder="Ingrese la sección" required maxlength="15" value="{{$secciones['DESCRIPCION_SECCIONES']}}" >
                                         </div>
 
                                         <!-- ... otros campos del formulario ... -->

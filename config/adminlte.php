@@ -357,12 +357,12 @@ return [
                         'icon_color' => 'info',
                         'url'  => 'secciones',
                     ],
-                    [
+                   /* [
                         'text' => 'Jornadas',
                         'icon' =>'fa fa-clock',
                         'icon_color' => 'info',
                         'url'  => 'jornadas',
-                    ],
+                    ],*/
                     [
                         'text' => 'Nivel académico',
                         'icon' =>'fa fa-university',

@@ -36,21 +36,21 @@
 
 @if (session('message'))
 <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #325d64; color:white;">
-                    <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="background-color: #c8dbff;">
-                    <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
-                </div>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #325d64; color:white;">
+                <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- El botón "Cerrar" con la clase "btn-close" cierra el modal -->
+            </div>
+            <div class="modal-body" style="background-color: #c8dbff;">
+                <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
             </div>
         </div>
     </div>
+</div>
 @endif
+
 
 <div class="spacer"></div>
 <button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#anio_academico">+ Nuevo</button>
@@ -68,17 +68,10 @@
                     <form action="{{url('anio_academico/insertar')}}" method="post">
                         @csrf
                 <!-- INICIO --->
-                    <div class="mb-3">
-                        <label for="anio_academico" class="form-label">Año Académico</label>
-                        <select class="form-control same-width" id="descripcion" name="descripcion">
-                        <option value="Septimo" selected>Séptimo</option>
-                        <option value="Octavo"selected>Octavo</option>
-                        <option value="Noveno"selected>Noveno</option>
-                        <option value="Decimo"selected>Décimo</option>
-                        <option value="Onceavo"selected>Onceavo</option>
-                        <option value="Duodecimo"selected>Duodécimo</option>
-                        </select>
-                        </div>
+                <div class="mb-3 mt-3">
+                              <label for="descripcion" class="form-label">Año académico </label>
+                              <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el año académico" required maxlength="15">
+                 </div>
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -117,17 +110,10 @@
                                         @csrf
                                         <input type="hidden" class="form-control" name="COD_ANIO_ACADEMICO" value="{{$anio_academico['COD_ANIO_ACADEMICO']}}">
                                        
-                                    <div class="mb-3">
-                                    <label for="anio_academico" class="form-label">Años Académicos:</label>
-                                    <select class="form-control same-width" id="descripcion" name="descripcion">
-                                    <option value="Septimo" {{ $anio_academico['descripcion'] === 'Septimo' ? 'selected' : '' }}>Séptimo</option>
-                                    <option value="Octavo" {{ $anio_academico['descripcion'] === 'Octavo' ? 'selected' : '' }}>Octavo</option>
-                                    <option value="Noveno" {{ $anio_academico['descripcion'] === 'Noveno' ? 'selected' : '' }}>Noveno</option>
-                                    <option value="Decimo" {{ $anio_academico['descripcion'] === 'Decimo' ? 'selected' : '' }}>Décimo</option>
-                                    <option value="Onceavo" {{ $anio_academico['descripcion'] === 'Onceavo' ? 'selected' : '' }}>Onceavo</option>
-                                    <option value="Duodecimo" {{ $anio_academico['descripcion'] === 'Duodecimo' ? 'selected' : '' }}>Duodécimo</option>
-                                    </select>
-                                    </div>
+                                        <div class="mb-3 mt-3">
+                                                    <label for="descripcion" class="form-label">Año académico </label>
+                                                    <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el año académico" required maxlength="15" value="{{$anio_academico['descripcion']}}" >
+                                        </div>
 
                                         <!-- ... otros campos del formulario ... -->
                                         <button type="submit" class="btn btn-primary">Editar</button>
@@ -155,7 +141,15 @@
     <!-- Agregar estilos para DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.example.com/css/styles.css">
+ <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- jQuery (required for Bootstrap JavaScript) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 @stop
+
 
 @section('js')
     

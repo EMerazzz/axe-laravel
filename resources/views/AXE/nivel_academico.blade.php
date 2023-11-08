@@ -38,20 +38,19 @@
 
 @if (session('message'))
 <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #325d64; color:white;">
-                    <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="background-color: #c8dbff;">
-                    <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
-                </div>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #325d64; color:white;">
+                <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- El botón "Cerrar" con la clase "btn-close" cierra el modal -->
+            </div>
+            <div class="modal-body" style="background-color: #c8dbff;">
+                <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
             </div>
         </div>
     </div>
+</div>
 @endif
 
 <div class="spacer"></div>
@@ -70,15 +69,10 @@
                     <form action="{{url('nivel_academico/insertar')}}" method="post">
                         @csrf
                 <!-- INICIO --->
-                <div class="mb-3">
-                        <label for="nivel_academico" class="form-label">Niveles Académicos:</label>
-                        <select class="form-control same-width" id="descripcion" name="descripcion">
-                        <option value="Ciclo Comun" selected>Ciclo Común</option>
-                        <option value="Bachillerato Informatica"selected>Bachillerato Informática</option>
-                        <option value="Bachillerato Finanzas"selected>Bachillerato Finanzas</option>
-                        <option value="Bachillerato Humanidades"selected>Bachillerato Humanidades</option>
-                        </select>
-                        </div>
+                <div class="mb-3 mt-3">
+                    <label for="descripcion" class="form-label">Nivel académico </label>
+                    <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el nivel académico" required maxlength="15"oninput="this.value = this.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚ\s]/g, '')">
+                </div>
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         </form>
@@ -118,14 +112,9 @@
                                         @csrf
                                         <input type="hidden" class="form-control" name="COD_NIVEL_ACADEMICO" value="{{$nivel_academico['COD_NIVEL_ACADEMICO']}}">
                                        
-                                        <div class="mb-3">
-                                        <label for="nivel_academico" class="form-label">Niveles Académicos:</label>
-                                        <select class="form-control same-width" id="descripcion" name="descripcion">
-                                        <option value="Ciclo Común" {{ $nivel_academico['descripcion'] === 'Ciclo Común' ? 'selected' : '' }}>Ciclo Común</option>
-                                        <option value="Bachillerato Informática" {{ $nivel_academico['descripcion'] === 'Bachillerato Informática' ? 'selected' : '' }}>Bachillerato Informática</option>
-                                        <option value="Bachillerato Finanzas" {{ $nivel_academico['descripcion'] === 'Bachillerato Finanzas' ? 'selected' : '' }}>Bachillerato Finanzas</option>
-                                        <option value="Bachillerato Humanidades" {{ $nivel_academico['descripcion'] === 'Bachillerato Humanidades' ? 'selected' : '' }}>Bachillerato Humanidades</option>
-                                        </select>
+                                        <div class="mb-3 mt-3">
+                                            <label for="descripcion" class="form-label">Nivel académico </label>
+                                            <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el nivel académico" required maxlength="15" value="{{$nivel_academico['descripcion']}}"oninput="this.value = this.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚ\s]/g, '')">
                                         </div>
 
                                         <!-- ... otros campos del formulario ... -->
