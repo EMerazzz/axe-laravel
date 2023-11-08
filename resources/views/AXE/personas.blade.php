@@ -134,9 +134,12 @@
     if ($fechaNacimiento) {
         $fechaNacimiento = date('Y-m-d', strtotime($fechaNacimiento));
     }
+    // Calcular la fecha máxima permitida (5 años antes de la fecha actual)
+    $fechaMaxima = date('Y-m-d', strtotime('-5 years'));
   @endphp
-  <input type="date" class="form-control same-width" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fechaNacimiento }}">
+  <input type="date" class="form-control same-width" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fechaNacimiento }}" max="{{ $fechaMaxima }}">
 </div>
+
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -227,10 +230,17 @@
 </div>
 <div class="mb-3">
   <label for="personas" class="form-label">Fecha Nacimiento:</label>
-  <!-- Formatear la fecha de nacimiento con date() y strtotime() -->
-  <?php $fecha_nacimiento_formateada = date('Y-m-d', strtotime($personas['FECHA_NACIMIENTO'])); ?>
-  <input type="date" class="form-control" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fecha_nacimiento_formateada }}">
+  <?php
+    // Formatear la fecha de nacimiento
+    $fecha_nacimiento_formateada = date('Y-m-d', strtotime($personas['FECHA_NACIMIENTO']));
+
+    // Calcular la fecha máxima permitida (5 años antes de la fecha actual)
+    $fecha_maxima = date('Y-m-d', strtotime('-5 years'));
+
+    echo '<input type="date" class="form-control" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="' . $fecha_nacimiento_formateada . '" max="' . $fecha_maxima . '">';
+  ?>
 </div>
+
 
                                         <!-- ... otros campos del formulario ... -->
                                         <button type="submit" class="btn btn-primary">Editar</button>
