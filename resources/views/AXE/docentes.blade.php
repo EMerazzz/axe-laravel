@@ -80,7 +80,8 @@
 </div>
                         <div class="mb-3 mt-3">
                             <label for="docentes" class="form-label">Especialidad:</label>
-                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese especialidad del docente"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
+                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese especialidad del docente"
+                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required maxlength="30">
                         </div>
 
                         <div class="mb-3 mt-3">
@@ -163,7 +164,8 @@
                         <input type="hidden" class="form-control" name="COD_DOCENTE" value="{{ $docentes['COD_DOCENTE'] }}">
                         <div class="mb-3 mt-3">
                             <label for="docentes" class="form-label">Especialidad:</label>
-                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}">
+                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}"
+                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="GRADO_ENSENIANZA" class="form-label">Grado Enseñanza: </label>

@@ -97,9 +97,10 @@
                     </select>
                 </div>
                         <div class="mb-3 mt-3">
-                            <label for="docentesAsignatura" class="form-label">Horas Semanales</label>
-                            <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese horas semanales">
+                          <label for="docentesAsignatura" class="form-label">Horas Semanales</label>
+                          <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese horas semanales" pattern="^[0-9]+$" title="Solo se permiten números" required maxlength="10">
                         </div>
+
                        
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -200,7 +201,7 @@
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="docentesAsignatura" class="form-label">Horas Semanales:</label>
-                            <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese las horas semanales" value="{{ $docentesAsignatura['HORAS_SEMANALES'] }}">
+                            <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese las horas semanales" value="{{ $docentesAsignatura['HORAS_SEMANALES'] }}" maxlength="10">
                
                         </div>
 

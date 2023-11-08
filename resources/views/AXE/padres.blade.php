@@ -90,13 +90,16 @@
         @endforeach
     </select>
 </div>
-                        <div class="mb-3 mt-3">
-                            <label for="padres" class="form-label">Ocupación:</label>
-                            <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación del padre o tutor"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
+                       <div class="mb-3 mt-3">
+                          <label for="padres" class="form-label">Ocupación:</label>
+                          <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación del padre o tutor"
+                          title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required maxlength="30">
                         </div>
+
                         <div class="mb-3 mt-3">
                             <label for="padres" class="form-label">Relación Estudiante:</label>
-                            <input type="text" class="form-control" id="RELACION_PADRE_ESTUDIANTE" name="RELACION_PADRE_ESTUDIANTE" placeholder="Ingrese la relación con el estudiante"pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$" title="Solo se permiten letras y espacios" required>
+                            <input type="text" class="form-control" id="RELACION_PADRE_ESTUDIANTE" name="RELACION_PADRE_ESTUDIANTE" placeholder="Ingrese la relación con el estudiante" 
+                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
                         </div>
                        
 
@@ -171,11 +174,13 @@
                         <input type="hidden" class="form-control" name="COD_PADRE_TUTOR" value="{{ $padres['COD_PADRE_TUTOR'] }}">
                         <div class="mb-3 mt-3">
                             <label for="padres" class="form-label">Ocupación:</label>
-                            <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación" value="{{ $padres['OCUPACION_PADRE_TUTOR'] }}">
+                            <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación" value="{{ $padres['OCUPACION_PADRE_TUTOR'] }}" 
+                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')"maxlength="30">
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="padres" class="form-label">Relación Estudiante:</label>
-                            <input type="text" class="form-control" id="RELACION_PADRE_ESTUDIANTE" name="RELACION_PADRE_ESTUDIANTE" placeholder="Ingrese la relación con el estudiante" value="{{ $padres['RELACION_PADRE_ESTUDIANTE'] }}">
+                            <input type="text" class="form-control" id="RELACION_PADRE_ESTUDIANTE" name="RELACION_PADRE_ESTUDIANTE" placeholder="Ingrese la relación con el estudiante" value="{{ $padres['RELACION_PADRE_ESTUDIANTE'] }}"
+                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Editar</button>

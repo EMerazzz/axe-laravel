@@ -88,7 +88,7 @@
                         <!-- FIN --->
                         <div class="mb-3 mt-3">
                             <label for="correos" class="form-label">Correo Electrónico</label>
-                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" required>
+                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" required maxlength="45">
                             <div id="error-message-correo" style="color: red; display: none;">No se permiten espacios</div>
                         </div>
                        
@@ -163,7 +163,7 @@
                         <input type="hidden" class="form-control" name="COD_CORREO" value="{{ $correos['COD_CORREO'] }}">
                         <div class="mb-3 mt-3">
                             <label for="correos" class="form-label">Correo electrónico</label>
-                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" value="{{ $correos['CORREO_ELECTRONICO'] }}"
+                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" value="{{ $correos['CORREO_ELECTRONICO'] }}" required maxlength="45"
                             title="No se permiten espacios" oninput="this.value = this.value.replace( /\s/g, '')" required>
                         </div>
         

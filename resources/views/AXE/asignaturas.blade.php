@@ -71,7 +71,7 @@
                        
                         <div class="mb-3 mt-3">
                             <label for="NOMBRE_ASIGNATURA" class="form-label">Nombre Asignatura:</label>
-                            <input type="text" class="form-control same-width" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese asignatura" inputmode="text" required >
+                            <input type="text" class="form-control same-width" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese asignatura" inputmode="text" required  maxlength="30">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -99,7 +99,7 @@
                         <td>{{ $asignatura['COD_ASIGNATURA'] }}</td>
                         <td>{{ $asignatura['NOMBRE_ASIGNATURA'] }}</td>
                         <td>
-                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#asignaturas-edit-{{ $asignatura['COD_ASIGNATURA'] }}">
+                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#asignaturas-edit-{{ $asignatura['COD_ASIGNATURA'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
                         </td>
@@ -123,7 +123,7 @@
                             <input type="hidden" class="form-control" name="COD_ASIGNATURA" value="{{ $asignatura['COD_ASIGNATURA'] }}">
                             <div class="mb-3 mt-3">
                                 <label for="NOMBRE_ASIGNATURA" class="form-label">Nombre Asignatura</label>
-                                <input type="text" class="form-control" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" value="{{ $asignatura['NOMBRE_ASIGNATURA'] }}">
+                                <input type="text" class="form-control" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" value="{{ $asignatura['NOMBRE_ASIGNATURA'] }}" maxlength="30">
                             </div>
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>

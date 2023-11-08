@@ -91,13 +91,13 @@
                 
                 <div class="mb-3 mt-3">
     <label for="NOMBRE" class="form-label">Nombres:</label>
-    <input type="text" class="form-control same-width" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" inputmode="text" required value="{{ old('NOMBRE') }}">
+    <input type="text" class="form-control same-width" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" inputmode="text" required value="{{ old('NOMBRE') }}" maxlength="40">
     <div id="error-message-nombre" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
 </div>
 
 <div class="mb-3 mt-3">
     <label for="APELLIDO" class="form-label">Apellidos:</label>
-    <input type="text" class="form-control same-width" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" inputmode="text" required value="{{ old('APELLIDO') }}">
+    <input type="text" class="form-control same-width" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" inputmode="text" required value="{{ old('APELLIDO') }}" maxlength="40">
     <div id="error-message-apellido" style="color: red; display: none;">Solo se permiten letras y espacios</div>
 </div>
 
@@ -194,13 +194,13 @@
                                        
     <div class="mb-3 mt-3">
         <label for="NOMBRE" class="form-label">Nombre:</label>
-        <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" value="{{$personas['NOMBRE']}}" 
+        <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" value="{{$personas['NOMBRE']}}" maxlength="40" 
         title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
     </div>
                 
 <div class="mb-3 mt-3">
     <label for="APELLIDO" class="form-label">Apellido:</label>
-    <input type="text" class="form-control" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" value="{{$personas['APELLIDO']}}" 
+    <input type="text" class="form-control" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" value="{{$personas['APELLIDO']}}" maxlength="40"
     title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
 </div>
                 

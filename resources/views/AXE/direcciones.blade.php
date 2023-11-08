@@ -90,21 +90,21 @@
                         <!-- FIN --->
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Dirección</label>
-                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required >
+                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="40">
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="DEPARTAMENTO" class="form-label">Departamento</label>
-                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" required >
+                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" required maxlength="35">
                             <div id="error-message-departamento" class="error-message" style="color: red; display: none;" required >Solo se permiten letras y espacios</div>
                         </div>
-                        <div class="mb-3 mt-3">
+                        <div class="mb-3 mt-3"
                             <label for="CIUDAD" class="form-label">Ciudad</label>
-                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" required >
+                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" required maxlength="30">
                             <div id="error-message-ciudad" class="error-message" style="color: red; display: none;" required >Solo se permiten letras y espacios</div>
                             </div>
                         <div class="mb-3 mt-3">
                             <label for="PAIS" class="form-label">País</label>
-                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" required >
+                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" required maxlength="30">
                             <div id="error-message-pais" class="error-message" style="color: red; display: none;" required >Solo se permiten letras y espacios</div>
                         </div>
                 
@@ -182,22 +182,22 @@
                         <input type="hidden" class="form-control" name="COD_DIRECCION" value="{{ $direcciones['COD_DIRECCION'] }}" required >
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Dirección</label>
-                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" value="{{ $direcciones['DIRECCION'] }}" required >
+                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" value="{{ $direcciones['DIRECCION'] }}" required maxlength="40" >
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Departamento</label>
-                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" value="{{ $direcciones['DEPARTAMENTO'] }}"
+                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" value="{{ $direcciones['DEPARTAMENTO'] }}" maxlength="35"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
 
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Ciudad</label>
-                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" value="{{ $direcciones['CIUDAD'] }}"
+                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" value="{{ $direcciones['CIUDAD'] }}" maxlength="30"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">país</label>
-                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $direcciones['PAIS'] }}"
+                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $direcciones['PAIS'] }}" maxlength="30"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
 
