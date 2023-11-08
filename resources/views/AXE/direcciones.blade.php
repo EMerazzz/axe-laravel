@@ -180,6 +180,16 @@
                         @csrf
                         <input type="hidden" class="form-control" name="COD_DIRECCION" value="{{ $direcciones['COD_DIRECCION'] }}" required >
                         <div class="mb-3 mt-3">
+                            <label for="COD_PERSONA" class="form-label">Persona</label>
+                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                                @foreach ($personasArreglo as $persona)
+                                    <option value="{{ $persona['COD_PERSONA'] }}" {{ $persona['COD_PERSONA'] == $direcciones['COD_PERSONA'] ? 'selected' : '' }}>
+                                        {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Dirección</label>
                             <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" value="{{ $direcciones['DIRECCION'] }}" required maxlength="40" >
                         </div>

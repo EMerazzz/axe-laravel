@@ -172,7 +172,7 @@
                         @csrf
                         <input type="hidden" class="form-control" name="COD_TELEFONO" value="{{ $telefonos['COD_TELEFONO'] }}">
                         <div class="mb-3 mt-3">
-                            <label for="COD_PERSONA" class="form-label">Persona:</label>
+                            <label for="COD_PERSONA" class="form-label">Persona</label>
                             <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}" {{ $persona['COD_PERSONA'] == $telefonos['COD_PERSONA'] ? 'selected' : '' }}>
