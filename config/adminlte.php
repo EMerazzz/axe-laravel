@@ -462,6 +462,13 @@ return [
                 ],
 
                 [
+                    'text' => 'Cambiar contraseña',
+                    'icon' =>"fa fa-key",
+                    //'icon_color' => 'info',
+                    'url'  => 'cambiarContrasena',
+                ],
+
+                [
                     'text' => 'preguntas usuarios',
                     'icon' =>"fa fa-user",
                     //'icon_color' => 'info',
