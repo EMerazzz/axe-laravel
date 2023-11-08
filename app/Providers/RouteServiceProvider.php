@@ -129,6 +129,11 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('Reportedocentes')
             ->group(base_path('routes/Rdocentes.php'));
+
+            Route::middleware('web')
+            ->prefix('cambiarContrasena')
+            ->group(base_path('routes/cambiarContrasena.php'));
+
             Route::middleware('web')
             ->prefix('Reportepadres')
             ->group(base_path('routes/Rpadres.php'));
