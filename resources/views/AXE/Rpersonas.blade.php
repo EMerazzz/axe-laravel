@@ -236,7 +236,7 @@ $(document).ready(function() {
             pageOrientation: 'landscape',
     content: [
         {
-            text: 'Reporte de personas en pdf ',
+            text: 'Reporte Personas en pdf ',
             fontSize: 16,
             bold: true,
             alignment: 'center',
@@ -260,7 +260,7 @@ $(document).ready(function() {
 };
 
 
-        pdfMake.createPdf(documentDefinition).download('reporte.pdf');
+        pdfMake.createPdf(documentDefinition).download('ReportePersonas.pdf');
     }
 });
 
@@ -309,7 +309,7 @@ function exportToExcel() {
     });
 
     // Descargar el archivo usando la biblioteca FileSaver.js
-    saveAs(excelBlob, 'reporte.xlsx');
+    saveAs(excelBlob, 'ReportePersonas.xlsx');
 }
 
 // Función para convertir una cadena binaria en una matriz de bytes
