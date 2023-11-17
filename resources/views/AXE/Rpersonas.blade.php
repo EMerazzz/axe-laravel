@@ -29,16 +29,19 @@
         <i class="far fa-file-excel"></i> Exportar a Excel
     </button>
 </div>
-<div class="d-flex align-items-center mb-3">
-    <label for="start-date" class="me-2">Fecha Inicio:</label>
-    <input type="date" id="start-date" class="form-control">
-    <label for="end-date" class="mx-2">Fecha Fin:</label>
-    <input type="date" id="end-date" class="form-control">
-    <button id="apply-filter" class="btn btn-danger mx-2">
-    
-    <i class="far fa-file-pdf"></i> Descargar PDF
+<div class="d-flex align-items-center justify-content-center mt-0p">
+    <label for="start-date">Inicio:</label>
+    <input type="date" id="start-date" class="me-1">
+    <label for="end-date">Fin:</label>
+    <input type="date" id="end-date" class="me-1">
+    <button id="apply-filter" class="btn btn-danger me-1">
+        <i class="far fa-file-pdf"></i> Descargar PDF
     </button>
 </div>
+
+
+
+
 <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         <thead>

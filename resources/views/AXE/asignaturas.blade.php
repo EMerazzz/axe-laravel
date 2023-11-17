@@ -98,7 +98,7 @@
                         <td>{{ $asignaturas['COD_ASIGNATURA'] }}</td>
                         <td>{{ $asignaturas['NOMBRE_ASIGNATURA'] }}</td>
                         <td>
-                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#asignaturas-edit-{{ $asignatura['COD_ASIGNATURA'] }}" >
+                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#asignaturas-edit-{{ $asignaturas['COD_ASIGNATURA'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
                         </td>
