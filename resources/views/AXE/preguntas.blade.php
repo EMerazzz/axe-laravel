@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Asignaturas')
+@section('title', 'Preguntas')
 @section('content_header')
 <style>
   .custom-blockquote {
@@ -10,7 +10,7 @@
   }
 </style>
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Asignaturas registradas en el sistema AXE.</p>
+    <p class="mb-0">Preguntas registradas en el sistema AXE.</p>
 </blockquote>
 
 @stop
@@ -51,26 +51,26 @@
 @endif
 
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#asignaturas">+ Nuevo</button>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#preguntas">+ Nuevo</button>
 <div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="asignaturas" tabindex="-1">
+<div class="modal fade bd-example-modal-sm" id="preguntas" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Ingresa Asignatura</h4>
+              <h4 class="modal-title">Ingresa una Pregunta</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
            
             
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{url('asignaturas/insertar')}}" method="post">
+                    <form action="{{url('preguntas/insertar')}}" method="post">
 
                         @csrf
                        
                         <div class="mb-3 mt-3">
-                            <label for="NOMBRE_ASIGNATURA" class="form-label">Nombre Asignatura:</label>
-                            <input type="text" class="form-control same-width" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese asignatura" inputmode="text" required  maxlength="30">
+                            <label for="PREGUNTA" class="form-label">Nueva Pregunta :</label>
+                            <input type="text" class="form-control same-width" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" inputmode="text" required  maxlength="30">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -87,18 +87,18 @@
         
             <thead>
                 <tr>
-                    <th>Código Asignatura</th> 
-                    <th>Nombre Asignatura</th> 
+                    <th>#</th> 
+                    <th>Pregunta</th> 
                     <th>Opciones Tabla</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($citaArreglo as $asignaturas)
+                @foreach($preguntasArreglo as $preguntas)
                     <tr>
-                        <td>{{ $asignaturas['COD_ASIGNATURA'] }}</td>
-                        <td>{{ $asignaturas['NOMBRE_ASIGNATURA'] }}</td>
+                        <td>{{ $preguntas['COD_PREGUNTA'] }}</td>
+                        <td>{{ $preguntas['PREGUNTA'] }}</td>
                         <td>
-                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#asignaturas-edit-{{ $asignaturas['COD_ASIGNATURA'] }}" >
+                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#preguntas-edit-{{ $preguntas['COD_PREGUNTA'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
                         </td>
@@ -108,21 +108,21 @@
         </table>
     </div>
 
-    @foreach($citaArreglo as $asignatura)
-        <div class="modal fade bd-example-modal-sm" id="asignaturas-edit-{{ $asignatura['COD_ASIGNATURA'] }}" tabindex="-1">
+    @foreach($preguntasArreglo as $preguntas)
+        <div class="modal fade bd-example-modal-sm" id="preguntas-edit-{{ $preguntas['COD_PREGUNTA'] }}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualiza Asignatura</h5>
+                        <h5 class="modal-title">Actualizar Pregunta</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ url('asignaturas/actualizar') }}" method="post">
+                        <form action="{{ url('preguntas/actualizar') }}" method="post">
                             @csrf
-                            <input type="hidden" class="form-control" name="COD_ASIGNATURA" value="{{ $asignatura['COD_ASIGNATURA'] }}">
+                            <input type="hidden" class="form-control" name="COD_PREGUNTA" value="{{ $preguntas['COD_PREGUNTA'] }}">
                             <div class="mb-3 mt-3">
-                                <label for="NOMBRE_ASIGNATURA" class="form-label">Nombre Asignatura</label>
-                                <input type="text" class="form-control" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" value="{{ $asignatura['NOMBRE_ASIGNATURA'] }}" maxlength="30">
+                                <label for="PREGUNTA" class="form-label">Nueva Pregunta:</label>
+                                <input type="text" class="form-control" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" value="{{ $preguntas['PREGUNTA'] }}" maxlength="30">
                             </div>
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>

@@ -207,7 +207,7 @@ modeToggle.addEventListener('click', () => {
         pageOrientation: 'landscape', // Establece la orientación de la página a horizontal
         content: [
             {
-                text: 'Reportes de Docentes',
+                text: 'Reportes Docentes',
                 fontSize: 16,
                 bold: true,
                 alignment: 'center',
@@ -229,7 +229,7 @@ modeToggle.addEventListener('click', () => {
         ]
     };
 
-    pdfMake.createPdf(documentDefinition).download('reporte.pdf');
+    pdfMake.createPdf(documentDefinition).download('ReporteDocentes.pdf');
 }
 
 function exportToExcel() {
@@ -277,7 +277,7 @@ function exportToExcel() {
     });
 
     // Descargar el archivo usando la biblioteca FileSaver.js
-    saveAs(excelBlob, 'reporte.xlsx');
+    saveAs(excelBlob, 'ReporteDocentes.xlsx');
 }
 
 // Función para convertir una cadena binaria en una matriz de bytes

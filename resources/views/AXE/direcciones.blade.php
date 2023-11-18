@@ -89,7 +89,7 @@
                         <!-- FIN --->
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Dirección</label>
-                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="40">
+                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="150">
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="DEPARTAMENTO" class="form-label">Departamento</label>
@@ -191,22 +191,22 @@
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Dirección</label>
-                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" value="{{ $direcciones['DIRECCION'] }}" required maxlength="40" >
+                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" value="{{ $direcciones['DIRECCION'] }}" required maxlength="255" >
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Departamento</label>
-                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" value="{{ $direcciones['DEPARTAMENTO'] }}" maxlength="35"
+                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" value="{{ $direcciones['DEPARTAMENTO'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
 
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">Ciudad</label>
-                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" value="{{ $direcciones['CIUDAD'] }}" maxlength="30"
+                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" value="{{ $direcciones['CIUDAD'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="direcciones" class="form-label">país</label>
-                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $direcciones['PAIS'] }}" maxlength="30"
+                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $direcciones['PAIS'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
 
@@ -429,7 +429,7 @@ function exportToExcel() {
     });
 
     // Descargar el archivo usando la biblioteca FileSaver.js
-    saveAs(excelBlob, 'reporte.xlsx');
+    saveAs(excelBlob, 'Reportes direcciones.xlsx');
 }
 
 // Función para convertir una cadena binaria en una matriz de bytes

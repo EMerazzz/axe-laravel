@@ -228,7 +228,7 @@ modeToggle.addEventListener('click', () => {
         ]
     };
 
-    pdfMake.createPdf(documentDefinition).download('reporte.pdf');
+    pdfMake.createPdf(documentDefinition).download('ReporteTutores.pdf');
 }
 
 function exportToExcel() {
@@ -276,7 +276,7 @@ function exportToExcel() {
     });
 
     // Descargar el archivo usando la biblioteca FileSaver.js
-    saveAs(excelBlob, 'reporte.xlsx');
+    saveAs(excelBlob, 'ReporteTutores.xlsx');
 }
 
 // Función para convertir una cadena binaria en una matriz de bytes
