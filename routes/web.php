@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+route::middleware(['checkToken'])->group(function () {
 Route::get('/', function () {
-    return view('welcome');
+    return view('AXE/AXE');
 });
-
+});
 Route::get('/texto', function(){
     return '<h1>esto es un texto de prueba</h1>';
 });
