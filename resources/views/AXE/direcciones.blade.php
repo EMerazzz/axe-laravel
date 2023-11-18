@@ -96,7 +96,7 @@
                             <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" required maxlength="35">
                             <div id="error-message-departamento" class="error-message" style="color: red; display: none;" required >Solo se permiten letras y espacios</div>
                         </div>
-                        <div class="mb-3 mt-3"
+                        <div class="mb-3 mt-3">
                             <label for="CIUDAD" class="form-label">Ciudad</label>
                             <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" required maxlength="30">
                             <div id="error-message-ciudad" class="error-message" style="color: red; display: none;" required >Solo se permiten letras y espacios</div>

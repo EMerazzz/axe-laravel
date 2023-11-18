@@ -69,8 +69,8 @@
                         @csrf
                        
                         <div class="mb-3 mt-3">
-                            <label for="NUEVA_PREGUNTA" class="form-label">Nueva Pregunta :</label>
-                            <input type="text" class="form-control same-width" id="NUEVA_PREGUNTA" name="NUEVA_PREGUNTA" placeholder="Ingrese la pregunta" inputmode="text" required  maxlength="30">
+                            <label for="PREGUNTA" class="form-label">Nueva Pregunta :</label>
+                            <input type="text" class="form-control same-width" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" inputmode="text" required  maxlength="30">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -87,7 +87,7 @@
         
             <thead>
                 <tr>
-                    <th>Código Pregunta</th> 
+                    <th>#</th> 
                     <th>Pregunta</th> 
                     <th>Opciones Tabla</th>
                 </tr>
@@ -96,7 +96,7 @@
                 @foreach($preguntasArreglo as $preguntas)
                     <tr>
                         <td>{{ $preguntas['COD_PREGUNTA'] }}</td>
-                        <td>{{ $preguntas['NUEVA_PREGUNTA'] }}</td>
+                        <td>{{ $preguntas['PREGUNTA'] }}</td>
                         <td>
                             <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#preguntas-edit-{{ $preguntas['COD_PREGUNTA'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
@@ -121,8 +121,8 @@
                             @csrf
                             <input type="hidden" class="form-control" name="COD_PREGUNTA" value="{{ $preguntas['COD_PREGUNTA'] }}">
                             <div class="mb-3 mt-3">
-                                <label for="NUEVA_PREGUNTA" class="form-label">Nueva Pregunta:</label>
-                                <input type="text" class="form-control" id="NUEVA_PREGUNTA" name="NUEVA_PREGUNTA" placeholder="Ingrese la pregunta" value="{{ $preguntas['NUEVA_PREGUNTA'] }}" maxlength="30">
+                                <label for="PREGUNTA" class="form-label">Nueva Pregunta:</label>
+                                <input type="text" class="form-control" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" value="{{ $preguntas['PREGUNTA'] }}" maxlength="30">
                             </div>
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>

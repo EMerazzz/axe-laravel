@@ -72,82 +72,213 @@
 
 <div class="spacer"></div>
 <button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>
-<div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="personas" tabindex="-1">
-    <div class="modal-dialog">
+<div class="modal fade bd-example-modal-lg" id="personas" tabindex="-1">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
+
             <div class="modal-header">
-              <h4 class="modal-title">Ingresa una Nueva Persona</h4>
+                <h4 class="modal-title">Ingresa una Nueva Persona</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-    
-            
-            <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{url('personas/insertar')}}" method="post">
+
+            <div class="modal-body" style="background-color: #fff; padding: 20px;">
+
+                <!-- Pestañas de Secciones -->
+                <ul class="nav nav-tabs" id="seccionesTabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="tabPersona" data-toggle="tab" href="#sectionPersona">Información Persona</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tabTelefonos" data-toggle="tab" href="#sectionTelefonos">Teléfono</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tabCorreo" data-toggle="tab" href="#sectionCorreo">Correo eléctronico</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tabDirecciones" data-toggle="tab" href="#sectionDirecciones">Dirección</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tabContacto" data-toggle="tab" href="#sectionContacto">Contacto emergencia</a>
+                    </li>
+                   
+                </ul>
+                <form action="{{url('personas/insertar')}}" method="post">
                         @csrf
-                <!-- INICIO --->
-                
-                <div class="mb-3 mt-3">
-    <label for="NOMBRE" class="form-label">Nombres:</label>
-    <input type="text" class="form-control same-width" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" inputmode="text" required value="{{ old('NOMBRE') }}" maxlength="40">
-    <div id="error-message-nombre" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
-</div>
+                <!-- Contenido de las Secciones -->
+                <div class="tab-content">
+                    <!-- Sección 1: Información de Persona -->
+                    <div id="sectionPersona" class="tab-pane fade show active">
+                        
+                    <div id="sectionPersona" class="form-section">
+                    
 
-<div class="mb-3 mt-3">
-    <label for="APELLIDO" class="form-label">Apellidos:</label>
-    <input type="text" class="form-control same-width" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" inputmode="text" required value="{{ old('APELLIDO') }}" maxlength="40">
-    <div id="error-message-apellido" style="color: red; display: none;">Solo se permiten letras y espacios</div>
-</div>
+                        <div class="mb-3 mt-3">
+                            <label for="NOMBRE" class="form-label">Nombres:</label>
+                            <input type="text" class="form-control same-width" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" inputmode="text" required value="{{ old('NOMBRE') }}" maxlength="40">
+                            <div id="error-message-nombre" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
+                        </div>
 
-<div class="mb-3 mt-3">
-    <label for="IDENTIDAD" class="form-label">Número Identidad:</label>
-    <input type="text" class="form-control same-width" id="IDENTIDAD" name="IDENTIDAD" placeholder="____-____-_____" required>
-    <div id="error-message-identidad" style="color: red; display: none;">Solo se permiten números</div>
-</div>
+                        <div class="mb-3 mt-3">
+                            <label for="APELLIDO" class="form-label">Apellidos:</label>
+                            <input type="text" class="form-control same-width" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" inputmode="text" required value="{{ old('APELLIDO') }}" maxlength="40">
+                            <div id="error-message-apellido" style="color: red; display: none;">Solo se permiten letras y espacios</div>
+                        </div>
 
+                        <div class="mb-3 mt-3">
+                            <label for="IDENTIDAD" class="form-label">Número Identidad:</label>
+                            <input type="text" class="form-control same-width" id="IDENTIDAD" name="IDENTIDAD" placeholder="____-____-_____" required>
+                            <div id="error-message-identidad" style="color: red; display: none;">Solo se permiten números</div>
+                        </div>
 
+                        <div class="mb-3">
+                            <label for="personas" class="form-label">Género:</label>
+                            <select class="form-control same-width" id="GENERO" name="GENERO">
+                                <option value="M" {{ old('GENERO') == 'M' ? 'selected' : '' }}>Masculino</option>
+                                <option value="F" {{ old('GENERO') == 'F' ? 'selected' : '' }}>Femenino</option>
+                            </select>
+                        </div>
 
-<div class="mb-3">
-    <label for="personas" class="form-label">Género:</label>
-    <select class="form-control same-width" id="GENERO" name="GENERO">
-        <option value="M" {{ old('GENERO') == 'M' ? 'selected' : '' }}>Masculino</option>
-        <option value="F" {{ old('GENERO') == 'F' ? 'selected' : '' }}>Femenino</option>
-    </select>
-</div>
+                        <div class="mb-3">
+                            <label for="personas" class="form-label">Tipo Persona:</label>
+                            <select class="form-control same-width" id="TIPO_PERSONA" name="TIPO_PERSONA">
+                                <option value="Estudiante" {{ old('TIPO_PERSONA') == 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
+                                <option value="Docente" {{ old('TIPO_PERSONA') == 'Docente' ? 'selected' : '' }}>Docente</option>
+                                <option value="Padre o tutor" {{ old('TIPO_PERSONA') == 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
+                                <option value="Personal Administrativo" {{ old('TIPO_PERSONA') == 'Personal Administrativo' ? 'selected' : '' }}>Personal Administrativo</option>
+                            </select>
+                        </div>
 
-<div class="mb-3">
-  <label for="personas" class="form-label">Tipo Persona:</label>
-  <select class="form-control same-width" id="TIPO_PERSONA" name="TIPO_PERSONA">
-    <option value="Estudiante" {{ old('TIPO_PERSONA') == 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
-    <option value="Docente" {{ old('TIPO_PERSONA') == 'Docente' ? 'selected' : '' }}>Docente</option>
-    <option value="Padre o tutor" {{ old('TIPO_PERSONA') == 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
-    <option value="Personal Administrativo" {{ old('TIPO_PERSONA') == 'Personal Administrativo' ? 'selected' : '' }}>Personal Administrativo</option>
-  </select>
-</div>
+                        <div class="mb-3">
+                            <label for="personas" class="form-label">Fecha Nacimiento:</label>
+                            @php
+                                $fechaNacimiento = old('FECHA_NACIMIENTO');
+                                if ($fechaNacimiento) {
+                                    $fechaNacimiento = date('Y-m-d', strtotime($fechaNacimiento));
+                                }
+                                // Calcular la fecha máxima permitida (5 años antes de la fecha actual)
+                                $fechaMaxima = date('Y-m-d', strtotime('-5 years'));
+                            @endphp
+                            <input type="date" class="form-control same-width" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fechaNacimiento }}" max="{{ $fechaMaxima }}">
+                        </div>
+                </div>
+                     </div>
 
+                       <!-- Sección 2: Teléfonos -->
+                      <div id="sectionTelefonos" class="tab-pane fade">
+                       <div class="mb-3 mt-3">
+                        <label for="TELEFONO" class="form-label">Número Teléfono:</label>
+                        <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" required>
+                       </div>
+                        <div class="mb-3">
+                            <label for="TIPO_TELEFONO" class="form-label">Tipo Teléfono:</label>
+                            <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
+                                <option value="Fijo" selected>Fijo</option>
+                                <option value="Movil">Móvil</option>
+                            </select>
+                        </div>
+                    </div>
 
-<div class="mb-3">
-  <label for="personas" class="form-label">Fecha Nacimiento:</label>
-  @php
-    $fechaNacimiento = old('FECHA_NACIMIENTO');
-    if ($fechaNacimiento) {
-        $fechaNacimiento = date('Y-m-d', strtotime($fechaNacimiento));
-    }
-    // Calcular la fecha máxima permitida (5 años antes de la fecha actual)
-    $fechaMaxima = date('Y-m-d', strtotime('-5 years'));
-  @endphp
-  <input type="date" class="form-control same-width" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fechaNacimiento }}" max="{{ $fechaMaxima }}">
-</div>
+                    <!-- Sección 3: Direcciones -->
+                    <div id="sectionDirecciones" class="tab-pane fade">
+                    <div class="mb-3 mt-3">
+                            <label for="PAIS" class="form-label">País</label>
+                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" required maxlength="30" 
+                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="DEPARTAMENTO" class="form-label">Departamento</label>
+                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" required maxlength="35"
+                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="CIUDAD" class="form-label">Ciudad</label>
+                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" required maxlength="30"
+                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="direcciones" class="form-label">Dirección</label>
+                                <textarea class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="250" style="height: 100px;"></textarea>
+                            </div>
 
-                        <button type="submit" class="btn btn-primary">Añadir</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    </form>
+                    </div>
+                    <!-- Sección 4: Contactos emergencia -->
+                    <div id="sectionContacto" class="tab-pane fade">
+                    <div class="mb-3 mt-3">
+                            <label for="contacto" class="form-label">Nombre Contacto:</label>
+                            <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto"required maxlength="40">
+                            <div id="error-message-nombreC" style="color: red; display: none;">Solo se permiten letras y espacios</div>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="contacto" class="form-label">Apellidos Contacto:</label>
+                            <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto"required maxlength="40">
+                            <div id="error-message-apellidoC" style="color: red; display: none;">Solo se permiten letras y espacios</div>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="contacto" class="form-label">Teléfono Contacto Emergencia:</label>
+                            <input type="text" class="form-control" id="TELEFONO_CONTACTO" name="TELEFONO_CONTACTO" placeholder="Ingrese el Número de télefono contacto emergencia" required maxlength="15">
+                            <div id="error-message-telefono" style="color: red; display: none;">Solo se permiten números</div>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="contacto" class="form-label">Relación:</label>
+                            <input type="text" class="form-control" id="RELACION" name="RELACION" placeholder="Ingrese la relación" required maxlength="25">
+                            <div id="error-message-relacion" style="color: red; display: none;">Solo se permiten letras y espacios</div>
+                        </div>
+
+                   </div>
+                   <!-- Sección 4: correos -->
+                   <div id="sectionCorreo" class="tab-pane fade">
+                   <div class="mb-3 mt-3">
+                            <label for="correos" class="form-label">Correo Electrónico</label>
+                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" required maxlength="45" oninput="this.value = this.value.replace(/\s/g, '');">
+                            
+                        </div>
+                   </div>
+
                 </div>
             </div>
+
+            <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Añadir</button>
+
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+
+            </div>
+            </form>
         </div>
     </div>
 </div>
+
+<script>
+    var currentSection = 1;
+
+    function nextSection() {
+        hideAllSections();
+        currentSection++;
+        showCurrentSection();
+    }
+
+    function prevSection() {
+        hideAllSections();
+        currentSection--;
+        showCurrentSection();
+    }
+
+    function showCurrentSection() {
+        var sectionId = 'section' + currentSection;
+        document.getElementById('seccionesTabs').querySelectorAll('.nav-link').forEach(function (tab) {
+            tab.classList.remove('active');
+        });
+        document.getElementById('tab' + sectionId).classList.add('active');
+        document.getElementById(sectionId).classList.add('show', 'active');
+    }
+
+    function hideAllSections() {
+        for (var i = 1; i <= 4; i++) { // Actualiza el rango según el número de secciones
+            var sectionId = 'section' + i;
+            document.getElementById(sectionId).classList.remove('show', 'active');
+        }
+    }
+</script>
 
 <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
@@ -321,6 +452,7 @@
         input.addEventListener('input', function() {
             const inputValue = input.value.trim();
             const validInput = inputValue.replace(pattern, '');
+            
 
             if (inputValue !== validInput) {
                 input.value = validInput;
@@ -340,7 +472,20 @@
     setupValidation('APELLIDO', 'error-message-apellido', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
     // Configuración para el campo de IDENTIDAD
     setupValidation('IDENTIDAD', 'error-message-identidad', /[^0-9]/g);
-    
+       // Configuración para el campo de NOMBRE
+       setupValidation('NOMBRE_CONTACTO', 'error-message-nombreC', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    // Configuración para el campo de APELLIDO
+    setupValidation('APELLIDO_CONTACTO', 'error-message-apellidoC', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+     // Configuración para el campo de RELACION
+     setupValidation('RELACION', 'error-message-relacion', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    // Configuración para el campo de DEPARTAMENTO
+    setupValidation('DEPARTAMENTO', 'error-message-departamento', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    // Configuración para el campo de CIUDAD
+    setupValidation('CIUDAD', 'error-message-ciudad', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    // Configuración para el campo de PAIS
+    setupValidation('PAIS', 'error-message-pais', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    // Configuración para el campo de CORREO_ELECTRONICO
+    setupValidation('CORREO_ELECTRONICO', 'error-message-correo', /\s/g); // Evita espacios en blanco
 </script>
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>
@@ -520,6 +665,57 @@ function formatIdentidad(input) {
     // Asigna el valor formateado de vuelta al campo de entrada
     input.value = formattedValue;
 }
+</script>
+<script>
+    document.getElementById('TELEFONO').addEventListener('input', function () {
+        let input = this;
+        let value = input.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
+
+        // Formatea el número de teléfono
+        if (value.length >= 4) {
+            input.value = value.slice(0, 4) + '-' + value.slice(4, 8);
+        } else {
+            input.value = value;
+        }
+    });
+</script>
+<script>
+    document.getElementById('TELEFONO_CONTACTO').addEventListener('input', function () {
+        let input = this;
+        let value = input.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
+
+        // Formatea el número de teléfono
+        if (value.length >= 4) {
+            input.value = value.slice(0, 4) + '-' + value.slice(4, 8);
+        } else {
+            input.value = value;
+        }
+    });
+</script>
+<script>
+ function formatTelefono(input) {
+    // Elimina cualquier carácter no numérico
+    let cleanedValue = input.value.replace(/\D/g, '');
+
+    // Asegura que la longitud sea de 8 caracteres
+    if (cleanedValue.length > 8) {
+        cleanedValue = cleanedValue.slice(0, 8);
+    }
+
+    // Formatea el valor con guiones después de cada grupo de 4 caracteres
+    let formattedValue = '';
+    for (let i = 0; i < cleanedValue.length; i++) {
+        if (i === 4) {
+            formattedValue += '-';
+        }
+        formattedValue += cleanedValue.charAt(i);
+    }
+
+    // Asigna el valor formateado de vuelta al campo de entrada
+    input.value = formattedValue;
+}
+
+
 </script>
 
 @stop

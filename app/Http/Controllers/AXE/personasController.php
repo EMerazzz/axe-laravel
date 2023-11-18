@@ -62,7 +62,7 @@ class PersonasController extends Controller
         // Enviar la solicitud POST a la API para agregar la nueva persona
         $nueva_persona = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->post($this->apiUrl, [
+        ])->post('http://82.180.162.18:4000/INSpersonas', [
             "NOMBRE" => $request->input("NOMBRE"),
             "APELLIDO" => $request->input("APELLIDO"),
             "IDENTIDAD" => $request->input("IDENTIDAD"),
@@ -71,6 +71,21 @@ class PersonasController extends Controller
             "EDAD" => $edad,
             "FECHA_NACIMIENTO" => $fecha_nacimiento,
             "USUARIO_MODIFICADOR" => $UsuarioValue,
+            //TELEFONOS
+            "TELEFONO" => $request->input("TELEFONO"),
+            "TIPO_TELEFONO" => $request->input("TIPO_TELEFONO"),
+            //DIRECCIONES
+            "DIRECCION"=> $request->input("DIRECCION"),
+            "DEPARTAMENTO"=> $request->input("DEPARTAMENTO"),
+            "CIUDAD"=> $request->input("CIUDAD"),
+            "PAIS"=> $request->input("PAIS"),
+            //CONTACTOS
+            "NOMBRE_CONTACTO"=> $request->input("NOMBRE_CONTACTO"),
+            "APELLIDO_CONTACTO"=> $request->input("APELLIDO_CONTACTO"),
+            "TELEFONO_CONTACTO"=> $request->input("TELEFONO_CONTACTO"),
+            "RELACION"=> $request->input("RELACION"),
+            //correos
+            "CORREO_ELECTRONICO"=> $request->input("CORREO_ELECTRONICO"),
         ]);
     
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
