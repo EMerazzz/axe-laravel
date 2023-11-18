@@ -24,12 +24,8 @@
     </button>
 </div>
 
-<div class="d-flex justify-content-end align-items-center mt-3" style="margin-bottom: 20px;">
-    <button id="export-excel" class="btn btn-success ms-2" onclick="exportToExcel()">
-        <i class="far fa-file-excel"></i> Exportar a Excel
-    </button>
-</div>
-<div class="d-flex align-items-center justify-content-center mt-0p">
+<div class="d-inline-block align-items-center mt-2">
+    <!-- Grupo de PDF -->
     <label for="start-date">Inicio:</label>
     <input type="date" id="start-date" class="me-1">
     <label for="end-date">Fin:</label>
@@ -39,6 +35,12 @@
     </button>
 </div>
 
+<div class="d-inline-block align-items-center mt-2">
+    <!-- Grupo de Excel -->
+    <button id="export-excel" class="btn btn-success ms-2" onclick="exportToExcel()">
+        <i class="far fa-file-excel"></i> Exportar a Excel
+    </button>
+</div>
 
 
 
