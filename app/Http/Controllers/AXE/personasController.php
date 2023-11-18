@@ -84,6 +84,8 @@ class PersonasController extends Controller
             "APELLIDO_CONTACTO"=> $request->input("APELLIDO_CONTACTO"),
             "TELEFONO_CONTACTO"=> $request->input("TELEFONO_CONTACTO"),
             "RELACION"=> $request->input("RELACION"),
+            //correos
+            "CORREO_ELECTRONICO"=> $request->input("CORREO_ELECTRONICO"),
         ]);
     
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error

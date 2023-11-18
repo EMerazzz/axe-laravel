@@ -89,14 +89,18 @@
                         <a class="nav-link active" id="tabPersona" data-toggle="tab" href="#sectionPersona">Información Persona</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="tabTelefonos" data-toggle="tab" href="#sectionTelefonos">Teléfonos</a>
+                        <a class="nav-link" id="tabTelefonos" data-toggle="tab" href="#sectionTelefonos">Teléfono</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="tabDirecciones" data-toggle="tab" href="#sectionDirecciones">Direcciones</a>
+                        <a class="nav-link" id="tabCorreo" data-toggle="tab" href="#sectionCorreo">Correo eléctronico</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="tabContacto" data-toggle="tab" href="#sectionContacto">Contactos emergencia</a>
+                        <a class="nav-link" id="tabDirecciones" data-toggle="tab" href="#sectionDirecciones">Dirección</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tabContacto" data-toggle="tab" href="#sectionContacto">Contacto emergencia</a>
+                    </li>
+                   
                 </ul>
                 <form action="{{url('personas/insertar')}}" method="post">
                         @csrf
@@ -178,35 +182,36 @@
                     <div id="sectionDirecciones" class="tab-pane fade">
                     <div class="mb-3 mt-3">
                             <label for="PAIS" class="form-label">País</label>
-                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" required maxlength="30">
-                            <div id="error-message-pais" class="error-message" style="color: red; display: none;" required >Solo se permiten letras y espacios</div>
+                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" required maxlength="30" 
+                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="DEPARTAMENTO" class="form-label">Departamento</label>
-                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" required maxlength="35">
-                            <div id="error-message-departamento" class="error-message" style="color: red; display: none;" required >Solo se permiten letras y espacios</div>
+                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" required maxlength="35"
+                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="CIUDAD" class="form-label">Ciudad</label>
-                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" required maxlength="30">
-                            <div id="error-message-ciudad" class="error-message" style="color: red; display: none;" required >Solo se permiten letras y espacios</div>
+                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" required maxlength="30"
+                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                             </div>
-                       <div class="mb-3 mt-3">
-                            <label for="direcciones" class="form-label">Dirección</label>
-                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="40">
-                        </div>
+                            <div class="mb-3 mt-3">
+                                <label for="direcciones" class="form-label">Dirección</label>
+                                <textarea class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="250" style="height: 100px;"></textarea>
+                            </div>
+
                     </div>
                     <!-- Sección 4: Contactos emergencia -->
                     <div id="sectionContacto" class="tab-pane fade">
                     <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Nombre Contacto:</label>
                             <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto"required maxlength="40">
-                            <div id="error-message-nombre" style="color: red; display: none;">Solo se permiten letras y espacios</div>
+                            <div id="error-message-nombreC" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Apellidos Contacto:</label>
                             <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto"required maxlength="40">
-                            <div id="error-message-apellido" style="color: red; display: none;">Solo se permiten letras y espacios</div>
+                            <div id="error-message-apellidoC" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Teléfono Contacto Emergencia:</label>
@@ -220,8 +225,14 @@
                         </div>
 
                    </div>
-
-
+                   <!-- Sección 4: correos -->
+                   <div id="sectionCorreo" class="tab-pane fade">
+                   <div class="mb-3 mt-3">
+                            <label for="correos" class="form-label">Correo Electrónico</label>
+                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" required maxlength="45" oninput="this.value = this.value.replace(/\s/g, '');">
+                            
+                        </div>
+                   </div>
 
                 </div>
             </div>
@@ -441,6 +452,7 @@
         input.addEventListener('input', function() {
             const inputValue = input.value.trim();
             const validInput = inputValue.replace(pattern, '');
+            
 
             if (inputValue !== validInput) {
                 input.value = validInput;
@@ -460,7 +472,20 @@
     setupValidation('APELLIDO', 'error-message-apellido', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
     // Configuración para el campo de IDENTIDAD
     setupValidation('IDENTIDAD', 'error-message-identidad', /[^0-9]/g);
-    
+       // Configuración para el campo de NOMBRE
+       setupValidation('NOMBRE_CONTACTO', 'error-message-nombreC', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    // Configuración para el campo de APELLIDO
+    setupValidation('APELLIDO_CONTACTO', 'error-message-apellidoC', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+     // Configuración para el campo de RELACION
+     setupValidation('RELACION', 'error-message-relacion', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    // Configuración para el campo de DEPARTAMENTO
+    setupValidation('DEPARTAMENTO', 'error-message-departamento', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    // Configuración para el campo de CIUDAD
+    setupValidation('CIUDAD', 'error-message-ciudad', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    // Configuración para el campo de PAIS
+    setupValidation('PAIS', 'error-message-pais', /[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g);
+    // Configuración para el campo de CORREO_ELECTRONICO
+    setupValidation('CORREO_ELECTRONICO', 'error-message-correo', /\s/g); // Evita espacios en blanco
 </script>
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>
@@ -640,6 +665,57 @@ function formatIdentidad(input) {
     // Asigna el valor formateado de vuelta al campo de entrada
     input.value = formattedValue;
 }
+</script>
+<script>
+    document.getElementById('TELEFONO').addEventListener('input', function () {
+        let input = this;
+        let value = input.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
+
+        // Formatea el número de teléfono
+        if (value.length >= 4) {
+            input.value = value.slice(0, 4) + '-' + value.slice(4, 8);
+        } else {
+            input.value = value;
+        }
+    });
+</script>
+<script>
+    document.getElementById('TELEFONO_CONTACTO').addEventListener('input', function () {
+        let input = this;
+        let value = input.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
+
+        // Formatea el número de teléfono
+        if (value.length >= 4) {
+            input.value = value.slice(0, 4) + '-' + value.slice(4, 8);
+        } else {
+            input.value = value;
+        }
+    });
+</script>
+<script>
+ function formatTelefono(input) {
+    // Elimina cualquier carácter no numérico
+    let cleanedValue = input.value.replace(/\D/g, '');
+
+    // Asegura que la longitud sea de 8 caracteres
+    if (cleanedValue.length > 8) {
+        cleanedValue = cleanedValue.slice(0, 8);
+    }
+
+    // Formatea el valor con guiones después de cada grupo de 4 caracteres
+    let formattedValue = '';
+    for (let i = 0; i < cleanedValue.length; i++) {
+        if (i === 4) {
+            formattedValue += '-';
+        }
+        formattedValue += cleanedValue.charAt(i);
+    }
+
+    // Asigna el valor formateado de vuelta al campo de entrada
+    input.value = formattedValue;
+}
+
+
 </script>
 
 @stop
