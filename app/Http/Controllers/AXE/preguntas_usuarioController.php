@@ -37,7 +37,7 @@ class preguntas_usuarioController extends Controller
     ]);
     
         $TOTALPREGUNTAS = json_decode( $TOTAL_PREGUNTAS_USUARIO, true);
-        $TOTALPREGUNTAS = $TOTALPREGUNTAS['COUNT(PREGUNTA)']; 
+        $TOTALPREGUNTAS = $TOTALPREGUNTAS['COUNT(*)']; 
 
       // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
       if ($nueva_pregunta ->successful()) {
