@@ -59,7 +59,7 @@ class loginController extends Controller
                     ]);
                     
                     $TOTALPREGUNTAS = json_decode( $TOTAL_PREGUNTAS_USUARIO, true);
-                    $TOTALPREGUNTAS = $TOTALPREGUNTAS['COUNT(PREGUNTA)']; 
+                    $TOTALPREGUNTAS = $TOTALPREGUNTAS['COUNT(*)']; 
     
                     $mensaje = "";
 
