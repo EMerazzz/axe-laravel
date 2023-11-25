@@ -35,20 +35,19 @@
 
 @if (session('message'))
 <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #325d64; color:white;">
-                    <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="background-color: #c8dbff;">
-                    <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
-                </div>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #325d64; color:white;">
+                <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- El botón "Cerrar" con la clase "btn-close" cierra el modal -->
+            </div>
+            <div class="modal-body" style="background-color: #c8dbff;">
+                <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
             </div>
         </div>
     </div>
+</div>
 @endif
 
 
@@ -99,17 +98,6 @@
                 @endforeach
                 </select>
                 </div>
-                
-                <div class="mb-3 mt-3">
-                <label for="COD_ESTADO_USUARIO" class="form-label">Estado Usuario: </label>
-                    <select class="selectize" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO" required>
-                    <option value="" disabled selected>Seleccione el Estado</option>
-                    @foreach ($estado_usuarioArreglo as $estado_usuario)
-                    <option value="{{ $estado_usuario['COD_ESTADO_USUARIO'] }}">{{ $estado_usuario['DESCRIPCION'] }}</option>
-                    @endforeach
-                    </select>
-                </div>
-
 
                 <div class="mb-3 mt-3">
                 <label for="COD_ROL" class="form-label">Rol: </label>
@@ -141,7 +129,7 @@
                 <th>Modificado Por</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Estado</th>
+                <!-- <th>Estado</th> -->
                 <th>Opciones Tabla</th>
             </tr>
         </thead>
@@ -158,15 +146,7 @@
                 @endphp
              
 
-                @php
-                    $estado = null;
-                    foreach ($estado_usuarioArreglo as $estado_usuario) {
-                        if ($estado_usuario['COD_ESTADO_USUARIO'] === $usuarios['COD_ESTADO_USUARIO']) {
-                            $estado = $estado_usuario;
-                            break;
-                        }
-                    }
-                @endphp
+         
             <tr>
                 <td>{{ $usuarios['COD_USUARIO'] }}</td>
                 <td>{{ $usuarios['USUARIO'] }}</td>
@@ -188,21 +168,23 @@
                             Persona no encontrada
                         @endif
                 </td>
-                <td>
-                        @if ($estado !== null)
-                            {{ $estado['DESCRIPCION']}}
-                        @else
-                            estado no valido
-                        @endif
-                </td>
-              
                     
                 <td>
                     <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#usuarios-edit-{{ $usuarios['COD_USUARIO'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
+                   <!-- boton eliminar-->
+                    <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
+                     data-target="#usuarios-delete-{{$usuarios['COD_USUARIO']}}">
+                     <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
+                    </button>
+                     <!-- boton eliminar-->
                 </td>
+               
+              
+
+             
             </tr>
             @endforeach
         </tbody>
@@ -210,6 +192,34 @@
 </div>
 
 @foreach($usuariosArreglo as $usuarios)
+<!-- empieza modal eliminar -->
+<div class="modal fade bd-example-modal-sm" id="usuarios-delete-{{$usuarios['COD_USUARIO']}}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">eliminar</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <p>desea eliminar este registro</p>
+                    
+       
+          </div>
+      <div class="modal-footer">
+      <form action="{{ url('usuarios/delete') }}" method="post">
+                        @csrf
+      <input type="hidden" class="form-control" name="COD_USUARIO" value="{{ $usuarios['COD_USUARIO'] }}">
+              <button  class="btn btn-primary">si</button>
+          </form>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">no</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- termina eliminar -->
+<!-- empieza modal editar -->
 <div class="modal fade bd-example-modal-sm" id="usuarios-edit-{{ $usuarios['COD_USUARIO'] }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -244,6 +254,7 @@
         </div>
     </div>
 </div>
+<!-- termina editar -->
 @endforeach
 
 @stop

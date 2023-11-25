@@ -384,6 +384,13 @@
     </div>
   </div>
 </div>
+<!--boton Eliminar -->
+
+<!--boton Eliminar -->
+<!-- modal ELiminar-->
+
+<!-- modal Eliminar -->
+
  
             </td>
         </tr>

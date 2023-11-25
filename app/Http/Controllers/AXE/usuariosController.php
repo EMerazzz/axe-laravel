@@ -31,18 +31,18 @@ class usuariosController extends Controller
         $rolesArreglo = json_decode($roles, true);
 
          // Obtener los datos de roles desde el controlador rolesController
-         $estado_usuarioController = new estado_usuarioController();
+       /*  $estado_usuarioController = new estado_usuarioController();
          $estado_usuario = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get('http://82.180.162.18:4000/estado_usuario');
-         $estado_usuarioArreglo = json_decode($estado_usuario, true);
+         $estado_usuarioArreglo = json_decode($estado_usuario, true); */
 
         $usuarios = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $usuariosArreglo = json_decode($usuarios, true);
         //dd($usuariosArreglo);
-        return view('AXE.usuarios', compact('UsuarioValue','personasArreglo','rolesArreglo','estado_usuarioArreglo','usuariosArreglo'));
+        return view('AXE.usuarios', compact('UsuarioValue','personasArreglo','rolesArreglo'/*,'estado_usuarioArreglo'*/,'usuariosArreglo'));
     }
 
     public function nuevo_usuario(Request $request)
@@ -65,7 +65,7 @@ class usuariosController extends Controller
             "CONTRASENA" => bcrypt($request->input('CONTRASENA')),
             "MODIFICADO_POR" => $request->input("MODIFICADO_POR"),
             "COD_PERSONA" => $request->input("COD_PERSONA"),
-            "COD_ESTADO_USUARIO" => $request->input("COD_ESTADO_USUARIO"),
+           /* "COD_ESTADO_USUARIO" => $request->input("COD_ESTADO_USUARIO"),*/
         ]);
     
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -94,7 +94,7 @@ class usuariosController extends Controller
             "USUARIO" => $request->input("USUARIO"),
             "CONTRASENA" => bcrypt($request->input('CONTRASENA')),
             
-        ]);
+        ]); 
         if ($modificar_usuario->successful()) {
             return redirect('/usuarios')->with('message', [
                 'type' => 'success',
@@ -107,5 +107,28 @@ class usuariosController extends Controller
             ]);
         }
     }
+   
+    public function delete_usuario(Request $request)
+    {
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        
+        $delete_usuario = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put('http://82.180.162.18:4000/del_usuarios/'.$request->input("COD_USUARIO"));
+        
+        if ($delete_usuario->successful()) {
+            return redirect('/usuarios')->with('message', [
+                'type' => 'success',
+                'text' => 'Usuario eliminado.'
+            ]);
+        } else {
+            return redirect('/usuarios')->with('message', [
+                'type' => 'error',
+                'text' => 'No se puede eliminar.'
+            ]);
+        }
+    }
+
 }
 
