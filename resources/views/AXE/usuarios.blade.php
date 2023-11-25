@@ -197,21 +197,19 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">eliminar</h5>
+                        <h5 class="modal-title">Atención</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                    <p>desea eliminar este registro</p>
-                    
-       
-          </div>
-      <div class="modal-footer">
+                    <div class="modal-body" style="background-color: #fff; padding: 20px;">
+                    <h5 class="modal-title">Desea eliminar este registro</h5>
+                  </div>
+    <div class="modal-footer">
       <form action="{{ url('usuarios/delete') }}" method="post">
                         @csrf
       <input type="hidden" class="form-control" name="COD_USUARIO" value="{{ $usuarios['COD_USUARIO'] }}">
-              <button  class="btn btn-primary">si</button>
+              <button  class="btn btn-danger">Si</button>
           </form>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">no</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
         
       </div>
     </div>
