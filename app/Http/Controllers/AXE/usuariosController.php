@@ -70,7 +70,7 @@ class usuariosController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->post($this->apiUrl, [
             "USUARIO" => $request->input("USUARIO"),
-            "CONTRASENA" => bcrypt($request->input('CONTRASENA')),
+            "CONTRASENA" => $request->input('CONTRASENA'),
             "MODIFICADO_POR" => $UsuarioValue,
             "COD_PERSONA" => $request->input("COD_PERSONA"),
             "COD_ESTADO_USUARIO" => $request->input("COD_ESTADO_USUARIO"),
