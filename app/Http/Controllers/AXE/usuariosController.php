@@ -41,8 +41,16 @@ class usuariosController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $usuariosArreglo = json_decode($usuarios, true);
+
+        $OBJETO = "USUARIOS";
+        $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+            "USUARIO" => $UsuarioValue,
+            "OBJETO" =>  $OBJETO,
+        ]);
+        $permisosDisponibles = json_decode($permisos, true);
+
         //dd($usuariosArreglo);
-        return view('AXE.usuarios', compact('UsuarioValue','personasArreglo','rolesArreglo'/*,'estado_usuarioArreglo'*/,'usuariosArreglo'));
+        return view('AXE.usuarios', compact('UsuarioValue','personasArreglo','rolesArreglo','estado_usuarioArreglo','usuariosArreglo', 'permisosDisponibles'));
     }
 
     public function nuevo_usuario(Request $request)

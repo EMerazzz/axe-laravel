@@ -7,6 +7,7 @@ use App\Http\Controllers\AXE\personasController;
 
 route::middleware(['checkToken'])->group(function () {
     Route::get('',[personasController::class,'personas']);
+    Route::get('ver',[personasController::class,'verpersona']);
     //de aqui 
     Route::post('/insertar',[personasController::class,'nueva_persona']);
     Route::post('/actualizar',[personasController::class,'modificar_persona']);
