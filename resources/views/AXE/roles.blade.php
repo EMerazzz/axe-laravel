@@ -63,12 +63,9 @@
                     <form action="{{ url('roles/insertar') }}" method="post">
                         @csrf
                         <div class="mb-3 mt-3">
-                        <label for="roles" class="form-label">Roles</label>
-                        <select class="form-select" id="DESCRIPCION" name="DESCRIPCION">
-                        <option value="ADMINISTRADOR" selected>ADMINISTRADOR</option>
-                        <option value="USUARIO"selected>USUARIO</option>
-                        </select>
-                        </div>
+                        <label for="DESCRIPCION" class="form-label">Modificado:</label>
+                        <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION">
+                         </div>
                         
                         <div class="mb-3 mt-3">
                         <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
@@ -130,13 +127,12 @@
                         <form action="{{ url('roles/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ROL" value="{{ $roles['COD_ROL'] }}">
+
                             <div class="mb-3 mt-3">
-                            <label for="roles" class="form-label">Roles</label>
-                                    <select class="form-select" id="DESCRIPCION" name="DESCRIPCION">
-                                    <option value="ADMINISTRADOR" {{ $roles['DESCRIPCION'] === 'ADMINISTRADOR' ? 'selected' : '' }}>ADMINISTRADOR</option>
-                                    <option value="USUARIO" {{ $roles['DESCRIPCION'] === 'USUARIO' ? 'selected' : '' }}>USUARIO</option>
-                                    </select>
+                            <label for="DESCRIPCION" class="form-label">Modificado:</label>
+                            <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" value="{{ $roles['DESCRIPCION'] }}">
                             </div>
+
 
                             <div class="mb-3 mt-3">
                             <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
