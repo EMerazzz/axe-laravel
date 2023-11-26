@@ -35,20 +35,19 @@
 
 @if (session('message'))
 <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #325d64; color:white;">
-                    <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="background-color: #c8dbff;">
-                    <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
-                </div>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #325d64; color:white;">
+                <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- El botón "Cerrar" con la clase "btn-close" cierra el modal -->
+            </div>
+            <div class="modal-body" style="background-color: #c8dbff;">
+                <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
             </div>
         </div>
     </div>
+</div>
 @endif
 
 
@@ -99,17 +98,6 @@
                 @endforeach
                 </select>
                 </div>
-                
-                <div class="mb-3 mt-3">
-                <label for="COD_ESTADO_USUARIO" class="form-label">Estado Usuario: </label>
-                    <select class="selectize" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO" required>
-                    <option value="" disabled selected>Seleccione el Estado</option>
-                    @foreach ($estado_usuarioArreglo as $estado_usuario)
-                    <option value="{{ $estado_usuario['COD_ESTADO_USUARIO'] }}">{{ $estado_usuario['DESCRIPCION'] }}</option>
-                    @endforeach
-                    </select>
-                </div>
-
 
                 <div class="mb-3 mt-3">
                 <label for="COD_ROL" class="form-label">Rol: </label>
@@ -141,7 +129,7 @@
                 <th>Modificado Por</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Estado</th>
+                <!-- <th>Estado</th> -->
                 <th>Opciones Tabla</th>
             </tr>
         </thead>
@@ -158,15 +146,7 @@
                 @endphp
              
 
-                @php
-                    $estado = null;
-                    foreach ($estado_usuarioArreglo as $estado_usuario) {
-                        if ($estado_usuario['COD_ESTADO_USUARIO'] === $usuarios['COD_ESTADO_USUARIO']) {
-                            $estado = $estado_usuario;
-                            break;
-                        }
-                    }
-                @endphp
+         
             <tr>
                 <td>{{ $usuarios['COD_USUARIO'] }}</td>
                 <td>{{ $usuarios['USUARIO'] }}</td>
@@ -188,21 +168,23 @@
                             Persona no encontrada
                         @endif
                 </td>
-                <td>
-                        @if ($estado !== null)
-                            {{ $estado['DESCRIPCION']}}
-                        @else
-                            estado no valido
-                        @endif
-                </td>
-              
                     
                 <td>
-                    <button value="Editar" title="Editar" class="btn btn-outline-info botonEditar" type="button" data-toggle="modal"
-                    data-target="#usuarios-edit-{{ $usuarios['COD_USUARIO'] }}">
-                    <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
-                </button>
+                    <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
+                        data-target="#usuarios-edit-{{ $usuarios['COD_USUARIO'] }}">
+                        <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
+                    </button>
+                   <!-- boton eliminar-->
+                    <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
+                     data-target="#usuarios-delete-{{$usuarios['COD_USUARIO']}}">
+                     <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
+                    </button>
+                     <!-- boton eliminar-->
                 </td>
+               
+              
+
+             
             </tr>
             @endforeach
         </tbody>
@@ -210,6 +192,32 @@
 </div>
 
 @foreach($usuariosArreglo as $usuarios)
+<!-- empieza modal eliminar -->
+<div class="modal fade bd-example-modal-sm" id="usuarios-delete-{{$usuarios['COD_USUARIO']}}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Atención</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="background-color: #fff; padding: 20px;">
+                    <h5 class="modal-title">Desea eliminar este registro</h5>
+                  </div>
+    <div class="modal-footer">
+      <form action="{{ url('usuarios/delete') }}" method="post">
+                        @csrf
+      <input type="hidden" class="form-control" name="COD_USUARIO" value="{{ $usuarios['COD_USUARIO'] }}">
+              <button  class="btn btn-danger">Si</button>
+          </form>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- termina eliminar -->
+<!-- empieza modal editar -->
 <div class="modal fade bd-example-modal-sm" id="usuarios-edit-{{ $usuarios['COD_USUARIO'] }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -244,6 +252,7 @@
         </div>
     </div>
 </div>
+<!-- termina editar -->
 @endforeach
 
 @stop
@@ -339,42 +348,5 @@ modeToggle.addEventListener('click', () => {
     });
 </script>
     
-<script>
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const Permisos = [
-        { PERMISO_CONSULTAR: "{{ $permisosDisponibles[0]['PERMISO_CONSULTAR'] }}" },
-        { PERMISO_INSERCION: "{{ $permisosDisponibles[0]['PERMISO_INSERCION'] }}" },
-        { PERMISO_ELIMINACION: "{{ $permisosDisponibles[0]['PERMISO_ELIMINACION'] }}" },
-        { PERMISO_ACTUALIZACION: "{{ $permisosDisponibles[0]['PERMISO_ACTUALIZACION'] }}" },
-    ];
-    var PERMISO_CONSULTAR = Permisos[0].PERMISO_CONSULTAR;
-    var PERMISO_INSERCION = Permisos[1].PERMISO_INSERCION;
-    var PERMISO_ELIMINACION = Permisos[2].PERMISO_ELIMINACION;
-    var PERMISO_ACTUALIZACION = Permisos[3].PERMISO_ACTUALIZACION;
-    
-    if (parseInt(PERMISO_INSERCION) === 0) {
-        // Acceder al botón por su clase y deshabilitarlo
-        var btnNuevo = document.querySelector('.btn.btn-success.btn-custom[data-target="#usuarios"]');
-        btnNuevo.disabled = true; // Deshabilitar el botón
-        
-    }
-
-    if (parseInt(PERMISO_ACTUALIZACION) === 0) {
-        var botones = document.querySelectorAll('.botonEditar'); // Selecciona todos los botones por la clase
-
-        var condicion = true; // Aquí establece tu condición en JavaScript
-
-        if (condicion) {
-            botones.forEach(function(boton) {
-                boton.disabled = true; // Deshabilita cada botón
-            });
-        }
-    }
-
-            }); // Cierre de la función anónima
-        </script>
-
-
+   
 @stop

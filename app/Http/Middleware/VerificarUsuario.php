@@ -17,16 +17,6 @@ class VerificarUsuario
             "USUARIO" =>  $usuarioValue,
             "OBJETO" =>  $OBJETO
         ]);
-<<<<<<< HEAD
-        */
-        $ACCESO_PERMITIDO = Http::post('http://82.180.162.18:4000/acceso_permitido', [
-=======
-    
-       /* $ACCESO_PERMITIDO = Http::post('http://localhost:4000/acceso_permitido', [
->>>>>>> 647e73e89a9af7f48bb865db9d721c513d21874e
-            "USUARIO" =>  $usuarioValue,
-            "OBJETO" =>  $OBJETO
-        ]);*/
 
         $ACCESO = json_decode( $ACCESO_PERMITIDO, true);
 
