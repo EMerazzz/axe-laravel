@@ -12,4 +12,5 @@ route::middleware(['checkToken'])->group(function () {
     Route::post('/insertar',[personasController::class,'nueva_persona']);
     Route::post('/actualizar',[personasController::class,'modificar_persona']);
     //hasta aqui
+    Route::post('/delete',[personasController::class,'delete_persona']);
 });

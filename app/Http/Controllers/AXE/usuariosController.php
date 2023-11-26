@@ -39,10 +39,10 @@ class usuariosController extends Controller
 
         $usuarios = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get($this->apiUrl);
+        ])->get('http://82.180.162.18:4000/usuarios');
         $usuariosArreglo = json_decode($usuarios, true);
-        //dd($usuariosArreglo);
-        return view('AXE.usuarios', compact('UsuarioValue','personasArreglo','rolesArreglo'/*,'estado_usuarioArreglo'*/,'usuariosArreglo'));
+       // dd($usuariosArreglo);
+        return view('AXE.usuarios', compact('UsuarioValue','personasArreglo','rolesArreglo','usuariosArreglo'));
     }
 
     public function nuevo_usuario(Request $request)

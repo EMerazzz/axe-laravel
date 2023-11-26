@@ -196,4 +196,25 @@ class PersonasController extends Controller
             ]);
         }
     }
+    public function delete_persona(Request $request)
+    {
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        
+        $delete_usuario = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put('http://82.180.162.18:4000/del_personas/'.$request->input("COD_PERSONA"));
+        
+        if ($delete_usuario->successful()) {
+            return redirect('/personas')->with('message', [
+                'type' => 'success',
+                'text' => 'Persona eliminada.'
+            ]);
+        } else {
+            return redirect('/personas')->with('message', [
+                'type' => 'error',
+                'text' => 'No se puede eliminar.'
+            ]);
+        }
+    }
 }
