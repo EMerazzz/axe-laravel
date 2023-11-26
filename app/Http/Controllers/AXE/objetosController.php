@@ -28,7 +28,8 @@ class objetosController extends Controller
         $objetosArreglo = json_decode($objetos, true);
         return view('AXE.objetos', compact('objetosArreglo'));
     }
-
+    
+    //funcion 
     public function nuevo_objetos(Request $request ){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
