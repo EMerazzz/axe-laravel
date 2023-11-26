@@ -1,10 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Preguntas Usuarios')
+@section('title', 'Objetos')
 @section('content_header')
+<style>
+  .custom-blockquote {
+    line-height: 0; /* Reducción de la altura */
+    margin-top: -5px; 
+    margin-bottom:-5px; /* Reducción del espacio inferior del bloquequote */
+  }
+</style>
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Preguntas registradas en el sistema AXE.</p>
+    <p class="mb-0">Objetos registradas en el sistema AXE.</p>
 </blockquote>
+
 @stop
 
 @section('content')
@@ -27,61 +35,84 @@
 
 @if (session('message'))
 <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #325d64; color:white;">
-                    <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="background-color: #c8dbff;">
-                    <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #325d64; color:white;">
+                <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- El botón "Cerrar" con la clase "btn-close" cierra el modal -->
+            </div>
+            <div class="modal-body" style="background-color: #c8dbff;">
+                <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
+<div class="spacer"></div>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#objetos">+ Nuevo</button>
+<div class="spacer"></div>
+<div class="modal fade bd-example-modal-sm" id="objetos" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Ingresa un objeto</h4>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+           
+            
+            <div class="modal-footer">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <form action="{{url('objetos/insertar')}}" method="post">
+
+                        @csrf
+                       
+                        <div class="mb-3 mt-3">
+                            <label for="OBJETO" class="form-label">Nuevo Objeto :</label>
+                            <input type="text" class="form-control same-width" id="OBJETO" name="OBJETO" placeholder="Ingrese el objeto" inputmode="text" required  maxlength="100">
+                        </div>
+
+                        <div class="mb-3 mt-3">
+                            <label for="DESCRIPCION" class="form-label">Nueva Descripcion :</label>
+                            <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese la descripcion" inputmode="text" required  maxlength="120">
+                        </div>
+
+                        <div class="mb-3 mt-3">
+                            <label for="TIPO_OBJETO" class="form-label">Nuevo Tipo Objeto :</label>
+                            <input type="text" class="form-control same-width" id="TIPO_OBJETO" name="TIPO_OBJETO" placeholder="Ingrese el tipo objeto" inputmode="text" required  maxlength="15">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Añadir</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        </form>
                 </div>
             </div>
         </div>
     </div>
-@endif
-
-<div class="table-responsive">
+</div>
+    
+    <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         
             <thead>
                 <tr>
                     <th>#</th> 
-                    <th>Pregunta</th>
-                    <th>Respuesta</th>
-                    <th>Usuario</th>
+                    <th>Objeto</th>
+                    <th>Descripción</th>
+                    <th>Tipo Objeto</th>
                     <th>Opciones Tabla</th>
                 </tr>
             </thead>
-          
             <tbody>
-                @foreach($pregunta_usuarioArreglo as $pregunta_usuario )
-                    @php
-                      $user = null;
-                        foreach ($usuariosArreglo as $u) {
-                        if ($u['COD_USUARIO'] === $pregunta_usuario['COD_USUARIO']) {
-                            $user = $u;
-                            break;
-                            }
-                        }
-                    @endphp
- 
+                @foreach($objetosArreglo as $objetos)
                     <tr>
-                        <td>{{ $pregunta_usuario ['COD_PREGUNTA'] }}</td>
-                        <td>{{ str_repeat('*', strlen($pregunta_usuario['PREGUNTA'])) }}</td>
-                        <td>{{ str_repeat('*', strlen($pregunta_usuario['RESPUESTA'])) }}</td>
+                        <td>{{ $objetos['COD_OBJETO'] }}</td>
+                        <td>{{ $objetos['OBJETO'] }}</td>
+                        <td>{{ $objetos['DESCRIPCION'] }}</td>
+                        <td>{{ $objetos['TIPO_OBJETO'] }}</td>
                         <td>
-                        @if ($user !== null)
-                            {{ $user['USUARIO']}}
-                        @else
-                            usuario no valido
-                        @endif
-                        </td>
-                        <td>
-                    
-                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#pregunta-edit-{{ $pregunta_usuario['COD_PREGUNTA'] }}">
+                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#objetos-edit-{{ $objetos['COD_OBJETO'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
                         </td>
@@ -91,38 +122,32 @@
         </table>
     </div>
 
-    @foreach($pregunta_usuarioArreglo as $pregunta_usuario)
-        <div class="modal fade bd-example-modal-sm" id="roles-edit-{{ $pregunta_usuario['COD_PREGUNTA'] }}" tabindex="-1">
+    @foreach($objetosArreglo as $objetos)
+        <div class="modal fade bd-example-modal-sm" id="objetos-edit-{{ $objetos['COD_OBJETO'] }}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualiza Pregunta</h5>
+                        <h5 class="modal-title">Actualizar Objeto</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ url('preguntas_usuarios/actualizar') }}" method="post">
+                        <form action="{{ url('objetos/actualizar') }}" method="post">
                             @csrf
-                            <input type="hidden" class="form-control" name="COD_PREGUNTA" value="{{ $pregunta_usuario['COD_PREGUNTA'] }}">
-                           
+                            <input type="hidden" class="form-control" name="COD_OBJETO" value="{{ $objetos['COD_OBJETO'] }}">
                             <div class="mb-3 mt-3">
-                            <label for="pregunta_usuarios" class="form-label">Pregunta:</label>
-                            <input type="text" class="form-control" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" value="{{$pregunta_usuario['PREGUNTA'] }}"
-                            pattern="^[A-Za-z0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?">
+                                <label for="OBJETO" class="form-label">Nuevo Objeto:</label>
+                                <input type="text" class="form-control" id="OBJETO" name="OBJETO" placeholder="Ingrese el objeto" value="{{ $objetos['OBJETO'] }}" maxlength="1200">
                             </div>
 
                             <div class="mb-3 mt-3">
-                            <label for="pregunta_usuarios" class="form-label">RESPUESTA:</label>
-                            <input type="text" class="form-control" id="RESPUESTA" name="RESPUESTA" placeholder="Ingrese la respuesta" value="{{$pregunta_usuario['RESPUESTA'] }}"
-                            pattern="^[A-Za-z0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?">
+                                <label for="DESCRIPCION" class="form-label">Nueva Descripcion:</label>
+                                <input type="text" class="form-control" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese la descripcion" value="{{ $objetos['DESCRIPCION'] }}" maxlength="120">
                             </div>
 
                             <div class="mb-3 mt-3">
-                            <label for="pregunta_usuarios" class="form-label">Usuario:</label>
-                            <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuarop" value="{{$pregunta_usuario['COD_USUARIO'] }}"
-                            pattern="^[A-Za-z0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?" readonly>
+                                <label for="TIPO_OBJETO" class="form-label">Nuevo Tipo Objeto:</label>
+                                <input type="text" class="form-control" id="TIPO_OBJETO" name="TIPO_OBJETO" placeholder="Ingrese el tipo objeto" value="{{ $objetos['TIPO_OBJETO'] }}" maxlength="15">
                             </div>
-
-
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -132,6 +157,7 @@
             </div>
         </div>
     @endforeach
+    
 @stop
 
 @section('css')
@@ -157,29 +183,25 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
     <!-- Script personalizado para inicializar DataTables -->
     <script>
-        $(document).ready(function() {
-            $('#miTabla').DataTable({
-
-              "language":{
-             "search":       "Buscar: ",
-             "lengthMenu":   "Mostrar _MENU_ registros por página",
-             "info":   "Mostrando página _PAGE_ de _PAGES_",
-             "paginate": {"previous": "Anterior",
-                          "next":  "Siguiente",
-                          "first": "Primero",
-                          "last":  ""
-
-
-             }
+    $(document).ready(function() {
+        $('#miTabla').DataTable({
+            "language": {
+                "search": "Buscar: ",
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente",
+                    "first": "Primero",
+                    "last": ""
+                }
             },
             "lengthMenu": [5, 10, 30, 50,100,200], // Opciones disponibles en el menú
             "pageLength": 5, // Establece la longitud de página predeterminada en 5
             "order": [[0, 'desc']] // Ordenar por la primera columna de forma descendente
-          });
         });
-
-    </script>
- 
+    });
+</script>
  
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>

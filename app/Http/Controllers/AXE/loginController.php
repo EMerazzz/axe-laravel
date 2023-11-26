@@ -68,6 +68,7 @@ class loginController extends Controller
                 
                     $TOTALPREGUNTAS = json_decode( $TOTAL_PREGUNTAS_USUARIO, true);
                     $TOTALPREGUNTAS = $TOTALPREGUNTAS['COUNT(*)']; 
+<<<<<<< HEAD
                     
 
                     // =============================
@@ -75,6 +76,9 @@ class loginController extends Controller
                     $CAN_PREGUNTAS_SOLICITADAS = json_decode( $CAN_PREGUNTAS_SOLICITADAS, true);
                     $CAN_PREGUNTAS_SOLICITADAS = $CAN_PREGUNTAS_SOLICITADAS['VALOR']; 
 
+=======
+    
+>>>>>>> 647e73e89a9af7f48bb865db9d721c513d21874e
                     $mensaje = "";
 
                     return view('AXE/establecer_preguntas', compact('Usuario','mensaje', 'TOTALPREGUNTAS', 'PREGUNTAS_USUARIO', 'CAN_PREGUNTAS_SOLICITADAS'));

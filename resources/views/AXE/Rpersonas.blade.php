@@ -24,21 +24,26 @@
     </button>
 </div>
 
-<div class="d-flex justify-content-end align-items-center mt-3" style="margin-bottom: 20px;">
+<div class="d-inline-block align-items-center mt-2">
+    <!-- Grupo de PDF -->
+    <label for="start-date">Inicio:</label>
+    <input type="date" id="start-date" class="me-1">
+    <label for="end-date">Fin:</label>
+    <input type="date" id="end-date" class="me-1">
+    <button id="apply-filter" class="btn btn-danger me-1">
+        <i class="far fa-file-pdf"></i> Descargar PDF
+    </button>
+</div>
+
+<div class="d-inline-block align-items-center mt-2">
+    <!-- Grupo de Excel -->
     <button id="export-excel" class="btn btn-success ms-2" onclick="exportToExcel()">
         <i class="far fa-file-excel"></i> Exportar a Excel
     </button>
 </div>
-<div class="d-flex align-items-center mb-3">
-    <label for="start-date" class="me-2">Fecha Inicio:</label>
-    <input type="date" id="start-date" class="form-control">
-    <label for="end-date" class="mx-2">Fecha Fin:</label>
-    <input type="date" id="end-date" class="form-control">
-    <button id="apply-filter" class="btn btn-danger mx-2">
-    
-    <i class="far fa-file-pdf"></i> Descargar PDF
-    </button>
-</div>
+
+
+
 <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         <thead>
@@ -236,7 +241,7 @@ $(document).ready(function() {
             pageOrientation: 'landscape',
     content: [
         {
-            text: 'Reporte de personas en pdf ',
+            text: 'Reporte Personas en pdf ',
             fontSize: 16,
             bold: true,
             alignment: 'center',
@@ -260,7 +265,7 @@ $(document).ready(function() {
 };
 
 
-        pdfMake.createPdf(documentDefinition).download('reporte.pdf');
+        pdfMake.createPdf(documentDefinition).download('ReportePersonas.pdf');
     }
 });
 
@@ -309,7 +314,7 @@ function exportToExcel() {
     });
 
     // Descargar el archivo usando la biblioteca FileSaver.js
-    saveAs(excelBlob, 'reporte.xlsx');
+    saveAs(excelBlob, 'ReportePersonas.xlsx');
 }
 
 // Función para convertir una cadena binaria en una matriz de bytes

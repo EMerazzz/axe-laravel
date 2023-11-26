@@ -17,16 +17,66 @@ class PersonasController extends Controller
     
         $cookieEncriptada = request()->cookie('token');//trae la cookie encriptada
         $token = decrypt($cookieEncriptada);//desencripta la cookie
-       
+        // Obtener los datos de telefonos desde el controlador 
+        $telefonosController = new telefonosController();
+        $telefonos = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('http://82.180.162.18:4000/telefonos');
+        $telefonosArreglo = json_decode($telefonos, true);
+        // Obtener los datos de correos desde el controlador 
+        $correosController = new correosController();
+        $correos = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('http://82.180.162.18:4000/correos');
+        $correosArreglo = json_decode($correos, true);
+        // Obtener los datos de direcciones desde el controlador 
+        $direccionesController = new direccionesController();
+        $direcciones = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('http://82.180.162.18:4000/direcciones');
+        $direccionesArreglo = json_decode($direcciones, true);
+        // Obtener los datos de Contacto emergencia desde el controlador 
+        $contactoController = new contactoController();
+        $contactos = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('http://82.180.162.18:4000/contacto_emergencia');
+        $contactosArreglo = json_decode($contactos, true);
+
 
        // dd ( $UsuarioValue);
         $personas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
-
         $personasArreglo = json_decode($personas, true);
-        return view('AXE.personas', compact('personasArreglo'));
+
+        return view('AXE.personas', compact('personasArreglo','telefonosArreglo','correosArreglo','direccionesArreglo','contactosArreglo'));
     }
+
+    public function verpersona($COD_PERSONAS)
+    {
+        try {
+            // Añadir el parámetro COD_PERSONAS al final de la URL de la API
+            $apiUrlWithFilter = $this->apiUrl . '/' . $COD_PERSONAS;
+
+            // Obtener la información de la persona desde la API
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . decrypt(request()->cookie('token')),
+            ])->get($apiUrlWithFilter);
+
+            // Verificar si la solicitud a la API fue exitosa
+            if ($response->successful()) {
+                $personaArreglo = $response->json();
+                return view('AXE.personas', compact('personaArreglo'));
+            } else {
+                // Manejar errores de la API, por ejemplo, redirigir a una página de error
+                return redirect()->route('error')->with('error', 'Error al obtener los detalles de la persona desde la API');
+            }
+        } catch (\Exception $e) {
+            // Manejar otras excepciones, por ejemplo, redirigir a una página de error
+            return redirect()->route('error')->with('error', 'Error interno al procesar la solicitud');
+        }
+    }
+
 
     public function nueva_persona(Request $request)
     {
@@ -62,7 +112,7 @@ class PersonasController extends Controller
         // Enviar la solicitud POST a la API para agregar la nueva persona
         $nueva_persona = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->post($this->apiUrl, [
+        ])->post('http://82.180.162.18:4000/INSpersonas', [
             "NOMBRE" => $request->input("NOMBRE"),
             "APELLIDO" => $request->input("APELLIDO"),
             "IDENTIDAD" => $request->input("IDENTIDAD"),
@@ -71,6 +121,21 @@ class PersonasController extends Controller
             "EDAD" => $edad,
             "FECHA_NACIMIENTO" => $fecha_nacimiento,
             "USUARIO_MODIFICADOR" => $UsuarioValue,
+            //TELEFONOS
+            "TELEFONO" => $request->input("TELEFONO"),
+            "TIPO_TELEFONO" => $request->input("TIPO_TELEFONO"),
+            //DIRECCIONES
+            "DIRECCION"=> $request->input("DIRECCION"),
+            "DEPARTAMENTO"=> $request->input("DEPARTAMENTO"),
+            "CIUDAD"=> $request->input("CIUDAD"),
+            "PAIS"=> $request->input("PAIS"),
+            //CONTACTOS
+            "NOMBRE_CONTACTO"=> $request->input("NOMBRE_CONTACTO"),
+            "APELLIDO_CONTACTO"=> $request->input("APELLIDO_CONTACTO"),
+            "TELEFONO_CONTACTO"=> $request->input("TELEFONO_CONTACTO"),
+            "RELACION"=> $request->input("RELACION"),
+            //correos
+            "CORREO_ELECTRONICO"=> $request->input("CORREO_ELECTRONICO"),
         ]);
     
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error

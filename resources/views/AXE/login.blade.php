@@ -44,8 +44,25 @@
             }
         }
     </style>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .password-container {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+
     <div class="main">
         <div class="container">
             <center>
@@ -60,7 +77,17 @@
                                     <input type="text" placeholder="Nombre de usuario" name="USUARIO" required oninput="convertToUppercaseAndValidate(this)">
                                     <div class="error-message" id="error-message">No se permiten números en el usuario.</div>
                                 </div>
+<<<<<<< HEAD
                                 <p><span class="fa fa-lock"></span><input id="password-input" type="password" placeholder="Contraseña" name="CONTRASENA" required oninput="this.setCustomValidity(''); this.value = this.value.trim(); if (this.value === '') this.setCustomValidity('La contraseña no puede contener solo espacios en blanco');" /></p>
+=======
+                                <div class="password-container">
+                                    <p>
+                                        <span class="fa fa-lock"></span>
+                                        <input id="password-input" type="password" placeholder="Contraseña" name="CONTRASENA" required>
+                                        <i class="fa fa-eye toggle-password" onclick="togglePassword()"></i>
+                                    </p>
+                                </div>
+>>>>>>> 647e73e89a9af7f48bb865db9d721c513d21874e
                                 <!-- Agrega el enlace de recuperación de contraseña -->
                                 <p><a href="#" id="forgot-password-link" style="color: white;">¿Olvidaste tu contraseña?</a></p>
                                 <div class="buttons-container d-flex justify-content-between align-items-center">
@@ -86,6 +113,22 @@
         </div>
     </div>
 
+    <script>
+    function togglePassword() {
+        var passwordInput = document.getElementById("password-input");
+        var toggleIcon = document.querySelector(".toggle-password");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleIcon.classList.remove("fa-eye");
+            toggleIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            toggleIcon.classList.remove("fa-eye-slash");
+            toggleIcon.classList.add("fa-eye");
+        }
+    }
+</script>
     <!-- Modal de Recuperación de Contraseña -->
     <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
         <div class="modal-dialog">

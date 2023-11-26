@@ -20,5 +20,6 @@ Route::middleware(['checkToken', 'verificar.usuario:USUARIOS'])->group(function 
     //de aqui 
     Route::post('/insertar',[usuariosController::class,'nuevo_usuario']);
     Route::post('/actualizar',[usuariosController::class,'modificar_usuario']);
+    Route::post('/delete',[usuariosController::class,'delete_usuario']);
     //hasta aqui
     });

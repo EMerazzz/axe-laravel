@@ -93,12 +93,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($citaArreglo as $asignatura)
+                @foreach($citaArreglo as $asignaturas)
                     <tr>
-                        <td>{{ $asignatura['COD_ASIGNATURA'] }}</td>
-                        <td>{{ $asignatura['NOMBRE_ASIGNATURA'] }}</td>
+                        <td>{{ $asignaturas['COD_ASIGNATURA'] }}</td>
+                        <td>{{ $asignaturas['NOMBRE_ASIGNATURA'] }}</td>
                         <td>
-                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#asignaturas-edit-{{ $asignatura['COD_ASIGNATURA'] }}" >
+                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#asignaturas-edit-{{ $asignaturas['COD_ASIGNATURA'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
                         </td>
@@ -133,6 +133,7 @@
             </div>
         </div>
     @endforeach
+    
 @stop
 
 @section('css')
@@ -172,7 +173,8 @@
                 }
             },
             "lengthMenu": [5, 10, 30, 50,100,200], // Opciones disponibles en el menú
-            "pageLength": 5 // Establece la longitud de página predeterminada en 5
+            "pageLength": 5, // Establece la longitud de página predeterminada en 5
+            "order": [[0, 'desc']] // Ordenar por la primera columna de forma descendente
         });
     });
 </script>

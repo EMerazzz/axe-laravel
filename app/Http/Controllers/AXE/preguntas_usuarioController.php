@@ -38,13 +38,14 @@ class preguntas_usuarioController extends Controller
     ]);
     
         $TOTALPREGUNTAS = json_decode( $TOTAL_PREGUNTAS_USUARIO, true);
-        $TOTALPREGUNTAS = $TOTALPREGUNTAS['COUNT(PREGUNTA)']; 
+        $TOTALPREGUNTAS = $TOTALPREGUNTAS['COUNT(*)']; 
 
       // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
       if ($nueva_pregunta ->successful()) {
         return view('AXE/establecer_preguntas', compact('mensaje', 'Usuario', 'TOTALPREGUNTAS'));
     } 
     }
+<<<<<<< HEAD
 
     // VERSION DE TRABAJO
     public function nueva_pregunta(Request $request)
@@ -99,3 +100,6 @@ class preguntas_usuarioController extends Controller
     }
 
 }
+=======
+}
+>>>>>>> 647e73e89a9af7f48bb865db9d721c513d21874e

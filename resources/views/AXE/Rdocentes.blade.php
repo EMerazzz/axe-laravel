@@ -24,16 +24,24 @@
     </button>
 </div>
 
-<div class="d-flex justify-content-end align-items-center mt-3">
-    <button id="export-pdf" class="btn btn-danger ms-2" style="margin-bottom: 20px;" onclick="generarPDF()">
-        <i class="far fa-file-pdf"></i> Exportar a PDF
-    </button>
-    <div style="width: 10px;"></div> <!-- Agrega espacio vertical -->
-    <button id="export-excel" class="btn btn-success ms-2" style="margin-bottom: 20px;" onclick="exportToExcel()">
-        <i class="far fa-file-excel"></i> Exportar a Excel
-    </button>
-    
+<div class="d-flex align-items-center mb-4">
+    <!-- Grupo de PDF -->
+    <div class="d-inline-block align-items-center">
+        <button id="export-pdf" class="btn btn-danger" onclick="generarPDF()" style="margin-right: 8px;">
+            <i class="far fa-file-pdf"></i> Exportar a PDF
+        </button>
+    </div>
+
+    <!-- Grupo de Excel -->
+    <div class="d-inline-block align-items-center">
+        <button id="export-excel" class="btn btn-success" onclick="exportToExcel()" style="margin-left: 8px;">
+            <i class="far fa-file-excel"></i> Exportar a Excel
+        </button>
+    </div>
 </div>
+
+
+
 
 <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
@@ -122,7 +130,10 @@
 
 
              }
-            }
+            },
+            "lengthMenu": [5, 10, 30, 50,100,200], // Opciones disponibles en el menú
+            "pageLength": 5, // Establece la longitud de página predeterminada en 5
+            "order": [[0, 'desc']] // Ordenar por la primera columna de forma descendente
           });
         });
 
@@ -207,7 +218,7 @@ modeToggle.addEventListener('click', () => {
         pageOrientation: 'landscape', // Establece la orientación de la página a horizontal
         content: [
             {
-                text: 'Reportes de Docentes',
+                text: 'Reportes Docentes',
                 fontSize: 16,
                 bold: true,
                 alignment: 'center',
@@ -229,7 +240,7 @@ modeToggle.addEventListener('click', () => {
         ]
     };
 
-    pdfMake.createPdf(documentDefinition).download('reporte.pdf');
+    pdfMake.createPdf(documentDefinition).download('ReporteDocentes.pdf');
 }
 
 function exportToExcel() {
@@ -277,7 +288,7 @@ function exportToExcel() {
     });
 
     // Descargar el archivo usando la biblioteca FileSaver.js
-    saveAs(excelBlob, 'reporte.xlsx');
+    saveAs(excelBlob, 'ReporteDocentes.xlsx');
 }
 
 // Función para convertir una cadena binaria en una matriz de bytes
