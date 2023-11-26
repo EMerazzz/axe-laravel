@@ -57,10 +57,10 @@
                                 <h3 class="login-heading" style="color: white;">Iniciar Sesión</h3> 
                                 <div class="input-container">
                                     <span class="fa fa-user"></span>
-                                    <input type="text" placeholder="Nombre de usuario"  name="USUARIO" oninput="convertToUppercaseAndValidate(this)"  required>
+                                    <input type="text" placeholder="Nombre de usuario" name="USUARIO" required oninput="convertToUppercaseAndValidate(this)">
                                     <div class="error-message" id="error-message">No se permiten números en el usuario.</div>
                                 </div>
-                                <p><span class="fa fa-lock"></span><input id="password-input" type="password" placeholder="Contraseña" name="CONTRASENA" required></p>
+                                <p><span class="fa fa-lock"></span><input id="password-input" type="password" placeholder="Contraseña" name="CONTRASENA" required oninput="this.setCustomValidity(''); this.value = this.value.trim(); if (this.value === '') this.setCustomValidity('La contraseña no puede contener solo espacios en blanco');" /></p>
                                 <!-- Agrega el enlace de recuperación de contraseña -->
                                 <p><a href="#" id="forgot-password-link" style="color: white;">¿Olvidaste tu contraseña?</a></p>
                                 <div class="buttons-container d-flex justify-content-between align-items-center">
@@ -95,7 +95,7 @@
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Ingresa tu usuario:</p>
+                    <p>Ingresa tu usuario/email:</p>
                     <form action="{{ url('login/usuario') }}" method="post">
                         @csrf
                         <input type="text" class="form-control" name="USUARIO" placeholder="Usuario" required
@@ -114,18 +114,20 @@
         });
     </script>
 
-    <script>
-        function convertToUppercaseAndValidate(inputElement) {
-            const errorMessage = document.getElementById("error-message");
-            if (/\d/.test(inputElement.value)) {
-                errorMessage.style.display = "block";
-                inputElement.value = inputElement.value.toUpperCase().replace(/[0-9]/g, '');
-            } else {
-                errorMessage.style.display = "none";
-                inputElement.value = inputElement.value.toUpperCase();
-            }
+<script>
+    function convertToUppercaseAndValidate(inputElement) {
+        const errorMessage = document.getElementById("error-message");
+        const trimmedValue = inputElement.value.trim(); // Elimina espacios en blanco al principio y al final
+        if (/\d/.test(trimmedValue)) {
+            errorMessage.style.display = "block";
+            inputElement.value = trimmedValue.replace(/[0-9]/g, '').toUpperCase();
+        } else {
+            errorMessage.style.display = "none";
+            inputElement.value = trimmedValue.toUpperCase();
         }
-    </script>
+    }
+</script>
+
 
 
 <script>

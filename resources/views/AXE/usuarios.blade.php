@@ -198,10 +198,10 @@
               
                     
                 <td>
-                    <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
-                        data-target="#usuarios-edit-{{ $usuarios['COD_USUARIO'] }}">
-                        <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
-                    </button>
+                    <button value="Editar" title="Editar" class="btn btn-outline-info botonEditar" type="button" data-toggle="modal"
+                    data-target="#usuarios-edit-{{ $usuarios['COD_USUARIO'] }}">
+                    <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
+                </button>
                 </td>
             </tr>
             @endforeach
@@ -339,5 +339,43 @@ modeToggle.addEventListener('click', () => {
     });
 </script>
     
-   
+<script>
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const Permisos = [
+        { PERMISO_CONSULTAR: "{{ $permisosDisponibles[0]['PERMISO_CONSULTAR'] }}" },
+        { PERMISO_INSERCION: "{{ $permisosDisponibles[0]['PERMISO_INSERCION'] }}" },
+        { PERMISO_ELIMINACION: "{{ $permisosDisponibles[0]['PERMISO_ELIMINACION'] }}" },
+        { PERMISO_ACTUALIZACION: "{{ $permisosDisponibles[0]['PERMISO_ACTUALIZACION'] }}" },
+    ];
+    var PERMISO_CONSULTAR = Permisos[0].PERMISO_CONSULTAR;
+    var PERMISO_INSERCION = Permisos[1].PERMISO_INSERCION;
+    var PERMISO_ELIMINACION = Permisos[2].PERMISO_ELIMINACION;
+    var PERMISO_ACTUALIZACION = Permisos[3].PERMISO_ACTUALIZACION;
+    
+    if (parseInt(PERMISO_INSERCION) === 0) {
+        // Acceder al botón por su clase y deshabilitarlo
+        var btnNuevo = document.querySelector('.btn.btn-success.btn-custom[data-target="#usuarios"]');
+        btnNuevo.disabled = true; // Deshabilitar el botón
+        
+    }
+
+    if (parseInt(PERMISO_ACTUALIZACION) === 0) {
+        var botones = document.querySelectorAll('.botonEditar'); // Selecciona todos los botones por la clase
+
+        var condicion = true; // Aquí establece tu condición en JavaScript
+
+        if (condicion) {
+            botones.forEach(function(boton) {
+                boton.disabled = true; // Deshabilita cada botón
+            });
+        }
+    }
+
+
+            }); // Cierre de la función anónima
+        </script>
+
+
 @stop
