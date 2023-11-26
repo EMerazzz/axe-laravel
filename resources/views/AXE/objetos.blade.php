@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Preguntas')
+@section('title', 'Objetos')
 @section('content_header')
 <style>
   .custom-blockquote {
@@ -10,7 +10,7 @@
   }
 </style>
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Preguntas registradas en el sistema AXE.</p>
+    <p class="mb-0">Objetos registradas en el sistema AXE.</p>
 </blockquote>
 
 @stop
@@ -51,26 +51,36 @@
 @endif
 
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#preguntas">+ Nuevo</button>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#objetos">+ Nuevo</button>
 <div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="preguntas" tabindex="-1">
+<div class="modal fade bd-example-modal-sm" id="objetos" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Ingresa una Pregunta</h4>
+              <h4 class="modal-title">Ingresa un objeto</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
            
             
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{url('preguntas/insertar')}}" method="post">
+                    <form action="{{url('objetos/insertar')}}" method="post">
 
                         @csrf
                        
                         <div class="mb-3 mt-3">
-                            <label for="PREGUNTA" class="form-label">Nueva Pregunta :</label>
-                            <input type="text" class="form-control same-width" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" inputmode="text" required  maxlength="30">
+                            <label for="OBJETO" class="form-label">Nuevo Objeto :</label>
+                            <input type="text" class="form-control same-width" id="OBJETO" name="OBJETO" placeholder="Ingrese el objeto" inputmode="text" required  maxlength="100">
+                        </div>
+
+                        <div class="mb-3 mt-3">
+                            <label for="DESCRIPCION" class="form-label">Nueva Descripcion :</label>
+                            <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese la descripcion" inputmode="text" required  maxlength="120">
+                        </div>
+
+                        <div class="mb-3 mt-3">
+                            <label for="TIPO_OBJETO" class="form-label">Nuevo Tipo Objeto :</label>
+                            <input type="text" class="form-control same-width" id="TIPO_OBJETO" name="TIPO_OBJETO" placeholder="Ingrese el tipo objeto" inputmode="text" required  maxlength="15">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -88,17 +98,21 @@
             <thead>
                 <tr>
                     <th>#</th> 
-                    <th>Pregunta</th> 
+                    <th>Objeto</th>
+                    <th>Descripción</th>
+                    <th>Tipo Objeto</th>
                     <th>Opciones Tabla</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($preguntasArreglo as $preguntas)
+                @foreach($objetosArreglo as $objetos)
                     <tr>
-                        <td>{{ $preguntas['COD_PREGUNTA'] }}</td>
-                        <td>{{ $preguntas['PREGUNTA'] }}</td>
+                        <td>{{ $objetos['COD_OBJETO'] }}</td>
+                        <td>{{ $objetos['OBJETO'] }}</td>
+                        <td>{{ $objetos['DESCRIPCION'] }}</td>
+                        <td>{{ $objetos['TIPO_OBJETO'] }}</td>
                         <td>
-                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#preguntas-edit-{{ $preguntas['COD_PREGUNTA'] }}" >
+                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#objetos-edit-{{ $objetos['COD_OBJETO'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
                         </td>
@@ -108,21 +122,31 @@
         </table>
     </div>
 
-    @foreach($preguntasArreglo as $preguntas)
-        <div class="modal fade bd-example-modal-sm" id="preguntas-edit-{{ $preguntas['COD_PREGUNTA'] }}" tabindex="-1">
+    @foreach($objetosArreglo as $objetos)
+        <div class="modal fade bd-example-modal-sm" id="objetos-edit-{{ $objetos['COD_OBJETO'] }}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualizar Pregunta</h5>
+                        <h5 class="modal-title">Actualizar Objeto</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ url('preguntas/actualizar') }}" method="post">
+                        <form action="{{ url('objetos/actualizar') }}" method="post">
                             @csrf
-                            <input type="hidden" class="form-control" name="COD_PREGUNTA" value="{{ $preguntas['COD_PREGUNTA'] }}">
+                            <input type="hidden" class="form-control" name="COD_OBJETO" value="{{ $objetos['COD_OBJETO'] }}">
                             <div class="mb-3 mt-3">
-                                <label for="PREGUNTA" class="form-label">Nueva Pregunta:</label>
-                                <input type="text" class="form-control" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" value="{{ $preguntas['PREGUNTA'] }}" maxlength="100">
+                                <label for="OBJETO" class="form-label">Nuevo Objeto:</label>
+                                <input type="text" class="form-control" id="OBJETO" name="OBJETO" placeholder="Ingrese el objeto" value="{{ $objetos['OBJETO'] }}" maxlength="1200">
+                            </div>
+
+                            <div class="mb-3 mt-3">
+                                <label for="DESCRIPCION" class="form-label">Nueva Descripcion:</label>
+                                <input type="text" class="form-control" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese la descripcion" value="{{ $objetos['DESCRIPCION'] }}" maxlength="120">
+                            </div>
+
+                            <div class="mb-3 mt-3">
+                                <label for="TIPO_OBJETO" class="form-label">Nuevo Tipo Objeto:</label>
+                                <input type="text" class="form-control" id="TIPO_OBJETO" name="TIPO_OBJETO" placeholder="Ingrese el tipo objeto" value="{{ $objetos['TIPO_OBJETO'] }}" maxlength="15">
                             </div>
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
