@@ -558,7 +558,6 @@
             },
             "lengthMenu": [5, 10, 30, 50,100,200], // Opciones disponibles en el menú
             "pageLength": 5 // Establece la longitud de página predeterminada en 5
-         
         });
     });
 </script>

@@ -481,6 +481,13 @@ return [
                     //'icon_color' => 'info',
                     'url'  => 'preguntas',
                 ],
+
+                [
+                    'text' => 'Objetos',
+                    'icon' =>"fa fa-user",
+                    //'icon_color' => 'info',
+                    'url'  => 'objetos',
+                ],
               
                 [
                     'text' => 'Estado usuarios',
