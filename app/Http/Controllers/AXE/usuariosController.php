@@ -62,8 +62,8 @@ class usuariosController extends Controller
         $todas_los_usuarios = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
-    
-        $PRIMER_INGRESO = $request->input("PRIMER_INGRESO") ? 1 : 0;
+        $UsuarioValue = $_COOKIE["Usuario"];
+      //  $PRIMER_INGRESO = $request->input("PRIMER_INGRESO") ? 1 : 0;
 
         // Enviar la solicitud POST a la API para agregar la nueva persona
         $nuevo_usuario = Http::withHeaders([
@@ -71,9 +71,10 @@ class usuariosController extends Controller
         ])->post($this->apiUrl, [
             "USUARIO" => $request->input("USUARIO"),
             "CONTRASENA" => bcrypt($request->input('CONTRASENA')),
-            "MODIFICADO_POR" => $request->input("MODIFICADO_POR"),
+            "MODIFICADO_POR" => $UsuarioValue,
             "COD_PERSONA" => $request->input("COD_PERSONA"),
-           /* "COD_ESTADO_USUARIO" => $request->input("COD_ESTADO_USUARIO"),*/
+            "COD_ESTADO_USUARIO" => $request->input("COD_ESTADO_USUARIO"),
+            "COD_ROL" => $request->input("COD_ROL"),
         ]);
     
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error

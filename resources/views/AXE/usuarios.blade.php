@@ -78,19 +78,10 @@
                  </div>
                  
                  <div class="mb-3 mt-3">
-                 <label for="primerIngreso" class="form-label">Primer Ingreso:</label>
-                 <input type="checkbox" class="form-check-input" id="PRIMER_INGRESO" name="PRIMER_INGRESO" value="1">
-                 </div>
-                 
-                 <div class="mb-3 mt-3">
-                <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
-                <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
-                </div>
-                 
-                 <div class="mb-3 mt-3">
                 <label for="COD_PERSONA" class="form-label">Personal: </label>
                 <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                 <option value="" disabled selected>Seleccione una persona</option>
+
                 @foreach ($personasArreglo as $persona)
                 @if ($persona['TIPO_PERSONA'] === 'Personal Administrativo')
                 <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
@@ -108,6 +99,13 @@
                     @endforeach
                     </select>
                 </div>
+                <div class="mb-3">
+                        <label for="COD_ESTADO_USUARIO" class="form-label">Estado usuario:</label>
+                        <select class="form-control same-width" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO">
+                        <option value="1" selected>Activo</option>
+                        <option value="2">Inactivo</option>
+                        </select>
+                        </div>
    
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

@@ -362,7 +362,7 @@
     <option value="Estudiante" {{ $personas['TIPO_PERSONA'] === 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
     <option value="Docente" {{ $personas['TIPO_PERSONA'] === 'Docente' ? 'selected' : '' }}>Docente</option>
     <option value="Padre o tutor" {{ $personas['TIPO_PERSONA'] === 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
-
+    <option value="Personal Administrativo" {{ $personas['TIPO_PERSONA'] === 'Personal Administrativo' ? 'selected' : '' }}>Personal Administrativo</option>
   </select>
 </div>
 
