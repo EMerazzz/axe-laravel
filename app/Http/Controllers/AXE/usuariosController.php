@@ -41,10 +41,6 @@ class usuariosController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get('http://82.180.162.18:4000/usuarios');
         $usuariosArreglo = json_decode($usuarios, true);
-<<<<<<< HEAD
-       // dd($usuariosArreglo);
-        return view('AXE.usuarios', compact('UsuarioValue','personasArreglo','rolesArreglo','usuariosArreglo'));
-=======
 
         $OBJETO = "USUARIOS";
         $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
@@ -55,7 +51,6 @@ class usuariosController extends Controller
 
         //dd($usuariosArreglo);
         return view('AXE.usuarios', compact('UsuarioValue','personasArreglo','rolesArreglo','estado_usuarioArreglo','usuariosArreglo', 'permisosDisponibles'));
->>>>>>> f535331928c5df986c8bd9b8bdbb9db8d5a134f0
     }
 
     public function nuevo_usuario(Request $request)
