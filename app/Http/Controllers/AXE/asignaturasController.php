@@ -66,5 +66,29 @@ class asignaturasController extends Controller
     }
     }
 
+    public function delete_asignatura(Request $request)
+{
+    $cookieEncriptada = request()->cookie('token');
+    $token = decrypt($cookieEncriptada);
+
+    $delete_asignatura = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->put('http://82.180.162.18:4000/del_asignaturas/'.$request->input("COD_ASIGNATURA"));
+
+    if ($delete_asignatura->successful()) {
+        return redirect('/asignaturas')->with('message', [
+            'type' => 'success',
+            'text' => 'Asignatura Eliminada.'
+        ]);
+    } else {
+        // Manejar casos de error
+        $statusCode = $delete_telefono->status();
+        return redirect('/asignaturas')->with('message', [
+            'type' => 'error',
+            'text' => "No se puede desactivar el teléfono. Código de estado: $statusCode"
+        ]);
+    }
+}
+
 
 }

@@ -71,4 +71,28 @@ class seccionesController extends Controller
             ]);
         }
     }
+
+    public function delete_seccion(Request $request)
+{
+    $cookieEncriptada = request()->cookie('token');
+    $token = decrypt($cookieEncriptada);
+
+    $delete_seccion = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->put('http://82.180.162.18:4000/del_secciones/'.$request->input("COD_SECCIONES"));
+
+    if ($delete_seccion->successful()) {
+        return redirect('/secciones')->with('message', [
+            'type' => 'success',
+            'text' => 'Sección Eliminada.'
+        ]);
+    } else {
+        // Manejar casos de error
+        $statusCode = $delete_seccion->status();
+        return redirect('/secciones')->with('message', [
+            'type' => 'error',
+            'text' => "No se puede desactivar el teléfono. Código de estado: $statusCode"
+        ]);
+    }
+}
 }

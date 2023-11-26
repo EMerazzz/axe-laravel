@@ -11,5 +11,6 @@ Route::middleware(['checkToken'])->group(function () {
     //de aqui 
     Route::post('/insertar',[correosController::class,'nuevo_correo']);
     Route::post('/actualizar',[correosController::class,'modificar_correo']);
+    Route::post('/delete',[correosController::class,'delete_correo']);
     //hasta aqui
 });

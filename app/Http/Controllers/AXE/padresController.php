@@ -99,4 +99,28 @@ class padresController extends Controller
         ]);
     }
     }
+
+    public function delete_padre(Request $request)
+{
+    $cookieEncriptada = request()->cookie('token');
+    $token = decrypt($cookieEncriptada);
+
+    $delete_padre = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->put('http://82.180.162.18:4000/del_padres_tutores/'.$request->input("COD_PADRE_TUTOR"));
+
+    if ($delete_padre->successful()) {
+        return redirect('/padres')->with('message', [
+            'type' => 'success',
+            'text' => 'Tutor Eliminado.'
+        ]);
+    } else {
+        // Manejar casos de error
+        $statusCode = $delete_padre->status();
+        return redirect('/padres')->with('message', [
+            'type' => 'error',
+            'text' => "No se puede desactivar el teléfono. Código de estado: $statusCode"
+        ]);
+    }
+}
 }

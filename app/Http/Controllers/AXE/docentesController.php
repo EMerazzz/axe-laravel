@@ -106,5 +106,29 @@ class docentesController extends Controller
         ]);
     }
     }
+
+    public function delete_docente(Request $request)
+{
+    $cookieEncriptada = request()->cookie('token');
+    $token = decrypt($cookieEncriptada);
+
+    $delete_docente = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->put('http://82.180.162.18:4000/del_docentes/'.$request->input("COD_DOCENTE"));
+
+    if ($delete_docente>successful()) {
+        return redirect('/docentes')->with('message', [
+            'type' => 'success',
+            'text' => 'Nivel Academico Eliminado.'
+        ]);
+    } else {
+        // Manejar casos de error
+        $statusCode = $delete_docente->status();
+        return redirect('/docentes')->with('message', [
+            'type' => 'error',
+            'text' => "No se puede desactivar el teléfono. Código de estado: $statusCode"
+        ]);
+    }
+}
 }
 

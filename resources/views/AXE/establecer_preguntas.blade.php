@@ -21,7 +21,7 @@
         .recovery-button {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #3498db;
+            background-color: #11364f;
             color: white;
             text-decoration: none;
             border: none;
@@ -48,48 +48,54 @@
 <body>
     <div class="main">
         <div class="container">
-            <center>
-                <div class="middle">
-                    <div id="login">
-
-                        <form action="{{ url('login/nueva_pregunta') }}" method="post">
+            <div class="row justify-content-center">
+                <div class="col-lg-12" class="center">
+                    <div id="login" class="text-align: center;" >
+                        <form action="{{ url('login/nueva_pregunta') }}" method="post" style="margin-top: 150px">
                             @csrf
-                            <fieldset class="clearfix">
-                            <h3 class="login-heading" style="color: white;">Establecer preguntas</h3> 
-
-                            <p style="color: white; " ><em>{{$Usuario}}</em></p>
-
-                            
-                            <div class="form-group">
-                                
-                        <label for="pregunta1Respuesta" style="color: white; " >Pregunta </label>
-                        <input type="text" class="form-control" id="pregunta1"  name= "PREGUNTA" style= "width: 115%; height: 30px;"  oninput="validarInput(this)" >
-                        <label for="pregunta2Respuesta" style="color: white;">Respuesta</label>
-                        <input type="text" class="form-control" id="respuesta1"  name= "RESPUESTA" style="width: 115%; height: 30px;"  oninput="validarInput(this)" >
-                       
-                        <div>
-                            <button type="submit" class="open-modal-button btn btn-primary" data-toggle="modal" >Guardar</button>
-                        </div>
-                    </div>                      
-                  
-                    <div class="text-white font-weight-bold">
-                        <br>
-                        <p>{{ $mensaje }}</p>
-                    </div>
+                            <fieldset class="clearfix" >
+                                <h3 class="login-heading text-white" style="text-align: center; margin-left:130px"> Establecer preguntas</h3>
+                                <p class="text-white"  style="text-align: center; margin-left:130px"><em>{{$Usuario}}</em></p>
+                        
+                                <div class="form-group">
+                                    <label for="COD_PREGUNTA" class="text-white">Pregunta</label>
+                                    <select class="form-control selectize" id="COD_PREGUNTA" name="COD_PREGUNTA" style="height: 38px; width: 430px">
+                                        <option value="" disabled selected>Selecciona una pregunta</option>
+                                        @foreach ($PREGUNTAS_USUARIO as $PREGUNTAS)
+                                            <option value="{{ $PREGUNTAS['COD_PREGUNTA'] }}">{{ $PREGUNTAS['PREGUNTA'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                        
+                                <div class="form-group">
+                                    <label for="respuesta1" class="text-white">Respuesta</label>
+                                    <input type="text" class="form-control" id="respuesta1" name="RESPUESTA" style="height: 38px; width: 430px">
+                                </div>
+                        
+                                <div class="form-group">
+                                    <button type="submit" class="open-modal-button btn btn-primary" style="width: 100px; text-align: center; margin-left:150px" >Guardar</button>
+                                </div>
+                        
+                                <div class="text-white font-weight-bold">
+                                    <p style="text-align: center; margin-left:106px ">{{ $mensaje }}</p>
+                                    <p style="text-align: center; margin-left:150px">{{ $TOTALPREGUNTAS }} / {{ $CAN_PREGUNTAS_SOLICITADAS }}</p>
+                                </div>
                             </fieldset>
                         </form>
                     </div>
                     <div class="logo">
-                        <img src="{{ asset('7750e9a1-de96-4e9c-a66d-c243a9eb7b33-removebg-preview.png') }}" style="max-width: 200px;">
+                        <img src="{{ asset('7750e9a1-de96-4e9c-a66d-c243a9eb7b33-removebg-preview.png') }}" style="max-width: 200px; margin-bottom:300px">
                         <div class="clearfix"></div>
                     </div>
                 </div>
-            </center>
+            </div>
         </div>
-    </div>    
-
+        
+    </div>
+    
+    
    <!-- Modal de Recuperación de Contraseña -->
-    <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1"  style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" id="cambiarContrasenaHeader" disabled>
@@ -228,32 +234,16 @@
             disableSubmitButton();
 
             document.addEventListener('click', function() {
-            $('#forgotPasswordModal').modal('show');
+                $('#forgotPasswordModal').modal('show');
             });
-
         }
+
         // Agregar el listener para mostrar el modal al hacer clic en la pantalla
 
-    function makeInputsReadOnly() {
-        document.getElementById('pregunta1').readOnly = true;
-        document.getElementById('respuesta1').readOnly = true;
-    }
-
-    function disableSubmitButton() {
-        var submitButton = document.querySelector('button[type="submit"]');
-        if (submitButton) {
-            submitButton.disabled = true;
-        }
-    }
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var TOTALPREGUNTAS = {{ $TOTALPREGUNTAS }}; // Asigna el valor de TOTALPREGUNTAS desde PHP
         function makeInputsReadOnly() {
-            document.getElementById('pregunta1').readOnly = true;
+            document.getElementById('COD_PREGUNTA').readOnly = true;
             document.getElementById('respuesta1').readOnly = true;
-         }
+        }
 
         function disableSubmitButton() {
             var submitButton = document.querySelector('button[type="submit"]');
@@ -262,17 +252,10 @@
             }
         }
 
-        if (TOTALPREGUNTAS > 1) {
-            makeInputsReadOnly();
-            disableSubmitButton();
-
-            document.addEventListener('click', function() {
-            $('#forgotPasswordModal').modal('show');
-        });
-        }
-        // Agregar el listener para mostrar el modal al hacer clic en la pantalla
     });
 </script>
+
+
 
 </body>
 </html>

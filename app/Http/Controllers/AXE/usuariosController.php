@@ -41,8 +41,21 @@ class usuariosController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get('http://82.180.162.18:4000/usuarios');
         $usuariosArreglo = json_decode($usuarios, true);
+<<<<<<< HEAD
        // dd($usuariosArreglo);
         return view('AXE.usuarios', compact('UsuarioValue','personasArreglo','rolesArreglo','usuariosArreglo'));
+=======
+
+        $OBJETO = "USUARIOS";
+        $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+            "USUARIO" => $UsuarioValue,
+            "OBJETO" =>  $OBJETO,
+        ]);
+        $permisosDisponibles = json_decode($permisos, true);
+
+        //dd($usuariosArreglo);
+        return view('AXE.usuarios', compact('UsuarioValue','personasArreglo','rolesArreglo','estado_usuarioArreglo','usuariosArreglo', 'permisosDisponibles'));
+>>>>>>> f535331928c5df986c8bd9b8bdbb9db8d5a134f0
     }
 
     public function nuevo_usuario(Request $request)
@@ -112,7 +125,6 @@ class usuariosController extends Controller
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
-        
         $delete_usuario = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put('http://82.180.162.18:4000/del_usuarios/'.$request->input("COD_USUARIO"));
@@ -122,6 +134,7 @@ class usuariosController extends Controller
                 'type' => 'success',
                 'text' => 'Usuario eliminado.'
             ]);
+
         } else {
             return redirect('/usuarios')->with('message', [
                 'type' => 'error',

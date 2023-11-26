@@ -10,5 +10,6 @@ Route::middleware(['checkToken'])->group(function () {
     //de aqui 
     Route::post('/insertar',[asignaturasController::class,'nueva_asignatura']);
     Route::post('/actualizar',[asignaturasController::class,'modificar_asignaturas']);
+    Route::post('/delete',[asignaturasController::class,'delete_asignatura']);
     //hasta aqui
 });

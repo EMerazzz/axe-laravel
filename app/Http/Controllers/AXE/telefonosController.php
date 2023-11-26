@@ -86,4 +86,29 @@ class telefonosController extends Controller
             ]);
         }
     }
+
+    public function delete_telefono(Request $request)
+{
+    $cookieEncriptada = request()->cookie('token');
+    $token = decrypt($cookieEncriptada);
+
+    $delete_telefono = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->put('http://82.180.162.18:4000/del_telefonos/'.$request->input("COD_TELEFONO"));
+
+    if ($delete_telefono->successful()) {
+        return redirect('/telefonos')->with('message', [
+            'type' => 'success',
+            'text' => 'Teléfono Eliminado.'
+        ]);
+    } else {
+        // Manejar casos de error
+        $statusCode = $delete_telefono->status();
+        return redirect('/telefonos')->with('message', [
+            'type' => 'error',
+            'text' => "No se puede desactivar el teléfono. Código de estado: $statusCode"
+        ]);
+    }
+}
+
 }
