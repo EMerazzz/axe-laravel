@@ -308,9 +308,19 @@
             <td>{{date('d, M Y', strtotime($personas['FECHA_REGISTRO']))}}</td>
             
             <td>
-                <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#personas-edit-{{$personas['COD_PERSONA']}}">
-                    <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
-                </button>
+            
+              <!-- Botones -->
+                <div class="btn-group" role="group" aria-label="Acciones">
+                    <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#personas-edit-{{$personas['COD_PERSONA']}}">
+                        <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> 
+                    </button>
+
+                    <button title="Ver" class="btn btn-outline-info ver-btn" type="button" data-toggle="modal" data-target="#ver-persona-modal-{{ $personas['COD_PERSONA'] }}"">
+                        <i class='fas fa-eye' style='font-size:13px;color:blue'></i> 
+                    </button>
+                </div>
+                
+               <!--Editar -->
                 <div class="modal fade bd-example-modal-sm" id="personas-edit-{{$personas['COD_PERSONA']}}" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -384,9 +394,112 @@
     </div>
   </div>
 </div>
-<!--boton Eliminar -->
+<!-- fin modal Editar-->
+       <!-- modal ver -->
 
-<!--boton Eliminar -->
+<!-- Modal para mostrar detalles de la persona -->
+<div class="modal fade" id="ver-persona-modal-{{ $personas['COD_PERSONA'] }}" tabindex="-1" role="dialog" aria-labelledby="verPersonaModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="verPersonaModal">Detalles de la Persona</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body"style="background-color: #fff; padding: 20px;">
+            
+                <p><strong>Nombre completo:</strong> {{ $personas['NOMBRE'] }} {{ $personas['APELLIDO'] }}</p>
+                <p><strong>Identidad:</strong> {{$personas['IDENTIDAD']}}</p>
+                <!-- INICIO-->
+                @php
+                    $telefono = null;
+                    foreach ($telefonosArreglo as $t) {
+                        if ($t['COD_PERSONA'] === $personas['COD_PERSONA']) {
+                            $telefono= $t;
+                            break;
+                        }
+                    }
+                @endphp
+                <p><strong>Número télefonico:</strong>  @if ($telefono !== null)
+                         {{ $telefono['TELEFONO']}}
+                     
+                        @endif </p>
+                 <!-- FIN-->
+              <!-- INICIO-->
+              @php
+                    $correo = null;
+                    foreach ($correosArreglo as $c) {
+                        if ($c['COD_PERSONA'] === $personas['COD_PERSONA']) {
+                            $correo= $c;
+                            break;
+                        }
+                    }
+                @endphp
+                <p><strong>Correo electrónico:</strong>  
+                       @if ($correo !== null)
+                         {{ $correo['CORREO_ELECTRONICO']}}
+                      
+                        @endif 
+                    </p>
+                 <!-- FIN-->
+                 <!-- INICIO-->
+                 @php
+                    $direccion = null;
+                    foreach ($direccionesArreglo as $d) {
+                        if ($d['COD_PERSONA'] === $personas['COD_PERSONA']) {
+                            $direccion= $d;
+                            break;
+                        }
+                    }
+                @endphp
+                <p><strong>Dirección:</strong>  
+                       @if ($direccion !== null)
+                         {{ $direccion['DEPARTAMENTO']}}, {{ $direccion['CIUDAD']}}, {{ $direccion['DIRECCION']}}
+                      
+                        @endif 
+                    </p>
+                 <!-- FIN-->
+                  <!-- INICIO-->
+                  @php
+                    $contacto = null;
+                    foreach ($contactosArreglo as $c) {
+                        if ($c['COD_PERSONA'] === $personas['COD_PERSONA']) {
+                            $contacto= $c;
+                            break;
+                        }
+                    }
+                @endphp
+                <p><strong>Nombre contacto de emergencia:</strong>  
+                       @if ($contacto !== null)
+                         {{ $contacto['NOMBRE_CONTACTO']}}  {{ $contacto['APELLIDO_CONTACTO']}} 
+                       
+                        @endif 
+                    </p>
+                    <p><strong>Numero Telefónico contacto de emergencia:</strong>  
+                       @if ($contacto !== null)
+                         {{ $contacto['TELEFONO']}} 
+                       
+                        @endif 
+                    </p>
+                    <p><strong>Relación con la persona:</strong>  
+                       @if ($contacto !== null)
+                         {{ $contacto['RELACION']}} 
+                       
+                        @endif 
+                    </p>
+                 <!-- FIN-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal ver-->               
+
+
 <!-- modal ELiminar-->
 
 <!-- modal Eliminar -->
@@ -397,6 +510,7 @@
         @endforeach
     </tbody>
 </table>
+
 
 @stop
 
@@ -444,6 +558,7 @@
             },
             "lengthMenu": [5, 10, 30, 50,100,200], // Opciones disponibles en el menú
             "pageLength": 5 // Establece la longitud de página predeterminada en 5
+         
         });
     });
 </script>
@@ -721,7 +836,6 @@ function formatIdentidad(input) {
     // Asigna el valor formateado de vuelta al campo de entrada
     input.value = formattedValue;
 }
-
 
 </script>
 
