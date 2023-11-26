@@ -77,9 +77,6 @@
                                     <input type="text" placeholder="Nombre de usuario" name="USUARIO" required oninput="convertToUppercaseAndValidate(this)">
                                     <div class="error-message" id="error-message">No se permiten números en el usuario.</div>
                                 </div>
-<<<<<<< HEAD
-                                <p><span class="fa fa-lock"></span><input id="password-input" type="password" placeholder="Contraseña" name="CONTRASENA" required oninput="this.setCustomValidity(''); this.value = this.value.trim(); if (this.value === '') this.setCustomValidity('La contraseña no puede contener solo espacios en blanco');" /></p>
-=======
                                 <div class="password-container">
                                     <p>
                                         <span class="fa fa-lock"></span>
@@ -87,7 +84,6 @@
                                         <i class="fa fa-eye toggle-password" onclick="togglePassword()"></i>
                                     </p>
                                 </div>
->>>>>>> 647e73e89a9af7f48bb865db9d721c513d21874e
                                 <!-- Agrega el enlace de recuperación de contraseña -->
                                 <p><a href="#" id="forgot-password-link" style="color: white;">¿Olvidaste tu contraseña?</a></p>
                                 <div class="buttons-container d-flex justify-content-between align-items-center">

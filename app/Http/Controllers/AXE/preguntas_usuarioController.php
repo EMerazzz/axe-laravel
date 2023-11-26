@@ -45,7 +45,6 @@ class preguntas_usuarioController extends Controller
         return view('AXE/establecer_preguntas', compact('mensaje', 'Usuario', 'TOTALPREGUNTAS'));
     } 
     }
-<<<<<<< HEAD
 
     // VERSION DE TRABAJO
     public function nueva_pregunta(Request $request)
@@ -100,6 +99,4 @@ class preguntas_usuarioController extends Controller
     }
 
 }
-=======
-}
->>>>>>> 647e73e89a9af7f48bb865db9d721c513d21874e
+
