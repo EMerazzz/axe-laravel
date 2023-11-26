@@ -53,7 +53,8 @@ class objetosController extends Controller
             ]);
         }
     }
-
+   
+    //modificar put
     public function modificar_objeto(Request $request ){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
