@@ -156,4 +156,28 @@ class matriculaController extends Controller
         }
     }
 
+    public function delete_matricula(Request $request)
+{
+    $cookieEncriptada = request()->cookie('token');
+    $token = decrypt($cookieEncriptada);
+
+    $delete_matricula = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->put('http://82.180.162.18:4000/del_matricula/'.$request->input("COD_MATRICULA"));
+
+    if ($elete_matricula->successful()) {
+        return redirect('/matricula')->with('message', [
+            'type' => 'success',
+            'text' => 'Matricula Eliminada.'
+        ]);
+    } else {
+        // Manejar casos de error
+        $statusCode = $delete_telefono->status();
+        return redirect('/matricula')->with('message', [
+            'type' => 'error',
+            'text' => "No se puede desactivar el teléfono. Código de estado: $statusCode"
+        ]);
+    }
+}
+
 }

@@ -95,4 +95,28 @@ class contactoController extends Controller
         }
     }
 
+    public function delete_contacto(Request $request)
+{
+    $cookieEncriptada = request()->cookie('token');
+    $token = decrypt($cookieEncriptada);
+
+    $delete_contacto = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->put('http://82.180.162.18:4000/del_contactoemergencia/'.$request->input("COD_CONTACTO_EMERGENCIA"));
+
+    if ($delete_contacto->successful()) {
+        return redirect('/contacto_emergencia')->with('message', [
+            'type' => 'success',
+            'text' => 'Contacto Emergencia Eliminado.'
+        ]);
+    } else {
+        // Manejar casos de error
+        $statusCode = $delete_contacto->status();
+        return redirect('/contacto_emergencia')->with('message', [
+            'type' => 'error',
+            'text' => "No se puede eliminar el teléfono. Código de estado: $statusCode"
+        ]);
+    }
+}
+
 }

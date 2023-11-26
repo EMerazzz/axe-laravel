@@ -77,4 +77,28 @@ class anio_academicoController extends Controller
             ]);
         }
     }
+
+    public function delete_anio_academico(Request $request)
+{
+    $cookieEncriptada = request()->cookie('token');
+    $token = decrypt($cookieEncriptada);
+
+    $delete_anio_academico = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->put('http://82.180.162.18:4000/del_anio_academico/'.$request->input("COD_ANIO_ACADEMICO"));
+
+    if ($delete_anio_academico->successful()) {
+        return redirect('/anio_academico')->with('message', [
+            'type' => 'success',
+            'text' => 'Año Academico Eliminado.'
+        ]);
+    } else {
+        // Manejar casos de error
+        $statusCode = $delete_anio_academico->status();
+        return redirect('/anio_academico')->with('message', [
+            'type' => 'error',
+            'text' => "No se puede desactivar el teléfono. Código de estado: $statusCode"
+        ]);
+    }
+}
 }

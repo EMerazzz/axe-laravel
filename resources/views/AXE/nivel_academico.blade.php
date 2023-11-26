@@ -99,6 +99,10 @@
                 <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#nivel_academico-edit-{{$nivel_academico['COD_NIVEL_ACADEMICO']}}">
                     <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                 </button>
+                <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
+                            data-target="#nivel_academico-delete-{{$nivel_academico['COD_NIVEL_ACADEMICO']}}">
+                           <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
+                </button>
                 <div class="modal fade bd-example-modal-sm" id="nivel_academico-edit-{{$nivel_academico['COD_NIVEL_ACADEMICO']}}" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -124,6 +128,31 @@
           </form>
           </div><!-- DIV PARA CENTRAR FORMULARIO--->
        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- empieza modal eliminar -->
+<div class="modal fade bd-example-modal-sm" id="nivel_academico-delete-{{$nivel_academico['COD_NIVEL_ACADEMICO']}}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Atención</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="background-color: #fff; padding: 20px;">
+                    <h5 class="modal-title">Desea eliminar este registro</h5>
+                  </div>
+                  
+    <div class="modal-footer">
+      <form action="{{ url('nivel_academico/delete') }}" method="post">
+                        @csrf
+      <input type="hidden" class="form-control" name="COD_NIVEL_ACADEMICO" value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}">
+              <button  class="btn btn-danger">Si</button>
+          </form>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+        
       </div>
     </div>
   </div>

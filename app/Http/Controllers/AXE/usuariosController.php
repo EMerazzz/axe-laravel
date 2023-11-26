@@ -112,7 +112,6 @@ class usuariosController extends Controller
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
-        
         $delete_usuario = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put('http://82.180.162.18:4000/del_usuarios/'.$request->input("COD_USUARIO"));
@@ -122,6 +121,7 @@ class usuariosController extends Controller
                 'type' => 'success',
                 'text' => 'Usuario eliminado.'
             ]);
+
         } else {
             return redirect('/usuarios')->with('message', [
                 'type' => 'error',

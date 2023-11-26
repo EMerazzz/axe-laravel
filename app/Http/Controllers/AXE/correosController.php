@@ -83,4 +83,25 @@ class correosController extends Controller
         }
     }
 
+    public function delete_correo(Request $request)
+    {
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+        $delete_correo = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put('http://82.180.162.18:4000/del_correos/'.$request->input("COD_CORREO"));
+        
+        if ($delete_correo->successful()) {
+            return redirect('/correos')->with('message', [
+                'type' => 'success',
+                'text' => 'Correo eliminado.'
+            ]);
+
+        } else {
+            return redirect('/correos')->with('message', [
+                'type' => 'error',
+                'text' => 'No se puede eliminar.'
+            ]);
+        }
+    }
 }

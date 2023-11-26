@@ -11,4 +11,5 @@ route::middleware(['checkToken'])->group(function () {
     //de aqui 
     Route::post('/insertar',[telefonosController::class,'nuevo_telefono']);
     Route::post('/actualizar',[telefonosController::class,'modificar_telefono']);
+    Route::post('/delete',[telefonosController::class,'delete_telefono']);
 });

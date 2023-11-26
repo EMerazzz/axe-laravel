@@ -78,4 +78,28 @@ class nivel_academicoController extends Controller
             ]);
         }
     }
+
+    public function delete_nivel_academico(Request $request)
+{
+    $cookieEncriptada = request()->cookie('token');
+    $token = decrypt($cookieEncriptada);
+
+    $delete_nivel_academico = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->put('http://82.180.162.18:4000/del_nivel_academico/'.$request->input("COD_NIVEL_ACADEMICO"));
+
+    if ($delete_nivel_academico->successful()) {
+        return redirect('/nivel_academico')->with('message', [
+            'type' => 'success',
+            'text' => 'Nivel Academico Eliminado.'
+        ]);
+    } else {
+        // Manejar casos de error
+        $statusCode = $delete_nivel_academico->status();
+        return redirect('/nivel_academico')->with('message', [
+            'type' => 'error',
+            'text' => "No se puede desactivar el teléfono. Código de estado: $statusCode"
+        ]);
+    }
+}
 }

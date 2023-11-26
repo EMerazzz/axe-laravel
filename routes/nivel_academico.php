@@ -11,4 +11,5 @@ Route::middleware(['checkToken'])->group(function () {
     //de aqui 
     Route::post('/insertar',[nivel_academicoController::class,'nuevo_nivel_academico']);
     Route::post('/actualizar',[nivel_academicoController::class,'modificar_nivel_academico']);
+    Route::post('/delete',[nivel_academicoController::class,'delete_nivel_academico']);
 });

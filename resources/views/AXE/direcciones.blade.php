@@ -155,11 +155,19 @@
                 <td>{{ $direcciones['PAIS'] }}</td>
                 <td>{{ date('d, M Y', strtotime($direcciones['FECHA'])) }}</td>
                 <td>
-                    <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
-                        data-target="#direcciones-edit-{{ $direcciones['COD_DIRECCION'] }}">
-                        <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
-                    </button>
-                </td>
+    <div class="d-flex">
+        <button value="Editar" title="Editar" class="btn btn-outline-info mr-2" type="button" data-toggle="modal"
+                data-target="#direcciones-edit-{{ $direcciones['COD_DIRECCION'] }}">
+            <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
+        </button>
+
+        <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
+                data-target="#direcciones-delete-{{$direcciones['COD_DIRECCION']}}">
+            <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
+        </button>
+    </div>
+</td>
+
             </tr>
             @endforeach
         </tbody>
@@ -218,6 +226,31 @@
         </div>
     </div>
 </div>
+
+<!-- empieza modal eliminar -->
+<div class="modal fade bd-example-modal-sm" id="direcciones-delete-{{$direcciones['COD_DIRECCION']}}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Atención</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="background-color: #fff; padding: 20px;">
+                    <h5 class="modal-title">Desea eliminar este registro</h5>
+                  </div>
+    <div class="modal-footer">
+      <form action="{{ url('direcciones/delete') }}" method="post">
+                        @csrf
+      <input type="hidden" class="form-control" name="COD_DIRECCION" value="{{ $direcciones['COD_DIRECCION'] }}">
+              <button  class="btn btn-danger">Si</button>
+          </form>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
 @endforeach
 
 @stop

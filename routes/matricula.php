@@ -9,5 +9,6 @@ Route::get('',[matriculaController::class,'matricula']);
 //de aqui 
 Route::post('/insertar',[matriculaController::class,'nueva_matricula']);
 Route::post('/actualizar',[matriculaController::class,'modificar_matricula']);
+Route::post('/delete',[matriculaController::class,'delete_matricula']);
 //hasta aqui
 });

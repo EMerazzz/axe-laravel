@@ -10,5 +10,6 @@ Route::middleware(['checkToken'])->group(function () {
     //de aqui 
     Route::post('/insertar',[contactoController::class,'nuevo_contacto_emergencia']);
     Route::post('/actualizar',[contactoController::class,'modificar_contacto_emergencia']);
+    Route::post('/delete',[contactoController::class,'delete_contacto']);
     //hasta aqui
 });

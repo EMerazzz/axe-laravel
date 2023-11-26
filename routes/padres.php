@@ -10,5 +10,6 @@ Route::middleware(['checkToken'])->group(function () {
     //de aqui 
     Route::post('/insertar',[padresController::class,'nuevo_padre']);
     Route::post('/actualizar',[padresController::class,'modificar_padre']);
+    Route::post('/delete',[padresController::class,'delete_padre']);
     //hasta aqui
 });

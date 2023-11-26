@@ -90,4 +90,28 @@ class direccionesController extends Controller
         }
     }
 
+    public function delete_direccion(Request $request)
+    {
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+    
+        $delete_direccion = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put('http://82.180.162.18:4000/del_direcciones/'.$request->input("COD_DIRECCION"));
+    
+        if ($delete_direccion->successful()) {
+            return redirect('/direcciones')->with('message', [
+                'type' => 'success',
+                'text' => 'Teléfono Eliminado.'
+            ]);
+        } else {
+            // Manejar casos de error
+            $statusCode = $delete_direccion->status();
+            return redirect('/direcciones')->with('message', [
+                'type' => 'error',
+                'text' => "No se puede desactivar el teléfono. Código de estado: $statusCode"
+            ]);
+        }
+    }
+
 }
