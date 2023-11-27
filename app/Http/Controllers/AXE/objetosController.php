@@ -110,7 +110,7 @@ public function delete_objetos(Request $request)
         // Manejar excepciones
         return redirect('/objetos')->with('message', [
             'type' => 'error',
-            'text' => "Error al intentar desactivar el objeto: " . $e->getMessage()
+            'text' => "Error al intentar eliminar el objeto: " . $e->getMessage()
         ]);
     }
 }
