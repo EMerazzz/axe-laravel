@@ -37,9 +37,9 @@
                 <th>#</th>
                 <th>Nombre Tabla</th>
                 <th>Módulo tabla</th>
+                <th>Fecha Modificación</th>
                 <th>Tipo evento</th>
                 <th>Fecha Registro</th>
-                <th>Fecha Modificación</th>
                 <th>Usuario Modificador</th>
                 <th>Código Tabla</th>
                 <th>Primera FK</th>
@@ -73,9 +73,9 @@
                 <td>{{ $bitacora['COD_BITACORA'] }}</td>
                 <td>{{ $bitacora['NOMBRE_TABLA'] }}</td>
                 <td>{{ $bitacora['MODULO_TABLA'] }}</td>
+                <td>{{ date('d, M Y', strtotime($bitacora['FECHA_MODIFICACION'])) }}</td>
                 <td>{{ $bitacora['TIPO_EVENTO'] }}</td>
                 <td>{{ date('Y-m-d', strtotime($bitacora['FECHA_REGISTRO'])) }}</td>
-                <td>{{ date('d, M Y', strtotime($bitacora['FECHA_MODIFICACION'])) }}</td>
                 <td>{{ $bitacora['USUARIO'] }}</td>
                 <td>{{ $bitacora['COD_REGISTRO_TABLA'] }}</td>
                 <td>{{ $bitacora['PRIMERA_FK'] }}</td>
