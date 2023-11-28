@@ -165,7 +165,7 @@
                             @endphp
                             <input type="date" class="form-control same-width" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fechaNacimiento }}" max="{{ $fechaMaxima }}">
                         </div>
-                </div>
+                 </div>
                      </div>
 
                        <!-- Sección 2: Teléfonos -->
@@ -232,7 +232,7 @@
                    </div>
                    <!-- Sección 4: correos -->
                    <div id="sectionCorreo" class="tab-pane fade">
-                   <div class="mb-3 mt-3">
+                         <div class="mb-3 mt-3">
                             <label for="correos" class="form-label">Correo Electrónico</label>
                             <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" required maxlength="45" oninput="this.value = this.value.replace(/\s/g, '');">
                             
@@ -278,7 +278,7 @@
     }
 
     function hideAllSections() {
-        for (var i = 1; i <= 4; i++) { // Actualiza el rango según el número de secciones
+        for (var i = 1; i <= 5; i++) { // Actualiza el rango según el número de secciones
             var sectionId = 'section' + i;
             document.getElementById(sectionId).classList.remove('show', 'active');
         }
@@ -331,7 +331,7 @@
 
                    
              
-             <!-- Modal de Edición con Pestañas -->
+        <!-- Modal de Edición con Pestañas -->
 <div class="modal fade bd-example-modal-lg" id="personas-edit-{{$personas['COD_PERSONA']}}" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -343,23 +343,22 @@
             <div class="modal-body" style="background-color: #fff; padding: 20px;">
 
                 <!-- Pestañas de Secciones -->
-                <ul class="nav nav-tabs" id="editSeccionesTabs">
+                <ul class="nav nav-tabs" id="editSeccionesTabs{{$personas['COD_PERSONA']}}">
                     <li class="nav-item">
-                        <a class="nav-link active" id="editTabPersona" data-toggle="tab" href="#editSectionPersona">Información Persona</a>
+                        <a class="nav-link active" id="editTabPersona{{$personas['COD_PERSONA']}}" data-toggle="tab" href="#editSectionPersona{{$personas['COD_PERSONA']}}">Información Persona</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="tabTelefonos" data-toggle="tab" href="#editSectiontelefono">Teléfono</a>
+                        <a class="nav-link" id="editTabTelefonos{{$personas['COD_PERSONA']}}" data-toggle="tab" href="#editSectiontelefono{{$personas['COD_PERSONA']}}">Teléfono</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="tabCorreo" data-toggle="tab" href="#editSectioncorreos">Correo eléctronico</a>
+                        <a class="nav-link" id="editTabCorreo{{$personas['COD_PERSONA']}}" data-toggle="tab" href="#editSectioncorreos{{$personas['COD_PERSONA']}}">Correo electrónico</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="tabDirecciones" data-toggle="tab" href="#editSectiondirecciones">Dirección</a>
+                        <a class="nav-link" id="editTabDirecciones{{$personas['COD_PERSONA']}}" data-toggle="tab" href="#editSectiondirecciones{{$personas['COD_PERSONA']}}">Dirección</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="tabContacto" data-toggle="tab" href="#editSectioncontacto">Contacto emergencia</a>
+                        <a class="nav-link" id="editTabContacto{{$personas['COD_PERSONA']}}" data-toggle="tab" href="#editSectioncontacto{{$personas['COD_PERSONA']}}">Contacto emergencia</a>
                     </li>
-
                 </ul>
 
                 <form action="{{url('personas/actualizar')}}" method="post">
@@ -369,121 +368,68 @@
                     <!-- Contenido de las Secciones -->
                     <div class="tab-content">
                         <!-- Sección 1: Información de Persona -->
-                        <div id="editSectionPersona" class="tab-pane fade show active">
-                            <!-- Campos de la primera sección -->
+                        <div id="editSectionPersona{{$personas['COD_PERSONA']}}" class="tab-pane fade show active">
+                            <!-- Campos de la sección -->
                             <!-- ... -->
-                            <div class="mb-3 mt-3">
-                                <label for="NOMBRE" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" value="{{$personas['NOMBRE']}}" maxlength="40" 
-                                title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
-                            </div>
-                                        
-                        <div class="mb-3 mt-3">
-                            <label for="APELLIDO" class="form-label">Apellido:</label>
-                            <input type="text" class="form-control" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" value="{{$personas['APELLIDO']}}" maxlength="40"
-                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
-                        </div>
-                                        
-                        <div class="mb-3">
-                            <label for="IDENTIDAD" class="form-label">Número Identidad:</label>
-                            <input type="text" class="form-control" id="IDENTIDAD" name="IDENTIDAD" placeholder="_-_-___" value="{{$personas['IDENTIDAD']}}" maxlength="15" title="Solo se permiten números" oninput="formatIdentidad(this)" required>
-                        </div>
-
-                        <div class="mb-3">
-                        <label for="personas" class="form-label">Tipo Persona:</label>
-                        <select class="form-control same-width" id="TIPO_PERSONA" name="TIPO_PERSONA">
-                            <option value="Estudiante" {{ $personas['TIPO_PERSONA'] === 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
-                            <option value="Docente" {{ $personas['TIPO_PERSONA'] === 'Docente' ? 'selected' : '' }}>Docente</option>
-                            <option value="Padre o tutor" {{ $personas['TIPO_PERSONA'] === 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
-                            <option value="Personal Administrativo" {{ $personas['TIPO_PERSONA'] === 'Personal Administrativo' ? 'selected' : '' }}>Personal Administrativo</option>
-                        </select>
-                        </div>
-
-                        <div class="mb-3">
-                        <label for="personas" class="form-label">Género:</label>
-                        <select class="form-control same-width" id="GENERO" name="GENERO">
-                            <option value="M" {{ $personas['TIPO_PERSONA'] === 'M' ? 'selected' : '' }}>Masculino</option>
-                            <option value="F" {{ $personas['TIPO_PERSONA'] === 'F' ? 'selected' : '' }}>Femenino</option>
-                        </select>
-                        </div>
-                        <div class="mb-3">
-                        <label for="personas" class="form-label">Fecha Nacimiento:</label>
-                        <?php
-                            // Formatear la fecha de nacimiento
-                            $fecha_nacimiento_formateada = date('Y-m-d', strtotime($personas['FECHA_NACIMIENTO']));
-
-                            // Calcular la fecha máxima permitida (5 años antes de la fecha actual)
-                            $fecha_maxima = date('Y-m-d', strtotime('-5 years'));
-
-                            echo '<input type="date" class="form-control" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="' . $fecha_nacimiento_formateada . '" max="' . $fecha_maxima . '">';
-                        ?>
-                        </div>
-
-                           
-
                         </div>
                         <!-- Fin Sección 1 -->
 
-                        <!-- Sección 2: telefono -->
-                            <div id="editSectiontelefono" class="tab-pane fade show active">
-                                                        <!-- Campos de la sección -->
-                 
-
-                          
-                       
-
+                        <!-- Sección 2: Teléfono -->
+                        <div id="editSectiontelefono{{$personas['COD_PERSONA']}}" class="tab-pane fade">
+                            <!-- Campos de la sección -->
+                            <h5 class="modal-title">Actualiza la información de teléfono</h5>
+                            <!-- ... -->
                         </div>
                         <!-- Fin Sección 2 -->
-                        
-                         <!-- Sección 3: correo electronico -->
-                         <div id="editSectioncorreos" class="tab-pane fade show active">
-                                                        <!-- Campos de la sección -->
-                 
 
-                          
-                       
-
+                        <!-- Sección 3: Correo electrónico -->
+                        <div id="editSectioncorreos{{$personas['COD_PERSONA']}}" class="tab-pane fade">
+                            <!-- Campos de la sección -->
+                            <h5 class="modal-title">Actualiza la información de correo electrónico</h5>
+                            <!-- ... -->
                         </div>
                         <!-- Fin Sección 3 -->
 
-                          <!-- Sección 4: direcciones -->
-                          <div id="editSectiondirecciones" class="tab-pane fade show active">
-                                                        <!-- Campos de la sección -->
-                 
-
-                          
-                       
-
+                        <!-- Sección 4: Direcciones -->
+                        <div id="editSectiondirecciones{{$personas['COD_PERSONA']}}" class="tab-pane fade">
+                            <!-- Campos de la sección -->
+                            <h5 class="modal-title">Actualiza la información de dirección</h5>
+                            <!-- ... -->
                         </div>
                         <!-- Fin Sección 4 -->
-                       
-                           <!-- Sección 5: contactos -->
-                           <div id="editSectiondirecciones" class="tab-pane fade show active">
-                                                        <!-- Campos de la sección -->
-                 
 
-                          
-                       
-
+                        <!-- Sección 5: Contacto -->
+                        <div id="editSectioncontacto{{$personas['COD_PERSONA']}}" class="tab-pane fade">
+                            <!-- Campos de la sección -->
+                            <h5 class="modal-title">Actualiza la información de contacto de emergencia</h5>
+                            <!-- ... -->
                         </div>
                         <!-- Fin Sección 5 -->
-                      
-
                     </div>
                     <!-- Fin Contenido de las Secciones -->
-           
-               
-            </div>
-            <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Añadir</button>
 
-             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('[id^="editSeccionesTabs"]').each(function () {
+            var tabId = $(this).attr('id');
+            $('#' + tabId + ' a').on('click', function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    });
+</script>
+
 <!-- Fin Modal de Edición con Pestañas -->
 
        <!-- modal ver -->
