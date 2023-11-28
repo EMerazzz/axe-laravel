@@ -45,7 +45,13 @@
 
 <style>
     .btn-custom {
-        margin-top: -70px; /* Ajusta el valor según tus necesidades */
+        margin-top: 0px; /* Ajusta el valor según tus necesidades */
+    }
+</style>
+
+<style>
+    .table-responsive {
+        margin-top: 5px; /* Ajusta el valor según tus necesidades */
     }
 </style>
 @if (session('message'))
