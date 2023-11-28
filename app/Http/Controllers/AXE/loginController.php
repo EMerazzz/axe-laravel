@@ -110,12 +110,12 @@ class loginController extends Controller
             ]);
             
             $variableExiste = json_decode($variableLogin, true);
-
             if (count($variableExiste) > 0) {
-                $variablePreguntas = Http::post('http://82.180.162.18:4000/pregunta_usuario/JOSUE', [
+                $variablePreguntas = Http::post('http://82.180.162.18:4000/preguntas_usuario/', [
                     "USUARIO" => $request->input("USUARIO"),
                 ]);
-        
+
+
                 $variable = $request->input("USUARIO");
                 $preguntasUsuario = json_decode($variablePreguntas, true);
         
