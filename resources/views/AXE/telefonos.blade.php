@@ -17,11 +17,12 @@
 @stop
  
 @section('content')
+<!-- Cambiar Modo
 <div class="d-flex justify-content-end align-items-center">
     <button id="mode-toggle" class="btn btn-info ms-2" style="margin-top: 10px; margin-bottom: -60px;">
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
-</div>
+</div>--->
 <div class="d-flex justify-content-center align-items-center mt-3">
 <button id="export-pdf" class="btn btn-danger ms-2">
     <i class="far fa-file-pdf"></i> Exportar a PDF
@@ -66,7 +67,8 @@
 
 
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>
+<!-- Nuevo 
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>--->
 <div class="spacer"></div>
 <div class="modal fade bd-example-modal-sm" id="personas" tabindex="-1">
     <div class="modal-dialog">
