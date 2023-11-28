@@ -28,7 +28,8 @@ class objetosController extends Controller
         $objetosArreglo = json_decode($objetos, true);
         return view('AXE.objetos', compact('objetosArreglo'));
     }
-
+    
+    //funcion 
     public function nuevo_objetos(Request $request ){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
@@ -52,21 +53,22 @@ class objetosController extends Controller
             ]);
         }
     }
+   
+    //modificar put
+    public function modificar_objetos(Request $request)
+{
+    $cookieEncriptada = request()->cookie('token');
+    $token = decrypt($cookieEncriptada);
 
-    public function modificar_objeto(Request $request ){
-        $cookieEncriptada = request()->cookie('token');
-        $token = decrypt($cookieEncriptada);
-        $modificar_objetos = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ])->put($this->apiUrl.'/'.$request->input("COD_OBJETO"),[
-        "COD_OBJETO"=> $request->input("COD_OBJETO"),
+    $modificar_objetos = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->put($this->apiUrl.'/'.$request->input("COD_OBJETO"), [
         "OBJETO" => $request->input("OBJETO"),
         "DESCRIPCION" => $request->input("DESCRIPCION"),
         "TIPO_OBJETO" => $request->input("TIPO_OBJETO"),
-        ]);
-       //print_r([$putformatos]);die();
-
-       if ($modificar_objetos->successful()) {
+    ]);
+    
+    if ($modificar_objetos->successful()) {
         return redirect('/objetos')->with('message', [
             'type' => 'success',
             'text' => 'Modificado exitosamente.'
@@ -74,8 +76,44 @@ class objetosController extends Controller
     } else {
         return redirect('/objetos')->with('message', [
             'type' => 'error',
-            'text' => 'No se pudo modificar .'
+            'text' => 'No se pudo modificar.'
         ]);
     }
+}
+
+//Delete
+public function delete_objetos(Request $request)
+{
+    try {
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+
+        $delete_objetos = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put('http://82.180.162.18:4000/del_objetos/'.$request->input("COD_OBJETO"));
+
+        // Verificar si la solicitud fue exitosa
+        if ($delete_objetos->successful()) {
+            return redirect('/objetos')->with('message', [
+                'type' => 'success',
+                'text' => 'Objeto eliminado correctamente.'
+            ]);
+        } else {
+            // Manejar casos de error
+            $statusCode = $delete_objetos->status();
+            return redirect('/objetos')->with('message', [
+                'type' => 'error',
+                'text' => "No se puede desactivar el objeto. Código de estado: $statusCode"
+            ]);
+        }
+    } catch (\Exception $e) {
+        // Manejar excepciones
+        return redirect('/objetos')->with('message', [
+            'type' => 'error',
+            'text' => "Error al intentar eliminar el objeto: " . $e->getMessage()
+        ]);
     }
+}
+
+
 }

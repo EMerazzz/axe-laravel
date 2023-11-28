@@ -74,4 +74,40 @@ class preguntasController extends Controller
         ]);
     }
     }
+
+    public function delete_preguntas(Request $request)
+    {
+        try {
+            $cookieEncriptada = request()->cookie('token');
+            $token = decrypt($cookieEncriptada);
+    
+            $delete_preguntas = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->put('http://82.180.162.18:4000/del_preguntas/'.$request->input("COD_PREGUNTA"));
+    
+            // Verificar si la solicitud fue exitosa
+            if ($delete_preguntas->successful()) {
+                return redirect('/preguntas')->with('message', [
+                    'type' => 'success',
+                    'text' => 'Pregunta eliminada correctamente.'
+                ]);
+            } else {
+                // Manejar casos de error
+                $statusCode = $delete_preguntas->status();
+                return redirect('/preguntas')->with('message', [
+                    'type' => 'error',
+                    'text' => "No se pudo eliminar. Código de estado: $statusCode"
+                ]);
+            }
+        } catch (\Exception $e) {
+            // Manejar excepciones
+            return redirect('/preguntas')->with('message', [
+                'type' => 'error',
+                'text' => "Error al intentar desactivar la pregunta: " . $e->getMessage()
+            ]);
+        }
+    }
+    
+
+
 }

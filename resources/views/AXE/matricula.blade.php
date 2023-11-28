@@ -17,11 +17,12 @@
 @stop
 
 @section('content')
+<!-- Cambiar Modo
 <div class="d-flex justify-content-end align-items-center">
     <button id="mode-toggle" class="btn btn-info ms-2">
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
-</div>
+</div>--->
 
 <!-- Agregar botones de Exportar 
 <div class="d-flex justify-content-end align-items-center mt-3">

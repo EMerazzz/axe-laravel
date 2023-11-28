@@ -9,5 +9,6 @@ Route::get('',[rolesController::class,'roles']);
 //de aqui 
 Route::post('/insertar',[rolesController::class,'nuevo_rol']);
 Route::post('/actualizar',[rolesController::class,'modificar_rol']);
+Route::post('/delete',[rolesController::class,'delete_rol']);
 //hasta aqui
 });

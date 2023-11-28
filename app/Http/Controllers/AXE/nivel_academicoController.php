@@ -98,7 +98,7 @@ class nivel_academicoController extends Controller
         $statusCode = $delete_nivel_academico->status();
         return redirect('/nivel_academico')->with('message', [
             'type' => 'error',
-            'text' => "No se puede desactivar el teléfono. Código de estado: $statusCode"
+            'text' => "No se puede desactivar Código de estado: $statusCode"
         ]);
     }
 }

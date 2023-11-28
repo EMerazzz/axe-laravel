@@ -18,11 +18,12 @@
 @stop
 
 @section('content')
+<!-- Cambiar Modo
 <div class="d-flex justify-content-end align-items-center">
     <button id="mode-toggle" class="btn btn-info ms-2 btn-with-margin">
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
-</div>
+</div>--->
 
 <div class="d-inline-block align-items-center mt-2">
     <!-- Grupo de PDF -->

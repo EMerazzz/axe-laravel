@@ -15,11 +15,12 @@
 @stop
 
 @section('content')
+<!-- Cambiar Modo
 <div class="d-flex justify-content-end align-items-center">
     <button id="mode-toggle" class="btn btn-info ms-2">
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
-</div>
+</div>--->
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -63,12 +64,9 @@
                     <form action="{{ url('roles/insertar') }}" method="post">
                         @csrf
                         <div class="mb-3 mt-3">
-                        <label for="roles" class="form-label">Roles</label>
-                        <select class="form-select" id="DESCRIPCION" name="DESCRIPCION">
-                        <option value="ADMINISTRADOR" selected>ADMINISTRADOR</option>
-                        <option value="USUARIO"selected>USUARIO</option>
-                        </select>
-                        </div>
+                        <label for="DESCRIPCION" class="form-label">Modificado:</label>
+                        <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION">
+                         </div>
                         
                         <div class="mb-3 mt-3">
                         <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
@@ -109,8 +107,13 @@
                         <td>{{ $roles['MODIFICADO_POR'] }}</td>
                         <td>
                             <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#roles-edit-{{ $roles['COD_ROL'] }}">
-                                <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
+                                <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar   
                             </button>
+
+                            <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
+                            data-target="#roles-delete-{{$roles['COD_ROL']}}">
+                           <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
+                           </button>
                         </td>
                     </tr>
                 @endforeach
@@ -130,13 +133,12 @@
                         <form action="{{ url('roles/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ROL" value="{{ $roles['COD_ROL'] }}">
+
                             <div class="mb-3 mt-3">
-                            <label for="roles" class="form-label">Roles</label>
-                                    <select class="form-select" id="DESCRIPCION" name="DESCRIPCION">
-                                    <option value="ADMINISTRADOR" {{ $roles['DESCRIPCION'] === 'ADMINISTRADOR' ? 'selected' : '' }}>ADMINISTRADOR</option>
-                                    <option value="USUARIO" {{ $roles['DESCRIPCION'] === 'USUARIO' ? 'selected' : '' }}>USUARIO</option>
-                                    </select>
+                            <label for="DESCRIPCION" class="form-label">Modificado:</label>
+                            <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" value="{{ $roles['DESCRIPCION'] }}">
                             </div>
+
 
                             <div class="mb-3 mt-3">
                             <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
@@ -151,6 +153,31 @@
                 </div>
             </div>
         </div>
+
+
+<!-- empieza modal eliminar -->
+<div class="modal fade bd-example-modal-sm" id="roles-delete-{{ $roles['COD_ROL'] }}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Atención</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="background-color: #fff; padding: 20px;">
+                <h5 class="modal-title">Desea eliminar este registro</h5>
+            </div>
+            <div class="modal-footer">
+                <form action="{{ url('roles/delete') }}" method="post">
+                    @csrf
+                    <input type="hidden" class="form-control" name="COD_ROL" value="{{ $roles['COD_ROL'] }}">
+                    <button type="submit" class="btn btn-danger">Sí</button>
+                </form>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     @endforeach
 @stop
 

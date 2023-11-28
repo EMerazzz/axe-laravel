@@ -9,6 +9,7 @@ route::middleware(['checkToken'])->group(function () {
     Route::get('',[objetosController::class,'objetos']);
     //de aqui 
     Route::post('/insertar',[objetosController::class,'nuevo_objetos']);
-    Route::post('/actualizar',[objetosController::class,'modificar_objeto']);
+    Route::post('/actualizar',[objetosController::class,'modificar_objetos']);
+    Route::post('/delete',[objetosController::class,'delete_objetos']);
     //hasta aqui
 });
