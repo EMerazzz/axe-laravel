@@ -17,11 +17,12 @@
 @stop
 
 @section('content')
+<!-- Cambiar Modo
 <div class="d-flex justify-content-end align-items-center">
     <button id="mode-toggle" class="btn btn-info ms-2">
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
-</div>
+</div>--->
 
 <!-- Agregar botones de Exportar 
 <div class="d-flex justify-content-end align-items-center mt-3">
@@ -44,7 +45,13 @@
 
 <style>
     .btn-custom {
-        margin-top: -70px; /* Ajusta el valor según tus necesidades */
+        margin-top: 0px; /* Ajusta el valor según tus necesidades */
+    }
+</style>
+
+<style>
+    .table-responsive {
+        margin-top: 5px; /* Ajusta el valor según tus necesidades */
     }
 </style>
 @if (session('message'))

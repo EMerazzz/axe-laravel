@@ -79,4 +79,39 @@ class rolesController extends Controller
             ]);
         }
     }
+
+    //Delete
+public function delete_rol(Request $request)
+{
+    try {
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
+
+        $delete_rol = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put('http://82.180.162.18:4000/del_roles/'.$request->input("COD_ROL"));
+
+        // Verificar si la solicitud fue exitosa
+        if ($delete_rol->successful()) {
+            return redirect('/roles')->with('message', [
+                'type' => 'success',
+                'text' => 'Rol eliminado correctamente.'
+            ]);
+        } else {
+            // Manejar casos de error
+            $statusCode = $delete_rol->status();
+            return redirect('/roles')->with('message', [
+                'type' => 'error',
+                'text' => "No se puede desactivar el Rol. Código de estado: $statusCode"
+            ]);
+        }
+    } catch (\Exception $e) {
+        // Manejar excepciones
+        return redirect('/roles')->with('message', [
+            'type' => 'error',
+            'text' => "Error al intentar eliminar : " . $e->getMessage()
+        ]);
+    }
+}
+
 }

@@ -90,27 +90,46 @@ class docentesAsignaturaController extends Controller
             ]);
         }
     }
+  
+    
     public function delete_docentesAsignatura(Request $request)
 {
-    $cookieEncriptada = request()->cookie('token');
-    $token = decrypt($cookieEncriptada);
+    try {
+        // Obtener y desencriptar el token
+        $cookieEncriptada = request()->cookie('token');
+        $token = decrypt($cookieEncriptada);
 
-    $delete_docentesAsignatura = Http::withHeaders([
-        'Authorization' => 'Bearer ' . $token,
-    ])->put('http://82.180.162.18:4000/del_docentes_asignaturas/'.$request->input("COD_NIVEL_ACADEMICO"));
+        // Realizar la solicitud HTTP para eliminar el docente asignatura
+        $delete_docentesAsignatura = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put('http://82.180.162.18:4000/del_docentesAsignatura/'.$request->input("COD_DOCENTE_ASIGNATURA"));
 
-    if ($delete_docentesAsignatura->successful()) {
-        return redirect('/docentes_asignaturas')->with('message', [
-            'type' => 'success',
-            'text' => 'Docente Eliminado.'
-        ]);
-    } else {
-        // Manejar casos de error
-        $statusCode = $delete_docentesAsignatura->status();
-        return redirect('/docentes_asignaturas')->with('message', [
+        // Verificar si la solicitud fue exitosa
+        if ($delete_docentesAsignatura->successful()) {
+            // Redirigir con un mensaje de éxito
+            return redirect('/docentesAsignatura')->with('message', [
+                'type' => 'success',
+                'text' => 'Eliminado correctamente.'
+            ]);
+        } else {
+            // Si la solicitud no fue exitosa, manejar casos de error
+            $statusCode = $delete_docentesAsignatura->status(); // Obtener el código de estado
+
+            // Redirigir con un mensaje de error detallado
+            return redirect('/docentesAsignatura')->with('message', [
+                'type' => 'error',
+                'text' => "No se puede desactivar el objeto. Código de estado: $statusCode"
+            ]);
+        }
+    } catch (\Exception $e) {
+        // Capturar y manejar excepciones
+        return redirect('/docentesAsignatura')->with('message', [
             'type' => 'error',
-            'text' => "No se puede desactivar el teléfono. Código de estado: $statusCode"
+            'text' => "Error al intentar eliminar el objeto: " . $e->getMessage()
         ]);
     }
 }
+
+        
+
 }

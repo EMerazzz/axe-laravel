@@ -16,11 +16,12 @@
 @stop
 
 @section('content')
+<!-- Cambiar Modo
 <div class="d-flex justify-content-end align-items-center">
     <button id="mode-toggle" class="btn btn-info ms-2">
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
-</div>
+</div>--->
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -29,7 +30,13 @@
 
 <style>
     .btn-custom {
-        margin-top: -70px; /* Ajusta el valor según tus necesidades */
+        margin-top: 0px; /* Ajusta el valor según tus necesidades */
+    }
+</style>
+
+<style>
+    .table-responsive {
+        margin-top: 5px; /* Ajusta el valor según tus necesidades */
     }
 </style>
 
@@ -101,6 +108,10 @@
                             <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#preguntas-edit-{{ $preguntas['COD_PREGUNTA'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
+
+                            <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
+                            data-target="#preguntas-delete-{{$preguntas['COD_PREGUNTA']}}">
+                           <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
                         </td>
                     </tr>
                 @endforeach
@@ -132,6 +143,33 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- empieza modal eliminar -->
+<div class="modal fade bd-example-modal-sm" id="preguntas-delete-{{$preguntas['COD_PREGUNTA']}}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Atención</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="background-color: #fff; padding: 20px;">
+                    <h5 class="modal-title">Desea eliminar este registro</h5>
+                  </div>
+                  
+    <div class="modal-footer">
+      <form action="{{ url('preguntas/delete') }}" method="post">
+                        @csrf
+      <input type="hidden" class="form-control" name="COD_PREGUNTA" value="{{ $preguntas['COD_PREGUNTA'] }}">
+              <button  class="btn btn-danger">Si</button>
+          </form>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
     @endforeach
     
 @stop

@@ -17,27 +17,32 @@
 @stop
 
 @section('content')
+<!-- Cambiar Modo
 <div class="d-flex justify-content-end align-items-center">
     <button id="mode-toggle" class="btn btn-info ms-2 btn-with-margin">
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
+</div>--->
+
+<div class="d-inline-block align-items-center mt-2">
+    <!-- Grupo de PDF -->
+    <label for="start-date">Inicio:</label>
+    <input type="date" id="start-date" class="me-1">
+    <label for="end-date">Fin:</label>
+    <input type="date" id="end-date" class="me-1">
+    <button id="apply-filter" class="btn btn-danger me-1">
+        <i class="far fa-file-pdf"></i> Descargar PDF
+    </button>
 </div>
 
-<div class="d-flex justify-content-end align-items-center mt-3" style="margin-bottom: 20px;">
+<div class="d-inline-block align-items-center mt-2">
+    <!-- Grupo de Excel -->
     <button id="export-excel" class="btn btn-success ms-2" onclick="exportToExcel()">
         <i class="far fa-file-excel"></i> Exportar a Excel
     </button>
 </div>
-<div class="d-flex align-items-center mb-3">
-    <label for="start-date" class="me-2">Fecha Inicio:</label>
-    <input type="date" id="start-date" class="form-control">
-    <label for="end-date" class="mx-2">Fecha Fin:</label>
-    <input type="date" id="end-date" class="form-control">
-    <button id="apply-filter" class="btn btn-danger mx-2">
-    
-    <i class="far fa-file-pdf"></i> Descargar PDF
-    </button>
-</div>
+
+
 <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         <thead>
@@ -45,9 +50,9 @@
                 <th>#</th>
                 <th>Nombre Tabla</th>
                 <th>Módulo Tabla</th>
+                <th>Fecha Modificación</th>
                 <th>Tipo Evento</th>
                 <th>Fecha Registro</th>
-                <th>Fecha Modificación</th>
                 <th>Código Tabla</th>
                 <th>Primera FK</th>
                 <th>Segunda FK</th>
@@ -80,9 +85,9 @@
                 <td>{{ $bitacora['COD_BITACORA'] }}</td>
                 <td>{{ $bitacora['NOMBRE_TABLA'] }}</td>
                 <td>{{ $bitacora['MODULO_TABLA'] }}</td>
+                <td>{{ date('d, M Y', strtotime($bitacora['FECHA_MODIFICACION'])) }}</td>
                 <td>{{ $bitacora['TIPO_EVENTO'] }}</td>
                 <td>{{ date('Y-m-d', strtotime($bitacora['FECHA_REGISTRO'])) }}</td>
-                <td>{{ date('d, M Y', strtotime($bitacora['FECHA_MODIFICACION'])) }}</td>
                 <td>{{ $bitacora['COD_REGISTRO_TABLA'] }}</td>
                 <td>{{ $bitacora['PRIMERA_FK'] }}</td>
                 <td>{{ $bitacora['SEGUNDA_FK'] }}</td>
@@ -248,7 +253,8 @@ $(document).ready(function() {
     return filteredData;
 }
 
-    function generarPDF(filteredData) {
+    
+function generarPDF(filteredData) {
         const tableData = [];
         const headerData = [];
 
@@ -268,19 +274,19 @@ $(document).ready(function() {
         });
 
         const documentDefinition = {
-            pageSize: 'A0', // Tamaño de página
-    pageOrientation: 'landscape',
+            pageSize: 'legal', // Tamaño de página
+            pageOrientation: 'landscape',
     content: [
         {
-            text: 'REPORTES DE BITACORA',
+            text: 'Reporte Personas en pdf ',
             fontSize: 16,
             bold: true,
             alignment: 'center',
-            margin: [0, 0, 0, 10]
+            margin: [-10, 0, 0, 10]
         },
         {
             table: {
-                image: 'public/4e9c-a66d-c243a9eb7b33-removebg-preview.png', // Ruta relativa a la imagen en "public"
+              
                 headerRows: 1,
                 widths: '*',
                 body: [
@@ -296,7 +302,7 @@ $(document).ready(function() {
 };
 
 
-        pdfMake.createPdf(documentDefinition).download('reporte.pdf');
+        pdfMake.createPdf(documentDefinition).download('ReporteExcel.pdf');
     }
 });
 

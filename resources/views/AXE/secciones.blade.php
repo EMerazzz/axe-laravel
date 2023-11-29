@@ -19,11 +19,12 @@
 
 
 @section('content')
+<!-- Cambiar Modo
 <div class="d-flex justify-content-end align-items-center">
     <button id="mode-toggle" class="btn btn-info ms-2">
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
-</div>
+</div>--->
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -32,7 +33,13 @@
 
 <style>
     .btn-custom {
-        margin-top: -70px; /* Ajusta el valor según tus necesidades */
+        margin-top: 0px; /* Ajusta el valor según tus necesidades */
+    }
+</style>
+
+<style>
+    .table-responsive {
+        margin-top: 5px; /* Ajusta el valor según tus necesidades */
     }
 </style>
 

@@ -24,12 +24,12 @@
    
 
 @section('content')
-<!-- boton de cambiar modo -->
+<!-- boton de cambiar modo 
 <div class="d-flex justify-content-end align-items-center">
     <button id="mode-toggle" class="btn btn-info ms-2">
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
-</div>
+</div>-->
 
 <!-- <div class="d-flex justify-content-end align-items-center mt-3">
     <button id="export-pdf" class="btn btn-danger ms-2"onclick="generarPDF()">
@@ -49,10 +49,15 @@
 
 <style>
     .btn-custom {
-        margin-top: -70px; /* Ajusta el valor según tus necesidades */
+        margin-top: 0px; /* Ajusta el valor según tus necesidades */
+
     }
 </style>
-
+<style>
+    .table-responsive {
+        margin-top: 5px; /* Ajusta el valor según tus necesidades */
+    }
+</style>
 @if (session('message'))
 <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -160,7 +165,7 @@
                             @endphp
                             <input type="date" class="form-control same-width" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fechaNacimiento }}" max="{{ $fechaMaxima }}">
                         </div>
-                </div>
+                 </div>
                      </div>
 
                        <!-- Sección 2: Teléfonos -->
@@ -227,7 +232,7 @@
                    </div>
                    <!-- Sección 4: correos -->
                    <div id="sectionCorreo" class="tab-pane fade">
-                   <div class="mb-3 mt-3">
+                         <div class="mb-3 mt-3">
                             <label for="correos" class="form-label">Correo Electrónico</label>
                             <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" required maxlength="45" oninput="this.value = this.value.replace(/\s/g, '');">
                             
@@ -273,7 +278,7 @@
     }
 
     function hideAllSections() {
-        for (var i = 1; i <= 4; i++) { // Actualiza el rango según el número de secciones
+        for (var i = 1; i <= 5; i++) { // Actualiza el rango según el número de secciones
             var sectionId = 'section' + i;
             document.getElementById(sectionId).classList.remove('show', 'active');
         }
@@ -323,82 +328,110 @@
                            <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> 
                    </button>
                 </div>
-                
-               <!--Editar -->
-                <div class="modal fade bd-example-modal-sm" id="personas-edit-{{$personas['COD_PERSONA']}}" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Actualiza la persona seleccionada</h5>
-                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            
-                            <div class="modal-footer">
-                                <div class="d-grid gap-2 col-6 mx-auto">
-                                    <form action="{{url('personas/actualizar')}}" method="post">
-                                        @csrf
-                                        <input type="hidden" class="form-control" name="COD_PERSONA" value="{{$personas['COD_PERSONA']}}">
-                                       
-    <div class="mb-3 mt-3">
-        <label for="NOMBRE" class="form-label">Nombre:</label>
-        <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" value="{{$personas['NOMBRE']}}" maxlength="40" 
-        title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+
+                   
+             
+        <!-- Modal de Edición con Pestañas -->
+<div class="modal fade bd-example-modal-lg" id="personas-edit-{{$personas['COD_PERSONA']}}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Actualiza la persona seleccionada</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body" style="background-color: #fff; padding: 20px;">
+
+                <!-- Pestañas de Secciones -->
+                <ul class="nav nav-tabs" id="editSeccionesTabs{{$personas['COD_PERSONA']}}">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="editTabPersona{{$personas['COD_PERSONA']}}" data-toggle="tab" href="#editSectionPersona{{$personas['COD_PERSONA']}}">Información Persona</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="editTabTelefonos{{$personas['COD_PERSONA']}}" data-toggle="tab" href="#editSectiontelefono{{$personas['COD_PERSONA']}}">Teléfono</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="editTabCorreo{{$personas['COD_PERSONA']}}" data-toggle="tab" href="#editSectioncorreos{{$personas['COD_PERSONA']}}">Correo electrónico</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="editTabDirecciones{{$personas['COD_PERSONA']}}" data-toggle="tab" href="#editSectiondirecciones{{$personas['COD_PERSONA']}}">Dirección</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="editTabContacto{{$personas['COD_PERSONA']}}" data-toggle="tab" href="#editSectioncontacto{{$personas['COD_PERSONA']}}">Contacto emergencia</a>
+                    </li>
+                </ul>
+
+                <form action="{{url('personas/actualizar')}}" method="post">
+                    @csrf
+                    <input type="hidden" class="form-control" name="COD_PERSONA" value="{{$personas['COD_PERSONA']}}">
+
+                    <!-- Contenido de las Secciones -->
+                    <div class="tab-content">
+                        <!-- Sección 1: Información de Persona -->
+                        <div id="editSectionPersona{{$personas['COD_PERSONA']}}" class="tab-pane fade show active">
+                            <!-- Campos de la sección -->
+                            <!-- ... -->
+                        </div>
+                        <!-- Fin Sección 1 -->
+
+                        <!-- Sección 2: Teléfono -->
+                        <div id="editSectiontelefono{{$personas['COD_PERSONA']}}" class="tab-pane fade">
+                            <!-- Campos de la sección -->
+                            <h5 class="modal-title">Actualiza la información de teléfono</h5>
+                            <!-- ... -->
+                        </div>
+                        <!-- Fin Sección 2 -->
+
+                        <!-- Sección 3: Correo electrónico -->
+                        <div id="editSectioncorreos{{$personas['COD_PERSONA']}}" class="tab-pane fade">
+                            <!-- Campos de la sección -->
+                            <h5 class="modal-title">Actualiza la información de correo electrónico</h5>
+                            <!-- ... -->
+                        </div>
+                        <!-- Fin Sección 3 -->
+
+                        <!-- Sección 4: Direcciones -->
+                        <div id="editSectiondirecciones{{$personas['COD_PERSONA']}}" class="tab-pane fade">
+                            <!-- Campos de la sección -->
+                            <h5 class="modal-title">Actualiza la información de dirección</h5>
+                            <!-- ... -->
+                        </div>
+                        <!-- Fin Sección 4 -->
+
+                        <!-- Sección 5: Contacto -->
+                        <div id="editSectioncontacto{{$personas['COD_PERSONA']}}" class="tab-pane fade">
+                            <!-- Campos de la sección -->
+                            <h5 class="modal-title">Actualiza la información de contacto de emergencia</h5>
+                            <!-- ... -->
+                        </div>
+                        <!-- Fin Sección 5 -->
+                    </div>
+                    <!-- Fin Contenido de las Secciones -->
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-                
-<div class="mb-3 mt-3">
-    <label for="APELLIDO" class="form-label">Apellido:</label>
-    <input type="text" class="form-control" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" value="{{$personas['APELLIDO']}}" maxlength="40"
-    title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
-</div>
-                
-<div class="mb-3">
-    <label for="IDENTIDAD" class="form-label">Número Identidad:</label>
-    <input type="text" class="form-control" id="IDENTIDAD" name="IDENTIDAD" placeholder="____-____-_____" value="{{$personas['IDENTIDAD']}}" maxlength="15" title="Solo se permiten números" oninput="formatIdentidad(this)" required>
 </div>
 
-<div class="mb-3">
-  <label for="personas" class="form-label">Tipo Persona:</label>
-  <select class="form-control same-width" id="TIPO_PERSONA" name="TIPO_PERSONA">
-    <option value="Estudiante" {{ $personas['TIPO_PERSONA'] === 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
-    <option value="Docente" {{ $personas['TIPO_PERSONA'] === 'Docente' ? 'selected' : '' }}>Docente</option>
-    <option value="Padre o tutor" {{ $personas['TIPO_PERSONA'] === 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
-    <option value="Personal Administrativo" {{ $personas['TIPO_PERSONA'] === 'Personal Administrativo' ? 'selected' : '' }}>Personal Administrativo</option>
-  </select>
-</div>
+<script>
+    $(document).ready(function () {
+        $('[id^="editSeccionesTabs"]').each(function () {
+            var tabId = $(this).attr('id');
+            $('#' + tabId + ' a').on('click', function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    });
+</script>
 
-<div class="mb-3">
-  <label for="personas" class="form-label">Género:</label>
-  <select class="form-control same-width" id="GENERO" name="GENERO">
-    <option value="M" {{ $personas['TIPO_PERSONA'] === 'M' ? 'selected' : '' }}>Masculino</option>
-    <option value="F" {{ $personas['TIPO_PERSONA'] === 'F' ? 'selected' : '' }}>Femenino</option>
-  </select>
-</div>
-<div class="mb-3">
-  <label for="personas" class="form-label">Fecha Nacimiento:</label>
-  <?php
-    // Formatear la fecha de nacimiento
-    $fecha_nacimiento_formateada = date('Y-m-d', strtotime($personas['FECHA_NACIMIENTO']));
+<!-- Fin Modal de Edición con Pestañas -->
 
-    // Calcular la fecha máxima permitida (5 años antes de la fecha actual)
-    $fecha_maxima = date('Y-m-d', strtotime('-5 years'));
-
-    echo '<input type="date" class="form-control" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="' . $fecha_nacimiento_formateada . '" max="' . $fecha_maxima . '">';
-  ?>
-</div>
-
-
-                                        <!-- ... otros campos del formulario ... -->
-                                        <button type="submit" class="btn btn-primary">Editar</button>
-                                       
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">cancelar</button>
-          </form>
-          </div><!-- DIV PARA CENTRAR FORMULARIO--->
-       
-      </div>
-    </div>
-  </div>
-</div>
-<!-- fin modal Editar-->
        <!-- modal ver -->
 
 <!-- Modal para mostrar detalles de la persona -->

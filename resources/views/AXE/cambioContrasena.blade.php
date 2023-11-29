@@ -47,55 +47,63 @@
 </head>
 <body>
     <div class="main">
-        <div class="container">
+    <div class="container">
             <center>
-                <div class="middle">
-                    <div id="login">
+                <div>
+                    <div login>
+
+                        <!-- Empieza formulario  -->
                         <form action="{{ url('login') }}" method="post">
                             @csrf
                             <fieldset class="clearfix">
-                            <h3 class="login-heading" style="color: white;">Restablecer contraseña</h3> 
-
-                            <p style="color: white; " ><em>{{$variable}}</em></p>
-
-                            
-                            <div class="form-group">
+                                <h3 class="login-heading" style="color: white;">Restablecer contraseña</h3>
+                                <div class="logo" style="margin-bottom: -15px; margin-top: -30px;">
+                                    <img src="{{ asset('7750e9a1-de96-4e9c-a66d-c243a9eb7b33-removebg-preview.png') }}" style="max-width: 120px;">
+                                    <div class="clearfix"></div>
+                                </div>
+                                <p style="color: white;"><em>{{$variable}}</em></p>
+                        
+                                @php $totalPreguntas = count($preguntasUsuario); @endphp
+                                @foreach($preguntasUsuario as $indice => $pregunta)
+                                <div class="form-group row align-items-center">
+                                    <label for="pregunta{{ $indice + 1 }}Respuesta" class="col-sm-3 col-form-label pl-4" style="color: white;">{{ $pregunta['PREGUNTA'] }}</label>
+                                    <div class="col-sm-9">
+                                        <input 
+                                            type="text" 
+                                            class="form-control pregunta-input" 
+                                            id="pregunta{{ $indice + 1 }}Respuesta" 
+                                            style="height: 40px; border-width: 2px;" 
+                                            oninput="validarRespuesta('{{ $pregunta['RESPUESTA'] }}', '{{ $indice + 1 }}', '{{ $totalPreguntas }}')"
+                                            @if($indice !== 0) disabled @endif
+                                        >
+                                    </div>
+                                </div>
+                                @endforeach
                                 
-                        <label for="pregunta1Respuesta" style="color: white; " >{{ $preguntasUsuario[0]['PREGUNTA'] }}</label>
-                        <input type="text" class="form-control" id="pregunta1Respuesta"style="width: 200px; height: 30px;"  oninput="validarInput(this)" >
-                    </div>    
-                    
-                    <div class="form-group">
-                        <label for="pregunta2Respuesta" style="color: white; ">{{ $preguntasUsuario[1]['PREGUNTA'] }}</label>
-                        <input type="text" class="form-control" id="pregunta2Respuesta" style="width: 200px; height: 30px;" readonly  oninput="validarInput(this)" >
-                    </div>
-                    
-
-                            
-                        <div>
-                            <button type="button" class="open-modal-button btn btn-primary" data-toggle="modal" data-target="#forgotPasswordModal" id="openModalButton" disabled>Recuperar contraseña</button>
-                        </div>
-
-
+                                <div class="form-group">
+                                    <button type="button" class="open-modal-button btn btn-primary" data-toggle="modal" data-target="#forgotPasswordModal" id="openModalButton" disabled>Recuperar contraseña</button>
+                                </div>
+                        
                                 @if(session('errorMessage'))
-                                    <div  class="text-white font-weight-bold">
+                                <div class="text-white font-weight-bold">
                                     <br>
                                     <p>{{ session('errorMessage') }}</p>
-                                    </div>
+                                </div>
                                 @endif
                             </fieldset>
                         </form>
+                                            
+                        
+                        
+                        <!-- Empieza formulario  -->
                     </div>
-                    <div class="logo">
-                        <img src="{{ asset('7750e9a1-de96-4e9c-a66d-c243a9eb7b33-removebg-preview.png') }}" style="max-width: 200px;">
-                        <div class="clearfix"></div>
-                    </div>
+
                 </div>
             </center>
         </div>
     </div>    
 
-   <!-- Modal de Recuperación de Contraseña -->
+
     <!-- Modal de Recuperación de Contraseña -->
     <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
     <div class="modal-dialog">
@@ -124,6 +132,57 @@
             </div>
         </div>
     </div>
+
+
+       <!-- Ojo  -->
+       <script>
+        function validarRespuesta(respuestaCorrecta, indice, totalPreguntas) {
+            var valorIngresado = document.getElementById('pregunta' + indice + 'Respuesta').value;
+            var inputField = document.getElementById('pregunta' + indice + 'Respuesta');
+            var openModalButton = document.getElementById('openModalButton');
+    
+            // Comparar la longitud del valor ingresado con la longitud de la respuesta correcta
+            if (valorIngresado.length === respuestaCorrecta.length && valorIngresado === respuestaCorrecta) {
+                inputField.style.borderColor = 'green';
+                
+                // Deshabilitar el input actual si la respuesta es correcta
+                inputField.disabled = true;
+    
+                // Habilitar el siguiente input si existe
+                if (indice < totalPreguntas) {
+                    var siguienteIndice = parseInt(indice) + 1;
+                    var siguienteInput = document.getElementById('pregunta' + siguienteIndice + 'Respuesta');
+                    siguienteInput.removeAttribute('disabled');
+                    siguienteInput.focus();
+                }
+    
+                // Si es la última pregunta y la respuesta es correcta, habilitar el botón
+                if (indice == totalPreguntas && valorIngresado === respuestaCorrecta) {
+                    openModalButton.removeAttribute('disabled');
+                }
+            } else {
+                inputField.style.borderColor = 'red';
+            }
+        }
+    </script>
+    
+    
+   <!-- Modal de Recuperación de Contraseña -->
+   <script>
+    window.onload = function() {
+        // Seleccionar todos los inputs con la clase "pregunta-input"
+        var inputs = document.querySelectorAll('.pregunta-input');
+        
+        // Deshabilitar todos los inputs excepto el primero (índice 0)
+        for (var i = 1; i < inputs.length; i++) {
+            inputs[i].disabled = true;
+        }
+
+        // Deshabilitar el botón con id "openModalButton"
+        var openModalButton = document.getElementById('openModalButton');
+        openModalButton.disabled = true;
+    };
+</script>
 
     <script>
     const passwordForm = document.getElementById('passwordForm');
@@ -192,6 +251,7 @@
     }
 });
 </script>
+
     <script>
     // Manejar el clic en el enlace "¿Olvidaste tu contraseña?"
     document.getElementById("forgot-password-link").addEventListener("click", function() {
@@ -202,50 +262,7 @@
     document.getElementById("forgot-password-link").style.color = "white"; // Cambia el color a rojo
 </script>
 
-<!-- Agrega tu script -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const RespuestaTexbox1 = document.getElementById("pregunta1Respuesta");
-    const RespuestaTexbox2 = document.getElementById("pregunta2Respuesta");
-    const openModalButton = document.getElementById("openModalButton");
-    const forgotPasswordModal = document.getElementById("forgotPasswordModal");
 
-    const preguntasUsuario = [
-        { RESPUESTA: "{{ $preguntasUsuario[0]['RESPUESTA'] }}" },
-        { RESPUESTA: "{{ $preguntasUsuario[1]['RESPUESTA'] }}" }
-    ];
-
-    const pregunta1Respuesta = document.getElementById("pregunta1Respuesta");
-    const pregunta2Respuesta = document.getElementById("pregunta2Respuesta");
-
-    RespuestaTexbox1.addEventListener("blur", function() {
-        const respuestaIngresada = RespuestaTexbox1.value;
-
-        if (respuestaIngresada === preguntasUsuario[0].RESPUESTA) {
-            pregunta2Respuesta.removeAttribute("readonly");
-            pregunta1Respuesta.setAttribute("readonly", "readonly");
-        } else {
-            pregunta2Respuesta.setAttribute("readonly", "readonly");
-            RespuestaTexbox2.value = "";
-            pregunta1Respuesta.removeAttribute("readonly");
-        }
-    });
-
-    RespuestaTexbox2.addEventListener("blur", function() {
-        const respuestaIngresada = RespuestaTexbox2.value;
-
-        if (respuestaIngresada === preguntasUsuario[1].RESPUESTA) {
-            openModalButton.removeAttribute("disabled");
-            openModalButton.addEventListener("click", function() {
-                forgotPasswordModal.classList.add("show");
-            });
-        } else {
-            openModalButton.setAttribute("disabled", "disabled");
-        }
-    });
-});
-
-</script>
 
 <script>
     // Función para validar el contenido de un campo de entrada

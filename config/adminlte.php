@@ -467,14 +467,6 @@ return [
                     //'icon_color' => 'info',
                     'url'  => 'cambiarContrasena',
                 ],
-
-                [
-                    'text' => 'preguntas usuarios',
-                    'icon' =>"fa fa-user",
-                    //'icon_color' => 'info',
-                    'url'  => 'preguntas_usuarios',
-                ],
-
                 [
                     'text' => 'Preguntas',
                     'icon' =>"fa fa-user",
