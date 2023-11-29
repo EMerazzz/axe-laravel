@@ -119,6 +119,12 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('objetos')
             ->group(base_path('routes/objetos.php'));
+            Route::middleware('web')
+            ->prefix('parametros')
+            ->group(base_path('routes/parametros.php'));
+            Route::middleware('web')
+            ->prefix('roles_objetos')
+            ->group(base_path('routes/roles_objetos.php'));
             //Reportes
             Route::middleware('web')
             ->prefix('Reportebitacora')
