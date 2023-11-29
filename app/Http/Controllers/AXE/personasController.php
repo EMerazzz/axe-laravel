@@ -48,7 +48,7 @@ class PersonasController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $personasArreglo = json_decode($personas, true);
-
+        //dd ($personasArreglo);
         return view('AXE.personas', compact('personasArreglo','telefonosArreglo','correosArreglo','direccionesArreglo','contactosArreglo'));
     }
 

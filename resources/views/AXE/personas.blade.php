@@ -370,39 +370,136 @@
                         <!-- Sección 1: Información de Persona -->
                         <div id="editSectionPersona{{$personas['COD_PERSONA']}}" class="tab-pane fade show active">
                             <!-- Campos de la sección -->
-                            <!-- ... -->
+                            <div class="mb-3 mt-3">
+                                <label for="NOMBRE" class="form-label">Nombre:</label>
+                                <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" value="{{$personas['NOMBRE']}}" maxlength="40" 
+                                title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                            </div>
+                                        
+                        <div class="mb-3 mt-3">
+                            <label for="APELLIDO" class="form-label">Apellido:</label>
+                            <input type="text" class="form-control" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" value="{{$personas['APELLIDO']}}" maxlength="40"
+                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                        </div>
+                                        
+                        <div class="mb-3">
+                            <label for="IDENTIDAD" class="form-label">Número Identidad:</label>
+                            <input type="text" class="form-control" id="IDENTIDAD" name="IDENTIDAD" placeholder="--_" value="{{$personas['IDENTIDAD']}}" maxlength="15" title="Solo se permiten números" oninput="formatIdentidad(this)" required>
+                        </div>
+
+                        <div class="mb-3">
+                        <label for="personas" class="form-label">Tipo Persona:</label>
+                        <select class="form-control same-width" id="TIPO_PERSONA" name="TIPO_PERSONA">
+                            <option value="Estudiante" {{ $personas['TIPO_PERSONA'] === 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
+                            <option value="Docente" {{ $personas['TIPO_PERSONA'] === 'Docente' ? 'selected' : '' }}>Docente</option>
+                            <option value="Padre o tutor" {{ $personas['TIPO_PERSONA'] === 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
+                            <option value="Personal Administrativo" {{ $personas['TIPO_PERSONA'] === 'Personal Administrativo' ? 'selected' : '' }}>Personal Administrativo</option>
+                        </select>
+                        </div>
+
+                        <div class="mb-3">
+                        <label for="personas" class="form-label">Género:</label>
+                        <select class="form-control same-width" id="GENERO" name="GENERO">
+                            <option value="M" {{ $personas['TIPO_PERSONA'] === 'M' ? 'selected' : '' }}>Masculino</option>
+                            <option value="F" {{ $personas['TIPO_PERSONA'] === 'F' ? 'selected' : '' }}>Femenino</option>
+                        </select>
+                        </div>
+                        <div class="mb-3">
+                        <label for="personas" class="form-label">Fecha Nacimiento:</label>
+                        <?php
+                            // Formatear la fecha de nacimiento
+                            $fecha_nacimiento_formateada = date('Y-m-d', strtotime($personas['FECHA_NACIMIENTO']));
+
+                            // Calcular la fecha máxima permitida (5 años antes de la fecha actual)
+                            $fecha_maxima = date('Y-m-d', strtotime('-5 years'));
+
+                            echo '<input type="date" class="form-control" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="' . $fecha_nacimiento_formateada . '" max="' . $fecha_maxima . '">';
+                        ?>
+                        </div>
                         </div>
                         <!-- Fin Sección 1 -->
 
                         <!-- Sección 2: Teléfono -->
                         <div id="editSectiontelefono{{$personas['COD_PERSONA']}}" class="tab-pane fade">
-                            <!-- Campos de la sección -->
-                            <h5 class="modal-title">Actualiza la información de teléfono</h5>
+                          
+                        <div class="mb-3 mt-3">
+                            <label for="TELEFONO" class="form-label">Número Teléfono:</label>
+                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" oninput="formatTelefono(this)" pattern="[0-9]{8}" value="{{$personas['TELEFONO']}}"  required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="TIPO_TELEFONO" class="form-label">Tipo Telefono:</label>
+                            <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
+                                <option value="Fijo" {{ $personas['TIPO_TELEFONO'] === 'Fijo' ? 'selected' : '' }}>Fijo</option>
+                                <option value="Movil" {{ $personas['TIPO_TELEFONO'] === 'Movil' ? 'selected' : '' }}>Movil</option>
+                            </select>
+                        </div>
                             <!-- ... -->
                         </div>
                         <!-- Fin Sección 2 -->
 
                         <!-- Sección 3: Correo electrónico -->
                         <div id="editSectioncorreos{{$personas['COD_PERSONA']}}" class="tab-pane fade">
-                            <!-- Campos de la sección -->
-                            <h5 class="modal-title">Actualiza la información de correo electrónico</h5>
-                            <!-- ... -->
+                        <div class="mb-3 mt-3">
+                            <label for="correos" class="form-label">Correo electrónico</label>
+                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" value="{{ $personas['CORREO_ELECTRONICO'] }}" required maxlength="45"
+                            title="No se permiten espacios" oninput="this.value = this.value.replace( /\s/g, '')" required>
+                        </div>
+        
                         </div>
                         <!-- Fin Sección 3 -->
 
                         <!-- Sección 4: Direcciones -->
                         <div id="editSectiondirecciones{{$personas['COD_PERSONA']}}" class="tab-pane fade">
-                            <!-- Campos de la sección -->
-                            <h5 class="modal-title">Actualiza la información de dirección</h5>
-                            <!-- ... -->
+                        <div class="mb-3 mt-3">
+                            <label for="direcciones" class="form-label">país</label>
+                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $personas['PAIS'] }}" maxlength="40"
+                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="direcciones" class="form-label">Departamento</label>
+                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" value="{{ $personas['DEPARTAMENTO'] }}" maxlength="40"
+                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="direcciones" class="form-label">Ciudad</label>
+                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" value="{{ $personas['CIUDAD'] }}" maxlength="40"
+                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                        </div>
+
+                        <div class="mb-3 mt-3">
+                            <label for="direcciones" class="form-label">Dirección</label>
+                            <textarea class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="255">{{ $personas['DIRECCION'] }}</textarea>
+                        </div>
+
                         </div>
                         <!-- Fin Sección 4 -->
 
                         <!-- Sección 5: Contacto -->
                         <div id="editSectioncontacto{{$personas['COD_PERSONA']}}" class="tab-pane fade">
-                            <!-- Campos de la sección -->
-                            <h5 class="modal-title">Actualiza la información de contacto de emergencia</h5>
-                            <!-- ... -->
+                          
+                        <div class="mb-3 mt-3">
+                            <label for="contacto" class="form-label">Nombre contacto</label>
+                            <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto " value="{{ $personas['NOMBRE_CONTACTO'] }}" maxlength="40"
+                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="contacto" class="form-label">Apellidos Contacto</label>
+                            <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto" value="{{ $personas['APELLIDO_CONTACTO'] }}" maxlength="40"
+                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="contacto" class="form-label">Teléfono Contacto Emergencia</label>
+                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el Número de télefono contacto emergencia" value="{{ $personas['TELEFONO_CONTACTO'] }}" maxlength="15"
+                             title="Solo se permiten números"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="contacto" class="form-label">Relación</label>
+                            <input type="text" class="form-control" id="RELACION" name="RELACION" placeholder="Ingrese la relación" value="{{ $personas['RELACION'] }}"maxlength="25"
+                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                        </div>
+        
+
                         </div>
                         <!-- Fin Sección 5 -->
                     </div>
@@ -449,19 +546,7 @@
                 <p><strong>Nombre completo:</strong> {{ $personas['NOMBRE'] }} {{ $personas['APELLIDO'] }}</p>
                 <p><strong>Identidad:</strong> {{$personas['IDENTIDAD']}}</p>
                 <!-- INICIO-->
-                @php
-                    $telefono = null;
-                    foreach ($telefonosArreglo as $t) {
-                        if ($t['COD_PERSONA'] === $personas['COD_PERSONA']) {
-                            $telefono= $t;
-                            break;
-                        }
-                    }
-                @endphp
-                <p><strong>Número télefonico:</strong>  @if ($telefono !== null)
-                         {{ $telefono['TELEFONO']}}
-                     
-                        @endif </p>
+                <p><strong>Número télefonico:</strong>  {{ $personas['TELEFONO']}} </p>
                  <!-- FIN-->
               <!-- INICIO-->
               @php
