@@ -488,6 +488,20 @@ return [
                     //'icon_color' => 'info',
                     'url'  => 'objetos',
                 ],
+
+                [
+                    'text' => 'Parametros',
+                    'icon' =>"fa fa-user",
+                    //'icon_color' => 'info',
+                    'url'  => 'parametros',
+                ],
+
+                [
+                    'text' => 'Roles Objetos',
+                    'icon' =>"fa fa-user",
+                    //'icon_color' => 'info',
+                    'url'  => 'roles_objetos',
+                ],
               
                 [
                     'text' => 'Estado usuarios',
