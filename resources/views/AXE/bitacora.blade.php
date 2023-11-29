@@ -29,9 +29,35 @@
             margin-right: 10px; /* Ajusta el valor según tus necesidades */
             margin-bottom: 20px; /* Ajusta el valor según tus necesidades */
         }
-    </style>
+</style>
+
+
+
+
+
+<form id="myForm" action="{{ url('bitacora/guardar')}}" method="post">
+    @csrf
+    <input type="hidden" name="miTexto" value="{{ $ESTADO_BITACORA }}"> <!-- Valor recibido del controlador -->
+
+    <!-- Checkbox que refleja el valor recibido -->
+    <input type="checkbox" id="checkbox_miTexto" name="checkbox_miTexto" value="1" onchange="submitForm(this)"
+    @if ($ESTADO_BITACORA == 1) checked @endif>
+    
+    <!-- Etiqueta para describir la funcionalidad del checkbox -->
+    <label for="checkbox_miTexto"><strong>Habilitar/Deshabilitar Bitácora</strong></label>
+</form>
+
+
+<form id="myForm" action="{{ url('bitacora/limpiar')}}" method="post">
+    @csrf
+    <button type="submit" class="btn btn-primary">Limpiar bitacora</button>
+</form>
+
+
+
 
 <div class="table-responsive">
+
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         <thead>
             <tr>
@@ -124,6 +150,7 @@
 @stop
 
 @section('js')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <script> console.log('Hi!'); </script>
     <!-- Agregar scripts para DataTables -->
@@ -160,6 +187,16 @@
     });
 </script>
  
+<script>
+    function submitForm(checkbox) {
+        if (checkbox.checked) {
+            checkbox.previousElementSibling.value = '1'; // Establece el valor del campo oculto en 1 si el checkbox está marcado
+        } else {
+            checkbox.previousElementSibling.value = '0'; // Establece el valor del campo oculto en 0 si el checkbox no está marcado
+        }
+        document.getElementById('myForm').submit(); // Envía el formulario
+    }
+</script>
  
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>
@@ -206,6 +243,25 @@ modeToggle.addEventListener('click', () => {
             allowClear: true // Permite borrar la selección
         });
     });
+</script>
+
+
+
+<script >
+$(document).ready(function() {
+    function setCheckboxState() {
+        var estadoBitacora = "{{ $ESTADO_BITACORA }}";
+        console.log("Estado de la bitácora:", estadoBitacora);
+
+        if (estadoBitacora == 1) {
+            $('#checkbox_miTexto').prop('checked', true);
+        } else {
+            $('#checkbox_miTexto').prop('checked', false);
+        }
+    }
+
+    setCheckboxState(); 
+});
 </script>
 
 

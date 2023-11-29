@@ -7,5 +7,7 @@ use App\Http\Controllers\AXE\bitacoraController;
 
 Route::middleware(['checkToken', 'verificar.usuario:BITACORA'])->group(function () {
     Route::get('',[bitacoraController::class,'bitacora']);
+    Route::post('/guardar',[bitacoraController::class,'guardar']);
+    Route::post('/limpiar',[bitacoraController::class,'eliminarDatosBitacora']);
    
 });
