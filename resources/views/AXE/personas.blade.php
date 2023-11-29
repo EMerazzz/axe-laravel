@@ -116,7 +116,6 @@
                         
                     <div id="sectionPersona" class="form-section">
                     
-
                         <div class="mb-3 mt-3">
                             <label for="NOMBRE" class="form-label">Nombres:</label>
                             <input type="text" class="form-control same-width" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" inputmode="text" required value="{{ old('NOMBRE') }}" maxlength="40">
@@ -369,7 +368,7 @@
                     <div class="tab-content">
                         <!-- Sección 1: Información de Persona -->
                         <div id="editSectionPersona{{$personas['COD_PERSONA']}}" class="tab-pane fade show active">
-                            <!-- Campos de la sección -->
+                        <input type="hidden" class="form-control" name="COD_PERSONAS¿" value="{{ $personas['COD_PERSONA'] }}">
                             <div class="mb-3 mt-3">
                                 <label for="NOMBRE" class="form-label">Nombre:</label>
                                 <input type="text" class="form-control" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" value="{{$personas['NOMBRE']}}" maxlength="40" 
@@ -422,10 +421,8 @@
                         <!-- Sección 2: Teléfono -->
                         <div id="editSectiontelefono{{$personas['COD_PERSONA']}}" class="tab-pane fade">
                           
-                        <div class="mb-3 mt-3">
-                            <label for="TELEFONO" class="form-label">Número Teléfono:</label>
-                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" oninput="formatTelefono(this)" pattern="[0-9]{8}" value="{{$personas['TELEFONO']}}"  required>
-                        </div>
+                        <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" oninput="formatTelefono(this)" pattern="[0-9]{4}-[0-9]{4}" value="{{ $personas['TELEFONO'] }}" required>
+
 
                         <div class="mb-3">
                             <label for="TIPO_TELEFONO" class="form-label">Tipo Telefono:</label>
@@ -505,12 +502,14 @@
                     </div>
                     <!-- Fin Contenido de las Secciones -->
 
-                    <div class="modal-footer">
+                
+            </div>
+            <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Actualizar</button>
+                      
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </div>
-                </form>
-            </div>
+                    </form>
         </div>
     </div>
 </div>
