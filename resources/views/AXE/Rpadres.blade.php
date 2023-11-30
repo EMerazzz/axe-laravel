@@ -186,6 +186,8 @@ modeToggle.addEventListener('click', () => {
  <!--           *****     *****      Script genera pdf  *****       *****                     -->
 <!-- Script generar reportes excel y pdf -->
 <script>
+
+
   function generarPDF() {
     const tableData = [];
     const headerData = [];
@@ -217,7 +219,7 @@ modeToggle.addEventListener('click', () => {
         pageOrientation: 'landscape', // Establece la orientación de la página a horizontal
         content: [
             {
-                text: 'Reportes de los padres o encargados',
+                text: 'Reportes Encargados',
                 fontSize: 16,
                 bold: true,
                 alignment: 'center',
