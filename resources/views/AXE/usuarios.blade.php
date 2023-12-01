@@ -152,11 +152,11 @@
                             $persona = $p;
                             break;
                         }
-                    }
-                @endphp
-             
+                    }    
+            @endphp
 
-         
+    
+
             <tr>
                 <td>{{ $usuarios['COD_USUARIO'] }}</td>
                 <td>
@@ -183,21 +183,6 @@
                     @endif
                  </td>
                 <td>{{ $usuarios['MODIFICADO_POR'] }}</td>
-                <td>
-                        @if ($persona !== null)
-                            {{ $persona['NOMBRE'] }}
-                        @else
-                            Persona no encontrada
-                        @endif
-                </td>
-
-                <td>
-                        @if ($persona !== null)
-                            {{ $persona['APELLIDO'] }}
-                        @else
-                            Persona no encontrada
-                        @endif
-                </td>
                     
                 <td>
                     <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
