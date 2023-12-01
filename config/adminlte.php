@@ -410,37 +410,37 @@ return [
             'label'       => 4,
            'label_color' => 'grey',
             'icon' =>"fa fa-book",
-          //  'icon_color' => 'teal',
+           'icon_color' => 'teal',
             'submenu' => [
                 [
                     'text' => 'Reportes personas',
                     'icon' =>"fa fa-file-pdf",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'red',
                     'url'  => 'Reportepersonas',
                 ],
               
                 [
                     'text' => 'Reportes Matricula',
                     'icon' =>"fa fa-file-pdf",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'red',
                     'url'  => 'Reportematriculas',
                 ],
                 [
                     'text' => 'Reportes bitacora',
                     'icon' =>"fa fa-file-pdf",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'red',
                     'url'  => 'Reportebitacora',
                 ],
                 [
                     'text' => 'Reportes docentes',
                     'icon' =>"fa fa-file-pdf",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'red',
                     'url'  => 'Reportedocentes',
                 ],
                 [
                     'text' => 'Reportes Padres',
                     'icon' =>"fa fa-file-pdf",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'red',
                     'url'  => 'Reportepadres',
                 ],
               
@@ -452,38 +452,38 @@ return [
             'label'       => 4,
            'label_color' => 'grey',
             'icon' =>"fa fa-lock",
-          //  'icon_color' => 'teal',
+           'icon_color' => 'teal',
             'submenu' => [
                 [
                     'text' => 'usuarios',
                     'icon' =>"fa fa-user",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'info',
                     'url'  => 'usuarios',
                 ],
 
                 [
                     'text' => 'Cambiar contraseña',
                     'icon' =>"fa fa-key",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'info',
                     'url'  => 'cambiarContrasena',
                 ],
                 [
                     'text' => 'Roles Objetos',
                     'icon' =>"fa fa-user",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'info',
                     'url'  => 'roles_objetos',
                 ],
                 [
                     'text' => 'Roles',
                     'icon' =>"fa fa-users",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'info',
                     'url'  => 'roles',
                 ],
                 [
                     'text' => 'Bitacora',  // Opción "Log Out"
                     'url'  => 'bitacora',  // Cambia 'logout' por la URL real de tu función de logout
                     'icon' => 'fa fa-file',  // Icono de "Log Out"
-                    //'icon_color' => 'red',
+                    'icon_color' => 'info',
                 ],
             ],
         ],
@@ -491,33 +491,33 @@ return [
             'text'        => 'Mantenimientos',
             'label'       => 4,
            'label_color' => 'grey',
-            'icon' =>"fa fa-lock",
-          //  'icon_color' => 'teal',
+            'icon' =>"fa fa-cogs",
+           'icon_color' => 'teal',
             'submenu' => [
                 [
                     'text' => 'Preguntas',
                     'icon' =>"fa fa-user",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'info',
                     'url'  => 'preguntas',
                 ],
 
                 [
                     'text' => 'Objetos',
                     'icon' =>"fa fa-user",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'info',
                     'url'  => 'objetos',
                 ],
 
                 [
                     'text' => 'Parametros',
                     'icon' =>"fa fa-user",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'info',
                     'url'  => 'parametros',
                 ],              
                 [
                     'text' => 'Estado usuarios',
                     'icon' =>"fa fa-user-times",
-                    //'icon_color' => 'info',
+                    'icon_color' => 'info',
                     'url'  => 'estado_usuario',
                 ],
 
@@ -525,11 +525,18 @@ return [
         
         ],
         [
+            'text' => 'backup',  // Opción "Log Out"
+            'url'  => 'backup',  // Cambia 'logout' por la URL real de tu función de logout
+            'icon' => 'fa fa-database',  // Icono de "Log Out"
+            'icon_color' => 'info',
+        ],
+        [
             'text' => 'Cerrar sesión',  // Opción "Log Out"
             'url'  => 'login/logout',  // Cambia 'logout' por la URL real de tu función de logout
             'icon' => 'fas fa-fw fa-sign-out-alt',  // Icono de "Log Out"
             'icon_color' => 'red',
         ],
+      
     ],
 
     /*
