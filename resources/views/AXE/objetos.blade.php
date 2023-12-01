@@ -124,9 +124,9 @@
                             </button>
 
                             <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
-                            data-target="#objetos-delete-{{$objetos['COD_OBJETO']}}">
-                           <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
-                </button>
+                               data-target="#objetos-delete-{{$objetos['COD_OBJETO']}}">
+                               <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
+                            </button>
                         </td>
                     </tr>
                 @endforeach

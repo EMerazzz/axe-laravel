@@ -87,4 +87,48 @@ class parametrosController extends Controller
             ]);
         }
     }
+
+    //Delete
+    public function delete_parametro(Request $request)
+    {
+        try {
+            $cookieEncriptada = request()->cookie('token');
+            $token = decrypt($cookieEncriptada);
+    
+            // Agregar barra diagonal después de 'del_parametros'
+            $delete_parametro = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->put('http://82.180.162.18:4000//del_parametros/' . $request->input("COD_PARAMETRO"));
+    
+            // Verificar si la solicitud fue exitosa
+            if ($delete_parametro->successful()) {
+                return redirect('/parametros')->with('message', [
+                    'type' => 'success',
+                    'text' => 'Parámetro eliminado correctamente.'
+                ]);
+            }
+    
+            // Manejar casos de error específicos
+            $statusCode = $delete_parametro->status();
+            if ($statusCode === 404) {
+                return redirect('/parametros')->with('message', [
+                    'type' => 'error',
+                    'text' => 'Parámetro no encontrado.'
+                ]);
+            }
+    
+            return redirect('/parametros')->with('message', [
+                'type' => 'error',
+                'text' => "No se puede desactivar el objeto. Código de estado: $statusCode"
+            ]);
+    
+        } catch (\Exception $e) {
+            // Manejar excepciones
+            return redirect('/parametros')->with('message', [
+                'type' => 'error',
+                'text' => "Error al intentar eliminar el objeto: " . $e->getMessage()
+            ]);
+        }
+    }
+    
 }
