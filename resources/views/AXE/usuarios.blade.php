@@ -152,11 +152,11 @@
                             $persona = $p;
                             break;
                         }
-                    }
-                @endphp
-             
+                    }    
+            @endphp
 
-         
+    
+
             <tr>
                 <td>{{ $usuarios['COD_USUARIO'] }}</td>
                 <td>
