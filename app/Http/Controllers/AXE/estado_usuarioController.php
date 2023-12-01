@@ -21,7 +21,16 @@ class estado_usuarioController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $estado_usuarioArreglo = json_decode($estado_usuario, true);
-        return view('AXE.estado_usuario', compact('estado_usuarioArreglo'));
+
+        $UsuarioValue = $_COOKIE["Usuario"];
+        $OBJETO = "ESTADO USUARIO";
+        $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+                "USUARIO" => $UsuarioValue,
+                "OBJETO" =>  $OBJETO,
+]);
+$permisosDisponibles = json_decode($permisos, true);
+
+        return view('AXE.estado_usuario', compact('estado_usuarioArreglo', 'permisosDisponibles'));
     }
 
     public function nuevo_estado_usuario(Request $request)

@@ -57,6 +57,7 @@ class usuariosController extends Controller
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
        
+       
         // Obtener todas las personas desde la API
         $UsuarioValue = $_COOKIE["Usuario"];
         $CODPERSONA = $request->input("COD_PERSONA");
@@ -65,6 +66,8 @@ class usuariosController extends Controller
         $todos_usuarios = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
+        
+        $UsuarioValue = $_COOKIE["Usuario"];
     
         if ($todos_usuarios->successful()) {
             $usuarios_lista = $todos_usuarios->json();

@@ -26,7 +26,18 @@ class preguntasController extends Controller
         ])->get($this->apiUrl);
 
         $preguntasArreglo = json_decode($preguntas, true);
-        return view('AXE.preguntas', compact('preguntasArreglo'));
+
+
+        $UsuarioValue = $_COOKIE["Usuario"];
+        $OBJETO = "PREGUNTAS";
+            $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+                "USUARIO" => $UsuarioValue,
+                "OBJETO" =>  $OBJETO,
+            ]);
+            $permisosDisponibles = json_decode($permisos, true);
+
+        $permisosDisponibles = json_decode($permisos, true);
+        return view('AXE.preguntas', compact('preguntasArreglo', 'permisosDisponibles'));
     }
 
     public function nueva_preguntas(Request $request ){

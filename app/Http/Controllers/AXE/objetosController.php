@@ -26,7 +26,18 @@ class objetosController extends Controller
         ])->get($this->apiUrl);
 
         $objetosArreglo = json_decode($objetos, true);
-        return view('AXE.objetos', compact('objetosArreglo'));
+
+
+        $UsuarioValue = $_COOKIE["Usuario"];
+        $OBJETO = "OBJETOS";
+        $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+                "USUARIO" => $UsuarioValue,
+                "OBJETO" =>  $OBJETO,
+        ]);
+
+        $permisosDisponibles = json_decode($permisos, true);
+
+        return view('AXE.objetos', compact('objetosArreglo', 'permisosDisponibles'));
     }
     
     //funcion 
