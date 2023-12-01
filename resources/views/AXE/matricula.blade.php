@@ -87,19 +87,20 @@
                         @csrf
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
-                                <label for="COD_PERSONA" class="form-label">Estudiante: </label>
-                                <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-                                    <option value="" disabled selected>Seleccione un estudiante</option>
-                                    @foreach ($personasArreglo as $persona)
-                                        @if ($persona['TIPO_PERSONA'] === 'Estudiante')
-                                            <option value="{{ $persona['COD_PERSONA'] }}"
-                                                    {{ old('COD_PERSONA') == $persona['COD_PERSONA'] ? 'selected' : '' }}>
-                                                {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
-                                            </option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
+                            <label for="COD_PERSONA" class="form-label">Estudiante:</label>
+                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                                <option value="" disabled selected>Seleccione un estudiante</option>
+                                @foreach ($personasArreglo as $persona)
+                                    @if ($persona['TIPO_PERSONA'] === 'Estudiante')
+                                        <option value="{{ $persona['COD_PERSONA'] }}"
+                                            {{ old('COD_PERSONA') == $persona['COD_PERSONA'] ? 'selected' : '' }}>
+                                            {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+
 
                         <!-- FIN --->
                         <div class="mb-3 mt-3">
@@ -302,19 +303,20 @@
                         @csrf
                         <input type="hidden" class="form-control" name="COD_MATRICULA" value="{{ $matricula['COD_MATRICULA'] }}">
                         <div class="mb-3 mt-3">
-                            <label for="COD_PERSONA" class="form-label">Estudiante: </label>
-                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-                                <option value="" disabled>Seleccione un estudiante</option>
-                                @foreach ($personasArreglo as $persona)
-                                    @if ($persona['TIPO_PERSONA'] === 'Estudiante')
-                                        <option value="{{ $persona['COD_PERSONA'] }}"
-                                            @if ($persona['COD_PERSONA'] == $matricula['COD_PERSONA']) selected @endif>
-                                            {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
+                        <label for="COD_PERSONA" class="form-label">Estudiante:</label>
+                        <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                            <option value="" disabled>Seleccione un estudiante</option>
+                            @foreach ($personasArreglo as $persona)
+                                @if ($persona['TIPO_PERSONA'] === 'Estudiante')
+                                    <option value="{{ $persona['COD_PERSONA'] }}"
+                                        @if ($persona['COD_PERSONA'] == $matricula['COD_PERSONA']) selected @endif>
+                                        {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
                         <div class="mb-3 mt-3">
                             <label for="COD_NIVEL_ACADEMICO" class="form-label">Nivel Académico: </label>
                             <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
@@ -510,7 +512,8 @@ modeToggle.addEventListener('click', () => {
     $(document).ready(function() {
         $('.selectize').selectize({
             placeholder: 'Seleccione',
-            allowClear: true // Permite borrar la selección
+            allowClear: true, // Permite borrar la selección
+            searchField: ['text', 'IDENTIDAD'], // Habilita la búsqueda por nombre y por identidad
         });
     });
 </script>

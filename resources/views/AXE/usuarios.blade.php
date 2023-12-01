@@ -57,10 +57,13 @@
 </div>
 @endif
 
-
+<div class="spacer"></div>
 
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#usuarios">+ Nuevo</button>
+<!-- Este es un comentario -->
+
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#usuarios" id="botonNuevo">+ Nuevo</button>
+
 <div class="spacer"></div>
 <div class="modal fade bd-example-modal-sm" id="usuarios" tabindex="-1">
     <div class="modal-dialog">
@@ -128,12 +131,14 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th>Nombre completo</th>
                 <th>Usuario</th>
                 <th>Primer Ingreso</th>
                 <th>Número Intentos</th>
+                <th>Estado de usuario</th>
                 <th>Modificado Por</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
+
+               
                 <!-- <th>Estado</th> -->
                 <th>Opciones Tabla</th>
             </tr>
@@ -154,9 +159,29 @@
          
             <tr>
                 <td>{{ $usuarios['COD_USUARIO'] }}</td>
+                <td>
+                        @if ($persona !== null)
+                            {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
+                        @else
+                            Persona no encontrada
+                        @endif
+                </td>
                 <td>{{ $usuarios['USUARIO'] }}</td>
-                <td>{{ $usuarios['PRIMER_INGRESO'] }}</td>
+                <td>
+                    @if($usuarios['PRIMER_INGRESO'] == 1)
+                        Realizado
+                    @elseif($usuarios['PRIMER_INGRESO'] == 0)
+                        No Realizado
+                    @endif
+                 </td>
                 <td>{{ $usuarios['N_INTENTOS'] }}</td>
+                <td>
+                    @if($usuarios['COD_ESTADO_USUARIO'] == 1)
+                        Activo
+                    @elseif($usuarios['COD_ESTADO_USUARIO'] == 0)
+                        Inactivo
+                    @endif
+                 </td>
                 <td>{{ $usuarios['MODIFICADO_POR'] }}</td>
                 <td>
                         @if ($persona !== null)
@@ -176,16 +201,19 @@
                     
                 <td>
                     <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
-                        data-target="#usuarios-edit-{{ $usuarios['COD_USUARIO'] }}">
-                        <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
+                    data-target="#usuarios-edit-{{ $usuarios['COD_USUARIO'] }}" id="botonEditar_{{ $usuarios['COD_USUARIO'] }}">
+                    <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
+                    
                    <!-- boton eliminar-->
-                    <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
-                     data-target="#usuarios-delete-{{$usuarios['COD_USUARIO']}}">
-                     <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
-                    </button>
+                   <button value="Eliminar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
+                   data-target="#usuarios-delete-{{ $usuarios['COD_USUARIO'] }}" id="botonEliminar_{{ $usuarios['COD_USUARIO'] }}">
+                   <i class="fas fa-trash-alt" style="font-size: 13px; color: danger;"></i> Eliminar
+               </button>
                      <!-- boton eliminar-->
                 </td>
+
+
                
               
 
@@ -306,7 +334,53 @@
     </script>
  
  
-   <!-- Script personalizado para CAMBIAR MODO -->
+ <script>
+    // Ejemplo de permisosDisponibles obtenido desde PHP
+    var permisosDisponibles = <?php echo json_encode($permisosDisponibles); ?>;
+    
+    var permisoConsulta = permisosDisponibles[0]['PERMISO_CONSULTAR'];
+    var permisoInsercion = permisosDisponibles[0]['PERMISO_INSERCION'];
+    var permisoEliminacion = permisosDisponibles[0]['PERMISO_ELIMINACION'];
+    var permisoActualizacion = permisosDisponibles[0]['PERMISO_ACTUALIZACION'];
+
+
+    if (parseInt(permisoInsercion) === 0) {
+        // Deshabilitar el botón si permisoInsercion es igual a cero
+        var botonNuevo = document.getElementById('botonNuevo');
+        botonNuevo.disabled = true;
+    }
+
+    if (parseInt(permisoActualizacion) === 0) {
+        // Obtener todos los botones de edición
+        var botonesEditar = document.querySelectorAll('[id^="botonEditar_"]');
+        
+        // Iterar sobre los botones y deshabilitarlos
+        botonesEditar.forEach(function(boton) {
+            boton.disabled = true;
+        });
+    }  
+
+    if (parseInt(permisoEliminacion) === 0) {
+        // Obtener todos los botones de eliminación
+        var botonesEliminar = document.querySelectorAll('[id^="botonEliminar_"]');
+        
+        // Iterar sobre los botones y deshabilitarlos
+        botonesEliminar.forEach(function(boton) {
+            boton.disabled = true;
+        });
+    }
+
+    if (parseInt(permisoConsulta) === 0) {
+        // Obtener la tabla por su ID
+        var tabla = document.getElementById('miTabla');
+        
+        // Ocultar la tabla
+        tabla.style.display = 'none';
+    }
+
+    // Acceder a los elementos del array
+</script>
+
    <script>
 const modeToggle = document.getElementById('mode-toggle');
 const body = document.body;
