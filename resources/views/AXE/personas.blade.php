@@ -382,8 +382,8 @@
                         </div>
                                         
                         <div class="mb-3">
-                            <label for="IDENTIDAD" class="form-label">Número Identidad:</label>
-                            <input type="text" class="form-control" id="IDENTIDAD" name="IDENTIDAD" placeholder="--_" value="{{$personas['IDENTIDAD']}}" maxlength="15" title="Solo se permiten números" oninput="formatIdentidad(this)" required>
+                            <label for="IDENTIDADUPD" class="form-label">Número Identidad:</label>
+                            <input type="text" class="form-control" id="IDENTIDADUPD" name="IDENTIDADUPD" placeholder="--_" value="{{$personas['IDENTIDAD']}}" maxlength="15" title="Solo se permiten números" oninput="formatIdentidad(this)" required>
                         </div>
 
                         <div class="mb-3">
@@ -421,8 +421,10 @@
                         <!-- Sección 2: Teléfono -->
                         <div id="editSectiontelefono{{$personas['COD_PERSONA']}}" class="tab-pane fade">
                           
-                        <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" oninput="formatTelefono(this)" pattern="[0-9]{4}-[0-9]{4}" value="{{ $personas['TELEFONO'] }}" required>
-
+                        <div class="mb-3 mt-3">
+                        <label for="TELEFONOUPD" class="form-label">Número Teléfono:</label>
+                        <input type="text" class="form-control" id="TELEFONOUPD" name="TELEFONOUPD" placeholder="____-____" value="{{$personas['TELEFONO']}}" required >
+                       </div>
 
                         <div class="mb-3">
                             <label for="TIPO_TELEFONO" class="form-label">Tipo Telefono:</label>
@@ -487,7 +489,7 @@
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="contacto" class="form-label">Teléfono Contacto Emergencia</label>
-                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el Número de télefono contacto emergencia" value="{{ $personas['TELEFONO_CONTACTO'] }}" maxlength="15"
+                            <input type="text" class="form-control" id="TELEFONO_CONTACTOUPD" name="TELEFONO_CONTACTOUPD" placeholder="Ingrese el Número de télefono contacto emergencia" value="{{ $personas['TELEFONO_CONTACTO'] }}" maxlength="15"
                              title="Solo se permiten números"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                         </div>
                         <div class="mb-3 mt-3">
@@ -912,6 +914,7 @@ function s2ab(s) {
 $(document).ready(function () {
     // Aplica el formato deseado con inputmask.js
     $('#IDENTIDAD').inputmask('9999-9999-99999');
+    $('#IDENTIDADUPD').inputmask('9999-9999-99999');
 });
 </script>
 <script>
@@ -932,55 +935,56 @@ function formatIdentidad(input) {
     input.value = formattedValue;
 }
 </script>
-<script>
-    document.getElementById('TELEFONO').addEventListener('input', function () {
-        let input = this;
-        let value = input.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
 
-        // Formatea el número de teléfono
-        if (value.length >= 4) {
-            input.value = value.slice(0, 4) + '-' + value.slice(4, 8);
-        } else {
-            input.value = value;
-        }
-    });
-</script>
-<script>
-    document.getElementById('TELEFONO_CONTACTO').addEventListener('input', function () {
-        let input = this;
-        let value = input.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
+<!-- <script>
+    function formatPhoneNumber(inputId) {
+        document.getElementById(inputId).addEventListener('input', function () {
+            let input = this;
+            let value = input.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
 
-        // Formatea el número de teléfono
-        if (value.length >= 4) {
-            input.value = value.slice(0, 4) + '-' + value.slice(4, 8);
-        } else {
-            input.value = value;
-        }
-    });
-</script>
-<script>
- function formatTelefono(input) {
-    // Elimina cualquier carácter no numérico
-    let cleanedValue = input.value.replace(/\D/g, '');
-
-    // Asegura que la longitud sea de 8 caracteres
-    if (cleanedValue.length > 8) {
-        cleanedValue = cleanedValue.slice(0, 8);
+            // Formatea el número de teléfono
+            if (value.length >= 4) {
+                input.value = value.slice(0, 4) + '-' + value.slice(4, 8);
+            } else {
+                input.value = value;
+            }
+        });
     }
 
+    // Aplica la lógica a dos campos con diferentes IDs
+    formatPhoneNumber('TELEFONO');
+    formatPhoneNumber('TELEFONOUPD'); // Reemplaza 'OTRA_ID' con el ID deseado para el segundo campo
+    formatPhoneNumber('TELEFONO_CONTACTO');
+    formatPhoneNumber('TELEFONO_CONTACTOUPD');
+</script>-->
+
+<script>
+// Asegúrate de que jQuery esté cargado y disponible
+$(document).ready(function () {
+    // Aplica el formato deseado con inputmask.js
+    $('#TELEFONO').inputmask('9999-9999');
+    $('#TELEFONOUPD').inputmask('9999-9999');
+    $('#TELEFONO_CONTACTO').inputmask('9999-9999');
+    $('#TELEFONO_CONTACTOUPD').inputmask('9999-9999');
+});
+</script>
+<script>
+function formatIdentidad(input) {
+    // Elimina cualquier guión o caracteres no numéricos del valor del campo
+    let value = input.value.replace(/-/g, '').replace(/\D/g, '');
+
     // Formatea el valor con guiones después de cada grupo de 4 caracteres
-    let formattedValue = '';
-    for (let i = 0; i < cleanedValue.length; i++) {
+    let formattedValue = "";
+    for (let i = 0; i < value.length; i++) {
         if (i === 4) {
             formattedValue += '-';
         }
-        formattedValue += cleanedValue.charAt(i);
+        formattedValue += value.charAt(i);
     }
 
     // Asigna el valor formateado de vuelta al campo de entrada
     input.value = formattedValue;
 }
-
 </script>
 
 @stop

@@ -48,10 +48,10 @@ class usuariosController extends Controller
             "OBJETO" =>  $OBJETO,
         ]);
         $permisosDisponibles = json_decode($permisos, true);
-
+       
         //dd($usuariosArreglo);
         return view('AXE.usuarios', compact('UsuarioValue','personasArreglo','rolesArreglo','usuariosArreglo', 'permisosDisponibles'));
-    }
+    } 
 
     public function nuevo_usuario(Request $request)
     {

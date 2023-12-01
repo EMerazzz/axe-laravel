@@ -128,12 +128,14 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th>Nombre completo</th>
                 <th>Usuario</th>
                 <th>Primer Ingreso</th>
                 <th>Número Intentos</th>
+                <th>Estado de usuario</th>
                 <th>Modificado Por</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
+
+               
                 <!-- <th>Estado</th> -->
                 <th>Opciones Tabla</th>
             </tr>
@@ -154,26 +156,30 @@
          
             <tr>
                 <td>{{ $usuarios['COD_USUARIO'] }}</td>
+                <td>
+                        @if ($persona !== null)
+                            {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
+                        @else
+                            Persona no encontrada
+                        @endif
+                </td>
                 <td>{{ $usuarios['USUARIO'] }}</td>
-                <td>{{ $usuarios['PRIMER_INGRESO'] }}</td>
+                <td>
+                    @if($usuarios['PRIMER_INGRESO'] == 1)
+                        Realizado
+                    @elseif($usuarios['PRIMER_INGRESO'] == 0)
+                        No Realizado
+                    @endif
+                 </td>
                 <td>{{ $usuarios['N_INTENTOS'] }}</td>
+                <td>
+                    @if($usuarios['COD_ESTADO_USUARIO'] == 1)
+                        Activo
+                    @elseif($usuarios['COD_ESTADO_USUARIO'] == 0)
+                        Inactivo
+                    @endif
+                 </td>
                 <td>{{ $usuarios['MODIFICADO_POR'] }}</td>
-                <td>
-                        @if ($persona !== null)
-                            {{ $persona['NOMBRE'] }}
-                        @else
-                            Persona no encontrada
-                        @endif
-                </td>
-
-                <td>
-                        @if ($persona !== null)
-                            {{ $persona['APELLIDO'] }}
-                        @else
-                            Persona no encontrada
-                        @endif
-                </td>
-                    
                 <td>
                     <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#usuarios-edit-{{ $usuarios['COD_USUARIO'] }}">
