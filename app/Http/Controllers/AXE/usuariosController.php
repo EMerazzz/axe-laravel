@@ -59,10 +59,28 @@ class usuariosController extends Controller
         $token = decrypt($cookieEncriptada);
        
         // Obtener todas las personas desde la API
-        $todas_los_usuarios = Http::withHeaders([
+        $UsuarioValue = $_COOKIE["Usuario"];
+        $CODPERSONA = $request->input("COD_PERSONA");
+    
+        // Obtener todas las personas desde la API
+        $todos_usuarios = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
-        $UsuarioValue = $_COOKIE["Usuario"];
+    
+        if ($todos_usuarios->successful()) {
+            $usuarios_lista = $todos_usuarios->json();
+    
+            foreach ($usuarios_lista as $usuario) {
+                if ($usuario["COD_PERSONA"] === $CODPERSONA) {
+                    // La persona ya existe, generar mensaje de error
+                    return redirect('usuario')->with('message', [
+                        'type' => 'error',
+                        'text' => 'Ya tiene usuario.'
+                    ])->withInput(); // Agregar esta línea para mantener los datos ingresados
+                }
+                
+            }
+        }
       //  $PRIMER_INGRESO = $request->input("PRIMER_INGRESO") ? 1 : 0;
 
         // Enviar la solicitud POST a la API para agregar la nueva persona

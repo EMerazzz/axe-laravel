@@ -86,18 +86,21 @@
                  <label for="usuarios" class="form-label">Contraseña:</label>
                  <input type="password" class="form-control" id="CONTRASENA" name="CONTRASENA" placeholder="Ingrese la contraseña" pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?" required>
                  </div>
-                 
-                 <div class="mb-3 mt-3">
-                <label for="COD_PERSONA" class="form-label">Personal: </label>
-                <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-                <option value="" disabled selected>Seleccione una persona</option>
 
-                @foreach ($personasArreglo as $persona)
-                @if ($persona['TIPO_PERSONA'] === 'Personal Administrativo')
-                <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
-                @endif
-                @endforeach
-                </select>
+                 <div class="mb-3 mt-3">
+                    <label for="COD_PERSONA" class="form-label">Personal: </label>
+                    <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                        <option value="" disabled selected>Seleccione una persona</option>
+                        @foreach ($personasArreglo as $persona)
+                            @php
+                                $usuariosColeccion = collect($usuariosArreglo);
+                            @endphp
+
+                            @if ($persona['TIPO_PERSONA'] === 'Personal Administrativo' && !$usuariosColeccion->contains('COD_PERSONA', $persona['COD_PERSONA']))
+                                <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}</option>
+                            @endif
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="mb-3 mt-3">
@@ -401,16 +404,24 @@ modeToggle.addEventListener('click', () => {
         $(document).ready(function() {
             $('#messageModal').modal('show');
         });
-    </script>
+</script>
     <!-- scripts para selectize-->
      <script>
     $(document).ready(function() {
         $('.selectize').selectize({
             placeholder: 'Seleccione',
-            allowClear: true // Permite borrar la selección
+            allowClear: true, // Permite borrar la selección
+            searchField: ['text', 'IDENTIDAD'], // Habilita la búsqueda por nombre, apellido e ID
         });
     });
+    function personaEstaSeleccionada(personas, usuarios) {
+        // Implementa la lógica aquí para verificar si la persona ya está seleccionada en $usuarios
+        // Por ejemplo, podrías verificar si el código de la persona está presente en $usuarios.
+        return usuarios.some(usuario => usuarios['COD_PERSONA'] === personas['COD_PERSONA']);
+    }
+   
 </script>
-    
+<script></script>
+
    
 @stop
