@@ -36,6 +36,12 @@ return [
             'throw' => false,
         ],
 
+        'backup' => [
+        'driver' => 'local',
+        'root' => '/var/www/axe-laravel/storage/app/laravel',
+
+        ], 
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

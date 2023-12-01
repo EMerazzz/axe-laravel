@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 route::middleware(['checkToken'])->group(function () {
 Route::get('/', function () {
     return view('AXE/AXE');
+
+Route::get('/backup', 'BackupController@index');
+
 });
 });
 Route::get('/texto', function(){
@@ -31,3 +35,4 @@ Route::middleware([
         return redirect('AXE');
     })->name('AXE');
 });
+

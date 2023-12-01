@@ -150,6 +150,11 @@ class RouteServiceProvider extends ServiceProvider
             ->prefix('Reportepadres')
             ->group(base_path('routes/Rpadres.php'));
 
+            Route::middleware('web')
+            ->prefix('backup')
+            ->group(base_path('routes/Backup.php'));
+
+
 
         });
     }
