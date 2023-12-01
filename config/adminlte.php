@@ -468,6 +468,33 @@ return [
                     'url'  => 'cambiarContrasena',
                 ],
                 [
+                    'text' => 'Roles Objetos',
+                    'icon' =>"fa fa-user",
+                    //'icon_color' => 'info',
+                    'url'  => 'roles_objetos',
+                ],
+                [
+                    'text' => 'Roles',
+                    'icon' =>"fa fa-users",
+                    //'icon_color' => 'info',
+                    'url'  => 'roles',
+                ],
+                [
+                    'text' => 'Bitacora',  // Opción "Log Out"
+                    'url'  => 'bitacora',  // Cambia 'logout' por la URL real de tu función de logout
+                    'icon' => 'fa fa-file',  // Icono de "Log Out"
+                    //'icon_color' => 'red',
+                ],
+            ],
+        ],
+        [
+            'text'        => 'Mantenimientos',
+            'label'       => 4,
+           'label_color' => 'grey',
+            'icon' =>"fa fa-lock",
+          //  'icon_color' => 'teal',
+            'submenu' => [
+                [
                     'text' => 'Preguntas',
                     'icon' =>"fa fa-user",
                     //'icon_color' => 'info',
@@ -486,39 +513,14 @@ return [
                     'icon' =>"fa fa-user",
                     //'icon_color' => 'info',
                     'url'  => 'parametros',
-                ],
-
-                [
-                    'text' => 'Roles Objetos',
-                    'icon' =>"fa fa-user",
-                    //'icon_color' => 'info',
-                    'url'  => 'roles_objetos',
-                ],
-              
+                ],              
                 [
                     'text' => 'Estado usuarios',
                     'icon' =>"fa fa-user-times",
                     //'icon_color' => 'info',
                     'url'  => 'estado_usuario',
                 ],
-                [
-                    'text' => 'Roles',
-                    'icon' =>"fa fa-users",
-                    //'icon_color' => 'info',
-                    'url'  => 'roles',
-                ],
-                [
-                    'text' => 'Permisos',
-                    'icon' =>"fa fa-file",
-                    //'icon_color' => 'info',
-                    'url'  => 'permisos',
-                ],
-                [
-                    'text' => 'Bitacora',  // Opción "Log Out"
-                    'url'  => 'bitacora',  // Cambia 'logout' por la URL real de tu función de logout
-                    'icon' => 'fa fa-file',  // Icono de "Log Out"
-                    //'icon_color' => 'red',
-                ],
+
             ],
         
         ],
@@ -528,7 +530,6 @@ return [
             'icon' => 'fas fa-fw fa-sign-out-alt',  // Icono de "Log Out"
             'icon_color' => 'red',
         ],
-       
     ],
 
     /*
