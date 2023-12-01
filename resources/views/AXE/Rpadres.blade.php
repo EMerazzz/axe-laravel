@@ -191,7 +191,7 @@ modeToggle.addEventListener('click', () => {
  <!--           *****     *****      Script genera pdf  *****       *****                     -->
 <!-- Script generar reportes excel y pdf -->
 <script>
-
+//pdf
 function generarPDF() {
     const printWindow = window.open('', '_blank');
     const tableContent = document.getElementById('miTabla').outerHTML;
@@ -261,7 +261,7 @@ function generarPDF() {
 
 
 
-
+//excel
 function exportToExcel() {
     const tableData = [];
     const headerData = [];
