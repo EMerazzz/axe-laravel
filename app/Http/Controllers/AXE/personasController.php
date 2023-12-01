@@ -177,14 +177,14 @@ class PersonasController extends Controller
         ])->put($this->apiUrl.'/'.$request->input("COD_PERSONA"), [
             "NOMBRE" => $request->input("NOMBRE"),
             "APELLIDO" => $request->input("APELLIDO"),
-            "IDENTIDAD" => $request->input("IDENTIDAD"),
+            "IDENTIDAD" => $request->input("IDENTIDADUPD"),
             "GENERO" => $request->input("GENERO"),
             "TIPO_PERSONA" => $request->input("TIPO_PERSONA"),
             "EDAD" => $edad,
             "FECHA_NACIMIENTO" => $fecha_nacimiento,
             "USUARIO_MODIFICADOR" => $UsuarioValue,
               //TELEFONOS
-              "TELEFONO" => $request->input("TELEFONO"),
+              "TELEFONO" => $request->input("TELEFONOUPD"),
               "TIPO_TELEFONO" => $request->input("TIPO_TELEFONO"),
               //DIRECCIONES
               "DIRECCION"=> $request->input("DIRECCION"),
@@ -194,7 +194,7 @@ class PersonasController extends Controller
               //CONTACTOS
               "NOMBRE_CONTACTO"=> $request->input("NOMBRE_CONTACTO"),
               "APELLIDO_CONTACTO"=> $request->input("APELLIDO_CONTACTO"),
-              "TELEFONO_CONTACTO"=> $request->input("TELEFONO_CONTACTO"),
+              "TELEFONO_CONTACTO"=> $request->input("TELEFONO_CONTACTOUPD"),
               "RELACION"=> $request->input("RELACION"),
               //correos
               "CORREO_ELECTRONICO"=> $request->input("CORREO_ELECTRONICO"),

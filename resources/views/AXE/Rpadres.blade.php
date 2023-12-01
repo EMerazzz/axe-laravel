@@ -113,6 +113,11 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/vfs_fonts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <head>
+    <!-- Otras etiquetas head -->
+    <script src="https://unpkg.com/html2pdf.js@0.9.1/dist/html2pdf.bundle.js"></script>
+</head>
+
  
     <script>
         $(document).ready(function() {
@@ -186,83 +191,77 @@ modeToggle.addEventListener('click', () => {
  <!--           *****     *****      Script genera pdf  *****       *****                     -->
 <!-- Script generar reportes excel y pdf -->
 <script>
-
+//pdf
 function generarPDF() {
-    const tableData = [];
-    const headerData = [];
+    const printWindow = window.open('', '_blank');
+    const tableContent = document.getElementById('miTabla').outerHTML;
 
-    // Obtén los datos del encabezado de la tabla (excluyendo la columna "Opciones de la Tabla")
-    const tableHeader = document.querySelectorAll('#miTabla thead th');
-    tableHeader.forEach(headerCell => {
-        if (headerCell.textContent !== '') {
-            headerData.push({ text: headerCell.textContent, bold: true });
-        }
-    });
+    // Ruta de la imagen local (reemplaza 'TU_RUTA_DE_IMAGEN_LOCAL' con la ruta correcta)
+    const imagePath = 'vendor/adminlte/dist/img/axe.png';
 
-    // Obtén todos los datos de la tabla, incluyendo todas las páginas
-    const table = $('#miTabla').DataTable();
-    const allData = table.rows().data();
+    // Convertir la imagen local a base64 de forma asíncrona
+    const getBase64ImageAsync = (imgPath, callback) => {
+        const img = new Image();
+        img.onload = function () {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
 
-    allData.each(function (rowData) {
-        const row = [];
-        rowData.forEach((cell, index) => {
-            // Excluir la última columna y la columna "Opciones de la Tabla"
-            if (headerData[index] && index !== rowData.length - 1) {
-                row.push(cell);
-            }
-        });
-        tableData.push(row);
-    });
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
 
-    // Ruta del logo con barras inclinadas y notación de URL
-    const logo = 'file:///C:/xampp/htdocs/axe-laravel/resources/views/AXE/0a096108-cd10-43d9-a11a-5311006c7adc.jpg';
+            const dataURL = canvas.toDataURL('image/png');
+            callback(dataURL.replace(/^data:image\/(png|jpg);base64,/, ''));
+        };
 
-    const documentDefinition = {
-        pageOrientation: 'landscape',
-        content: [
-            {
-                text: 'Reportes Encargados',
-                fontSize: 16,
-                bold: true,
-                alignment: 'center',
-                margin: [0, 0, 0, 10]
-            },
-            {
-                table: {
-                    headerRows: 1,
-                    widths: Array(headerData.length).fill('auto'),
-                    body: [
-                        headerData, // Encabezado de la tabla
-                        ...tableData // Datos de la tabla
-                    ],
-                    style: {
-                        lineHeight: 1.2 // Ajusta este valor para reducir o aumentar el espacio entre filas
-                    }
-                }
-            }
-        ],
-        header: {
-            columns: [
-                { image: logo, width: 50, height: 50, margin: [10, 10] },
-                { text: 'Encabezado del informe', alignment: 'center', fontSize: 16, bold: true, margin: [0, 10] }
-            ]
-        },
-        styles: {
-            logo: {
-                alignment: 'left',
-                margin: [10, 10],
-                width: 50
-            }
-        }
+        img.src = imgPath;
     };
 
-    const pdf = pdfMake.createPdf(documentDefinition);
+    // Obtener la base64 de la imagen
+    getBase64ImageAsync(imagePath, (logoBase64) => {
+        printWindow.document.open();
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>ReporteTutores</title>
+                <style>
+                    table {
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
 
-    // Abrir el PDF en una nueva ventana
-    pdf.open();
+                    th, td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        text-align: left;
+                    }
+                </style>
+            </head>
+            <body>
+                <div>
+                    <img src="data:image/png;base64, ${logoBase64}" alt="Logo" style="width: 50px; height: 50px; margin: 10px;">
+                    <h1 style="text-align: center;">Reportes Encargados</h1>
+                </div>
+                ${tableContent}
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+
+        // Espera a que se cargue el contenido antes de llamar al método print
+        printWindow.onload = function () {
+            printWindow.print();
+            printWindow.onafterprint = function () {
+                printWindow.close();
+            };
+        };
+    });
 }
 
 
+
+
+//excel
 function exportToExcel() {
     const tableData = [];
     const headerData = [];
