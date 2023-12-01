@@ -58,12 +58,12 @@ class usuariosController extends Controller
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
        
+       
         // Obtener todas las personas desde la API
         $todas_los_usuarios = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $UsuarioValue = $_COOKIE["Usuario"];
-      //  $PRIMER_INGRESO = $request->input("PRIMER_INGRESO") ? 1 : 0;
 
         // Enviar la solicitud POST a la API para agregar la nueva persona
         $nuevo_usuario = Http::withHeaders([

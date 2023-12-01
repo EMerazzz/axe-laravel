@@ -62,6 +62,7 @@
 <div class="spacer"></div>
 <!-- Este es un comentario -->
 
+
 <button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#usuarios" id="botonNuevo">+ Nuevo</button>
 
 <div class="spacer"></div>

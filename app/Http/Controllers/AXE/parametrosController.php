@@ -22,8 +22,16 @@ class parametrosController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $parametrosArreglo = json_decode($parametros, true);
+
+        $UsuarioValue = $_COOKIE["Usuario"];
+        $OBJETO = "PARAMETROS";
+        $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+                "USUARIO" => $UsuarioValue,
+                "OBJETO" =>  $OBJETO,
+        ]);
+        $permisosDisponibles = json_decode($permisos, true);
         //dd($UsuarioValue);
-        return view('AXE.parametros', compact('UsuarioValue', 'parametrosArreglo'));
+        return view('AXE.parametros', compact('UsuarioValue', 'parametrosArreglo','permisosDisponibles' ));
     }
 
     public function nuevo_parametro(Request $request)
