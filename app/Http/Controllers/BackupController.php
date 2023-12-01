@@ -11,9 +11,9 @@ class BackupController extends Controller
 {
     public function index()
     {
-        $backups = Storage::files('laravel/Laravel');
+      //  $backups = Storage::files('laravel/Laravel');
 
-        return view('backup', compact('backups'));
+    return view('backup'/*, compact('backups')*/);
     }
 
     public function createBackup()

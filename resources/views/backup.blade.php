@@ -65,17 +65,7 @@
             <button type="submit">Crear Backup</button>
         </form>
 
-        <ul>
-            @forelse($backups as $backup)
-                <li>
-                    <a href="{{ # }}">{{ $backup }}</a>
-                    |
-                    <a href="{{ # }}">Restaurar</a>
-                </li>
-            @empty
-                <li>No hay backups disponibles</li>
-            @endforelse
-        </ul>
+     
     </div>
 @stop
 
