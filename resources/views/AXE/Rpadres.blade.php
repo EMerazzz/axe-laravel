@@ -187,8 +187,7 @@ modeToggle.addEventListener('click', () => {
 <!-- Script generar reportes excel y pdf -->
 <script>
 
-
-  function generarPDF() {
+function generarPDF() {
     const tableData = [];
     const headerData = [];
 
@@ -203,7 +202,7 @@ modeToggle.addEventListener('click', () => {
     // Obtén todos los datos de la tabla, incluyendo todas las páginas
     const table = $('#miTabla').DataTable();
     const allData = table.rows().data();
-    
+
     allData.each(function (rowData) {
         const row = [];
         rowData.forEach((cell, index) => {
@@ -215,8 +214,11 @@ modeToggle.addEventListener('click', () => {
         tableData.push(row);
     });
 
+    // Ruta del logo con barras inclinadas y notación de URL
+    const logo = 'file:///C:/xampp/htdocs/axe-laravel/resources/views/AXE/0a096108-cd10-43d9-a11a-5311006c7adc.jpg';
+
     const documentDefinition = {
-        pageOrientation: 'landscape', // Establece la orientación de la página a horizontal
+        pageOrientation: 'landscape',
         content: [
             {
                 text: 'Reportes Encargados',
@@ -238,11 +240,28 @@ modeToggle.addEventListener('click', () => {
                     }
                 }
             }
-        ]
+        ],
+        header: {
+            columns: [
+                { image: logo, width: 50, height: 50, margin: [10, 10] },
+                { text: 'Encabezado del informe', alignment: 'center', fontSize: 16, bold: true, margin: [0, 10] }
+            ]
+        },
+        styles: {
+            logo: {
+                alignment: 'left',
+                margin: [10, 10],
+                width: 50
+            }
+        }
     };
 
-    pdfMake.createPdf(documentDefinition).download('ReporteTutores.pdf');
+    const pdf = pdfMake.createPdf(documentDefinition);
+
+    // Abrir el PDF en una nueva ventana
+    pdf.open();
 }
+
 
 function exportToExcel() {
     const tableData = [];

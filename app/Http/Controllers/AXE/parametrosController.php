@@ -98,7 +98,7 @@ class parametrosController extends Controller
             // Agregar barra diagonal después de 'del_parametros'
             $delete_parametro = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
-            ])->put('http://localhost:4000/del_parametros/' . $request->input("COD_PARAMETRO"));
+            ])->put('http://82.180.162.18:4000//del_parametros/' . $request->input("COD_PARAMETRO"));
     
             // Verificar si la solicitud fue exitosa
             if ($delete_parametro->successful()) {
