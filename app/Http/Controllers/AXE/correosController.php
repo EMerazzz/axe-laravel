@@ -25,9 +25,17 @@ class correosController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $correosArreglo = json_decode($correos, true);
-       
+
+        $UsuarioValue = $_COOKIE["Usuario"];
+        $OBJETO = "CORREOS";
+        $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+                "USUARIO" => $UsuarioValue,
+                "OBJETO" =>  $OBJETO,
+        ]);
+        $permisosDisponibles = json_decode($permisos, true);
+        
         // Retornar la vista con ambos conjuntos de datos
-        return view('AXE.correos', compact('personasArreglo', 'correosArreglo'));
+        return view('AXE.correos', compact('personasArreglo', 'correosArreglo', 'permisosDisponibles'));
     }
    
 

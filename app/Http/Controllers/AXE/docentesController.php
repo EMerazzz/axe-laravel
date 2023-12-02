@@ -33,9 +33,17 @@ class docentesController extends Controller
              'Authorization' => 'Bearer ' . $token,
          ])->get('http://82.180.162.18:4000/nivel_academico');
          $nivel_academicoArreglo = json_decode($nivel_academico,true);
+
+         $UsuarioValue = $_COOKIE["Usuario"];
+            $OBJETO = "DOCENTES";
+            $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+                    "USUARIO" => $UsuarioValue,
+                    "OBJETO" =>  $OBJETO,
+            ]);
+            $permisosDisponibles = json_decode($permisos, true);
  
 
-        return view('AXE.docentes', compact('personasArreglo', 'docentesArreglo','nivel_academicoArreglo'));
+        return view('AXE.docentes', compact('personasArreglo', 'docentesArreglo','nivel_academicoArreglo', 'permisosDisponibles'));
     }
 
     public function nuevo_docente(Request $request)

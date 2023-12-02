@@ -137,12 +137,12 @@
                
                 <td>{{ date('d, M Y', strtotime($correos['FECHA'])) }}</td>
                 <td>
-                    <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
+                    <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#correos-edit-{{ $correos['COD_CORREO'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
                     <!-- boton eliminar-->
-                    <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
+                    <button id="botonEliminar_1" value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
                      data-target="#correos-delete-{{$correos['COD_CORREO']}}">
                      <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
                     </button>
@@ -269,6 +269,52 @@
     });
 </script>
  
+<script>
+    // Ejemplo de permisosDisponibles obtenido desde PHP
+    var permisosDisponibles = <?php echo json_encode($permisosDisponibles); ?>;
+    
+    var permisoConsulta = permisosDisponibles[0]['PERMISO_CONSULTAR'];
+    var permisoInsercion = permisosDisponibles[0]['PERMISO_INSERCION'];
+    var permisoEliminacion = permisosDisponibles[0]['PERMISO_ELIMINACION'];
+    var permisoActualizacion = permisosDisponibles[0]['PERMISO_ACTUALIZACION'];
+    
+    /*
+    if (parseInt(permisoInsercion) === 0) {
+        // Deshabilitar el botón si permisoInsercion es igual a cero
+        var botonNuevo = document.getElementById('botonNuevo');
+        botonNuevo.disabled = true;
+    }
+*/
+    if (parseInt(permisoActualizacion) === 0) {
+        // Obtener todos los botones de edición
+        var botonesEditar = document.querySelectorAll('[id^="botonEditar_"]');
+        
+        // Iterar sobre los botones y deshabilitarlos
+        botonesEditar.forEach(function(boton) {
+            boton.disabled = true;
+        });
+    }  
+
+    if (parseInt(permisoEliminacion) === 0) {
+        // Obtener todos los botones de eliminación
+        var botonesEliminar = document.querySelectorAll('[id^="botonEliminar_"]');
+        
+        // Iterar sobre los botones y deshabilitarlos
+        botonesEliminar.forEach(function(boton) {
+            boton.disabled = true;
+        });
+    }
+    if (parseInt(permisoConsulta) === 0) {
+        // Obtener la tabla por su ID
+        var tabla = document.getElementById('miTabla');
+        
+        // Ocultar la tabla
+        tabla.style.display = 'none';
+    }
+
+    // Acceder a los elementos del array
+</script>
+    
  
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>
