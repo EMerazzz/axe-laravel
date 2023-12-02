@@ -22,16 +22,24 @@
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button> 
 </div>-->
-<div class="d-flex justify-content-center align-items-center mt-3">
-<button id="export-pdf" class="btn btn-danger ms-2">
-    <i class="far fa-file-pdf"></i> Exportar a PDF
-</button>
 
-    <div style="width: 10px;"></div>
-    <button id="export-excel" class="btn btn-success ms-2" onclick="exportToExcel()">
-        <i class="far fa-file-excel"></i> Exportar a Excel
-    </button>
+<div class="text-center mt-3">
+    <!-- Grupo de PDF -->
+    <div class="d-inline-block align-items-center">
+        <button id="export-pdf" class="btn btn-danger" onclick="generarPDF()" style="margin-right: 8px;">
+            <i class="far fa-file-pdf"></i> Exportar a PDF
+        </button>
+    </div>
+
+    <!-- Grupo de Excel -->
+    <div class="d-inline-block align-items-center">
+        <button id="export-excel" class="btn btn-success" onclick="exportToExcel()" style="margin-left: 8px;">
+            <i class="far fa-file-excel"></i> Exportar a Excel
+        </button>
+    </div>
 </div>
+
+
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -345,38 +353,80 @@ modeToggle.addEventListener('click', () => {
 <!-- scripts para generar reportes excel y pdf-->
 
 <script>
-        document.getElementById('export-pdf').addEventListener('click', function () {
-            const tableHeader = Array.from(document.querySelectorAll('#miTabla thead th')).map(th => th.textContent);
-            const tableData = [];
-            const tableRows = document.querySelectorAll('#miTabla tbody tr');
-            
-            tableRows.forEach(row => {
-                const rowData = Array.from(row.querySelectorAll('td')).map(cell => cell.textContent);
-                tableData.push(rowData);
-            });
+        //pdf
+        function generarPDF() {
+    const printWindow = window.open('', '_blank');
+    const tableContent = document.getElementById('miTabla').cloneNode(true);
 
-            const documentDefinition = {
-                pageOrientation: 'landscape', // Establece la orientación de la página a horizontal
-                content: [
-                    { text: 'Reporte de Tabla en PDF', fontSize: 16, bold: true, alignment: 'center', margin: [0, 0, 0, 10] },
-                    {
-                        table: {
-                            headerRows: 1,
-                            widths: Array(tableHeader.length).fill('*'),
-                            body: [
-                                tableHeader, // Encabezado de la tabla
-                                ...tableData // Datos de la tabla
-                            ],
-                            style: {
-                                lineHeight: 1.2 // Ajusta este valor para reducir o aumentar el espacio entre filas
-                            }
-                        }
+    // Elimina la última columna que contiene botones de eliminar y editar
+    const rows = tableContent.querySelectorAll('tr');
+    rows.forEach(row => {
+        const lastCell = row.lastElementChild;
+        lastCell.parentNode.removeChild(lastCell);
+    });
+
+    // Ruta de la imagen local (reemplaza 'TU_RUTA_DE_IMAGEN_LOCAL' con la ruta correcta)
+    const imagePath = 'vendor/adminlte/dist/img/axe.png';
+
+    // Convertir la imagen local a base64 de forma asíncrona
+    const getBase64ImageAsync = (imgPath, callback) => {
+        const img = new Image();
+        img.onload = function () {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+
+            const dataURL = canvas.toDataURL('image/png');
+            callback(dataURL.replace(/^data:image\/(png|jpg);base64,/, ''));
+        };
+
+        img.src = imgPath;
+    };
+
+    // Obtener la base64 de la imagen
+    getBase64ImageAsync(imagePath, (logoBase64) => {
+        printWindow.document.open();
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Reporte Correos</title>
+                <style>
+                    table {
+                        border-collapse: collapse;
+                        width: 100%;
                     }
-                ]
-            };
 
-            pdfMake.createPdf(documentDefinition).download('reporte.pdf');
-        });
+                    th, td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        text-align: left;
+                    }
+                </style>
+            </head>
+            <body>
+                <div>
+                    <img src="data:image/png;base64, ${logoBase64}" alt="Logo" style="width: 50px; height: 50px; margin: 10px;">
+                    <h1 style="text-align: center;">Reportes Correos</h1>
+                </div>
+                ${tableContent.outerHTML}
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+
+        // Espera a que se cargue el contenido antes de llamar al método print
+        printWindow.onload = function () {
+            printWindow.print();
+            printWindow.onafterprint = function () {
+                printWindow.close();
+            };
+        };
+    });
+}
+
     </script>
 
 <script>
