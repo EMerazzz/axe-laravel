@@ -148,25 +148,10 @@
                             });
                         </script>
             @endif
-            <!-- MENSAJE BAJO -->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            2023 &copy; UNAH 
-                        </div>
-                        <div class="col-md-6">
-                            <div class="text-md-right footer-links d-none d-sm-block">
-                                <a>Version 1.0</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-            <!-- FIN MENSAJE -->
+      
         @stop
 
-        @section('css')
+      @section('css')
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link rel="stylesheet" href="/css/admin_custom.css">
         <style>
@@ -196,7 +181,7 @@
     <!-- Agrega este enlace en el head de tu documento HTML -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-        @stop
+    @stop
 
         @section('js')
         <script> console.log('Hi!'); </script>
@@ -280,5 +265,6 @@
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
         @stop
-@stop
+        @stop
+
 
