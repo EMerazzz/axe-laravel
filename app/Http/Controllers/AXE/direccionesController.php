@@ -25,9 +25,17 @@ class direccionesController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $direccionesArreglo = json_decode($direcciones, true);
-       
+
+        $UsuarioValue = $_COOKIE["Usuario"];
+        $OBJETO = "DIRECCIONES";
+        $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+                "USUARIO" => $UsuarioValue,
+                "OBJETO" =>  $OBJETO,
+        ]);
+        $permisosDisponibles = json_decode($permisos, true);
+            
         // Retornar la vista con ambos conjuntos de datos
-        return view('AXE.direcciones', compact('personasArreglo', 'direccionesArreglo'));
+        return view('AXE.direcciones', compact('personasArreglo', 'direccionesArreglo', 'permisosDisponibles'));
     }
    
 

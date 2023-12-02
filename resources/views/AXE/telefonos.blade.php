@@ -156,7 +156,6 @@
                             data-target="#telefonos-edit-{{ $telefonos['COD_TELEFONO'] }}">
                             <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                         </button>
-
                     </td>
                 </tr>
             @endforeach
