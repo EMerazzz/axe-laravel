@@ -72,7 +72,7 @@
 @endif
 
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#matricula">+Matricular</button>
+<button id="botonNuevo" type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#matricula">+Matricular</button>
 <div class="spacer"></div>
 <div class="modal fade bd-example-modal-sm" id="matricula" tabindex="-1">
     <div class="modal-dialog">
@@ -273,11 +273,11 @@
                         @endif
                  </td>
                 <td>
-                    <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
+                    <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#matricula-edit-{{ $matricula['COD_MATRICULA'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
-                    <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
+                    <button id="botonEliminar_1" value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
                             data-target="#matricula-delete-{{$matricula['COD_MATRICULA']}}">
                            <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
                     </button>
@@ -385,8 +385,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Editar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button id="botonEditar_1" type="submit" class="btn btn-primary">Editar</button>
+                        <button id="botonEliminar_1" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
                 </div>
             </div>
@@ -469,6 +469,52 @@
     });
 </script>
  
+<script>
+    // Ejemplo de permisosDisponibles obtenido desde PHP
+    var permisosDisponibles = <?php echo json_encode($permisosDisponibles); ?>;
+    
+    var permisoConsulta = permisosDisponibles[0]['PERMISO_CONSULTAR'];
+    var permisoInsercion = permisosDisponibles[0]['PERMISO_INSERCION'];
+    var permisoEliminacion = permisosDisponibles[0]['PERMISO_ELIMINACION'];
+    var permisoActualizacion = permisosDisponibles[0]['PERMISO_ACTUALIZACION'];
+
+
+    if (parseInt(permisoInsercion) === 0) {
+        // Deshabilitar el botón si permisoInsercion es igual a cero
+        var botonNuevo = document.getElementById('botonNuevo');
+        botonNuevo.disabled = true;
+    }
+
+    if (parseInt(permisoActualizacion) === 0) {
+        // Obtener todos los botones de edición
+        var botonesEditar = document.querySelectorAll('[id^="botonEditar_"]');
+        
+        // Iterar sobre los botones y deshabilitarlos
+        botonesEditar.forEach(function(boton) {
+            boton.disabled = true;
+        });
+    }  
+
+    if (parseInt(permisoEliminacion) === 0) {
+        // Obtener todos los botones de eliminación
+        var botonesEliminar = document.querySelectorAll('[id^="botonEliminar_"]');
+        
+        // Iterar sobre los botones y deshabilitarlos
+        botonesEliminar.forEach(function(boton) {
+            boton.disabled = true;
+        });
+    }
+
+    if (parseInt(permisoConsulta) === 0) {
+        // Obtener la tabla por su ID
+        var tabla = document.getElementById('miTabla');
+        
+        // Ocultar la tabla
+        tabla.style.display = 'none';
+    }
+
+    // Acceder a los elementos del array
+</script>
     
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>
