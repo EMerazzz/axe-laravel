@@ -61,9 +61,17 @@ class matriculaController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $matriculaArreglo = json_decode($matricula, true);
+
+        $UsuarioValue = $_COOKIE["Usuario"];
+        $OBJETO = "MATRICULA";
+        $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+                "USUARIO" => $UsuarioValue,
+                "OBJETO" =>  $OBJETO,
+        ]);
+        $permisosDisponibles = json_decode($permisos, true);
        
         // Retornar la vista con ambos conjuntos de datos
-        return view('AXE.matricula', compact('personasArreglo','nivel_academicoArreglo','anio_academicoArreglo','jornadasArreglo','seccionesArreglo','matriculaArreglo','padresArreglo'));
+        return view('AXE.matricula', compact('personasArreglo','nivel_academicoArreglo','anio_academicoArreglo','jornadasArreglo','seccionesArreglo','matriculaArreglo','padresArreglo', 'permisosDisponibles'));
     }
    
 
