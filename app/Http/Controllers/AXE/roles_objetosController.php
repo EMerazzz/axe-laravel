@@ -11,7 +11,7 @@ use DateTime;
 class roles_objetosController extends Controller
 {
     private $apiUrl = 'http://82.180.162.18:4000/roles_objetos'; // Declaración de la variable de la URL de la API
-   
+   //MOSTRAR
     public function roles_objetos()
     {
     
@@ -37,46 +37,50 @@ class roles_objetosController extends Controller
 
         return view('AXE.roles_objetos', compact('roles_objetos_Arreglo','rolesArreglo','objetosArreglo'));
     }
+    
 
+    //INSERT
     public function nuevo_rol_objeto(Request $request)
-    {
-        $cookieEncriptada = request()->cookie('token');
-        $token = decrypt($cookieEncriptada);
-        //usuario
-        $UsuarioValue = $_COOKIE["Usuario"];
-        //$identidad = $request->input("IDENTIDAD");
-    
-        // Enviar la solicitud POST a la API para agregar la nueva persona
-        $nuevo_roles_objeto = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ])->post('http://82.180.162.18:4000/roles_objetos', [
+{
+    // Obtener token de la cookie
+    $cookieEncriptada = $request->cookie('token');
+    $token = decrypt($cookieEncriptada);
 
-            "COD_ROL" => $request->input("COD_ROL"),
-            "COD_OBJETO" => $request->input("COD_OBJETO"),
-            "PERMISO_INSERCION" => $request->input("PERMISO_INSERCION"),
-            "PERMISO_ELIMINACION" => $request->input("PERMISO_ELIMINACION"),
-            "PERMISO_ACTUALIZACION" => $request->input("PERMISO_ACTUALIZACION"),
-            "PERMISO_CONSULTAR" => $request->input("PERMISO_CONSULTAR"),
-            /* "FECHA_CREACION" => $request->input("FECHA_CREACION"),
-            "MODIFICADO_POR" => $UsuarioValue,
-            "ESTADO_registro" => $request->input("ESTADO_registro"),   */  
+    // Obtener usuario de la cookie
+    $UsuarioValue = $request->cookie("Usuario");
+
+    // Validar datos de entrada si es necesario
+
+    // Enviar solicitud POST a la API externa
+    $response = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+    ])->post('http://82.180.162.18:4000/roles_objetos', [
+        "COD_ROL" => $request->input("COD_ROL"),
+        "COD_OBJETO" => $request->input("COD_OBJETO"),
+        "PERMISO_INSERCION" => $request->input("PERMISO_INSERCION"),
+        "PERMISO_ELIMINACION" => $request->input("PERMISO_ELIMINACION"),
+        "PERMISO_ACTUALIZACION" => $request->input("PERMISO_ACTUALIZACION"),
+        "PERMISO_CONSULTAR" => $request->input("PERMISO_CONSULTAR"),
+    ]);
+
+    // Verificar la respuesta de la API
+    if ($response->successful()) {
+        return redirect('/roles_objetos')->with('message', [
+            'type' => 'success',
+            'text' => 'Rol objeto agregado exitosamente.'
         ]);
-    
-        // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
-        if ($nuevo_roles_objeto->successful()) {
-            return redirect('/roles_objetos')->with('message', [
-                'type' => 'success',
-                'text' => 'Rol objeto exitosamente.'
-            ]);
-        } else {
-            return redirect('/roles_objetos')->with('message', [
-                'type' => 'error',
-                'text' => 'No se pudo agregar el rol objeto.'
-            ]);
-        }
+    } else {
+        // Manejar error y redirigir
+        $errorMessage = $response->json('message', 'No se pudo agregar el rol objeto.');
+        return redirect('/roles_objetos')->with('message', [
+            'type' => 'error',
+            'text' => $errorMessage
+        ]);
     }
+}
+
     
-    
+    //MODIFICAR
     public function modificar_rol_objeto(Request $request)
     {
         $cookieEncriptada = request()->cookie('token');
@@ -109,6 +113,50 @@ class roles_objetosController extends Controller
             return redirect('/roles_objetos')->with('message', [
                 'type' => 'error',
                 'text' => 'No se pudo modificar el rol objeto.'
+            ]);
+        }
+    }
+
+
+    //DELETE
+    public function delete_rol_objeto(Request $request)
+    {
+        try {
+            $cookieEncriptada = request()->cookie('token');
+            $token = decrypt($cookieEncriptada);
+    
+            // Agregar barra diagonal después de 'del_parametros'
+            $delete_rol_objeto = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->put('http://82.180.162.18:4000/del_roles_objetos/' . $request->input("COD_ROL_OBJETO"));
+    
+            // Verificar si la solicitud fue exitosa
+            if ($delete_rol_objeto->successful()) {
+                return redirect('/roles_objetos')->with('message', [
+                    'type' => 'success',
+                    'text' => 'Rol Objeto eliminado correctamente.'
+                ]);
+            }
+    
+            // Manejar casos de error específicos
+            $statusCode = $delete_rol_objeto->status();
+            if ($statusCode === 404) {
+                return redirect('/roles_objetos')->with('message', [
+                    'type' => 'error',
+                    'text' => 'Rol Objeto no encontrado.'
+                ]);
+            }
+    
+            return redirect('/roles_objetos')->with('message', [
+                'type' => 'error',
+                'text' => "No se puede desactivar el objeto. Código de estado: $statusCode"
+            ]);
+    
+        } catch (\Exception $e) {
+            // Manejar excepciones
+            return redirect('/roles_objetos')->with('message', [
+                'type' => 'error',
+                'text' => "Error al intentar eliminar el objeto: " . $e->getMessage()
             ]);
         }
     }
