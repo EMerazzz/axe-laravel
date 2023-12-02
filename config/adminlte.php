@@ -489,7 +489,7 @@ return [
         ],
         [
             'text'        => 'Mantenimientos',
-            'label'       => 4,
+            'label'       => 5,
            'label_color' => 'grey',
             'icon' =>"fa fa-cogs",
            'icon_color' => 'teal',
@@ -519,6 +519,12 @@ return [
                     'icon' =>"fa fa-user-times",
                     'icon_color' => 'info',
                     'url'  => 'estado_usuario',
+                ],
+                [
+                    'text' => 'Estado Roles',
+                    'icon' =>"fa fa-user-times",
+                    'icon_color' => 'info',
+                    'url'  => 'estado_rol',
                 ],
 
             ],

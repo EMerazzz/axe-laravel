@@ -218,6 +218,8 @@ $(document).ready(function() {
     return filteredData;
 }
 
+
+// pdf
 function generarPDF(filteredData) {
     const tableData = [];
     const headerData = [];
