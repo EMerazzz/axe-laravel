@@ -15,7 +15,7 @@
 </blockquote>
 
 @stop
- 
+
 @section('content')
 <!-- Cambiar Modo
 <div class="d-flex justify-content-end align-items-center">
@@ -235,7 +235,18 @@
     </div>
   </div>
 </div>
+
 @endforeach
+
+
+ @stop
+ @section('content_footer')
+ <footer class="main-footer full-width">
+  <div class="float-right d-none d-sm-inline">
+    Tu texto personalizado aquí
+  </div>
+  Texto de copyright &copy; 2023 Tu Empresa.
+</footer>
 
 @stop
 

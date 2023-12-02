@@ -525,10 +525,10 @@ return [
         
         ],
         [
-            'text' => 'backup',  // Opción "Log Out"
-            'url'  => 'backup',  // Cambia 'logout' por la URL real de tu función de logout
+            'text' => 'Backup',  // Opción "Log Out"
+            'url'  => 'backuprestore',  // Cambia 'logout' por la URL real de tu función de logout
             'icon' => 'fa fa-database',  // Icono de "Log Out"
-            'icon_color' => 'info',
+            'icon_color' => 'teal',
         ],
         [
             'text' => 'Cerrar sesión',  // Opción "Log Out"
