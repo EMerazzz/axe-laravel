@@ -218,57 +218,66 @@ $(document).ready(function() {
     return filteredData;
 }
 
-    function generarPDF(filteredData) {
-        const tableData = [];
-        const headerData = [];
+function generarPDF(filteredData) {
+    const tableData = [];
+    const headerData = [];
 
-        // Obtén los encabezados de la tabla
-        const tableHeader = document.querySelectorAll('#miTabla thead th');
-        tableHeader.forEach(headerCell => {
-            headerData.push({ text: headerCell.textContent, bold: true });
+    // Obtén los encabezados de la tabla
+    const tableHeader = document.querySelectorAll('#miTabla thead th');
+    tableHeader.forEach(headerCell => {
+        headerData.push({ text: headerCell.textContent, bold: true });
+    });
+
+    // Usar los datos filtrados directamente
+    filteredData.forEach(rowData => {
+        const row = [];
+        rowData.forEach(cell => {
+            row.push(cell);
         });
+        tableData.push(row);
+    });
 
-        // Usar los datos filtrados directamente
-        filteredData.forEach(rowData => {
-            const row = [];
-            rowData.forEach(cell => {
-                row.push(cell);
-            });
-            tableData.push(row);
-        });
-
-        const documentDefinition = {
-            pageSize: 'legal', // Tamaño de página
-            pageOrientation: 'landscape',
-    content: [
-        {
-            text: 'Reporte Personas en pdf ',
-            fontSize: 16,
-            bold: true,
-            alignment: 'center',
-            margin: [-10, 0, 0, 10]
-        },
-        {
-            table: {
-              
-                headerRows: 1,
-                widths: '*',
-                body: [
-                    headerData,
-                    ...tableData
-                ],
-                style: {
-                    lineHeight: 1.2
+    const documentDefinition = {
+        pageSize: 'legal', // Tamaño de página
+        pageOrientation: 'landscape',
+        content: [
+            {
+                text: 'Reporte Personas en pdf ',
+                fontSize: 16,
+                bold: true,
+                alignment: 'center',
+                margin: [-10, 0, 0, 10]
+            },
+            {
+                table: {
+                    headerRows: 1,
+                    widths: '*',
+                    body: [
+                        headerData,
+                        ...tableData
+                    ],
+                    style: {
+                        lineHeight: 1.2
+                    }
                 }
             }
-        }
-    ]
-};
+        ]
+    };
 
-
+    // Pregunta al usuario si desea imprimir o descargar el PDF
+    const shouldPrint = confirm('¿Desea imprimir el PDF? Si no, se descargará automáticamente.');
+    if (shouldPrint) {
+        pdfMake.createPdf(documentDefinition).print();
+    } else {
         pdfMake.createPdf(documentDefinition).download('ReportePersonas.pdf');
     }
-});
+}
+
+// Llamar a la función con los datos filtrados
+// Puedes obtener los datos filtrados de la manera que prefieras
+// Por ejemplo, usando DataTables: const filteredData = gatherFilteredData();
+// generarPDF(filteredData);
+
 
 function exportToExcel() {
     const tableData = [];

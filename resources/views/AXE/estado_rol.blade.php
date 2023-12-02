@@ -1,0 +1,263 @@
+@extends('adminlte::page')
+
+@section('title', 'Estado Rol')
+@section('content_header')
+<style>
+  .custom-blockquote {
+    line-height: 0; /* Reducción de la altura */
+    margin-top: -5px; 
+    margin-bottom:-5px; /* Reducción del espacio inferior del bloquequote */
+  }
+</style>
+<blockquote class="custom-blockquote">
+    <p class="mb-0">Estados Roles registrados en el sistema AXE.</p>
+</blockquote>
+@stop
+
+@section('content')
+<!-- Cambiar Modo
+<div class="d-flex justify-content-end align-items-center">
+    <button id="mode-toggle" class="btn btn-info ms-2">
+        <i class="fas fa-adjust"></i> Cambiar Modo
+    </button>
+</div>--->
+<style>
+    .same-width {
+        width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
+    }
+</style>
+
+<style>
+    .btn-custom {
+        margin-top: 0px; /* Ajusta el valor según tus necesidades */
+    }
+</style>
+
+<style>
+    .table-responsive {
+        margin-top: 5px; /* Ajusta el valor según tus necesidades */
+    }
+</style>
+
+@if (session('message'))
+<div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #325d64; color:white;">
+                    <h3 class="modal-title" id="messageModalLabel">Mensaje:</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color: #c8dbff;">
+                    <center><h3 style="color: #333;">{{ session('message.text') }}</h3></center>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+<div class="spacer"></div>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#estado_rol">+ Nuevo</button>
+<div class="spacer"></div>
+<div class="modal fade bd-example-modal-sm" id="estado_rol" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ingresa Descripción</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url('estado_rol/insertar') }}" method="post">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="estado_rol" class="form-label">Descripción:</label>
+                            <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese Estado">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Añadir</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<div class="table-responsive">
+<table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
+        
+            <thead>
+                <tr>
+                    <th>Codígo Estado Roles</th> 
+                    <th>Descripción</th>
+                    <th>Opciones Tabla</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($estado_rolArreglo as $estado_rol)
+                    <tr>
+                        <td>{{ $estado_rol['COD_ESTADO_ROL'] }}</td>
+                        <td>{{ $estado_rol['DESCRIPCION'] }}</td>
+                        <td>
+                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#estado_rol-edit-{{ $estado_rol['COD_ESTADO_ROL'] }}">
+                                <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
+                            </button>
+
+                            <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
+                               data-target="#estado_rol-delete-{{$estado_rol['COD_ESTADO_ROL']}}">
+                               <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    @foreach($estado_rolArreglo as $estado_rol)
+        <div class="modal fade bd-example-modal-sm" id="estado_rol-edit-{{ $estado_rol['COD_ESTADO_ROL'] }}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Actualiza Estado Rol</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url('estado_rol/actualizar') }}" method="post">
+                            @csrf
+                            <input type="hidden" class="form-control" name="COD_ESTADO_ROL" value="{{$estado_rol['COD_ESTADO_ROL']}}">
+                            <div class="mb-3">
+                                <label for="Descripcion" class="form-label">Descripción:</label>
+                                <input type="text" class="form-control" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese Descripción" value="{{ $estado_rol['DESCRIPCION'] }}"
+                                title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')"maxlength="30">
+                           </div>
+                            <!-- ... otros campos del formulario ... -->
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- empieza modal eliminar -->
+<div class="modal fade bd-example-modal-sm" id="estado_rol-delete-{{$estado_rol['COD_ESTADO_ROL']}}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Atención</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="background-color: #fff; padding: 20px;">
+                    <h5 class="modal-title">Desea eliminar este registro</h5>
+                  </div>
+                  
+    <div class="modal-footer">
+      <form action="{{ url('estado_rol/delete') }}" method="post">
+                        @csrf
+      <input type="hidden" class="form-control" name="COD_ESTADO_ROL" value="{{ $estado_rol['COD_ESTADO_ROL'] }}">
+              <button  class="btn btn-danger">Si</button>
+          </form>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    @endforeach
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <!-- Agregar estilos para DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.example.com/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css">
+@stop
+
+@section('js')
+    
+    <script> console.log('Hi!'); </script>
+    <!-- Agregar scripts para DataTables -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- Enlace a selectize-->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
+    <!-- Script personalizado para inicializar DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#miTabla').DataTable({
+
+              "language":{
+             "search":       "Buscar: ",
+             "lengthMenu":   "Mostrar MENU registros por página",
+             "info":   "Mostrando página PAGE de PAGES",
+             "paginate": {"previous": "Anterior",
+                          "next":  "Siguiente",
+                          "first": "Primero",
+                          "last":  ""
+                        }
+            },
+            "lengthMenu": [5, 10, 30, 50,100,200], // Opciones disponibles en el menú
+            "pageLength": 5, // Establece la longitud de página predeterminada en 5
+            "order": [[0, 'desc']] // Ordenar por la primera columna de forma descendente
+          });
+        });
+
+    </script>
+ 
+ 
+   <!-- Script personalizado para CAMBIAR MODO -->
+   <script>
+const modeToggle = document.getElementById('mode-toggle');
+const body = document.body;
+const table = document.getElementById('miTabla');
+const modals = document.querySelectorAll('.modal-content'); // Select all modal content elements
+
+// Check if the selected theme is already stored in localStorage
+const storedTheme = localStorage.getItem('theme');
+if (storedTheme) {
+    body.classList.add(storedTheme); // Apply the stored theme class
+    table.classList.toggle('table-dark', storedTheme === 'dark-mode');
+    modals.forEach(modal => {
+        modal.classList.toggle('dark-mode', storedTheme === 'dark-mode');
+    });
+}
+
+modeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    table.classList.toggle('table-dark');
+    
+    // Toggle the dark-mode class on modal content elements
+    modals.forEach(modal => {
+        modal.classList.toggle('dark-mode');
+    });
+
+    // Store the selected theme in localStorage
+    const theme = body.classList.contains('dark-mode') ? 'dark-mode' : '';
+    localStorage.setItem('theme', theme);
+});
+
+</script>
+<script>
+        $(document).ready(function() {
+            $('#messageModal').modal('show');
+        });
+    </script>
+    <!-- scripts para selectize-->
+     <script>
+    $(document).ready(function() {
+        $('.selectize').selectize({
+            placeholder: 'Seleccione',
+            allowClear: true // Permite borrar la selección
+        });
+    });
+</script>
+@stop
