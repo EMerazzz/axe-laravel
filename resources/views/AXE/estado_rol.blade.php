@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Roles')
+@section('title', 'Estado Rol')
 @section('content_header')
 <style>
   .custom-blockquote {
@@ -10,7 +10,7 @@
   }
 </style>
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Roles registrados en el sistema AXE.</p>
+    <p class="mb-0">Estados Roles registrados en el sistema AXE.</p>
 </blockquote>
 @stop
 
@@ -26,8 +26,6 @@
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
     }
 </style>
-
-
 
 <style>
     .btn-custom {
@@ -59,28 +57,22 @@
     </div>
 @endif
 <div class="spacer"></div>
-<button id="botonNuevo" type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#roles">+ Nuevo</button>
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#estado_rol">+ Nuevo</button>
 <div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="roles" tabindex="-1">
+<div class="modal fade bd-example-modal-sm" id="estado_rol" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Ingresa Rol</h5>
+                    <h5 class="modal-title">Ingresa Descripción</h5>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ url('roles/insertar') }}" method="post">
+                    <form action="{{ url('estado_rol/insertar') }}" method="post">
                         @csrf
-                        <div class="mb-3 mt-3">
-                        <label for="DESCRIPCION" class="form-label">Modificado:</label>
-                        <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION">
-                         </div>
-                        
-                        <div class="mb-3 mt-3">
-                        <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
-                        <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
-                         </div>
-
+                        <div class="mb-3">
+                            <label for="estado_rol" class="form-label">Descripción:</label>
+                            <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese Estado">
+                        </div>
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -90,38 +82,30 @@
         </div>
     </div>
     
-    <div class="table-responsive">
+<div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         
             <thead>
                 <tr>
-                    <th>#</th> 
-                    <th>Rol</th>
-                    <th>Fecha Creación</th>
-                    <th>Fecha Modificación</th>
-                    <th>Modificado Por</th> 
+                    <th>Codígo Estado Roles</th> 
+                    <th>Descripción</th>
                     <th>Opciones Tabla</th>
                 </tr>
             </thead>
-          
             <tbody>
-                @foreach($rolesArreglo as $roles)
+                @foreach($estado_rolArreglo as $estado_rol)
                     <tr>
-                        <td>{{ $roles['COD_ROL'] }}</td>
-                        <td>{{ $roles['DESCRIPCION'] }}</td>
-                        <td>{{date('d, M Y', strtotime($roles['FECHA_CREACION']))}}</td>
-                        <td>{{date('d, M Y', strtotime($roles['FECHA_MODIFICACION']))}}</td>
-                        <!-- <td>{{$UsuarioValue}}</td> -->
-                        <td>{{ $roles['MODIFICADO_POR'] }}</td>
+                        <td>{{ $estado_rol['COD_ESTADO_ROL'] }}</td>
+                        <td>{{ $estado_rol['DESCRIPCION'] }}</td>
                         <td>
-                            <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#roles-edit-{{ $roles['COD_ROL'] }}">
-                                <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar   
+                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#estado_rol-edit-{{ $estado_rol['COD_ESTADO_ROL'] }}">
+                                <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
 
-                            <button id="botonEliminar_1" value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
-                            data-target="#roles-delete-{{$roles['COD_ROL']}}">
-                           <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
-                           </button>
+                            <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
+                               data-target="#estado_rol-delete-{{$estado_rol['COD_ESTADO_ROL']}}">
+                               <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
+                            </button>
                         </td>
                     </tr>
                 @endforeach
@@ -129,62 +113,58 @@
         </table>
     </div>
 
-    @foreach($rolesArreglo as $roles)
-        <div class="modal fade bd-example-modal-sm" id="roles-edit-{{ $roles['COD_ROL'] }}" tabindex="-1">
+    @foreach($estado_rolArreglo as $estado_rol)
+        <div class="modal fade bd-example-modal-sm" id="estado_rol-edit-{{ $estado_rol['COD_ESTADO_ROL'] }}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Actualiza Rol</h5>
+                        <h5 class="modal-title">Actualiza Estado Rol</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ url('roles/actualizar') }}" method="post">
+                        <form action="{{ url('estado_rol/actualizar') }}" method="post">
                             @csrf
-                            <input type="hidden" class="form-control" name="COD_ROL" value="{{ $roles['COD_ROL'] }}">
-
-                            <div class="mb-3 mt-3">
-                            <label for="DESCRIPCION" class="form-label">Modificado:</label>
-                            <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" value="{{ $roles['DESCRIPCION'] }}">
-                            </div>
-
-
-                            <div class="mb-3 mt-3">
-                            <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
-                            <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
-                            </div>
-
+                            <input type="hidden" class="form-control" name="COD_ESTADO_ROL" value="{{$estado_rol['COD_ESTADO_ROL']}}">
+                            <div class="mb-3">
+                                <label for="Descripcion" class="form-label">Descripción:</label>
+                                <input type="text" class="form-control" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese Descripción" value="{{ $estado_rol['DESCRIPCION'] }}"
+                                title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')"maxlength="30">
+                           </div>
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
-
-<!-- empieza modal eliminar -->
-<div class="modal fade bd-example-modal-sm" id="roles-delete-{{ $roles['COD_ROL'] }}" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Atención</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" style="background-color: #fff; padding: 20px;">
-                <h5 class="modal-title">Desea eliminar este registro</h5>
-            </div>
-            <div class="modal-footer">
-                <form action="{{ url('roles/delete') }}" method="post">
-                    @csrf
-                    <input type="hidden" class="form-control" name="COD_ROL" value="{{ $roles['COD_ROL'] }}">
-                    <button type="submit" class="btn btn-danger">Sí</button>
-                </form>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-            </div>
-        </div>
+            <!-- empieza modal eliminar -->
+<div class="modal fade bd-example-modal-sm" id="estado_rol-delete-{{$estado_rol['COD_ESTADO_ROL']}}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Atención</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="background-color: #fff; padding: 20px;">
+                    <h5 class="modal-title">Desea eliminar este registro</h5>
+                  </div>
+                  
+    <div class="modal-footer">
+      <form action="{{ url('estado_rol/delete') }}" method="post">
+                        @csrf
+      <input type="hidden" class="form-control" name="COD_ESTADO_ROL" value="{{ $estado_rol['COD_ESTADO_ROL'] }}">
+              <button  class="btn btn-danger">Si</button>
+          </form>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+        
+      </div>
     </div>
+  </div>
 </div>
+
 
     @endforeach
 @stop
@@ -217,15 +197,13 @@
 
               "language":{
              "search":       "Buscar: ",
-             "lengthMenu":   "Mostrar _MENU_ registros por página",
-             "info":   "Mostrando página _PAGE_ de _PAGES_",
+             "lengthMenu":   "Mostrar MENU registros por página",
+             "info":   "Mostrando página PAGE de PAGES",
              "paginate": {"previous": "Anterior",
                           "next":  "Siguiente",
                           "first": "Primero",
                           "last":  ""
-
-
-             }
+                        }
             },
             "lengthMenu": [5, 10, 30, 50,100,200], // Opciones disponibles en el menú
             "pageLength": 5, // Establece la longitud de página predeterminada en 5
@@ -235,53 +213,7 @@
 
     </script>
  
- <script>
-    // Ejemplo de permisosDisponibles obtenido desde PHP
-    var permisosDisponibles = <?php echo json_encode($permisosDisponibles); ?>;
-    
-    var permisoConsulta = permisosDisponibles[0]['PERMISO_CONSULTAR'];
-    var permisoInsercion = permisosDisponibles[0]['PERMISO_INSERCION'];
-    var permisoEliminacion = permisosDisponibles[0]['PERMISO_ELIMINACION'];
-    var permisoActualizacion = permisosDisponibles[0]['PERMISO_ACTUALIZACION'];
-
-
-    if (parseInt(permisoInsercion) === 0) {
-        // Deshabilitar el botón si permisoInsercion es igual a cero
-        var botonNuevo = document.getElementById('botonNuevo');
-        botonNuevo.disabled = true;
-    }
-
-    if (parseInt(permisoActualizacion) === 0) {
-        // Obtener todos los botones de edición
-        var botonesEditar = document.querySelectorAll('[id^="botonEditar_"]');
-        
-        // Iterar sobre los botones y deshabilitarlos
-        botonesEditar.forEach(function(boton) {
-            boton.disabled = true;
-        });
-    }  
-
-    if (parseInt(permisoEliminacion) === 0) {
-        // Obtener todos los botones de eliminación
-        var botonesEliminar = document.querySelectorAll('[id^="botonEliminar_"]');
-        
-        // Iterar sobre los botones y deshabilitarlos
-        botonesEliminar.forEach(function(boton) {
-            boton.disabled = true;
-        });
-    }
-
-    if (parseInt(permisoConsulta) === 0) {
-        // Obtener la tabla por su ID
-        var tabla = document.getElementById('miTabla');
-        
-        // Ocultar la tabla
-        tabla.style.display = 'none';
-    }
-
-    // Acceder a los elementos del array
-</script>
-
+ 
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>
 const modeToggle = document.getElementById('mode-toggle');

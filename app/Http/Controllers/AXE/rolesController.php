@@ -21,8 +21,17 @@ class rolesController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $rolesArreglo = json_decode($roles, true);
-        //dd($UsuarioValue);
-        return view('AXE.roles', compact('UsuarioValue', 'rolesArreglo'));
+
+        $UsuarioValue = $_COOKIE["Usuario"];
+        $OBJETO = "ROLES";
+
+        $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+         "USUARIO" => $UsuarioValue,
+         "OBJETO" =>  $OBJETO,
+        ]);
+        $permisosDisponibles = json_decode($permisos, true);
+
+        return view('AXE.roles', compact('UsuarioValue', 'rolesArreglo', 'permisosDisponibles'));
     }
 
     public function nuevo_rol(Request $request)

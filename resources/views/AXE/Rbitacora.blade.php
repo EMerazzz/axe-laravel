@@ -231,30 +231,8 @@ $(document).ready(function() {
             }
         });
     }
-
-    $('#apply-filter').on('click', function() {
-        applyDateRangeFilter();
-        const filteredData = gatherFilteredData(); // Obtener los datos filtrados
-        generarPDF(filteredData); // Llamar a la función generarPDF después de aplicar el filtro
-    });
-
-    function gatherFilteredData() {
-    const filteredData = [];
-
-    // Iterar sobre las filas visibles de la tabla después de aplicar el filtro
-    $('#miTabla tbody tr:visible').each(function() {
-        const rowData = [];
-        $(this).find('td').each(function() {
-            rowData.push($(this).text());
-        });
-        filteredData.push(rowData);
-    });
-
-    return filteredData;
-}
-
     
-function generarPDF(filteredData) {
+ function generarPDF(filteredData) {
         const tableData = [];
         const headerData = [];
 
@@ -305,6 +283,8 @@ function generarPDF(filteredData) {
         pdfMake.createPdf(documentDefinition).download('ReporteExcel.pdf');
     }
 });
+
+
 
 function exportToExcel() {
     const tableData = [];
