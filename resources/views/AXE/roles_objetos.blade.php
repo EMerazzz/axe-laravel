@@ -270,22 +270,23 @@
                             </select>
                         </div>
                         <div>
-                            <input type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="1" {{ $roles_objetos['PERMISO_INSERCION'] === '1' ? 'checked' : '' }}>
-                            <label for="PERMISO_INSERCION">Permiso Insertar</label>
-                            </div>
+                            <input type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="{{ $roles_objetos['PERMISO_INSERCION'] }}" @if($roles_objetos['PERMISO_INSERCION'] == '1') checked @endif>
+<label for="PERMISO_INSERCION">Permiso Insertar</label>
+                        </div>
                              
                             <div>
-                            <input type="checkbox" id="PERMISO_ELIMINACIONn" name="PERMISO_ELIMINACION" value="1" {{ $roles_objetos['PERMISO_ELIMINACION'] === '1' ? 'checked' : '' }}>
+
+                            <input type="checkbox" id="PERMISO_ELIMINACIONn" name="PERMISO_ELIMINACION" value="{{ $roles_objetos['PERMISO_ELIMINACION'] }}" @if($roles_objetos['PERMISO_ELIMINACION'] == '1') checked @endif>
                             <label for="PERMISO_ELIMINACION">Permiso Eliminar</label>
                              </div>
 
                             <div>
-                            <input type="checkbox" id="PERMISO_ACTUALIZACION" name="PERMISO_ACTUALIZACION" value="1" {{ $roles_objetos['PERMISO_ACTUALIZACION'] === '1' ? 'checked' : '' }}>
+                            <input type="checkbox" id="PERMISO_ACTUALIZACION" name="PERMISO_ACTUALIZACION"  value="{{ $roles_objetos['PERMISO_ACTUALIZACION'] }}" @if($roles_objetos['PERMISO_ACTUALIZACION'] == '1') checked @endif>
                             <label for="PERMISO_ACTUALIZACION">Permiso Actualizar</label>
                             </div>
 
                              <div>
-                            <input type="checkbox" id="PERMISO_CONSULTAR" name="PERMISO_CONSULTAR" value="1" {{ $roles_objetos['PERMISO_CONSULTAR'] === '1' ? 'checked' : '' }}>
+                            <input type="checkbox" id="PERMISO_CONSULTAR" name="PERMISO_CONSULTAR"  value="{{ $roles_objetos['PERMISO_CONSULTAR'] }}" @if($roles_objetos['PERMISO_CONSULTAR'] == '1') checked @endif>
                             <label for="PERMISO_CONSULTAR">Permiso Consultar</label>
                              </div>
         

@@ -18,25 +18,31 @@ class roles_objetosController extends Controller
         $cookieEncriptada = request()->cookie('token');//trae la cookie encriptada
         $token = decrypt($cookieEncriptada);//desencripta la cookie
         // Obtener los datos de roles desde el controlador 
+
         $rolesController = new rolesController();
         $roles = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get('http://82.180.162.18:4000/roles');
         $rolesArreglo = json_decode($roles, true);
         // Obtener los datos de correos desde el controlador 
+        
         $objetosController = new objetosController();
         $objetos = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get('http://82.180.162.18:4000/objetos');
         $objetosArreglo = json_decode($objetos, true);
+
         
         $roles_objetos= Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $roles_objetos_Arreglo = json_decode($roles_objetos, true);
 
+
+
         $UsuarioValue = $_COOKIE["Usuario"];
         $OBJETO = "ROLES_OBJETOS";
+
         $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
                 "USUARIO" => $UsuarioValue,
                 "OBJETO" =>  $OBJETO,
@@ -58,7 +64,6 @@ class roles_objetosController extends Controller
     // Obtener usuario de la cookie
     $UsuarioValue = $request->cookie("Usuario");
 
-    // Validar datos de entrada si es necesario
     // Para $PERMISO_INSERCION
     $PERMISO_INSERCION = $request->input("PERMISO_INSERCION");
     if ($PERMISO_INSERCION === null) {
@@ -123,23 +128,73 @@ class roles_objetosController extends Controller
         //$fecha_nacimiento = $request->input("FECHA_NACIMIENTO");
         //$edad = $this->calcularEdad($fecha_nacimiento);
 
+        $roles_objetos= Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
+        $roles_objetos_Arreglo = json_decode($roles_objetos, true);
+
+
+    // Para $PERMISO_INSERCION
+    $PERMISO_INSERCION = $request->input("PERMISO_INSERCION");
+    
+    if ($PERMISO_INSERCION === null) {
+        $PERMISO_INSERCION = 0;
+    }else{
+        $PERMISO_INSERCION = 1;
+    }
+
+
+
+    // Para $PERMISO_ELIMINACION
+    $PERMISO_ELIMINACION = $request->input("PERMISO_ELIMINACION");
+    if ($PERMISO_ELIMINACION === null) {
+        $PERMISO_ELIMINACION = 0;
+    }else{
+        $PERMISO_ELIMINACION = 1;
+    }
+
+    // Para $PERMISO_ACTUALIZACION
+    $PERMISO_ACTUALIZACION = $request->input("PERMISO_ACTUALIZACION");
+    if ($PERMISO_ACTUALIZACION === null) {
+        $PERMISO_ACTUALIZACION = 0;
+    }else{
+        $PERMISO_ACTUALIZACION = 1;
+    }
+
+    // Para $PERMISO_CONSULTAR
+    $PERMISO_CONSULTAR = $request->input("PERMISO_CONSULTAR");
+    if ($PERMISO_CONSULTAR === null) {
+        $PERMISO_CONSULTAR = 0;
+    }else{
+        $PERMISO_CONSULTAR = 1;
+    }
+
         $modificar_rol = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_ROL_OBJETO"), [
             "COD_ROL" => $request->input("COD_ROL"),
             "COD_OBJETO" => $request->input("COD_OBJETO"),
-            "PERMISO_INSERCION" => $request->input("PERMISO_INSERCION"),
-            "PERMISO_ELIMINACION" => $request->input("PERMISO_ELIMINACION"),
-            "PERMISO_ACTUALIZACION" => $request->input("PERMISO_ACTUALIZACION"),
-            "PERMISO_CONSULTAR" => $request->input("PERMISO_CONSULTAR"),
+            "PERMISO_INSERCION" => $PERMISO_INSERCION,
+            "PERMISO_ELIMINACION" =>  $PERMISO_ELIMINACION,
+            "PERMISO_ACTUALIZACION" => $PERMISO_ACTUALIZACION,
+            "PERMISO_CONSULTAR" => $PERMISO_CONSULTAR,
             /* "FECHA_CREACION" => $request->input("FECHA_CREACION"),
             "MODIFICADO_POR" => $UsuarioValue,
             "ESTADO_registro" => $request->input("ESTADO_registro"),    */ 
         ]);
         if ($modificar_rol->successful()) {
+            /* 
             return redirect('/roles_objetos')->with('message', [
                 'type' => 'success',
                 'text' => 'Rol objeto modificada exitosamente.'
+            ]);
+            */
+            return redirect('/roles_objetos')->with([
+                'message' => [
+                    'type' => 'success',
+                    'text' => 'Rol objeto modificada exitosamente.'
+                ],
+                'roles_objetos_Arreglo' => $roles_objetos_Arreglo,
             ]);
         } else {
             return redirect('/roles_objetos')->with('message', [
