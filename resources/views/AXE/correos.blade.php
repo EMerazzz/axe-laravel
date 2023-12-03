@@ -285,8 +285,9 @@
     var permisoInsercion = permisosDisponibles[0]['PERMISO_INSERCION'];
     var permisoEliminacion = permisosDisponibles[0]['PERMISO_ELIMINACION'];
     var permisoActualizacion = permisosDisponibles[0]['PERMISO_ACTUALIZACION'];
-    
+
     /*
+
     if (parseInt(permisoInsercion) === 0) {
         // Deshabilitar el botón si permisoInsercion es igual a cero
         var botonNuevo = document.getElementById('botonNuevo');
@@ -303,6 +304,8 @@
         });
     }  
 
+    /*
+
     if (parseInt(permisoEliminacion) === 0) {
         // Obtener todos los botones de eliminación
         var botonesEliminar = document.querySelectorAll('[id^="botonEliminar_"]');
@@ -312,6 +315,7 @@
             boton.disabled = true;
         });
     }
+*/
     if (parseInt(permisoConsulta) === 0) {
         // Obtener la tabla por su ID
         var tabla = document.getElementById('miTabla');
@@ -322,7 +326,7 @@
 
     // Acceder a los elementos del array
 </script>
-    
+
  
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>

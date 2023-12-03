@@ -333,13 +333,19 @@
     }  
 
     if (parseInt(permisoEliminacion) === 0) {
-        // Obtener todos los botones de eliminación
         var botonesEliminar = document.querySelectorAll('[id^="botonEliminar_"]');
         
-        // Iterar sobre los botones y deshabilitarlos
-        botonesEliminar.forEach(function(boton) {
-            boton.disabled = true;
-        });
+        if (botonesEliminar) {
+                // Iterar sobre los botones y deshabilitarlos
+            botonesEliminar.forEach(function(boton) {
+                boton.disabled = true;
+            });
+        } else {
+        // El botón no existe, realizar acciones alternativas o mostrar un mensaje de error
+        console.log("El botón 'botonesEliminar' no se encontró en el documento.");
+        }        
+
+
     }
 
     if (parseInt(permisoConsulta) === 0) {

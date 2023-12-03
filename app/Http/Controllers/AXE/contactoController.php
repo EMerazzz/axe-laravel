@@ -27,9 +27,17 @@ class contactoController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
         $contactoArreglo = json_decode($contacto_emergencia, true);
+
+                $UsuarioValue = $_COOKIE["Usuario"];
+        $OBJETO = "CONTACTO EMERGENCIA";
+        $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+                "USUARIO" => $UsuarioValue,
+                "OBJETO" =>  $OBJETO,
+]);
+$permisosDisponibles = json_decode($permisos, true);
        
         // Retornar la vista con ambos conjuntos de datos
-        return view('AXE.contacto', compact('personasArreglo', 'contactoArreglo'));
+        return view('AXE.contacto', compact('personasArreglo', 'contactoArreglo', 'permisosDisponibles'));
     }
    
 

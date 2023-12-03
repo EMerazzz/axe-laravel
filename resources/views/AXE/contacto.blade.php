@@ -161,7 +161,7 @@
                 <td>{{ $contacto['RELACION'] }}</td>
                 <td>{{ date('d, M Y', strtotime($contacto['FECHA'])) }}</td>
                 <td>
-                    <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
+                    <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#contacto-edit-{{ $contacto['COD_CONTACTO_EMERGENCIA'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
@@ -300,6 +300,60 @@
             "order": [[0, 'desc']] // Ordenar por la primera columna de forma descendente
         });
     });
+</script>
+
+<script>
+    // Ejemplo de permisosDisponibles obtenido desde PHP
+    var permisosDisponibles = <?php echo json_encode($permisosDisponibles); ?>;
+    
+    var permisoConsulta = permisosDisponibles[0]['PERMISO_CONSULTAR'];
+    var permisoInsercion = permisosDisponibles[0]['PERMISO_INSERCION'];
+    var permisoEliminacion = permisosDisponibles[0]['PERMISO_ELIMINACION'];
+    var permisoActualizacion = permisosDisponibles[0]['PERMISO_ACTUALIZACION'];
+
+/*
+    if (parseInt(permisoInsercion) === 0) {
+        // Deshabilitar el botón si permisoInsercion es igual a cero
+        var botonNuevo = document.getElementById('botonNuevo');
+        botonNuevo.disabled = true;
+    }
+*/
+
+    if (parseInt(permisoActualizacion) === 0) {
+        // Obtener todos los botones de edición
+        var botonesEditar = document.querySelectorAll('[id^="botonEditar_"]');
+        
+        // Iterar sobre los botones y deshabilitarlos
+        botonesEditar.forEach(function(boton) {
+            boton.disabled = true;
+        });
+    }  
+
+    if (parseInt(permisoEliminacion) === 0) {
+        var botonesEliminar = document.querySelectorAll('[id^="botonEliminar_"]');
+        
+        if (botonesEliminar) {
+                // Iterar sobre los botones y deshabilitarlos
+            botonesEliminar.forEach(function(boton) {
+                boton.disabled = true;
+            });
+        } else {
+        // El botón no existe, realizar acciones alternativas o mostrar un mensaje de error
+        console.log("El botón 'botonesEliminar' no se encontró en el documento.");
+        }        
+
+
+    }
+
+    if (parseInt(permisoConsulta) === 0) {
+        // Obtener la tabla por su ID
+        var tabla = document.getElementById('miTabla');
+        
+        // Ocultar la tabla
+        tabla.style.display = 'none';
+    }
+
+    // Acceder a los elementos del array
 </script>
  
  
