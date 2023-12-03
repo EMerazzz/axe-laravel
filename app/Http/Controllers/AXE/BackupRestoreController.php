@@ -47,14 +47,12 @@ class BackupRestoreController extends Controller
 
             // Verificar si la solicitud fue exitosa (código de respuesta 200)
             if ($response->successful()) {
-                // Pasar la lista de archivos a la vista junto con la URL API
                 $notification = [
                     'type' => 'success',
                     'title' => '¡Creación exitosa!',
                     'message' => 'El respaldo ha sido guardado.'
                 ];
-                return redirect('/backuprestore')
-                    ->with('notification', $notification);
+                return redirect('/backuprestore')->with('notification', $notification);
             } else {
                 return redirect()->back()->with('error', 'No se pudo crear el archivo')->withInput();
             }
