@@ -15,11 +15,12 @@
 @stop
 
 @section('content')
+<!-- Cambiar Modo
 <div class="d-flex justify-content-end align-items-center">
     <button id="mode-toggle" class="btn btn-info ms-2">
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
-</div>
+</div>--->
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -81,6 +82,42 @@
 
 
   @stop
+
+  @section('footer')
+<style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .main-footer {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: row-reverse; /* Cambia la dirección de los elementos */
+            justify-content: space-between;
+        }
+    </style>
+<div>
+            Copyright © 2023 UNAH.
+        </div>
+        <div>
+            Todos los derechos reservados.
+        </div>
+    
+@endsection
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
