@@ -168,6 +168,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
 @stop
 
 @section('js')
