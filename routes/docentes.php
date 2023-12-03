@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AXE\docentesController;
 
 
-Route::middleware(['checkToken'])->group(function () {
+Route::middleware(['checkToken', 'verificar.usuario:DOCENTES'])->group(function () {
     Route::get('',[docentesController::class,'docentes']);
     //de aqui 
     Route::post('/insertar',[docentesController::class,'nuevo_docente']);

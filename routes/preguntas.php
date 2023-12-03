@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AXE\preguntasController;
 
 
-route::middleware(['checkToken'])->group(function () {
+Route::middleware(['checkToken', 'verificar.usuario:PREGUNTAS'])->group(function () {
     Route::get('',[preguntasController::class,'preguntas']);
     //de aqui 
     Route::post('/insertar',[preguntasController::class,'nueva_preguntas']);

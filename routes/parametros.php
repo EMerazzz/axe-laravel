@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AXE\parametrosController;
 
 
-route::middleware(['checkToken'])->group(function () {
+Route::middleware(['checkToken', 'verificar.usuario:PARAMETROS'])->group(function () {
     Route::get('',[parametrosController::class,'parametros']);
     //de aqui 
     Route::post('/insertar',[parametrosController::class,'nuevo_parametro']);
