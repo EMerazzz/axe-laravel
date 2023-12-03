@@ -35,7 +35,16 @@ class roles_objetosController extends Controller
         ])->get($this->apiUrl);
         $roles_objetos_Arreglo = json_decode($roles_objetos, true);
 
-        return view('AXE.roles_objetos', compact('roles_objetos_Arreglo','rolesArreglo','objetosArreglo'));
+        $UsuarioValue = $_COOKIE["Usuario"];
+        $OBJETO = "ROLES_OBJETOS";
+        $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+                "USUARIO" => $UsuarioValue,
+                "OBJETO" =>  $OBJETO,
+        ]);
+    
+        $permisosDisponibles = json_decode($permisos, true);
+
+        return view('AXE.roles_objetos', compact('roles_objetos_Arreglo','rolesArreglo','objetosArreglo', 'permisosDisponibles'));
     }
     
 
@@ -89,6 +98,7 @@ class roles_objetosController extends Controller
 
 
     // Verificar la respuesta de la API
+
     if ($response->successful()) {
         return redirect('/roles_objetos')->with('message', [
             'type' => 'success',
@@ -102,6 +112,7 @@ class roles_objetosController extends Controller
             'text' => $errorMessage
         ]);
     }
+    
 }
 
     
