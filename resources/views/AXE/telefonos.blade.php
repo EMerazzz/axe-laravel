@@ -238,15 +238,41 @@
 
 @endforeach
 
+@section('footer')
+<style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
 
- @stop
- @section('content_footer')
- <footer class="main-footer full-width">
-  <div class="float-right d-none d-sm-inline">
-    Tu texto personalizado aquí
-  </div>
-  Texto de copyright &copy; 2023 Tu Empresa.
-</footer>
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .main-footer {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: row-reverse; /* Cambia la dirección de los elementos */
+            justify-content: space-between;
+        }
+    </style>
+<div>
+            Copyright © 2023 UNAH.
+        </div>
+        <div>
+            Todos los derechos reservados.
+        </div>
+    
+@endsection
 
 @stop
 

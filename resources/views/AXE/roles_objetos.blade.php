@@ -78,7 +78,7 @@
             </div>   
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <form id="myForm" action="{{ url('roles_objetos/insertar') }}" method="post" >
+                    <form action="{{ url('roles_objetos/insertar') }}" method="post">
                         @csrf
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
@@ -103,7 +103,7 @@
                         <div class="form-row">
               <div class="form-group col-md-3">
                 <div class="form-check">
-                   <input class="form-check-input" type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="1" onchange="submitForm(this)>
+                   <input class="form-check-input" type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="1">
                    <label class="form-check-label" for="PERMISO_INSERCION">Permiso Insertar</label>
                  </div>
               </div>
@@ -373,8 +373,15 @@
         });
     });
 </script>
- 
- 
+
+<script>
+    function submitForm(checkbox) {
+        var hiddenInput = document.getElementById('permisoHidden');
+        hiddenInput.value = checkbox.checked ? '1' : '0';
+        document.getElementById('myForm').submit();
+    }
+</script>
+
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>
 const modeToggle = document.getElementById('mode-toggle');

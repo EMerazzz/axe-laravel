@@ -86,10 +86,6 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('padres')
             ->group(base_path('routes/padres.php')); 
-            
-            Route::middleware('web')
-            ->prefix('estudiantes')
-            ->group(base_path('routes/estudiantes.php')); 
 
             Route::middleware('web')
             ->prefix('login')
@@ -152,11 +148,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('Reportepadres')
             ->group(base_path('routes/Rpadres.php'));
-
-            Route::middleware('web')
-            ->prefix('backup')
-            ->group(base_path('routes/Backup.php'));
-
+            
             Route::middleware('web')
             ->prefix('backuprestore')
             ->group(base_path('routes/backuprestore.php'));

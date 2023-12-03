@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AXE\anio_academicoController;
 
 
-Route::middleware(['checkToken'])->group(function () {
+Route::middleware(['checkToken', 'verificar.usuario:AÑO ACADEMICO'])->group(function () {
+
     Route::get('',[anio_academicoController::class,'anio_academico']);
 //de aqui 
 Route::post('/insertar',[anio_academicoController::class,'nuevo_anio_academico']);

@@ -19,7 +19,6 @@ class objetosController extends Controller
         $cookieEncriptada = request()->cookie('token');//trae la cookie encriptada
         $token = decrypt($cookieEncriptada);//desencripta la cookie
        
-
        // dd ( $UsuarioValue);
         $objetos = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
