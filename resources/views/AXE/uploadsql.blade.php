@@ -36,7 +36,7 @@
         <form action="{{ url('backuprestore/restaurar') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
-        <label for="backupFile" class="form-label">Seleccionar archivo .SQL:</label>
+        <label for="backupFile" class="form-label">Seleccionar archivo .sql:</label>
         <input type="file" name="backupFile" class="form-control" accept=".sql" required>
     </div>
 
