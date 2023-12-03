@@ -50,6 +50,29 @@ class roles_objetosController extends Controller
     $UsuarioValue = $request->cookie("Usuario");
 
     // Validar datos de entrada si es necesario
+    // Para $PERMISO_INSERCION
+    $PERMISO_INSERCION = $request->input("PERMISO_INSERCION");
+    if ($PERMISO_INSERCION === null) {
+        $PERMISO_INSERCION = 0;
+    }
+
+    // Para $PERMISO_ELIMINACION
+    $PERMISO_ELIMINACION = $request->input("PERMISO_ELIMINACION");
+    if ($PERMISO_ELIMINACION === null) {
+        $PERMISO_ELIMINACION = 0;
+    }
+
+    // Para $PERMISO_ACTUALIZACION
+    $PERMISO_ACTUALIZACION = $request->input("PERMISO_ACTUALIZACION");
+    if ($PERMISO_ACTUALIZACION === null) {
+        $PERMISO_ACTUALIZACION = 0;
+    }
+
+    // Para $PERMISO_CONSULTAR
+    $PERMISO_CONSULTAR = $request->input("PERMISO_CONSULTAR");
+    if ($PERMISO_CONSULTAR === null) {
+        $PERMISO_CONSULTAR = 0;
+    }
 
     // Enviar solicitud POST a la API externa
     $response = Http::withHeaders([
@@ -57,11 +80,13 @@ class roles_objetosController extends Controller
     ])->post('http://82.180.162.18:4000/roles_objetos', [
         "COD_ROL" => $request->input("COD_ROL"),
         "COD_OBJETO" => $request->input("COD_OBJETO"),
-        "PERMISO_INSERCION" => $request->input("PERMISO_INSERCION"),
-        "PERMISO_ELIMINACION" => $request->input("PERMISO_ELIMINACION"),
-        "PERMISO_ACTUALIZACION" => $request->input("PERMISO_ACTUALIZACION"),
-        "PERMISO_CONSULTAR" => $request->input("PERMISO_CONSULTAR"),
+        "PERMISO_INSERCION" => $PERMISO_INSERCION,
+        "PERMISO_ELIMINACION" =>  $PERMISO_ELIMINACION,
+        "PERMISO_ACTUALIZACION" => $PERMISO_ACTUALIZACION,
+        "PERMISO_CONSULTAR" => $PERMISO_CONSULTAR,
     ]);
+
+
 
     // Verificar la respuesta de la API
     if ($response->successful()) {

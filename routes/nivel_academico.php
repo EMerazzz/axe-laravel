@@ -6,7 +6,7 @@ use App\Http\Controllers\AXE\nivel_academicoController;
 
 
 //hasta aqui
-Route::middleware(['checkToken'])->group(function () {
+Route::middleware(['checkToken', 'verificar.usuario:AÑO ACADEMICO'])->group(function () {
     Route::get('',[nivel_academicoController::class,'nivel_academico']);
     //de aqui 
     Route::post('/insertar',[nivel_academicoController::class,'nuevo_nivel_academico']);

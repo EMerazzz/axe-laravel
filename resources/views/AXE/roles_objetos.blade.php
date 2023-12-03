@@ -78,7 +78,7 @@
             </div>   
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{ url('roles_objetos/insertar') }}" method="post">
+                    <form id = "myForm" action="{{ url('roles_objetos/insertar') }}" method="post">
                         @csrf
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
@@ -103,28 +103,30 @@
                         <div class="form-row">
               <div class="form-group col-md-3">
                 <div class="form-check">
-                   <input class="form-check-input" type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="1">
-                   <label class="form-check-label" for="PERMISO_INSERCION">Permiso Insertar</label>
+                    <input class="form-check-input" type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="1" onchange="submitForm(this)">
+                    <input type="hidden" id="permisoHidden" name="permisoHidden" value="0">
+                    <label class="form-check-label" for="PERMISO_INSERCION">Permiso Insertar</label>
+
                  </div>
               </div>
 
                <div class="form-group col-md-3">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="PERMISO_ELIMINACION" name="PERMISO_ELIMINACION" value="1">
+                  <input class="form-check-input" type="checkbox" id="PERMISO_ELIMINACION" name="PERMISO_ELIMINACION" value="1" onchange="submitForm(this)>
                    <label class="form-check-label" for="PERMISO_ELIMINACION">Permiso Eliminar</label>
                  </div>
               </div>
 
                 <div class="form-group col-md-3">
                     <div class="form-check">
-                     <input class="form-check-input" type="checkbox" id="PERMISO_ACTUALIZACION" name="PERMISO_ACTUALIZACION" value="1">
+                     <input class="form-check-input" type="checkbox" id="PERMISO_ACTUALIZACION" name="PERMISO_ACTUALIZACION" value="1" onchange="submitForm(this)>
                      <label class="form-check-label" for="PERMISO_ACTUALIZACION">Permiso Actualizar</label>
                     </div>
                 </div>
     
                 <div class="form-group col-md-3">
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="PERMISO_CONSULTAR" name="PERMISO_CONSULTAR" value="1">
+                    <input class="form-check-input" type="checkbox" id="PERMISO_CONSULTAR" name="PERMISO_CONSULTAR" value="1" onchange="submitForm(this)>
                     <label class="form-check-label" for="PERMISO_CONSULTAR">Permiso Consultar</label>
                     </div>
                     </div>
@@ -349,8 +351,15 @@
         });
     });
 </script>
- 
- 
+
+<script>
+    function submitForm(checkbox) {
+        var hiddenInput = document.getElementById('permisoHidden');
+        hiddenInput.value = checkbox.checked ? '1' : '0';
+        document.getElementById('myForm').submit();
+    }
+</script>
+
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>
 const modeToggle = document.getElementById('mode-toggle');
