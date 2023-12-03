@@ -15,11 +15,11 @@ route::middleware(['checkToken'])->group(function () {
 });
 */
 
-//Route::middleware(['checkToken', 'verificar.usuario:ROLES_OBJETOS'])->group(function () {
+Route::middleware(['checkToken', 'verificar.usuario:ROLES_OBJETOS'])->group(function () {
     Route::get('',[roles_objetosController::class,'roles_objetos']);
     //de aqui 
     Route::post('/insertar',[roles_objetosController::class,'nuevo_rol_objeto']);
     Route::post('/actualizar',[roles_objetosController::class,'modificar_rol_objeto']);
     Route::post('/delete',[roles_objetosController::class,'delete_rol_objeto']);
     //hasta aqui
-//});
+});
