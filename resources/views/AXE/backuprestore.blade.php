@@ -160,7 +160,41 @@
         </div>
     </div>
 @stop
+@section('footer')
+<style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
 
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .main-footer {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: row-reverse; /* Cambia la dirección de los elementos */
+            justify-content: space-between;
+        }
+    </style>
+<div>
+            Copyright © 2023 UNAH.
+        </div>
+        <div>
+            Todos los derechos reservados.
+        </div>
+    
+@endsection
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.6/b-2.4.1/b-html5-2.4.1/b-print-2.4.1/datatables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />

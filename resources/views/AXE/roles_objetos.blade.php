@@ -78,7 +78,7 @@
             </div>   
             <div class="modal-footer">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <form id = "myForm" action="{{ url('roles_objetos/insertar') }}" method="post">
+                    <form action="{{ url('roles_objetos/insertar') }}" method="post">
                         @csrf
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
@@ -103,10 +103,8 @@
                         <div class="form-row">
               <div class="form-group col-md-3">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="1" onchange="submitForm(this)">
-                    <input type="hidden" id="permisoHidden" name="permisoHidden" value="0">
-                    <label class="form-check-label" for="PERMISO_INSERCION">Permiso Insertar</label>
-
+                   <input class="form-check-input" type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="1">
+                   <label class="form-check-label" for="PERMISO_INSERCION">Permiso Insertar</label>
                  </div>
               </div>
 
@@ -191,10 +189,34 @@
                             Objeto no encontrado
                         @endif
                     </td>
-                <td>{{ $roles_objetos['PERMISO_INSERCION'] }}</td>
-                <td>{{ $roles_objetos['PERMISO_ELIMINACION'] }}</td>
-                <td>{{ $roles_objetos['PERMISO_ACTUALIZACION'] }}</td>
-                <td>{{ $roles_objetos['PERMISO_CONSULTAR'] }}</td>
+                <td>
+                    @if($roles_objetos['PERMISO_INSERCION'] == 1)
+                        Permitido
+                    @elseif($roles_objetos['PERMISO_INSERCION'] == 0)
+                        No Permitido
+                    @endif
+                 </td>
+                <td>
+                    @if($roles_objetos['PERMISO_ELIMINACION'] == 1)
+                        Permitido
+                    @elseif($roles_objetos['PERMISO_ELIMINACION'] == 0)
+                        No Permitido
+                    @endif
+                 </td>
+                <td>
+                    @if($roles_objetos['PERMISO_ACTUALIZACION'] == 1)
+                        Permitido
+                    @elseif($roles_objetos['PERMISO_ACTUALIZACION'] == 0)
+                        No Permitido
+                    @endif
+                 </td>
+                <td>
+                    @if($roles_objetos['PERMISO_CONSULTAR'] == 1)
+                        Permitido
+                    @elseif($roles_objetos['PERMISO_CONSULTAR'] == 0)
+                        No Permitido
+                    @endif
+                 </td>
                 <td>
                     <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#roles_objetos-edit-{{ $roles_objetos['COD_ROL_OBJETO'] }}">
@@ -576,4 +598,16 @@ function s2ab(s) {
 }
 
 </script>
+<script>
+    function submitForm(checkbox) {
+        if (checkbox.checked) {
+            checkbox.previousElementSibling.value = '1'; // Establece el valor del campo oculto en 1 si el checkbox está marcado
+        } else {
+            checkbox.previousElementSibling.value = '0'; // Establece el valor del campo oculto en 0 si el checkbox no está marcado
+        }
+        document.getElementById('myForm').submit(); // Envía el formulario
+    }
+</script>
+
+
 @stop

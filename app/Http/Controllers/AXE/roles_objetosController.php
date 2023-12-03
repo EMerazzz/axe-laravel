@@ -94,9 +94,13 @@ class roles_objetosController extends Controller
         "PERMISO_ACTUALIZACION" => $PERMISO_ACTUALIZACION,
         "PERMISO_CONSULTAR" => $PERMISO_CONSULTAR,
     ]);
+<<<<<<< HEAD
+    dd($request->input("PERMISO_INSERCION"));
+=======
 
 
 
+>>>>>>> 33f0402d438d26afa3addc53a79f531c47c46d64
     // Verificar la respuesta de la API
 
     if ($response->successful()) {
