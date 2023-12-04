@@ -152,7 +152,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('backuprestore')
             ->group(base_path('routes/backuprestore.php'));
-        
+
+            Route::middleware('web')
+            ->prefix('estudiantes')
+            ->group(base_path('routes/estudiantes.php'));
         });
     }
 

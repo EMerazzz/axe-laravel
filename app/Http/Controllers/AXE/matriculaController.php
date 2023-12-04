@@ -11,7 +11,7 @@ class matriculaController extends Controller
 
 
 {
-    private $apiUrl = 'http://82.180.162.18:4000/matricula'; // Declaración de la variable de la URL de la API
+    private $apiUrl = 'http://82.180.162.18:4000'; // Declaración de la variable de la URL de la API
       public function matricula()
     {
         $cookieEncriptada = request()->cookie('token');
@@ -20,51 +20,51 @@ class matriculaController extends Controller
         $personasController = new personasController();
         $personas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://82.180.162.18:4000/personas');
+        ])->get($this->apiUrl.'/personas');
         $personasArreglo = json_decode($personas, true);
         // Obtener los datos de nivel academico desde el controlador nivel_academicoController
         $nivel_academicoController = new nivel_academicoController();
         $nivel_academico = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://82.180.162.18:4000/nivel_academico');
+        ])->get($this->apiUrl.'/nivel_academico');
         $nivel_academicoArreglo = json_decode($nivel_academico,true);
 
         // Obtener los datos de año academico desde el controlador anio_academicoController
         $anio_academicoController = new anio_academicoController();
         $anio_academico = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://82.180.162.18:4000/anio_academico/');
+        ])->get($this->apiUrl.'/anio_academico');
         $anio_academicoArreglo = json_decode($anio_academico,true);
 
         // Obtener los datos de Jornada desde el controlador jornadasController
         $jornadasController = new jornadasController();
         $jornadas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://82.180.162.18:4000/jornadas/');
+        ])->get($this->apiUrl.'/jornadas');
         $jornadasArreglo = json_decode($jornadas,true);
         
          // Obtener los datos de secciones desde el controlador seccionesController
          $seccionesController = new seccionesController();
          $secciones = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://82.180.162.18:4000/Secciones/');
+        ])->get($this->apiUrl.'/Secciones');
          $seccionesArreglo = json_decode($secciones,true);
             // Obtener los datos de personas desde el controlador padresController
             $padresController = new padresController();
             $padres = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
-            ])->get('http://82.180.162.18:4000/padres_tutores');
+            ])->get($this->apiUrl.'/padres_tutores');
             $padresArreglo = json_decode($padres, true);
             
         // Obtener los datos de matricula
         $matricula = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get($this->apiUrl);
+        ])->get($this->apiUrl.'/matricula');
         $matriculaArreglo = json_decode($matricula, true);
 
         $UsuarioValue = $_COOKIE["Usuario"];
         $OBJETO = "MATRICULA";
-        $permisos = Http::post('http://82.180.162.18:4000/permisos_usuario',[
+        $permisos = Http::post($this->apiUrl.'/permisos_usuario',[
                 "USUARIO" => $UsuarioValue,
                 "OBJETO" =>  $OBJETO,
         ]);
@@ -85,7 +85,7 @@ class matriculaController extends Controller
         // Obtener todas las matrículas desde la API
         $todas_las_matriculas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get($this->apiUrl);
+        ])->get($this->apiUrl.'/matricula');
     
         if ($todas_las_matriculas->successful()) {
             $matriculas_lista = $todas_las_matriculas->json();
@@ -108,7 +108,7 @@ class matriculaController extends Controller
         }
     $nueva_matricula = Http::withHeaders([
         'Authorization' => 'Bearer ' . $token,
-    ])->post($this->apiUrl,[    
+    ])->post($this->apiUrl.'/matricula',[    
     "COD_PERSONA" => $request->input("COD_PERSONA"),
     "COD_NIVEL_ACADEMICO"=> $request->input("COD_NIVEL_ACADEMICO"),
     "COD_ANIO_ACADEMICO"=> $request->input("COD_ANIO_ACADEMICO"),
@@ -140,7 +140,7 @@ class matriculaController extends Controller
         $UsuarioValue = $_COOKIE["Usuario"];
         $modificar_matricula = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->put($this->apiUrl.'/'.$request->input("COD_MATRICULA"),[
+        ])->put($this->apiUrl.'/matricula'.'/'.$request->input("COD_MATRICULA"),[
             
             "COD_NIVEL_ACADEMICO"=> $request->input("COD_NIVEL_ACADEMICO"),
             "COD_ANIO_ACADEMICO"=> $request->input("COD_ANIO_ACADEMICO"),
@@ -171,9 +171,9 @@ class matriculaController extends Controller
 
     $delete_matricula = Http::withHeaders([
         'Authorization' => 'Bearer ' . $token,
-    ])->put('http://82.180.162.18:4000/del_matricula/'.$request->input("COD_MATRICULA"));
+    ])->put($this->apiUrl.'/del_matricula'.'/'.$request->input("COD_MATRICULA"));
 
-    if ($elete_matricula->successful()) {
+    if ($delete_matricula->successful()) {
         return redirect('/matricula')->with('message', [
             'type' => 'success',
             'text' => 'Matricula Eliminada.'

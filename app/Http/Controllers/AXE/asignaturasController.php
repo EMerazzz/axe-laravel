@@ -23,6 +23,29 @@ class asignaturasController extends Controller
     public function nueva_asignatura(Request $request ){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+        $nombre_asignatura = $request->input("NOMBRE_ASIGNATURA");
+    
+        // Obtener todas las personas desde la API
+        $todas_las_asignaturas = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
+    
+        if ($todas_las_asignaturas->successful()) {
+            $asignatura_lista = $todas_las_asignaturas->json();
+    
+            foreach ($asignatura_lista as $asignatur) {
+                if ($asignatur["NOMBRE_ASIGNATURA"] === $nombre_asignatura) {
+                    // La persona ya existe, generar mensaje de error
+                    return redirect('personas')->with('message', [
+                        'type' => 'error',
+                        'text' => 'Esta asigantura ya existe.'
+                    ])->withInput(); // Agregar esta línea para mantener los datos ingresados
+                }
+                
+            }
+        }
+
+
         $nueva_asignatura = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->post($this->apiUrl,[

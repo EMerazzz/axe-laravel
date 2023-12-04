@@ -87,19 +87,20 @@
                         @csrf
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
-                            <label for="COD_PERSONA" class="form-label">Estudiante:</label>
-                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-                                <option value="" disabled selected>Seleccione un estudiante</option>
-                                @foreach ($personasArreglo as $persona)
-                                    @if ($persona['TIPO_PERSONA'] === 'Estudiante')
-                                        <option value="{{ $persona['COD_PERSONA'] }}"
-                                            {{ old('COD_PERSONA') == $persona['COD_PERSONA'] ? 'selected' : '' }}>
-                                            {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
+                    <label for="COD_PERSONA" class="form-label">Personal: </label>
+                    <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                        <option value="" disabled selected>Seleccione una persona</option>
+                        @foreach ($personasArreglo as $persona)
+                            @php
+                                $matriculasColeccion = collect($matriculaArreglo);
+                            @endphp
+
+                            @if ($persona['TIPO_PERSONA'] === 'Estudiante' && !$matriculasColeccion->contains('COD_PERSONA', $persona['COD_PERSONA']))
+                                <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
 
 
                         <!-- FIN --->
@@ -421,41 +422,7 @@
 @endforeach
 
 @stop
-@section('footer')
-<style>
-        body, html {
-            height: 100%;
-            margin: 0;
-        }
 
-        .main-container {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .content {
-            flex: 1;
-            padding: 20px;
-        }
-
-        .main-footer {
-            background-color: #f8f9fa;
-            padding: 10px;
-            text-align: center;
-            display: flex;
-            flex-direction: row-reverse; /* Cambia la dirección de los elementos */
-            justify-content: space-between;
-        }
-    </style>
-<div>
-            Copyright © 2023 UNAH.
-        </div>
-        <div>
-            Todos los derechos reservados.
-        </div>
-    
-@endsection
 
 @section('footer')
 <style>

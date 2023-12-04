@@ -314,6 +314,15 @@ return [
             'url'  => 'matricula',
         
         ], 
+
+        [ 
+            'text'        => 'Estudiantes',
+        //'label'       => 2,
+        'label_color' => 'success',
+        'icon' =>"fa fa-users",
+        'icon_color' => 'teal',
+        'url'  => 'estudiantes',
+        ], 
           /*  [
                 'text'        => 'Estudiantes',
                 'label'       => 2,
@@ -363,12 +372,12 @@ return [
                         'icon_color' => 'info',
                         'url'  => 'jornadas',
                     ],*/
-                    [
+                   /* [
                         'text' => 'Nivel académico',
                         'icon' =>'fa fa-university',
                         'icon_color' => 'info',
                         'url'  => 'nivel_academico',
-                    ],
+                    ],*/
                     [
                         'text' => 'Año Académico',
                         'icon' =>'fa fa-calendar',
@@ -408,7 +417,7 @@ return [
         [
             'text'        => 'Reportes',
             'label'       => 4,
-           'label_color' => 'grey',
+           'label_color' => 'success',
             'icon' =>"fa fa-book",
            'icon_color' => 'teal',
             'submenu' => [
@@ -450,7 +459,7 @@ return [
         [
             'text'        => 'Seguridad',
             'label'       => 4,
-           'label_color' => 'grey',
+           'label_color' => 'success',
             'icon' =>"fa fa-lock",
            'icon_color' => 'teal',
             'submenu' => [
@@ -490,7 +499,7 @@ return [
         [
             'text'        => 'Mantenimientos',
             'label'       => 5,
-           'label_color' => 'grey',
+           'label_color' => 'success',
             'icon' =>"fa fa-cogs",
            'icon_color' => 'teal',
             'submenu' => [

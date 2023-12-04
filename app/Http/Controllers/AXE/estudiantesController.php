@@ -9,7 +9,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class estudiantesController extends Controller
 {
-    private $apiUrl = 'http://82.180.162.18:4000/estudiantes'; // Declaración de la variable de la URL de la API
+    private $apiUrl = 'http://82.180.162.18:4000';
+     // Declaración de la variable de la URL de la API
     public function estudiantes()
     {
         $cookieEncriptada = request()->cookie('token');
@@ -18,33 +19,61 @@ class estudiantesController extends Controller
         $personasController = new personasController();
         $personas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://82.180.162.18:4000/personas');
+        ])->get($this->apiUrl.'/personas');
         $personasArreglo = json_decode($personas, true);
-        // Obtener los datos de personas desde el controlador padresController
-        $padresController = new padresController();
-        $padres = Http::withHeaders([
+        // Obtener los datos de nivel academico desde el controlador nivel_academicoController
+        $nivel_academicoController = new nivel_academicoController();
+        $nivel_academico = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://82.180.162.18:4000/padres_tutores');
-        $padresArreglo = json_decode($padres, true);
+        ])->get($this->apiUrl.'/nivel_academico');
+        $nivel_academicoArreglo = json_decode($nivel_academico,true);
+
+        // Obtener los datos de año academico desde el controlador anio_academicoController
+        $anio_academicoController = new anio_academicoController();
+        $anio_academico = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl.'/anio_academico');
+        $anio_academicoArreglo = json_decode($anio_academico,true);
+
+        // Obtener los datos de Jornada desde el controlador jornadasController
+        $jornadasController = new jornadasController();
+        $jornadas = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl.'/jornadas');
+        $jornadasArreglo = json_decode($jornadas,true);
         
-
-        // Obtener los datos de teléfonos
-        $estudiantes = Http::withHeaders([
+         // Obtener los datos de secciones desde el controlador seccionesController
+         $seccionesController = new seccionesController();
+         $secciones = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get($this->apiUrl);
-        $estudiantesArreglo = json_decode($estudiantes, true);
-        // Obtener los datos de personas desde el nivel academico
-            $nivel_academicoController = new nivel_academicoController();
-            $nivel_academico =Http::withHeaders([
+        ])->get($this->apiUrl.'/Secciones');
+         $seccionesArreglo = json_decode($secciones,true);
+            // Obtener los datos de personas desde el controlador padresController
+            $padresController = new padresController();
+            $padres = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
-            ])->get('http://82.180.162.18:4000/nivel_academico');
-            $nivel_academicoArreglo = json_decode($nivel_academico,true);
+            ])->get($this->apiUrl.'/padres_tutores');
+            $padresArreglo = json_decode($padres, true);
+            
+        // Obtener los datos de matricula
+        $matricula = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl.'/matricula');
+        $matriculaArreglo = json_decode($matricula, true);
 
-
-        return view('AXE.estudiantes', compact('personasArreglo', 'estudiantesArreglo','padresArreglo','nivel_academicoArreglo'));
+        $UsuarioValue = $_COOKIE["Usuario"];
+       /* $OBJETO = "MATRICULA";
+        $permisos = Http::post($this->apiUrl.'/permisos_usuario',[
+                "USUARIO" => $UsuarioValue,
+                "OBJETO" =>  $OBJETO,
+        ]);
+        $permisosDisponibles = json_decode($permisos, true);*/
+       
+        // Retornar la vista con ambos conjuntos de datos
+    return view('AXE.estudiantes', compact('personasArreglo','nivel_academicoArreglo','anio_academicoArreglo','jornadasArreglo','seccionesArreglo','matriculaArreglo','padresArreglo',/* 'permisosDisponibles'*/));
     }
 
-    public function nuevo_estudiante(Request $request)
+   /* public function nuevo_estudiante(Request $request)
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
@@ -107,5 +136,5 @@ class estudiantesController extends Controller
             'text' => 'No se pudo modificar .'
         ]);
     }
-    }
+    }*/
 }
