@@ -24,17 +24,21 @@
     </button>
 </div>--->
 
-<!-- Agregar botones de Exportar 
-<div class="d-flex justify-content-end align-items-center mt-3">
-    <button id="export-pdf" class="btn btn-danger ms-2"onclick="generarPDF()">
-        <i class="far fa-file-pdf"></i> Exportar a PDF
-    </button>
-    <div style="width: 10px;"></div> 
-    <button id="export-excel" class="btn btn-success ms-2" onclick="exportToExcel()">
-        <i class="far fa-file-excel"></i> Exportar a Excel
-    </button>
+<div class="d-flex align-items-center mb-4">
+    <!-- Grupo de PDF -->
+    <div class="d-inline-block align-items-center">
+        <button id="export-pdf" class="btn btn-danger" onclick="generarPDF()" style="margin-right: 8px;">
+            <i class="far fa-file-pdf"></i> Exportar a PDF
+        </button>
+    </div>
+
+    <!-- Grupo de Excel -->
+    <div class="d-inline-block align-items-center">
+        <button id="export-excel" class="btn btn-success" onclick="exportToExcel()" style="margin-left: 8px;">
+            <i class="far fa-file-excel"></i> Exportar a Excel
+        </button>
+    </div>
 </div>
--->
 
 
 <style>
@@ -335,96 +339,94 @@ modeToggle.addEventListener('click', () => {
 
 <!-- scripts para generar reportes excel y pdf-->
 <script>
- function generarPDF() {
-    const tableData = [];
-    const headerData = [];
-
-    // Obtén los datos del encabezado de la tabla (excluyendo la columna "Opciones de la Tabla")
-    const tableHeader = document.querySelectorAll('#miTabla thead th');
-    tableHeader.forEach(headerCell => {
-        if (headerCell.textContent !== 'Opciones de la Tabla') {
-            headerData.push({ text: headerCell.textContent, bold: true });
-        }
-    });
-
-    // Obtén todos los datos de la tabla, incluyendo todas las páginas
-    const table = $('#miTabla').DataTable();
-    const allData = table.rows().data();
-    
-    allData.each(function (rowData) {
-        const row = [];
-        rowData.forEach((cell, index) => {
-            // Excluir la última columna y la columna "Opciones de la Tabla"
-            if (headerData[index] && index !== rowData.length - 1) {
-                row.push(cell);
-            }
+        $(document).ready(function() {
+            $('#messageModal').modal('show');
         });
-        tableData.push(row);
+    </script>
+    <!-- scripts para selectize-->
+     <script>
+    $(document).ready(function() {
+        $('.selectize').selectize({
+            placeholder: 'Seleccione',
+            allowClear: true // Permite borrar la selección
+        });
     });
+</script>
+ <!--           *****     *****      Script genera pdf  *****       *****                     -->
+<!-- Script generar reportes excel y pdf -->
+<script>
+    
+//pdf
+function generarPDF() {
+    const printWindow = window.open('', '_blank');
+    const tableContent = document.getElementById('miTabla').outerHTML;
 
-    const documentDefinition = {
-        pageOrientation: 'landscape', // Establece la orientación de la página a horizontal
-        content: [
-            {
-                text: 'Reporte de Tabla en PDF',
-                fontSize: 16,
-                bold: true,
-                alignment: 'center',
-                margin: [0, 0, 0, 10]
-            },
-            {
-                table: {
-                    headerRows: 1,
-                    widths: Array(headerData.length).fill('auto'),
-                    body: [
-                        headerData, // Encabezado de la tabla
-                        ...tableData // Datos de la tabla
-                    ],
-                    style: {
-                        lineHeight: 1.2 // Ajusta este valor para reducir o aumentar el espacio entre filas
-                    }
-                }
-            }
-        ]
+    // Ruta de la imagen local (reemplaza 'TU_RUTA_DE_IMAGEN_LOCAL' con la ruta correcta)
+    const imagePath = 'vendor/adminlte/dist/img/axe.png';
+
+    // Convertir la imagen local a base64 de forma asíncrona
+    const getBase64ImageAsync = (imgPath, callback) => {
+        const img = new Image();
+        img.onload = function () {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+
+            const dataURL = canvas.toDataURL('image/png');
+            callback(dataURL.replace(/^data:image\/(png|jpg);base64,/, ''));
+        };
+
+        img.src = imgPath;
     };
 
-    pdfMake.createPdf(documentDefinition).download('reporte.pdf');
-}
-function generarExcel() {
-    const tableData = [];
-    const headerData = [];
+    // Obtener la base64 de la imagen
+    getBase64ImageAsync(imagePath, (logoBase64) => {
+        printWindow.document.open();
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Reporte Estudiantes</title>
+                <style>
+                    table {
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
 
-    // Obtén los datos del encabezado de la tabla (excluyendo la columna "Opciones de la Tabla")
-    const tableHeader = document.querySelectorAll('#miTabla thead th');
-    tableHeader.forEach(headerCell => {
-        if (headerCell.textContent !== 'Opciones de la Tabla') {
-            headerData.push(headerCell.textContent);
-        }
+                    th, td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        text-align: left;
+                    }
+                </style>
+            </head>
+            <body>
+                <div>
+                    <img src="data:image/png;base64, ${logoBase64}" alt="Logo" style="width: 50px; height: 50px; margin: 10px;">
+                    <h1 style="text-align: center;">Reportes Estudiantes</h1>
+                </div>
+                ${tableContent}
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+
+        // Espera a que se cargue el contenido antes de llamar al método print
+        printWindow.onload = function () {
+            printWindow.print();
+            printWindow.onafterprint = function () {
+                printWindow.close();
+            };
+        };
     });
-
-    // Obtén todos los datos de la tabla, incluyendo todas las páginas
-    const table = $('#miTabla').DataTable();
-    const allData = table.rows().data();
-    
-    allData.each(function (rowData) {
-        const row = [];
-        rowData.forEach((cell, index) => {
-            // Excluir la última columna y la columna "Opciones de la Tabla"
-            if (index !== rowData.length - 1) {
-                row.push(cell);
-            }
-        });
-        tableData.push(row);
-    });
-
-    const workbook = XLSX.utils.book_new();
-    const worksheetData = [headerData, ...tableData];
-    const ws = XLSX.utils.aoa_to_sheet(worksheetData);
-    XLSX.utils.book_append_sheet(workbook, ws, 'Sheet1');
-    const excelFile = XLSX.write(workbook, { bookType: 'xlsx', type: 'blob' });
-
-    saveAs(excelFile, 'reporte.xlsx'); // Descargar el archivo Excel con un nombre específico
 }
+
+
+
+
+//excel
 function exportToExcel() {
     const tableData = [];
     const headerData = [];
@@ -470,7 +472,7 @@ function exportToExcel() {
     });
 
     // Descargar el archivo usando la biblioteca FileSaver.js
-    saveAs(excelBlob, 'reporte.xlsx');
+    saveAs(excelBlob, 'ReporteEstudiantes.xlsx');
 }
 
 // Función para convertir una cadena binaria en una matriz de bytes
@@ -482,5 +484,4 @@ function s2ab(s) {
 }
 
 </script>
-
 @stop
