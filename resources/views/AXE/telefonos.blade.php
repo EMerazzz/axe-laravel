@@ -622,7 +622,7 @@ function exportToExcel() {
     });
 
     // Descargar el archivo usando la biblioteca FileSaver.js
-    saveAs(excelBlob, 'reporte.xlsx');
+    saveAs(excelBlob, 'ReporteTelefonos.xlsx');
 }
 
 // Función para convertir una cadena binaria en una matriz de bytes

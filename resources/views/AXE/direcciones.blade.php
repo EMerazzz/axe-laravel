@@ -596,7 +596,7 @@ function exportToExcel() {
     });
 
     // Descargar el archivo usando la biblioteca FileSaver.js
-    saveAs(excelBlob, 'Reportes direcciones.xlsx');
+    saveAs(excelBlob, 'ReportesDirecciones.xlsx');
 }
 
 // Función para convertir una cadena binaria en una matriz de bytes
