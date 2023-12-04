@@ -118,9 +118,29 @@ class loginController extends Controller
 
                 $variable = $request->input("USUARIO");
                 $preguntasUsuario = json_decode($variablePreguntas, true);
-        
-                return view('AXE/cambioContrasena', compact('variable', 'preguntasUsuario'));
 
+
+                $COD_USUARIO_RECIBIDO = Http::post('http://82.180.162.18:4000/dame_cod_usuario', [
+                    "USUARIO" =>  $variable
+                ]);
+
+                $COD_USUARIO = json_decode( $COD_USUARIO_RECIBIDO, true);
+                $COD_USUARIO = $COD_USUARIO[0]['COD_USUARIO'];
+
+                $TOTAL_PREGUNTAS_USUARIO = Http::post('http://82.180.162.18:4000/cuenta_preguntas', [
+                    "COD_USUARIO" =>  $COD_USUARIO,
+                    "USUARIO" =>  $variable
+                ]);
+                
+                $TOTALPREGUNTAS = json_decode( $TOTAL_PREGUNTAS_USUARIO, true);
+                $TOTALPREGUNTAS = $TOTALPREGUNTAS['COUNT(*)']; 
+
+                if (($TOTALPREGUNTAS) > 1) {
+                    return view('AXE/cambioContrasena', compact('variable', 'preguntasUsuario'));
+                }
+                
+                return view('AXE/login');
+                
             }else{
                 return view('AXE/login');
             }
