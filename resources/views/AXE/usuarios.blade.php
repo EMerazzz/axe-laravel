@@ -266,6 +266,24 @@
                          pattern="^[A-Za-z0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?" value="{{ $usuarios['CONTRASENA'] }}">
                         </div>
 
+
+                        <div class="mb-3">
+                        <label for="PRIMER_INGRESO" class="form-label">Primer Ingreso:</label>
+                        <select class="form-control same-width" id="PRIMER_INGRESO" name="PRIMER_INGRESO">
+                        <option value="1" selected>No Realizado</option>
+                        <option value="2">Realizado</option>
+                        </select>
+                        </div>
+
+                        <div class="mb-3">
+                        <label for="COD_ESTADO_USUARIO" class="form-label">Estado usuario:</label>
+                        <select class="form-control same-width" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO">
+                        <option value="1" selected>Activo</option>
+                        <option value="2">Inactivo</option>
+                        </select>
+                        </div>
+   
+
                         
                         <button type="submit" class="btn btn-primary">Editar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

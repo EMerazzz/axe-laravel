@@ -109,7 +109,7 @@ class usuariosController extends Controller
         }
     }
     
-
+    //update
     public function modificar_usuario(Request $request)
     {
         $cookieEncriptada = request()->cookie('token');
@@ -120,6 +120,7 @@ class usuariosController extends Controller
         ])->put($this->apiUrl.'/'.$request->input("COD_USUARIO"), [
             "USUARIO" => $request->input("USUARIO"),
             "CONTRASENA" => $request->input('CONTRASENA'),
+            "PRIMER_INGRESO"=> $request->input('PRIMER_INGRESO'),
             
         ]); 
         if ($modificar_usuario->successful()) {
@@ -135,6 +136,7 @@ class usuariosController extends Controller
         }
     }
    
+    //delete
     public function delete_usuario(Request $request)
     {
         $cookieEncriptada = request()->cookie('token');
