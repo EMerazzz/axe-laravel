@@ -119,7 +119,7 @@ class usuariosController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_USUARIO"), [
             "USUARIO" => $request->input("USUARIO"),
-            "CONTRASENA" => bcrypt($request->input('CONTRASENA')),
+            "CONTRASENA" => $request->input('CONTRASENA'),
             
         ]); 
         if ($modificar_usuario->successful()) {
