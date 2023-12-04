@@ -87,7 +87,7 @@
                         @csrf
                         <!-- INICIO --->
                         <div class="mb-3 mt-3">
-                    <label for="COD_PERSONA" class="form-label">Personal: </label>
+                    <label for="COD_PERSONA" class="form-label">Estudiante: </label>
                     <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                         <option value="" disabled selected>Seleccione una persona</option>
                         @foreach ($personasArreglo as $persona)
@@ -173,10 +173,31 @@
                                 @endforeach
                             </select>
                         </div>
+                    
+                        <!-- Botón adicional -->
+        <button type="button" class="btn btn-primary" id="btnAgregarCampo" style="margin-bottom: 20px;" >Agregar otro encargado</button>
+
+                        <!-- Nuevo bloque oculto inicialmente -->
+                        <div id="nuevoBloque" style="display: none;">
+                                <div class="mb-3 mt-3">
+                                    <label for="COD_PADRE_TUTOR2" class="form-label">Encargado: </label>
+                                    <select class="selectize" id="COD_PADRE_TUTOR2" name="COD_PADRE_TUTOR2" required>
+                                        <option value="" disabled selected>Seleccione un padre o encargado</option>
+                                        @foreach ($padresArreglo as $padre)
+                                            <option value="{{ $padre['COD_PADRE_TUTOR'] }}"
+                                                    {{ old('COD_PADRE_TUTOR2') == $padre['COD_PADRE_TUTOR'] ? 'selected' : '' }}>
+                                                {{ $padre['NOMBRE_PADRE_TUTOR'] }} {{ $padre['APELLIDO_PADRE_TUTOR'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                        </div>
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                       
                     </form>
+                    
                 </div>
             </div>
         </div>
@@ -599,6 +620,12 @@ modeToggle.addEventListener('click', () => {
             searchField: ['text', 'IDENTIDAD'], // Habilita la búsqueda por nombre y por identidad
         });
     });
+    $(document).ready(function() {
+        // Manejar clic en el botón para mostrar/ocultar el nuevo bloque
+        $("#btnAgregarCampo").click(function() {
+            $("#nuevoBloque").toggle(); // Alternar la visibilidad del bloque
+        });
+    });
 </script>
 
 <!-- scripts para generar reportes excel y pdf-->
@@ -750,5 +777,6 @@ function s2ab(s) {
 }
 
 </script>
+
 
 @stop
