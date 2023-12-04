@@ -184,7 +184,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <script>
     // Función para validar el contenido de un campo de entrada
     function validarInput(input) {
-      const regex = /^[A-Za-z0-9]+$/; // Expresión regular para letras y números
+        const regex = /^[A-Za-z0-9@.]+$/;
+ // Expresión regular para letras y números
       if (!regex.test(input.value)) {
         alert("El campo solo puede contener letras y números");
         input.value = ""; // Limpiar el campo
