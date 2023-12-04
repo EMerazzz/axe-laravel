@@ -66,9 +66,8 @@
             <tr>
                
                 <th>Estudiante</th>
-               <!-- <th>Nivel Académico</th> 
-              
-                <th>Año Académico</th>-->
+               <th>Nivel Académico</th> 
+                <th>Año Académico</th>
                 <th>Sección</th>
                 <th>Jornada</th>
               
@@ -96,6 +95,15 @@
                         }
                     }
                 @endphp
+                @php
+                    $anio_academico = null;
+                    foreach ($anio_academicoArreglo as $a) {
+                        if ($a['COD_ANIO_ACADEMICO'] === $matricula['COD_ANIO_ACADEMICO']) {
+                            $anio_academico = $a;
+                            break;
+                        }
+                    }
+                @endphp
 
              
                 @php
@@ -112,9 +120,23 @@
                         @if ($persona !== null)
                             {{ $persona['NOMBRE']. ' ' . $persona['APELLIDO'] }}
                         @else
-                            Persona no encontrada
+                            
                         @endif
                 </td>
+                 <td>
+                        @if ($nivel_academico !== null)
+                            {{ $nivel_academico['descripcion']}}
+                        @else
+                             no encontrado
+                        @endif
+                 </td> 
+                 <td>
+                        @if ($anio_academico !== null)
+                            {{ $anio_academico['descripcion']}}
+                        @else
+                             no encontrado
+                        @endif
+                 </td>
             
                  <td>{{ $matricula['SECCION'] }}</td>
                  <td>{{ $matricula['JORNADA'] }}</td>

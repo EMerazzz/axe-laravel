@@ -77,11 +77,12 @@
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <form action="{{url('usuarios/insertar')}}" method="post">
                         @csrf
-                 <!-- INICIO --->
-                 <div class="mb-3 mt-3">
-                 <label for="usuarios" class="form-label">Usuario:</label>
-                 <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ0-9 ]+$" title="Solo se permiten letras, números y espacios" required>
-                 </div>
+                <!-- INICIO -->
+                    <div class="mb-3 mt-3">
+                    <label for="usuarios" class="form-label">Usuario:</label>
+                    <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ0-9 ]+$" title="Solo se permiten letras, números y espacios" required>
+                    </div>
+
 
                  <div class="mb-3 mt-3">
                  <label for="usuarios" class="form-label">Contraseña:</label>
@@ -456,7 +457,16 @@ modeToggle.addEventListener('click', () => {
     }
    
 </script>
-<script></script>
+<script>
+  // Obtener el elemento de entrada
+  var inputUsuario = document.getElementById('USUARIO');
+
+  // Agregar un evento input al campo de entrada
+  inputUsuario.addEventListener('input', function() {
+    // Convertir el valor a mayúsculas y establecerlo de nuevo en el campo
+    this.value = this.value.toUpperCase();
+  });
+</script>
 
    
 @stop

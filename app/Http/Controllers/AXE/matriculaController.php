@@ -106,6 +106,17 @@ class matriculaController extends Controller
                 'text' => 'No se pudo obtener la lista de matrículas.'
             ]);
         }
+        $nivelacademico = $request->input("COD_NIVEL_ACADEMICO");
+        $aniocademico = $request->input("COD_ANIO_ACADEMICO");
+        
+        if ($nivelacademico === 1 && in_array($aniocademico, [4, 5, 6])) {
+            // La matrícula ya existe, generar mensaje de error
+            return redirect('/matricula')->with('message', [
+                'type' => 'error',
+                'text' => 'Ciclo común solo llega a noveno.'
+            ])->withInput(); // Agregar esta línea para mantener los datos ingresados
+        }
+        
     $nueva_matricula = Http::withHeaders([
         'Authorization' => 'Bearer ' . $token,
     ])->post($this->apiUrl.'/matricula',[    
@@ -117,6 +128,7 @@ class matriculaController extends Controller
     "SECCION"=> $request->input("SECCION"),
     "COD_PADRE_TUTOR"=> $request->input("COD_PADRE_TUTOR"),
     "USUARIO_MODIFICADOR" => $UsuarioValue,
+    "SEGUNDO_EMCARGADO"=> $request->input("COD_PADRE_TUTOR"),
         ]);
         
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error

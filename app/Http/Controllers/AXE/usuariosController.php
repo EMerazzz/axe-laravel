@@ -60,24 +60,22 @@ class usuariosController extends Controller
        
         // Obtener todas las personas desde la API
         $UsuarioValue = $_COOKIE["Usuario"];
-        $CODPERSONA = $request->input("COD_PERSONA");
+        $USUARIO = $request->input("USUARIO");
     
         // Obtener todas las personas desde la API
         $todos_usuarios = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
-        
-        $UsuarioValue = $_COOKIE["Usuario"];
     
         if ($todos_usuarios->successful()) {
             $usuarios_lista = $todos_usuarios->json();
     
             foreach ($usuarios_lista as $usuario) {
-                if ($usuario["COD_PERSONA"] === $CODPERSONA) {
+                if ($usuario["USUARIO"] === $USUARIO) {
                     // La persona ya existe, generar mensaje de error
-                    return redirect('usuario')->with('message', [
+                    return redirect('usuarios')->with('message', [
                         'type' => 'error',
-                        'text' => 'Ya tiene usuario.'
+                        'text' => 'Este usuario ya existe.'
                     ])->withInput(); // Agregar esta línea para mantener los datos ingresados
                 }
                 
