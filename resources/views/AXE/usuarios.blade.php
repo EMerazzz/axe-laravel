@@ -138,6 +138,7 @@
                 <th>#</th>
                 <th>Nombre completo</th>
                 <th>Usuario</th>
+                <th>Rol</th>
                 <th>Primer Ingreso</th>
                 <th>Número Intentos</th>
                 <th>Estado de usuario</th>
@@ -159,7 +160,15 @@
                         }
                     }    
             @endphp
-
+            @php
+                    $rol = null;
+                    foreach ($rolesArreglo as $r) {
+                        if ($r['COD_ROL'] === $usuarios['COD_ROL']) {
+                            $rol = $r;
+                            break;
+                        }
+                    }    
+            @endphp
     
 
             <tr>
@@ -168,10 +177,18 @@
                         @if ($persona !== null)
                             {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
                         @else
-                            Persona no encontrada
+                            
                         @endif
                 </td>
+                
                 <td>{{ $usuarios['USUARIO'] }}</td>
+                <td>
+                        @if ($rol !== null)
+                            {{ $rol['DESCRIPCION'] }}
+                        @else
+                            
+                        @endif
+                </td>
                 <td>
                     @if($usuarios['PRIMER_INGRESO'] == 1)
                         Realizado
