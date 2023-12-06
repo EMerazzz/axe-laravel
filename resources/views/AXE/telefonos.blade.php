@@ -99,7 +99,7 @@
                         <!-- FIN --->
                         <div class="mb-3 mt-3">
     <label for="TELEFONO" class="form-label">Número Teléfono:</label>
-    <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" required>
+    <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="_-_" required>
 </div>
                         <div class="mb-3">
                             <label for="TIPO_TELEFONO" class="form-label">Tipo Teléfono:</label>
@@ -178,7 +178,7 @@
                     <form action="{{ url('telefonos/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_TELEFONO" value="{{ $telefonos['COD_TELEFONO'] }}">
-                        <div class="mb-3 mt-3">
+                        <!-- <div class="mb-3 mt-3">
                             <label for="COD_PERSONA" class="form-label">Persona</label>
                             <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                                 @foreach ($personasArreglo as $persona)
@@ -189,13 +189,13 @@
                             </select>
                         </div> -->
 
-                        <div class="mb-3 mt-3">
-                            <label for="TELEFONO" class="form-label">Número Teléfono:</label>
-                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" oninput="formatTelefono(this)" pattern="[0-9]{8}" value="{{$telefonos['TELEFONO']}}"  required>
-                        </div>
-
                         <div class="mb-3 mt-3 form-inline">
-                            <label for="TIPO_TELEFONO" class="form-label mr-2">Tipo Telefono:</label>
+                        <label for="TELEFONOUPD" class="form-label mr-2">Número Teléfono:</label>
+                        <input type="text" class="form-control" id="TELEFONOUPD" name="TELEFONOUPD" placeholder="_-_" value="{{$telefonos['TELEFONO']}}" required >
+                       </div>
+
+                        <div class="mb-3">
+                            <label for="TIPO_TELEFONO" class="form-label">Tipo Telefono:</label>
                             <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
                                 <option value="Fijo" {{ $telefonos['TIPO_TELEFONO'] === 'Fijo' ? 'selected' : '' }}>Fijo</option>
                                 <option value="Movil" {{ $telefonos['TIPO_TELEFONO'] === 'Movil' ? 'selected' : '' }}>Movil</option>
@@ -345,8 +345,8 @@
         $('#miTabla').DataTable({
             "language": {
                 "search": "Buscar: ",
-                "lengthMenu": "Mostrar _MENU_ registros por página",
-                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "lengthMenu": "Mostrar MENU registros por página",
+                "info": "Mostrando página PAGE de PAGES",
                 "paginate": {
                     "previous": "Anterior",
                     "next": "Siguiente",
