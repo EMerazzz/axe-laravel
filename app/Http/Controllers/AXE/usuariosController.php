@@ -123,7 +123,7 @@ class usuariosController extends Controller
             "PRIMER_INGRESO"=> $request->input('PRIMER_INGRESO'),
             "COD_ESTADO_USUARIO" => $request->input("COD_ESTADO_USUARIO"),
             "COD_ROL" => $request->input("COD_ROL"),
-        ]); dd($request->input("COD_ESTADO_USUARIO"));
+        ]); //dd($request->input("COD_ESTADO_USUARIO"));
         if ($modificar_usuario->successful()) {
             return redirect('/usuarios')->with('message', [
                 'type' => 'success',
