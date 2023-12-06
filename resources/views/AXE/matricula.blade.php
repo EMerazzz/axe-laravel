@@ -74,19 +74,19 @@
 <div class="spacer"></div>
 <button id="botonNuevo" type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#matricula">+Matricular</button>
 <div class="spacer"></div>
+
 <div class="modal fade bd-example-modal-sm" id="matricula" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Ingresa Matricula</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>   
-            <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{ url('matricula/insertar') }}" method="post">
-                        @csrf
-                        <!-- INICIO --->
-                        <div class="mb-3 mt-3">
+            </div>
+
+            <form action="{{ url('matricula/insertar') }}" method="post">
+                @csrf
+                <div class="modal-body" style="background-color: #fff; padding: 20px;">
+                <div class="mb-3 mt-3">
                     <label for="COD_PERSONA" class="form-label">Estudiante: </label>
                     <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                         <option value="" disabled selected>Seleccione una persona</option>
@@ -173,36 +173,30 @@
                                 @endforeach
                             </select>
                         </div>
-                    
-                        <!-- Botón adicional -->
-        <button type="button" class="btn btn-primary" id="btnAgregarCampo" style="margin-bottom: 20px;" >Agregar otro encargado</button>
 
-                        <!-- Nuevo bloque oculto inicialmente -->
-                        <div id="nuevoBloque" style="display: none;">
-                                <div class="mb-3 mt-3">
-                                    <label for="COD_PADRE_TUTOR2" class="form-label">Encargado: </label>
-                                    <select class="selectize" id="COD_PADRE_TUTOR2" name="COD_PADRE_TUTOR2" required>
-                                        <option value="" disabled selected>Seleccione un padre o encargado</option>
-                                        @foreach ($padresArreglo as $padre)
-                                            <option value="{{ $padre['COD_PADRE_TUTOR'] }}"
-                                                    {{ old('COD_PADRE_TUTOR2') == $padre['COD_PADRE_TUTOR'] ? 'selected' : '' }}>
-                                                {{ $padre['NOMBRE_PADRE_TUTOR'] }} {{ $padre['APELLIDO_PADRE_TUTOR'] }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                 
+                    <button type="button" class="btn btn-primary" id="btnAgregarCampo" style="margin-bottom: 20px;">Agregar otro encargado</button>
+
+                    <!-- Nuevo bloque oculto inicialmente -->
+                    <div id="nuevoBloque" style="display: none;">
+                        <div class="mb-3 mt-3">
+                            <label for="COD_PADRE_TUTOR2" class="form-label">Encargado: </label>
+                            <select class="selectize" id="COD_PADRE_TUTOR2" name="COD_PADRE_TUTOR2" required>
+                                <!-- ... Opciones del select ... -->
+                            </select>
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Añadir</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                       
-                    </form>
-                    
+                    </div>
                 </div>
-            </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 
 <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
