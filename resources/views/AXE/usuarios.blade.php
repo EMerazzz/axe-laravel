@@ -191,16 +191,16 @@
                 </td>
                 <td>
                     @if($usuarios['PRIMER_INGRESO'] == 1)
-                        Realizado
+                    No Realizado
                     @elseif($usuarios['PRIMER_INGRESO'] == 0)
-                        No Realizado
+                        Realizado
                     @endif
                  </td>
                 <td>{{ $usuarios['N_INTENTOS'] }}</td>
                 <td>
                     @if($usuarios['COD_ESTADO_USUARIO'] == 1)
                         Activo
-                    @elseif($usuarios['COD_ESTADO_USUARIO'] == 0)
+                    @elseif($usuarios['COD_ESTADO_USUARIO'] == 2)
                         Inactivo
                     @endif
                  </td>
@@ -287,18 +287,19 @@
                         <div class="mb-3">
                         <label for="PRIMER_INGRESO" class="form-label">Primer Ingreso:</label>
                         <select class="form-control same-width" id="PRIMER_INGRESO" name="PRIMER_INGRESO">
-                        <option value="1" selected>No Realizado</option>
-                        <option value="2">Realizado</option>
+                        <option value="1" {{ $usuarios['PRIMER_INGRESO'] === '1' ? 'selected' : '' }}>No Realizado</option>
+                        <option value="0"{{ $usuarios['PRIMER_INGRESO'] === '0' ? 'selected' : '' }}>Realizado</option>
                         </select>
                         </div>
 
                         <div class="mb-3">
-                        <label for="COD_ESTADO_USUARIO" class="form-label">Estado usuario:</label>
-                        <select class="form-control same-width" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO">
-                        <option value="1" selected>Activo</option>
-                        <option value="2">Inactivo</option>
-                        </select>
+                            <label for="COD_ESTADO_USUARIO" class="form-label">Estado usuario:</label>
+                            <select class="form-control same-width" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO">
+                            <option value="1" {{ $usuarios['COD_ESTADO_USUARIO'] === '1' ? 'selected' : '' }}>Activo</option>
+                                <option value="2" {{ $usuarios['COD_ESTADO_USUARIO'] === '2' ? 'selected' : '' }}>Inactivo</option>
+                            </select>
                         </div>
+
 
                         
                         <button type="submit" class="btn btn-primary">Editar</button>
