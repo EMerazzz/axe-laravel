@@ -54,8 +54,8 @@ class seccionesController extends Controller
             }
         }
       //  $PRIMER_INGRESO = $request->input("PRIMER_INGRESO") ? 1 : 0;
-
-
+      
+      
         $nueva_seccion = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->post($this->apiUrl, [

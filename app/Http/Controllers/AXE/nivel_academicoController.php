@@ -32,6 +32,27 @@ class nivel_academicoController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl);
     
+        $DESCRIPCION = $request->input("descripcion");
+    
+        $todosNiveles = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
+
+    
+        if ($todosNiveles->successful()) {
+            $niveles_lista = $todosNiveles->json();
+    
+            foreach ($niveles_lista as $niveles) {
+                if ($niveles["descripcion"] === $DESCRIPCION) {
+                    // La persona ya existe, generar mensaje de error
+                    return redirect('/nivel_academico')->with('message', [
+                        'type' => 'error',
+                        'text' => 'Este nivel ya existe.'
+                    ])->withInput(); // Agregar esta línea para mantener los datos ingresados
+                }
+                
+            }
+        }
         
         // Enviar la solicitud POST a la API para agregar la nueva persona
         $nuevo_nivel_academico = Http::withHeaders([
@@ -39,7 +60,7 @@ class nivel_academicoController extends Controller
         ])->post($this->apiUrl, [
             "descripcion" => $request->input("descripcion"),
         ]);
-    
+
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
         if ($nuevo_nivel_academico->successful()) {
             return redirect('/nivel_academico')->with('message', [
