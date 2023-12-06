@@ -84,8 +84,8 @@
                     <form action="{{ url('correos/insertar') }}" method="post">
                         @csrf
                         <!-- INICIO --->
-                        <div class="mb-3 mt-3">
-                            <label for="COD_PERSONA" class="form-label">Persona: </label>
+                        <div class="mb-3 mt-3 form-inline">
+                            <label for="COD_PERSONA" class="form-label mr-2">Persona: </label>
                             <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                                 <option value="" disabled selected>Seleccione Persona</option>
                                 @foreach ($personasArreglo as $persona)
@@ -94,8 +94,8 @@
                             </select>
                         </div>
                         <!-- FIN --->
-                        <div class="mb-3 mt-3">
-                            <label for="correos" class="form-label">Correo Electrónico</label>
+                        <div class="mb-3 mt-3 form-inline">
+                            <label for="correos" class="form-label mr-2">Correo Electrónico</label>
                             <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" required maxlength="45">
                             <div id="error-message-correo" style="color: red; display: none;">No se permiten espacios</div>
                         </div>
@@ -170,8 +170,8 @@
                     <form action="{{ url('correos/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_CORREO" value="{{ $correos['COD_CORREO'] }}">
-                        <div class="mb-3 mt-3">
-                            <label for="COD_PERSONA" class="form-label">Persona</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="COD_PERSONA" class="form-label mr-2">Persona</label>
                             <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}" {{ $persona['COD_PERSONA'] == $correos['COD_PERSONA'] ? 'selected' : '' }}>
@@ -180,8 +180,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="correos" class="form-label">Correo electrónico</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="correos" class="form-label mr-2">Correo electrónico</label>
                             <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" value="{{ $correos['CORREO_ELECTRONICO'] }}" required maxlength="45"
                             title="No se permiten espacios" oninput="this.value = this.value.replace( /\s/g, '')" required>
                         </div>

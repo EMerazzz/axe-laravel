@@ -71,13 +71,13 @@
                 <div class="modal-body">
                     <form action="{{ url('roles/insertar') }}" method="post">
                         @csrf
-                        <div class="mb-3 mt-3">
-                        <label for="DESCRIPCION" class="form-label">Modificado:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                        <label for="DESCRIPCION" class="form-label mr-2">Rol:</label>
                         <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION">
                          </div>
                         
-                        <div class="mb-3 mt-3">
-                        <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
+                         <div class="mb-3 mt-3 d-flex align-items-center">
+                        <label for="MODIFICADO_POR" class="form-label mr-2">Modificado:</label>
                         <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
                          </div>
 
@@ -142,14 +142,14 @@
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ROL" value="{{ $roles['COD_ROL'] }}">
 
-                            <div class="mb-3 mt-3">
-                            <label for="DESCRIPCION" class="form-label">Modificado:</label>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="DESCRIPCION" class="form-label mr-2">Rol:</label>
                             <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" value="{{ $roles['DESCRIPCION'] }}">
                             </div>
 
 
-                            <div class="mb-3 mt-3">
-                            <label for="MODIFICADO_POR" class="form-label">Modificado:</label>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="MODIFICADO_POR" class="form-label mr-2">Modificado:</label>
                             <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
                             </div>
 

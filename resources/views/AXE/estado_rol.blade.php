@@ -69,8 +69,8 @@
                 <div class="modal-body">
                     <form action="{{ url('estado_rol/insertar') }}" method="post">
                         @csrf
-                        <div class="mb-3">
-                            <label for="estado_rol" class="form-label">Descripción:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="estado_rol" class="form-label mr-2">Descripción:</label>
                             <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese Estado">
                         </div>
 
@@ -125,8 +125,8 @@
                         <form action="{{ url('estado_rol/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ESTADO_ROL" value="{{$estado_rol['COD_ESTADO_ROL']}}">
-                            <div class="mb-3">
-                                <label for="Descripcion" class="form-label">Descripción:</label>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                                <label for="Descripcion" class="form-label mr-2">Descripción:</label>
                                 <input type="text" class="form-control" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese Descripción" value="{{ $estado_rol['DESCRIPCION'] }}"
                                 title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')"maxlength="30">
                            </div>

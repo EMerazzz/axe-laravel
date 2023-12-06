@@ -186,8 +186,8 @@
                     <form action="{{ url('contacto/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_CONTACTO_EMERGENCIA" value="{{ $contacto['COD_CONTACTO_EMERGENCIA'] }}">
-                        <div class="mb-3 mt-3">
-                            <label for="COD_PERSONA" class="form-label">Persona</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="COD_PERSONA" class="form-label mr-2">Persona</label>
                             <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}" {{ $persona['COD_PERSONA'] == $contacto['COD_PERSONA'] ? 'selected' : '' }}>

@@ -76,8 +76,8 @@
                     <form action="{{url('nivel_academico/insertar')}}" method="post">
                         @csrf
                 <!-- INICIO --->
-                <div class="mb-3 mt-3">
-                    <label for="descripcion" class="form-label">Nivel académico </label>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="descripcion" class="form-label mr-2">Nivel académico </label>
                     <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el nivel académico" required maxlength="200" oninput="this.value = this.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚ\s]/g, '')">
                 </div>
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -123,8 +123,8 @@
                                         @csrf
                                         <input type="hidden" class="form-control" name="COD_NIVEL_ACADEMICO" value="{{$nivel_academico['COD_NIVEL_ACADEMICO']}}">
                                        
-                                        <div class="mb-3 mt-3">
-                                            <label for="descripcion" class="form-label">Nivel académico </label>
+                                        <div class="mb-3 mt-3 d-flex align-items-center">
+                                            <label for="descripcion" class="form-label mr-2">Nivel académico </label>
                                             <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el nivel académico" required maxlength="200" value="{{$nivel_academico['descripcion']}}"oninput="this.value = this.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚ\s]/g, '')">
                                         </div>
 

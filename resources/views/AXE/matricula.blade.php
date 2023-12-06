@@ -86,7 +86,7 @@
             <form action="{{ url('matricula/insertar') }}" method="post">
                 @csrf
                 <div class="modal-body" style="background-color: #fff; padding: 20px;">
-                <div class="mb-3 mt-3 form-inline">
+                <div class="mb-3 mt-3 d-flex align-items-center">
                     <label for="COD_PERSONA" class="form-label mr-2">Estudiante: </label>
                     <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required style="width: 300px;">
                         <option value="" disabled selected>Seleccione una persona</option>
@@ -104,7 +104,7 @@
 
 
                         <!-- FIN --->
-                        <div class="mb-3 mt-3 form-inline">
+                        <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="COD_NIVEL_ACADEMICO" class="form-label mr-2">Nivel Adémico: </label>
                             <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required style="width: 300px;">
                                 <option value="" disabled selected>Seleccione el nivel académico</option>
@@ -118,7 +118,7 @@
                         </div>
 
 
-                            <div class="mb-3 mt-3 form-inline">
+                        <div class="mb-3 mt-3 d-flex align-items-center">
                                 <label for="COD_ANIO_ACADEMICO" class="form-label mr-2">Año Académico: </label>
                                 <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required style="width: 300px;">
                                     <option value="" disabled selected>Seleccione el año académico</option>
@@ -131,7 +131,7 @@
                                 </select>
                             </div>
 
-                            <div class="mb-3 mt-3 form-inline">
+                            <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="matricula" class="form-label mr-2">Estado Matricula:</label>
                             <select class="selectize" id="ESTADO_MATRICULA" name="ESTADO_MATRICULA" required style="width: 300px;">
                             <option value="Activo" {{ old('ESTADO_MATRICULA') == 'Activo' ? 'selected' : '' }}>Activo</option>
@@ -139,7 +139,7 @@
                             </select>
                             </div>
 
-                            <div class="mb-3 mt-3 form-inline">
+                            <div class="mb-3 mt-3 d-flex align-items-center">
                         <label for="estudiantes" class="form-label mr-2">Jornada:</label>
                         <select class="selectize" id="JORNADA" name="JORNADA" required style="width: 300px;">
                             <option value="Matutina" {{ old('JORNADA_ESTUDIANTE') == 'Matutina' ? 'selected' : '' }}>Matutina</option>
@@ -148,7 +148,7 @@
                         </select>
                         </div>
 
-                        <div class="mb-3 mt-3 form-inline">
+                        <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="SECCION" class="form-label mr-2">Sección Académica: </label>
                             <select class="selectize" id="SECCION" name="SECCION" required style="width: 300px;">
                                 <option value="" disabled selected>Seleccione la sección académica</option>
@@ -161,7 +161,7 @@
                             </select>
                         </div>
 
-                        <div class="mb-3 mt-3 form-inline">
+                        <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="COD_PADRE_TUTOR" class="form-label mr-2">Encargado: </label>
                             <select class="selectize" id="COD_PADRE_TUTOR" name="COD_PADRE_TUTOR" required style="width: 300px;">
                                 <option value="" disabled selected>Seleccione un padre o encargado</option>
