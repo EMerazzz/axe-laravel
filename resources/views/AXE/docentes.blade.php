@@ -73,16 +73,16 @@
                         @csrf
                  <!-- INICIO --->
                  <div class="mb-3 mt-3">
-    <label for="COD_PERSONA" class="form-label">Persona: </label>
-    <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-        <option value="" disabled selected>Seleccione Persona</option>
-        @foreach ($personasArreglo as $persona)
-            @if ($persona['TIPO_PERSONA'] === 'Docente')
-                <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
-            @endif
-        @endforeach
-    </select>
-</div>
+                    <label for="COD_PERSONA" class="form-label">Persona: </label>
+                    <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                        <option value="" disabled selected>Seleccione Persona</option>
+                        @foreach ($personasArreglo as $persona)
+                            @if ($persona['TIPO_PERSONA'] === 'Docente')
+                                <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
                         <div class="mb-3 mt-3">
                             <label for="docentes" class="form-label">Especialidad:</label>
                             <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese especialidad del docente"

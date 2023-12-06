@@ -42,15 +42,15 @@ class padresController extends Controller
         ])->get("http://82.180.162.18:4000/personas/{$personaSeleccionadaId}");
        // dd($personaSeleccionada);
         $personaSeleccionadaData = json_decode($personaSeleccionada, true);
-        //dd($personaSeleccionadaData);
-       
+        //dd(($personaSeleccionadaData[0]['NOMBRE']));
+      
             // Crear una solicitud para agregar un nuevo docente con los datos combinados
             $nuevo_padre = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
             ])->post($this->apiUrl, [
                 "COD_PERSONA" => $request->input("COD_PERSONA"),
-                //"NOMBRE_PADRE_TUTOR" => $personaSeleccionadaData[0]['NOMBRE'],
-               // "APELLIDO_PADRE_TUTOR" => $personaSeleccionadaData[0]['APELLIDO'],
+                "NOMBRE_PADRE_TUTOR" => $personaSeleccionadaData[0]['NOMBRE'],
+               "APELLIDO_PADRE_TUTOR" => $personaSeleccionadaData[0]['APELLIDO'],
                 "OCUPACION_PADRE_TUTOR" => $request->input("OCUPACION_PADRE_TUTOR"),
                 "RELACION_PADRE_ESTUDIANTE" => $request->input("RELACION_PADRE_ESTUDIANTE"),
                 "USUARIO_MODIFICADOR" => $UsuarioValue,
