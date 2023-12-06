@@ -416,7 +416,7 @@ return [
        
         [
             'text'        => 'Reportes',
-            'label'       => 4,
+            'label'       => 5,
            'label_color' => 'success',
             'icon' =>"fa fa-book",
            'icon_color' => 'teal',
@@ -458,7 +458,7 @@ return [
         ],
         [
             'text'        => 'Seguridad',
-            'label'       => 4,
+            'label'       => 5,
            'label_color' => 'success',
             'icon' =>"fa fa-lock",
            'icon_color' => 'teal',
