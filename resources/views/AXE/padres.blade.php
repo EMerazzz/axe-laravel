@@ -87,7 +87,7 @@
                  <!-- INICIO --->
                  <div class="mb-3 mt-3 d-flex align-items-center">
     <label for="COD_PERSONA" class="form-label mr-2">Encargado: </label>
-    <select class= class="selectize form-control w-100" id="COD_PERSONA" name="COD_PERSONA" required>
+    <select class= "selectize form-control w-100" id="COD_PERSONA" name="COD_PERSONA" required>
         <option value="" disabled selected>Seleccione una persona</option>
         @foreach ($personasArreglo as $persona)
             @if ($persona['TIPO_PERSONA'] === 'Padre o tutor')
