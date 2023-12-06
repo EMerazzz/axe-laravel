@@ -149,12 +149,6 @@
                         data-target="#correos-edit-{{ $correos['COD_CORREO'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
-                    <!-- boton eliminar-->
-                    <button id="botonEliminar_1" value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
-                     data-target="#correos-delete-{{$correos['COD_CORREO']}}">
-                     <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
-                    </button>
-                     <!-- boton eliminar-->
                     
                 </td>
             </tr>
