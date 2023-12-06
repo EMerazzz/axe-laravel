@@ -135,6 +135,7 @@ class loginController extends Controller
                 $TOTALPREGUNTAS = json_decode( $TOTAL_PREGUNTAS_USUARIO, true);
                 $TOTALPREGUNTAS = $TOTALPREGUNTAS['COUNT(*)']; 
 
+                dd($TOTALPREGUNTAS);
                 if (($TOTALPREGUNTAS) > 0) {
                     return view('AXE/cambioContrasena', compact('variable', 'preguntasUsuario'));
                 }else{

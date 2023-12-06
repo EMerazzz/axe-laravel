@@ -488,7 +488,7 @@
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
                         <div class="mb-3 mt-3 form-inline">
-                            <label for="contacto" class="form-label mr-2"">Apellidos Contacto</label>
+                            <label for="contacto" class="form-label mr-2">Apellidos Contacto</label>
                             <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto" value="{{ $personas['APELLIDO_CONTACTO'] }}" maxlength="40"
                              title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
@@ -1009,7 +1009,7 @@ $(document).ready(function () {
 });
 </script>
 <script>
-function formatIdentidad(input) {
+function formatTelefono(input) {
     // Elimina cualquier guión o caracteres no numéricos del valor del campo
     let value = input.value.replace(/-/g, '').replace(/\D/g, '');
 

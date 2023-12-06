@@ -10,4 +10,5 @@ Route::middleware(['checkToken', 'verificar.usuario:SECCIONES'])->group(function
     Route::post('/insertar',[seccionesController::class,'nueva_seccion']);
     Route::post('/actualizar',[seccionesController::class,'modificar_seccion']);
     //hasta aqui
+    Route::post('/delete',[seccionesController::class,'delete_seccion']);
 });

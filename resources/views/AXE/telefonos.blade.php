@@ -178,8 +178,8 @@
                     <form action="{{ url('telefonos/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_TELEFONO" value="{{ $telefonos['COD_TELEFONO'] }}">
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="COD_PERSONA" class="form-label mr-2">Persona</label>
+                        <div class="mb-3 mt-3">
+                            <label for="COD_PERSONA" class="form-label">Persona</label>
                             <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}" {{ $persona['COD_PERSONA'] == $telefonos['COD_PERSONA'] ? 'selected' : '' }}>
@@ -187,10 +187,10 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> -->
 
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="TELEFONO" class="form-label mr-2">Número Teléfono:</label>
+                        <div class="mb-3 mt-3">
+                            <label for="TELEFONO" class="form-label">Número Teléfono:</label>
                             <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" oninput="formatTelefono(this)" pattern="[0-9]{8}" value="{{$telefonos['TELEFONO']}}"  required>
                         </div>
 
@@ -459,32 +459,7 @@ modeToggle.addEventListener('click', () => {
     });
 </script>
     <!-- Script personalizado para validaciones -->
-    <script>
-    function setupValidation(inputId, errorMessageId, pattern) {
-        const input = document.getElementById(inputId);
-        const errorMessage = document.getElementById(errorMessageId);
-
-        input.addEventListener('input', function() {
-            const inputValue = input.value.trim();
-            const validInput = inputValue.replace(pattern, '');
-
-            if (inputValue !== validInput) {
-                input.value = validInput;
-                errorMessage.style.display = 'block';
-            } else {
-                errorMessage.style.display = 'none';
-            }
-        });
-
-        // Llamada inicial para aplicar la validación cuando se cargue la página
-        input.dispatchEvent(new Event('input'));
-    }
-
-
-    // Configuración para el campo de IDENTIDAD
-    setupValidation('TELEFONO', 'error-message-telefono', /[^0-9]/g);
-    
-</script>
+   
    <!-- Script personalizado para CAMBIAR MODO -->
 <script>
    const modeToggle = document.getElementById('mode-toggle');
@@ -636,41 +611,30 @@ function s2ab(s) {
 </script>
 
 <script>
-    document.getElementById('TELEFONO').addEventListener('input', function () {
-        let input = this;
-        let value = input.value.replace(/\D/g, ''); // Elimina caracteres no numéricos
+// Asegúrate de que jQuery esté cargado y disponible
+$(document).ready(function () {
+    // Aplica el formato deseado con inputmask.js
+    $('#TELEFONO').inputmask('9999-9999');
+    $('#TELEFONOUPD').inputmask('9999-9999');
 
-        // Formatea el número de teléfono
-        if (value.length >= 4) {
-            input.value = value.slice(0, 4) + '-' + value.slice(4, 8);
-        } else {
-            input.value = value;
-        }
-    });
+});
 </script>
 <script>
- function formatTelefono(input) {
-    // Elimina cualquier carácter no numérico
-    let cleanedValue = input.value.replace(/\D/g, '');
-
-    // Asegura que la longitud sea de 8 caracteres
-    if (cleanedValue.length > 8) {
-        cleanedValue = cleanedValue.slice(0, 8);
-    }
+function formatTelefono(input) {
+    // Elimina cualquier guión o caracteres no numéricos del valor del campo
+    let value = input.value.replace(/-/g, '').replace(/\D/g, '');
 
     // Formatea el valor con guiones después de cada grupo de 4 caracteres
-    let formattedValue = '';
-    for (let i = 0; i < cleanedValue.length; i++) {
+    let formattedValue = "";
+    for (let i = 0; i < value.length; i++) {
         if (i === 4) {
             formattedValue += '-';
         }
-        formattedValue += cleanedValue.charAt(i);
+        formattedValue += value.charAt(i);
     }
 
     // Asigna el valor formateado de vuelta al campo de entrada
     input.value = formattedValue;
 }
-
-
 </script>
 @stop
