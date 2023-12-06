@@ -77,9 +77,11 @@
                         @csrf
                 <!-- INICIO --->
                 <div class="mb-3 mt-3">
-                    <label for="DESCRIPCION_SECCIONES" class="form-label">Sección </label>
-                    <input type="text" class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES" placeholder="Ingrese la sección" required maxlength="15">
+                    <label for="DESCRIPCION_SECCIONES" class="form-label">Sección</label>
+                    <input type="text" class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES" placeholder="Ingrese la sección" required maxlength="200" pattern="^[A-Za-z\s]+$">
+                    <small id="errorMessage" style="color: red; display: none;">Solo se permiten letras.</small>
                 </div>
+
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -127,7 +129,8 @@
                                        
                                         <div class="mb-3 mt-3">
                                             <label for="DESCRIPCION_SECCIONES" class="form-label">Sección </label>
-                                            <input type="text" class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES" placeholder="Ingrese la sección" required maxlength="15" value="{{$secciones['DESCRIPCION_SECCIONES']}}" >
+                                            <input type="text" class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES" placeholder="Ingrese la sección" required maxlength="200" pattern="^[A-Za-z\s]+$" 
+                                            value="{{$secciones['DESCRIPCION_SECCIONES']}}">
                                         </div>
 
                                         <!-- ... otros campos del formulario ... -->
@@ -247,6 +250,20 @@
             "pageLength": 5, // Establece la longitud de página predeterminada en 5
             "order": [[0, 'desc']] // Ordenar por la primera columna de forma descendente
         });
+    });
+</script>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        var inputField = document.getElementById('DESCRIPCION_SECCIONES');
+        var errorMessage = document.getElementById('errorMessage');
+        var regex = /^[A-Za-z\s]+$/;
+        if (!regex.test(inputField.value)) {
+            errorMessage.style.display = 'block';
+            event.preventDefault();
+        } else {
+            errorMessage.style.display = 'none';
+        }
     });
 </script>
  
