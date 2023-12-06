@@ -42,7 +42,7 @@ class padresController extends Controller
         ])->get("http://82.180.162.18:4000/personas/{$personaSeleccionadaId}");
        // dd($personaSeleccionada);
         $personaSeleccionadaData = json_decode($personaSeleccionada, true);
-        dd($personaSeleccionadaData);
+        //dd(($personaSeleccionadaData[0]['NOMBRE']));
       
             // Crear una solicitud para agregar un nuevo docente con los datos combinados
             $nuevo_padre = Http::withHeaders([
