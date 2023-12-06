@@ -469,13 +469,6 @@ return [
                     'icon_color' => 'info',
                     'url'  => 'usuarios',
                 ],
-
-                [
-                    'text' => 'Cambiar contraseña',
-                    'icon' =>"fa fa-key",
-                    'icon_color' => 'info',
-                    'url'  => 'cambiarContrasena',
-                ],
                 [
                     'text' => 'Roles Objetos',
                     'icon' =>"fa fa-user",
@@ -538,6 +531,12 @@ return [
 
             ],
         
+        ],
+        [
+            'text' => 'Cambiar contraseña',
+            'icon' =>"fa fa-key",
+            'icon_color' => 'info',
+            'url'  => 'cambiarContrasena',
         ],
         [
             'text' => 'Backup',  // Opción "Log Out"
