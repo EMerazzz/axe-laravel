@@ -349,7 +349,7 @@ return [
            
             [
                 'text'        => 'Académico',
-                'label'       => 5,
+                'label'       => 3,
                 'label_color' => 'success',
                 'icon' =>"fa fa-university",
                 'icon_color' => 'teal',
