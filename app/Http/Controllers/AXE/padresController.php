@@ -49,8 +49,8 @@ class padresController extends Controller
                 'Authorization' => 'Bearer ' . $token,
             ])->post($this->apiUrl, [
                 "COD_PERSONA" => $request->input("COD_PERSONA"),
-                "NOMBRE_PADRE_TUTOR" => $personaSeleccionadaData[0]['NOMBRE'],
-                "APELLIDO_PADRE_TUTOR" => $personaSeleccionadaData[0]['APELLIDO'],
+                //"NOMBRE_PADRE_TUTOR" => $personaSeleccionadaData[0]['NOMBRE'],
+               // "APELLIDO_PADRE_TUTOR" => $personaSeleccionadaData[0]['APELLIDO'],
                 "OCUPACION_PADRE_TUTOR" => $request->input("OCUPACION_PADRE_TUTOR"),
                 "RELACION_PADRE_ESTUDIANTE" => $request->input("RELACION_PADRE_ESTUDIANTE"),
                 "USUARIO_MODIFICADOR" => $UsuarioValue,
