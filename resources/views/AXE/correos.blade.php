@@ -149,12 +149,6 @@
                         data-target="#correos-edit-{{ $correos['COD_CORREO'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
-                    <!-- boton eliminar
-                    <button id="botonEliminar_1" value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
-                     data-target="#correos-delete-{{$correos['COD_CORREO']}}">
-                     <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
-                    </button>-->
-                     <!-- boton eliminar-->
                     
                 </td>
             </tr>
@@ -176,9 +170,9 @@
                     <form action="{{ url('correos/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_CORREO" value="{{ $correos['COD_CORREO'] }}">
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="COD_PERSONA" class="form-label mr-2">Persona</label>
-                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" style="width: auto; max-width: 40%;>
+                        <div class="mb-3 mt-3">
+                            <label for="COD_PERSONA" class="form-label">Persona</label>
+                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}" {{ $persona['COD_PERSONA'] == $correos['COD_PERSONA'] ? 'selected' : '' }}>
                                         {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
@@ -186,9 +180,9 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="correos" class="form-label mr-2">Correo electrónico</label>
-                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" value="{{ $correos['CORREO_ELECTRONICO'] }}"required maxlength="40"
+                        <div class="mb-3 mt-3">
+                            <label for="correos" class="form-label">Correo electrónico</label>
+                            <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" value="{{ $correos['CORREO_ELECTRONICO'] }}" required maxlength="45"
                             title="No se permiten espacios" oninput="this.value = this.value.replace( /\s/g, '')" required>
                         </div>
         
