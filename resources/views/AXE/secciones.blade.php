@@ -76,8 +76,8 @@
                     <form action="{{url('secciones/insertar')}}" method="post">
                         @csrf
                 <!-- INICIO --->
-                <div class="mb-3 mt-3">
-                    <label for="DESCRIPCION_SECCIONES" class="form-label">Sección</label>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="DESCRIPCION_SECCIONES" class="form-label mr-2">Sección</label>
                     <input type="text" class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES" placeholder="Ingrese la sección" required maxlength="200" pattern="^[A-Za-z\s]+$">
                     <small id="errorMessage" style="color: red; display: none;">Solo se permiten letras.</small>
                 </div>
@@ -127,8 +127,8 @@
                                         @csrf
                                         <input type="hidden" class="form-control same-width" name="COD_SECCIONES" value="{{$secciones['COD_SECCIONES']}}">
                                        
-                                        <div class="mb-3 mt-3">
-                                            <label for="DESCRIPCION_SECCIONES" class="form-label">Sección </label>
+                                        <div class="mb-3 mt-3 d-flex align-items-center">
+                                            <label for="DESCRIPCION_SECCIONES" class="form-label mr-2">Sección </label>
                                             <input type="text" class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES" placeholder="Ingrese la sección" required maxlength="200" pattern="^[A-Za-z\s]+$" 
                                             value="{{$secciones['DESCRIPCION_SECCIONES']}}">
                                         </div>
@@ -176,7 +176,6 @@
 </table>
 
 @stop
-
 @section('footer')
 <style>
         body, html {
@@ -204,13 +203,12 @@
             justify-content: space-between;
         }
     </style>
-<div>
+        <div>
             Copyright © 2023 UNAH.
         </div>
         <div>
             Todos los derechos reservados.
         </div>
-    
 @endsection
 
 @section('css')

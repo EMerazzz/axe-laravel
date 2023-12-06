@@ -78,19 +78,19 @@
                     <form action="{{url('usuarios/insertar')}}" method="post">
                         @csrf
                 <!-- INICIO -->
-                    <div class="mb-3 mt-3">
-                    <label for="usuarios" class="form-label">Usuario:</label>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="usuarios" class="form-label mr-2">Usuario:</label>
                     <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                     </div>
 
 
-                 <div class="mb-3 mt-3">
-                 <label for="usuarios" class="form-label">Contraseña:</label>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                 <label for="usuarios" class="form-label mr-2">Contraseña:</label>
                  <input type="password" class="form-control" id="CONTRASENA" name="CONTRASENA" placeholder="Ingrese la contraseña" pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?" required>
                  </div>
 
-                 <div class="mb-3 mt-3">
-                    <label for="COD_PERSONA" class="form-label">Personal: </label>
+                 <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="COD_PERSONA" class="form-label mr-2">Personal: </label>
                     <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                         <option value="" disabled selected>Seleccione una persona</option>
                         @foreach ($personasArreglo as $persona)
@@ -105,8 +105,8 @@
                     </select>
                 </div>
 
-                <div class="mb-3 mt-3">
-                <label for="COD_ROL" class="form-label">Rol: </label>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                <label for="COD_ROL" class="form-label mr-2">Rol: </label>
                     <select class="selectize" id="COD_ROL" name="COD_ROL" required>
                     <option value="" disabled selected>Seleccione el Rol</option>
                     @foreach ($rolesArreglo as $roles)
@@ -114,8 +114,8 @@
                     @endforeach
                     </select>
                 </div>
-                <div class="mb-3">
-                        <label for="COD_ESTADO_USUARIO" class="form-label">Estado usuario:</label>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                        <label for="COD_ESTADO_USUARIO"class="form-label mr-2">Estado usuario:</label>
                         <select class="form-control same-width" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO">
                         <option value="1" selected>Activo</option>
                         <option value="2">Inactivo</option>
@@ -254,29 +254,29 @@
                         @csrf
                         <input type="hidden" class="form-control" name="COD_USUARIO" value="{{ $usuarios['COD_USUARIO'] }}">
 
-                        <div class="mb-3 mt-3">
-                        <label for="usuarios" class="form-label">Usuario:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                        <label for="usuarios"class="form-label mr-2">Usuario:</label>
                         <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" value="{{ $usuarios['USUARIO'] }}"
                         pattern="^[A-Za-z0-9]+$" title="Solo se permiten letras y números">
                         </div>
                         
-                        <div class="mb-3 mt-3">
-                        <label for="contrasena" class="form-label">Contraseña:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                        <label for="contrasena" class="form-label mr-2">Contraseña:</label>
                         <input type="password" class="form-control" id="CONTRASENA" name="CONTRASENA" placeholder="Ingrese la contraseña"
                          pattern="^[A-Za-z0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?" value="{{ $usuarios['CONTRASENA'] }}">
                         </div>
 
 
-                        <div class="mb-3">
-                        <label for="PRIMER_INGRESO" class="form-label">Primer Ingreso:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                        <label for="PRIMER_INGRESO" class="form-label mr-2">Primer Ingreso:</label>
                         <select class="form-control same-width" id="PRIMER_INGRESO" name="PRIMER_INGRESO">
                         <option value="1" selected>No Realizado</option>
                         <option value="2">Realizado</option>
                         </select>
                         </div>
 
-                        <div class="mb-3">
-                        <label for="COD_ESTADO_USUARIO" class="form-label">Estado usuario:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                        <label for="COD_ESTADO_USUARIO" class="form-label mr-2">Estado usuario:</label>
                         <select class="form-control same-width" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO">
                         <option value="1" selected>Activo</option>
                         <option value="2">Inactivo</option>

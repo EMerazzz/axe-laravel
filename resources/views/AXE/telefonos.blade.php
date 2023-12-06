@@ -189,13 +189,14 @@
                             </select>
                         </div> -->
 
-                        <div class="mb-3 mt-3 form-inline">
-                        <label for="TELEFONOUPD" class="form-label mr-2">Número Teléfono:</label>
-                        <input type="text" class="form-control" id="TELEFONOUPD" name="TELEFONOUPD" placeholder="_-_" value="{{$telefonos['TELEFONO']}}" required >
-                       </div>
+                        <div class="mb-3 mt-3 form-row">
+    <label for="TELEFONOUPD" class="form-label">Número Teléfono:</label>
+    <input type="text" class="form-control" id="TELEFONOUPD" name="TELEFONOUPD" placeholder="_-_" value="{{$telefonos['TELEFONO']}}" required>
+</div>
 
-                        <div class="mb-3">
-                            <label for="TIPO_TELEFONO" class="form-label">Tipo Telefono:</label>
+
+                       <div class="mb-3 mt-3 form-inline">
+                            <label for="TIPO_TELEFONO" class="form-label mr-2">Tipo Telefono:</label>
                             <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
                                 <option value="Fijo" {{ $telefonos['TIPO_TELEFONO'] === 'Fijo' ? 'selected' : '' }}>Fijo</option>
                                 <option value="Movil" {{ $telefonos['TIPO_TELEFONO'] === 'Movil' ? 'selected' : '' }}>Movil</option>

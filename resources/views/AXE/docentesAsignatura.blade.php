@@ -83,8 +83,8 @@
                     <form action="{{url('docentesAsignatura/insertar')}}" method="post">
                         @csrf
                  <!-- INICIO --->
-                 <div class="mb-3 mt-3">
-                    <label for="COD_DOCENTE" class="form-label">Docentes: </label>
+                 <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="COD_DOCENTE" class="form-label mr-2">Docentes: </label>
                     <select class="selectize" id="COD_DOCENTE" name="COD_DOCENTE" required>
                         <option value="" disabled selected>Seleccione Docente</option>
                         @foreach ($docentesArreglo as $docentes)
@@ -93,8 +93,8 @@
                     </select>
                 </div>
 
-                        <div class="mb-3 mt-3">
-                    <label for="docentesAsignatura" class="form-label">Asignatura: </label>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="docentesAsignatura" class="form-label mr-2">Asignatura: </label>
                     <select class="selectize" id="COD_ASIGNATURA" name="COD_ASIGNATURA" required>
                         <option value="" disabled selected>Seleccione un docente</option>
                         @foreach ($asignaturasArreglo as $asignaturas)
@@ -102,8 +102,8 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="mb-3 mt-3">
-                    <label for="docentesAsignatura" class="form-label">Horas Semanales</label>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="docentesAsignatura" class="form-label mr-2">Horas Semanales</label>
                     <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese horas semanales" pattern="^(?:[1-9]|[1-4][0-9]|40)$" title="Máximo de horas 40"  oninput="this.value = this.value.replace(/[^0-9]/g, '').substr(0, 2);" required maxlength="2">
                 </div>
 
@@ -197,8 +197,8 @@
                     <form action="{{ url('docentesAsignatura/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_DOCENTE_ASIGNATURA" value="{{ $docentesAsignatura['COD_DOCENTE_ASIGNATURA'] }}">
-                        <div class="mb-3 mt-3">
-                            <label for="docentesAsignatura" class="form-label">Asignaturas: </label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="docentesAsignatura" class="form-label mr-2">Asignaturas: </label>
                             <select class="selectize" id="COD_ASIGNATURA" name="COD_ASIGNATURA" required>
                                 <option value="" disabled selected>Seleccione</option>
                                 @foreach ($asignaturasArreglo as $asignaturas)
@@ -209,8 +209,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="docentesAsignatura" class="form-label">Horas Semanales:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="docentesAsignatura" class="form-label mr-2">Horas Semanales:</label>
                             <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese las horas semanales" value="{{ $docentesAsignatura['HORAS_SEMANALES'] }}" pattern="^(?:[1-9]|[1-4][0-9]|40)$" title="Máximo de horas 40"  oninput="this.value = this.value.replace(/[^0-9]/g, '').substr(0, 2);" required maxlength="2">
                
                         </div>

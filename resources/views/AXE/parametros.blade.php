@@ -82,18 +82,18 @@
 
                         @csrf
                        
-                        <div class="mb-3 mt-3">
-                            <label for="PARAMETRO" class="form-label">Nuevo Parametro :</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="PARAMETRO" class="form-label mr-2">Nuevo Parámetro:</label>
                             <input type="text" class="form-control same-width" id="PARAMETRO" name="PARAMETRO" placeholder="Ingrese el parametro" inputmode="text" required  maxlength="100">
                         </div>
 
-                        <div class="mb-3 mt-3">
-                            <label for="VALOR" class="form-label">Nuevo Valor :</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="VALOR" class="form-label mr-2">Nuevo Valor:</label>
                             <input type="text" class="form-control same-width" id="VALOR" name="VALOR" placeholder="Ingrese el valor" inputmode="text" required  maxlength="50">
                         </div>
 
-                        <div class="mb-3 mt-3">
-                        <label for="USUARIO" class="form-label">Usuario:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                        <label for="USUARIO" class="form-label mr-2">Usuario:</label>
                         <input type="text" class="form-control same-width" id="USUARIO" name="USUARIO" value="{{$UsuarioValue}}" readonly>
                          </div> 
 
@@ -158,18 +158,18 @@
                         <form action="{{ url('parametros/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_PARAMETRO" value="{{ $parametros['COD_PARAMETRO'] }}">
-                            <div class="mb-3 mt-3">
-                                <label for="PARAMETRO" class="form-label">Nuevo Parametro:</label>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                                <label for="PARAMETRO" class="form-label mr-2">Nuevo Parametro:</label>
                                 <input type="text" class="form-control" id="PARAMETRO" name="PARAMETRO" placeholder="Ingrese el parametro" value="{{ $parametros['PARAMETRO'] }}" maxlength="100">
                             </div>
 
-                            <div class="mb-3 mt-3">
-                                <label for="VALOR" class="form-label">Nuevo Valor:</label>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                                <label for="VALOR" class="form-label mr-2">Nuevo Valor:</label>
                                 <input type="text" class="form-control" id="VALOR" name="VALOR" placeholder="Ingrese el valor" value="{{ $parametros['VALOR'] }}" maxlength="50">
                             </div>
 
-                            <div class="mb-3 mt-3">
-                                <label for="USUARIO" class="form-label">Nuevo Usuario:</label>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                                <label for="USUARIO" class="form-label mr-2">Nuevo Usuario:</label>
                                 <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" value="{{ $parametros['USUARIO'] }}" maxlength="100">
                             </div>
                             <!-- ... otros campos del formulario ... -->

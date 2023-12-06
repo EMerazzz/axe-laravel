@@ -72,8 +72,8 @@
                     <form action="{{url('docentes/insertar')}}" method="post">
                         @csrf
                  <!-- INICIO --->
-                 <div class="mb-3 mt-3">
-                    <label for="COD_PERSONA" class="form-label">Persona: </label>
+                 <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="COD_PERSONA"  class="form-label mr-2">Persona: </label>
                     <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                         <option value="" disabled selected>Seleccione Persona</option>
                         @foreach ($personasArreglo as $persona)
@@ -83,14 +83,14 @@
                         @endforeach
                     </select>
                 </div>
-                        <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Especialidad:</label>
+                       <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="docentes"  class="form-label mr-2">Especialidad:</label>
                             <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese especialidad del docente"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required maxlength="30">
                         </div>
 
-                        <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Grado Enseñanza: </label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="docentes"  class="form-label mr-2">Grado Enseñanza: </label>
                             <select class="selectize" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
                                 <option value="" disabled selected>Seleccione</option>
                                 @foreach ($nivel_academicoArreglo as $nivel_academico) 
@@ -174,13 +174,13 @@
                     <form action="{{ url('docentes/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_DOCENTE" value="{{ $docentes['COD_DOCENTE'] }}">
-                        <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Asignatura impartida:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="docentes"  class="form-label mr-2">Asignatura impartida:</label>
                             <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="GRADO_ENSENIANZA" class="form-label">Grado Enseñanza: </label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="GRADO_ENSENIANZA"  class="form-label mr-2">Grado Enseñanza: </label>
                             <select class="selectize" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
                                 <option value="" disabled selected>Seleccione</option>
                                 @foreach ($nivel_academicoArreglo as $nivel_academico)
@@ -191,8 +191,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Horas semanales:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="docentes"  class="form-label mr-2">Horas semanales:</label>
                             <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
                         </div>

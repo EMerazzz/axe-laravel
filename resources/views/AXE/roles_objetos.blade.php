@@ -81,8 +81,8 @@
                     <form action="{{ url('roles_objetos/insertar') }}" method="post">
                         @csrf
                         <!-- INICIO --->
-                        <div class="mb-3 mt-3">
-                            <label for="COD_ROL" class="form-label">Rol: </label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="COD_ROL"class="form-label mr-2">Rol: </label>
                             <select class="selectize" id="COD_ROL" name="COD_ROL" required>
                                 <option value="" disabled selected>Seleccione el rol</option>
                                 @foreach ($rolesArreglo as $roles)
@@ -249,8 +249,8 @@
                     <form action="{{ url('roles_objetos/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_ROL_OBJETO" value="{{ $roles_objetos['COD_ROL_OBJETO'] }}">
-                        <div class="mb-3 mt-3">
-                            <label for="COD_ROL" class="form-label">Rol:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="COD_ROL" class="form-label mr-2">Rol:</label>
                             <select class="selectize" id="COD_ROL" name="COD_ROL" required>
                                 @foreach ($rolesArreglo as $roles)
                                     <option value="{{ $roles['COD_ROL'] }}" {{ $roles['COD_ROL'] == $roles_objetos['COD_ROL'] ? 'selected' : '' }}>
@@ -259,8 +259,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="COD_OBJETO" class="form-label">Objeto:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="COD_OBJETO" class="form-label mr-2">Objeto:</label>
                             <select class="selectize" id="COD_OBJETO" name="COD_OBJETO" required>
                                 @foreach ($objetosArreglo as $objetos)
                                     <option value="{{ $objetos['COD_OBJETO'] }}" {{ $objetos['COD_OBJETO'] == $roles_objetos['COD_OBJETO'] ? 'selected' : '' }}>
