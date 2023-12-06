@@ -189,10 +189,10 @@
                             </select>
                         </div> -->
 
-                        <div class="mb-3 mt-3">
-                            <label for="TELEFONO" class="form-label">Número Teléfono:</label>
-                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" oninput="formatTelefono(this)" pattern="[0-9]{8}" value="{{$telefonos['TELEFONO']}}"  required>
-                        </div>
+                        <div class="mb-3 mt-3 form-inline">
+                        <label for="TELEFONOUPD" class="form-label mr-2">Número Teléfono:</label>
+                        <input type="text" class="form-control" id="TELEFONOUPD" name="TELEFONOUPD" placeholder="____-____" value="{{$telefonos['TELEFONO']}}" required >
+                       </div>
 
                         <div class="mb-3">
                             <label for="TIPO_TELEFONO" class="form-label">Tipo Telefono:</label>
@@ -459,32 +459,7 @@ modeToggle.addEventListener('click', () => {
     });
 </script>
     <!-- Script personalizado para validaciones -->
-    <script>
-    function setupValidation(inputId, errorMessageId, pattern) {
-        const input = document.getElementById(inputId);
-        const errorMessage = document.getElementById(errorMessageId);
-
-        input.addEventListener('input', function() {
-            const inputValue = input.value.trim();
-            const validInput = inputValue.replace(pattern, '');
-
-            if (inputValue !== validInput) {
-                input.value = validInput;
-                errorMessage.style.display = 'block';
-            } else {
-                errorMessage.style.display = 'none';
-            }
-        });
-
-        // Llamada inicial para aplicar la validación cuando se cargue la página
-        input.dispatchEvent(new Event('input'));
-    }
-
-
-    // Configuración para el campo de IDENTIDAD
-    setupValidation('TELEFONO', 'error-message-telefono', /[^0-9]/g);
-    
-</script>
+   
    <!-- Script personalizado para CAMBIAR MODO -->
 <script>
    const modeToggle = document.getElementById('mode-toggle');
