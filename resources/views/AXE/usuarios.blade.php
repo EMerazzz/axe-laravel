@@ -282,7 +282,6 @@
                         <option value="2">Inactivo</option>
                         </select>
                         </div>
-   
 
                         
                         <button type="submit" class="btn btn-primary">Editar</button>
