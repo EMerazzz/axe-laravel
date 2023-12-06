@@ -80,7 +80,7 @@
                 <!-- INICIO -->
                     <div class="mb-3 mt-3">
                     <label for="usuarios" class="form-label">Usuario:</label>
-                    <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ0-9 ]+$" title="Solo se permiten letras, números y espacios" required>
+                    <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                     </div>
 
 
@@ -138,7 +138,6 @@
                 <th>#</th>
                 <th>Nombre completo</th>
                 <th>Usuario</th>
-                <th>Rol</th>
                 <th>Primer Ingreso</th>
                 <th>Número Intentos</th>
                 <th>Estado de usuario</th>
@@ -160,15 +159,7 @@
                         }
                     }    
             @endphp
-            @php
-                    $rol = null;
-                    foreach ($rolesArreglo as $r) {
-                        if ($r['COD_ROL'] === $usuarios['COD_ROL']) {
-                            $rol = $r;
-                            break;
-                        }
-                    }    
-            @endphp
+
     
 
             <tr>
@@ -177,30 +168,22 @@
                         @if ($persona !== null)
                             {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
                         @else
-                            
+                            Persona no encontrada
                         @endif
                 </td>
-                
                 <td>{{ $usuarios['USUARIO'] }}</td>
                 <td>
-                        @if ($rol !== null)
-                            {{ $rol['DESCRIPCION'] }}
-                        @else
-                            
-                        @endif
-                </td>
-                <td>
                     @if($usuarios['PRIMER_INGRESO'] == 1)
-                    No Realizado
-                    @elseif($usuarios['PRIMER_INGRESO'] == 0)
                         Realizado
+                    @elseif($usuarios['PRIMER_INGRESO'] == 0)
+                        No Realizado
                     @endif
                  </td>
                 <td>{{ $usuarios['N_INTENTOS'] }}</td>
                 <td>
                     @if($usuarios['COD_ESTADO_USUARIO'] == 1)
                         Activo
-                    @elseif($usuarios['COD_ESTADO_USUARIO'] == 2)
+                    @elseif($usuarios['COD_ESTADO_USUARIO'] == 0)
                         Inactivo
                     @endif
                  </td>
@@ -287,19 +270,18 @@
                         <div class="mb-3">
                         <label for="PRIMER_INGRESO" class="form-label">Primer Ingreso:</label>
                         <select class="form-control same-width" id="PRIMER_INGRESO" name="PRIMER_INGRESO">
-                        <option value="1" {{ $usuarios['PRIMER_INGRESO'] === '1' ? 'selected' : '' }}>No Realizado</option>
-                        <option value="0"{{ $usuarios['PRIMER_INGRESO'] === '0' ? 'selected' : '' }}>Realizado</option>
+                        <option value="1" selected>No Realizado</option>
+                        <option value="2">Realizado</option>
                         </select>
                         </div>
 
                         <div class="mb-3">
-                            <label for="COD_ESTADO_USUARIO" class="form-label">Estado usuario:</label>
-                            <select class="form-control same-width" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO">
-                            <option value="1" {{ $usuarios['COD_ESTADO_USUARIO'] === '1' ? 'selected' : '' }}>Activo</option>
-                                <option value="2" {{ $usuarios['COD_ESTADO_USUARIO'] === '2' ? 'selected' : '' }}>Inactivo</option>
-                            </select>
+                        <label for="COD_ESTADO_USUARIO" class="form-label">Estado usuario:</label>
+                        <select class="form-control same-width" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO">
+                        <option value="1" selected>Activo</option>
+                        <option value="2">Inactivo</option>
+                        </select>
                         </div>
-
 
                         
                         <button type="submit" class="btn btn-primary">Editar</button>
