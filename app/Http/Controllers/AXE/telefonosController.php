@@ -76,8 +76,8 @@ class telefonosController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'. $request->input("COD_TELEFONO"), [
 
-            "COD_PERSONA" => $request->input("COD_PERSONA"),
-            "TELEFONO" => $request->input("TELEFONO"),
+            //"COD_PERSONA" => $request->input("COD_PERSONA"),
+            "TELEFONO" => $request->input("TELEFONOUPD"),
             "TIPO_TELEFONO" => $request->input("TIPO_TELEFONO"),
             "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);

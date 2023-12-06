@@ -1009,7 +1009,7 @@ $(document).ready(function () {
 });
 </script>
 <script>
-function formatIdentidad(input) {
+function formatTelefono(input) {
     // Elimina cualquier guión o caracteres no numéricos del valor del campo
     let value = input.value.replace(/-/g, '').replace(/\D/g, '');
 
