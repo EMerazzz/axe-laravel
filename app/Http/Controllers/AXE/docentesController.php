@@ -124,7 +124,7 @@ class docentesController extends Controller
         'Authorization' => 'Bearer ' . $token,
     ])->put('http://82.180.162.18:4000/del_docentes/'.$request->input("COD_DOCENTE"));
 
-    if ($delete_docente>successful()) {
+    if ($delete_docente->successful()) {
         return redirect('/docentes')->with('message', [
             'type' => 'success',
             'text' => 'Nivel Academico Eliminado.'
