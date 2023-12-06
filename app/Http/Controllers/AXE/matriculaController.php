@@ -128,7 +128,7 @@ class matriculaController extends Controller
     "SECCION"=> $request->input("SECCION"),
     "COD_PADRE_TUTOR"=> $request->input("COD_PADRE_TUTOR"),
     "USUARIO_MODIFICADOR" => $UsuarioValue,
-    "SEGUNDO_ENCARGADO"=> $request->input("COD_PADRE_TUTOR2"),
+   // "SEGUNDO_ENCARGADO"=> $request->input("COD_PADRE_TUTOR2"),
         ]);
         
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
