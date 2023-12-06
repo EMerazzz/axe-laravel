@@ -138,6 +138,7 @@
                 <th>#</th>
                 <th>Nombre completo</th>
                 <th>Usuario</th>
+                <th>Rol</th>
                 <th>Primer Ingreso</th>
                 <th>Número Intentos</th>
                 <th>Estado de usuario</th>

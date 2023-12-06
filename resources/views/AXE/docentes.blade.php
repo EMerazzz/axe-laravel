@@ -113,8 +113,9 @@
             <tr>
                 <th>#</th>
                 <th>Nombre completo</th>
-                <th>Especialidad</th>
+                <th>Asignatura impartida</th>
                 <th>Grado enseñanza</th>
+                <th>Horas semanales</th>
                 <th>Opciones Tabla</th>
             </tr>
         </thead>
@@ -142,6 +143,7 @@
                  <td>{{ $docentes['ESPECIALIDAD'] }}</td>
                
                     <td>{{ $docentes['GRADO_ENSENIANZA'] }}</td>
+                    <td>{{ $docentes['HORAS_SEMANALES'] }}</td>
                 <td>
                     <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#docentes-edit-{{ $docentes['COD_DOCENTE'] }}">
@@ -173,7 +175,7 @@
                         @csrf
                         <input type="hidden" class="form-control" name="COD_DOCENTE" value="{{ $docentes['COD_DOCENTE'] }}">
                         <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Especialidad:</label>
+                            <label for="docentes" class="form-label">Asignatura impartida:</label>
                             <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
                         </div>
@@ -188,6 +190,11 @@
                                     </option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="docentes" class="form-label">Horas semanales:</label>
+                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}"
+                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Editar</button>
