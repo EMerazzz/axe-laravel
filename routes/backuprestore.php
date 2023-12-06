@@ -14,7 +14,7 @@ Route::middleware(['checkToken', 'verificar.usuario:BACKUP'])->group(function ()
     Route::post('/upload-sql', [BackupRestoreController::class, 'showUploadSQLForm'])->name('sqlform.submit');
     Route::post('/restaurar', [BackupRestoreController::class, 'restore'])->name('backup.restore');
     //hasta aqui
-//});
+});
 
 /*
 route::middleware(['checkToken'])->group(function () {
