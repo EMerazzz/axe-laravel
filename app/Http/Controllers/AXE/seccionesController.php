@@ -27,6 +27,35 @@ class seccionesController extends Controller
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
         // Enviar la solicitud POST a la API para agregar la nueva persona
+
+        $DESCRIPCION = $request->input("DESCRIPCION_SECCIONES");
+    
+        $todasSecciones = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
+
+        // Obtener todas las personas desde la API
+        $todas_secciones = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl);
+    
+        if ($todasSecciones->successful()) {
+            $secciones_lista = $todas_secciones->json();
+    
+            foreach ($secciones_lista as $seccion) {
+                if ($seccion["DESCRIPCION_SECCIONES"] === $DESCRIPCION) {
+                    // La persona ya existe, generar mensaje de error
+                    return redirect('/secciones')->with('message', [
+                        'type' => 'error',
+                        'text' => 'Esta seccion ya existe.'
+                    ])->withInput(); // Agregar esta línea para mantener los datos ingresados
+                }
+                
+            }
+        }
+      //  $PRIMER_INGRESO = $request->input("PRIMER_INGRESO") ? 1 : 0;
+
+
         $nueva_seccion = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->post($this->apiUrl, [
