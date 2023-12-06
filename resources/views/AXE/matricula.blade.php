@@ -175,18 +175,18 @@
                         </div>
 
                  
-                    <button type="button" class="btn btn-primary" id="btnAgregarCampo" style="margin-bottom: 20px;">Agregar otro encargado</button>
+                   <!-- <button type="button" class="btn btn-primary" id="btnAgregarCampo" style="margin-bottom: 20px;">Agregar otro encargado</button>
 
-                    <!-- Nuevo bloque oculto inicialmente -->
+                   Nuevo bloque oculto inicialmente 
                     <div id="nuevoBloque" style="display: none;">
                         <div class="mb-3 mt-3 form-inline">
                             <label for="COD_PADRE_TUTOR2" class="form-label mr-2">Encargado: </label>
                             <select class="selectize" id="COD_PADRE_TUTOR2" name="COD_PADRE_TUTOR2" required style="width: 300px;">
-                                <!-- ... Opciones del select ... -->
+                                ... Opciones del select ... 
                             </select>
                         </div>
-                    </div>
-                </div>
+                    </div>-->
+                </div> 
 
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Añadir</button>
