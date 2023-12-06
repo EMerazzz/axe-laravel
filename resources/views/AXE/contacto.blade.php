@@ -196,23 +196,23 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="contacto" class="form-label">Nombre contacto</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="contacto" class="form-label mr-2">Nombre contacto</label>
                             <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto " value="{{ $contacto['NOMBRE_CONTACTO'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="contacto" class="form-label">Apellidos Contacto</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="contacto" class="form-label mr-2">Apellidos Contacto</label>
                             <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto" value="{{ $contacto['APELLIDO_CONTACTO'] }}" maxlength="40"
                              title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="contacto" class="form-label">Teléfono Contacto Emergencia</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="contacto" class="form-label mr-2">Teléfono Contacto Emergencia</label>
                             <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="Ingrese el Número de télefono contacto emergencia" value="{{ $contacto['TELEFONO'] }}" maxlength="15"
                              title="Solo se permiten números"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="contacto" class="form-label">Relación</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="contacto" class="form-label mr-2">Relación</label>
                             <input type="text" class="form-control" id="RELACION" name="RELACION" placeholder="Ingrese la relación" value="{{ $contacto['RELACION'] }}"maxlength="25"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>

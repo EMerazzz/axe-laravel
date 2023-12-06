@@ -199,24 +199,24 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="direcciones" class="form-label">país</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="direcciones" class="form-label mr-2">País</label>
                             <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $direcciones['PAIS'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="direcciones" class="form-label">Departamento</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="direcciones" class="form-label mr-2">Departamento</label>
                             <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" value="{{ $direcciones['DEPARTAMENTO'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="direcciones" class="form-label">Ciudad</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="direcciones" class="form-label mr-2" >Ciudad</label>
                             <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" value="{{ $direcciones['CIUDAD'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
 
-                        <div class="mb-3 mt-3">
-                            <label for="direcciones" class="form-label">Dirección</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="direcciones"  class="form-label mr-2">Dirección</label>
                             <textarea class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="255">{{ $direcciones['DIRECCION'] }}</textarea>
                         </div>
 

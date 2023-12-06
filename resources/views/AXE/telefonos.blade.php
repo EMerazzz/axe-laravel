@@ -178,8 +178,8 @@
                     <form action="{{ url('telefonos/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_TELEFONO" value="{{ $telefonos['COD_TELEFONO'] }}">
-                        <div class="mb-3 mt-3">
-                            <label for="COD_PERSONA" class="form-label">Persona</label>
+                        <div class="mb-3 mt-3 form-inline">
+                            <label for="COD_PERSONA" class="form-label mr-2">Persona</label>
                             <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}" {{ $persona['COD_PERSONA'] == $telefonos['COD_PERSONA'] ? 'selected' : '' }}>
@@ -189,13 +189,13 @@
                             </select>
                         </div>
 
-                        <div class="mb-3 mt-3">
-                            <label for="TELEFONO" class="form-label">Número Teléfono:</label>
+                        <div class="mb-3 mt-3 form-inline">
+                            <label for="TELEFONO" class="form-label mr-2">Número Teléfono:</label>
                             <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" oninput="formatTelefono(this)" pattern="[0-9]{8}" value="{{$telefonos['TELEFONO']}}"  required>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="TIPO_TELEFONO" class="form-label">Tipo Telefono:</label>
+                        <div class="mb-3 mt-3 form-inline">
+                            <label for="TIPO_TELEFONO" class="form-label mr-2">Tipo Telefono:</label>
                             <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
                                 <option value="Fijo" {{ $telefonos['TIPO_TELEFONO'] === 'Fijo' ? 'selected' : '' }}>Fijo</option>
                                 <option value="Movil" {{ $telefonos['TIPO_TELEFONO'] === 'Movil' ? 'selected' : '' }}>Movil</option>
