@@ -97,14 +97,12 @@
                         </div>
                     </div>
 
-        
-<div class="mb-3 mt-3 d-flex align-items-center">
-    <div class="col-md-3">
-        <label for="COD_PERSONA" class="form-label">Personal: </label>
-    </div>
+
+   <div class="mb-3 mt-3 row">
+    <label for="COD_PERSONA" class="col-md-3 col-form-label text-md-end">Personal:</label>
     <div class="col-md-9">
-        <select class="form-control same-width" id="COD_PERSONA" name="COD_PERSONA" required>
-            <option class="form-group" value="" disabled selected>Seleccione una persona</option>
+        <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+            <option value="" disabled selected>Seleccione una persona</option>
             @foreach ($personasArreglo as $persona)
                 @php
                     $usuariosColeccion = collect($usuariosArreglo);
@@ -473,7 +471,7 @@ modeToggle.addEventListener('click', () => {
         });
 </script>
     <!-- scripts para selectize-->
-     <script>
+    <script>
     $(document).ready(function() {
         $('.selectize').selectize({
             placeholder: 'Seleccione',

@@ -95,16 +95,24 @@
                         @csrf
                  <!-- INICIO --->
                  <div class="mb-3 mt-3 d-flex align-items-center">
-    <label for="COD_PERSONA"  class="form-label mr-2">Encargado: </label>
-<select class="form-control ancho-personalizado w-100" id="COD_PERSONA" name="COD_PERSONA" required>
-        <option value="" disabled selected>Seleccione una persona</option>
-        @foreach ($personasArreglo as $persona)
-            @if ($persona['TIPO_PERSONA'] === 'Padre o tutor')
-                <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
-            @endif
-        @endforeach
-    </select>
+    <label for="COD_PERSONA" class="form-label mr-2">Encargado:</label>
+    <div class="col-md-9">
+        <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+            <option value="" disabled selected>Seleccione una persona</option>
+            @foreach ($personasArreglo as $persona)
+                @php
+                    $padresColeccion = collect($padresArreglo);
+                @endphp
+
+                @if ($persona['TIPO_PERSONA'] === 'Padre o tutor' && !$padresColeccion->contains('COD_PERSONA', $persona['COD_PERSONA']))
+                    <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}</option>
+                @endif
+            @endforeach
+        </select>
+    </div>
 </div>
+
+
 <div class="mb-3 mt-3 d-flex align-items-center">
     <label for="padres" class="form-label mr-2">Ocupación:</label>
     <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación del padre o tutor"
