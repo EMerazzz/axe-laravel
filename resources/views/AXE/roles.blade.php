@@ -71,15 +71,23 @@
                 <div class="modal-body">
                     <form action="{{ url('roles/insertar') }}" method="post">
                         @csrf
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="DESCRIPCION" class="form-label mr-2">Rol:</label>
-                        <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION">
-                         </div>
+                        <div class="form-group col-md-12  d-flex"">
+                            <div class="form-group col-md-3"> 
+                                <label for="DESCRIPCION" class="form-label mr-1">Rol:</label>
+                            </div>
+                            <div class="form-group col-md-9"> 
+                             <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION">
+                            </div>
+                        </div>
                         
-                         <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="MODIFICADO_POR" class="form-label mr-2">Modificado:</label>
-                        <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
+                        <div class="form-group col-md-12  d-flex"">
+                         <div class="form-group col-md-3"> 
+                             <label for="MODIFICADO_POR" class="form-label mr-1">Modificado:</label>
+                        </div>
+                        <div class="form-group col-md-9">
+                            <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
                          </div>
+                        </div>
 
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -142,16 +150,27 @@
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ROL" value="{{ $roles['COD_ROL'] }}">
 
-                            <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="DESCRIPCION" class="form-label mr-2">Rol:</label>
-                            <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" value="{{ $roles['DESCRIPCION'] }}">
+                        <div class="form-group col-md-12  d-flex"">
+                            <div class="form-group col-md-3"> 
+                                <label for="DESCRIPCION" class="form-label mr-2">Rol:</label>
                             </div>
+                            
+                            <div class="form-group col-md-9"> 
+                                <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" value="{{ $roles['DESCRIPCION'] }}">
+                            
+                            </div>
+                        </div>
 
 
-                            <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="MODIFICADO_POR" class="form-label mr-2">Modificado:</label>
-                            <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
+                        <div class="form-group col-md-12  d-flex"">
+                            <div class="form-group col-md-3"> 
+                                <label for="MODIFICADO_POR" class="form-label mr-2">Modificado:</label>
                             </div>
+                            
+                            <div class="form-group col-md-9"> 
+                                <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
+                            </div>
+                        </div>
 
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
