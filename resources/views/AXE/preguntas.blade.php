@@ -58,7 +58,7 @@
 @endif
 
 <div class="spacer"></div>
-<button id="botonNuevo" type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#personas">+ Nuevo</button>
+<button id="botonNuevo" type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#preguntas">+ Nuevo</button>
 <div class="spacer"></div>
 <div class="modal fade bd-example-modal-sm" id="preguntas" tabindex="-1">
     <div class="modal-dialog">
