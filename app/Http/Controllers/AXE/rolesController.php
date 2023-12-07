@@ -41,12 +41,15 @@ class rolesController extends Controller
 
     $UsuarioValue = $request->cookie('Usuario');
 
+    $ESTADO_ROL = $request->input("Estado");
+
     // Enviar la solicitud POST a la API para agregar el nuevo rol
     $nuevo_rol = Http::withHeaders([
         'Authorization' => 'Bearer ' . $token,
     ])->post($this->apiUrl, [
         "DESCRIPCION" => $request->input("DESCRIPCION"),
-        "MODIFICADO_POR" => $request->input("MODIFICADO_POR"), // Asignar el valor de Usuario a MODIFICADO_POR
+        "MODIFICADO_POR" => $request->input("MODIFICADO_POR"),
+        "Estado_registro" => $ESTADO_ROL, // Asignar el valor de Usuario a MODIFICADO_POR
     ]);
 
     // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -74,7 +77,7 @@ class rolesController extends Controller
         ])->put($this->apiUrl.'/'.$request->input("COD_ROL"), [
             "DESCRIPCION" => $request->input("DESCRIPCION"),
             "MODIFICADO_POR" => $request->input("MODIFICADO_POR"),
-            
+            "Estado_registro"  => $request->input("ESTADO"),
         ]);
         if ($modificar_rol->successful()) {
             return redirect('/roles')->with('message', [

@@ -79,6 +79,20 @@
                              <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION">
                             </div>
                         </div>
+
+                        <div class="form-group col-md-12 d-flex">
+                            <div class="form-group col-md-3">
+                              <label for="Estado" class="form-label mr-2">Estado:</label>
+                            </div>
+                          
+                            <div class="form-group col-md-9">
+                              <select class="form-control same-width" id="MODIFICADO_POR" name="Estado">
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                              </select>
+                            </div>
+                          </div>
+                          
                         
                         <div class="form-group col-md-12  d-flex"">
                          <div class="form-group col-md-3"> 
@@ -88,6 +102,8 @@
                             <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
                          </div>
                         </div>
+
+
 
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -105,6 +121,7 @@
                 <tr>
                     <th>#</th> 
                     <th>Rol</th>
+                    <th>Estado</th>
                     <th>Fecha Creación</th>
                     <th>Fecha Modificación</th>
                     <th>Modificado Por</th> 
@@ -117,6 +134,7 @@
                     <tr>
                         <td>{{ $roles['COD_ROL'] }}</td>
                         <td>{{ $roles['DESCRIPCION'] }}</td>
+                        <td>{{ $roles['Estado_registro'] }}</td>
                         <td>{{date('d, M Y', strtotime($roles['FECHA_CREACION']))}}</td>
                         <td>{{date('d, M Y', strtotime($roles['FECHA_MODIFICACION']))}}</td>
                         <!-- <td>{{$UsuarioValue}}</td> -->
@@ -161,6 +179,7 @@
                             </div>
                         </div>
 
+
                          <div class="form-group col-md-12  d-flex"">
                             <div class="form-group col-md-3"> 
                                 <label for="MODIFICADO_POR" class="form-label mr-2">Modificado:</label>
@@ -170,6 +189,20 @@
                                 <input type="text" class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR" value="{{$UsuarioValue}}" readonly>
                             </div>
                         </div>
+
+                        <div class="form-group col-md-12 d-flex">
+                            <div class="form-group col-md-3">
+                              <label for="Estado" class="form-label mr-2">Estado:</label>
+                            </div>
+                          
+                            <div class="form-group col-md-9">
+                              <select class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR">
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                              </select>
+                            </div>
+                          </div>
+                          
 
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
