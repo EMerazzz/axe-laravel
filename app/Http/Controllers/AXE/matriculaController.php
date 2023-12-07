@@ -108,8 +108,8 @@ class matriculaController extends Controller
         }
         $nivelacademico = $request->input("COD_NIVEL_ACADEMICO");
         $aniocademico = $request->input("COD_ANIO_ACADEMICO");
-        
-        if ($nivelacademico === 1 && in_array($aniocademico, [4, 5, 6])) {
+       // dd($request->input("COD_ANIO_ACADEMICO"));
+        if ($nivelacademico === 1 && $aniocademico > 3) {
             // La matrícula ya existe, generar mensaje de error
             return redirect('/matricula')->with('message', [
                 'type' => 'error',
