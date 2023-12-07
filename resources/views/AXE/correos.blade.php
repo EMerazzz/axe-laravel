@@ -166,13 +166,13 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{ url('correos/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_CORREO" value="{{ $correos['COD_CORREO'] }}">
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="COD_PERSONA" class="form-label mr-2">Persona</label>
-                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                            <label for="COD_PERSONA" class="form-label mr-5">Persona</label>
+                            <select class="form-control ancho-personalizado w-100"  id="COD_PERSONA" name="COD_PERSONA" required>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}" {{ $persona['COD_PERSONA'] == $correos['COD_PERSONA'] ? 'selected' : '' }}>
                                         {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
@@ -181,7 +181,7 @@
                             </select>
                         </div>
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="correos" class="form-label mr-2">Correo electrónico</label>
+                            <label for="correos" class="form-label mr-1">Correo electrónico</label>
                             <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" value="{{ $correos['CORREO_ELECTRONICO'] }}" required maxlength="45"
                             title="No se permiten espacios" oninput="this.value = this.value.replace( /\s/g, '')" required>
                         </div>

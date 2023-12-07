@@ -182,13 +182,13 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{ url('contacto/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_CONTACTO_EMERGENCIA" value="{{ $contacto['COD_CONTACTO_EMERGENCIA'] }}">
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="COD_PERSONA" class="form-label mr-2">Persona</label>
-                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                            <select class="form-control ancho-personalizado w-100" id="COD_PERSONA" name="COD_PERSONA" required>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}" {{ $persona['COD_PERSONA'] == $contacto['COD_PERSONA'] ? 'selected' : '' }}>
                                         {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}

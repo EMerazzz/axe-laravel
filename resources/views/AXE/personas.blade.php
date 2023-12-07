@@ -139,7 +139,7 @@
 
                         <div class="mb-3 mt-3 form-inline">
                             <label for="personas" class="form-label mr-2">Género:</label>
-                            <select class="form-select flex-grow-1" id="GENERO" name="GENERO" style="width: auto; max-width: 40%;">
+                            <select class="form-control ancho-personalizado w-100" id="GENERO" name="GENERO" style="width: auto; max-width: 40%;">
                                 <option value="M" {{ old('GENERO') == 'M' ? 'selected' : '' }}>Masculino</option>
                                 <option value="F" {{ old('GENERO') == 'F' ? 'selected' : '' }}>Femenino</option>
                             </select>
@@ -147,7 +147,7 @@
 
                         <div class="mb-3 mt-3 form-inline">
                             <label for="personas" class="form-label mr-2">Tipo Persona:</label>
-                            <select class="form-select flex-grow-1" id="TIPO_PERSONA" name="TIPO_PERSONA" style="width: auto; max-width: 40%;">
+                            <select class="form-control ancho-personalizado w-100" id="TIPO_PERSONA" name="TIPO_PERSONA" style="width: auto; max-width: 40%;">
                             <option value="Estudiante" {{ old('TIPO_PERSONA') == 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
                             <option value="Docente" {{ old('TIPO_PERSONA') == 'Docente' ? 'selected' : '' }}>Docente</option>
                           <option value="Padre o tutor" {{ old('TIPO_PERSONA') == 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
@@ -237,7 +237,7 @@
                    <!-- Sección 4: correos -->
                    <div id="sectionCorreo" class="tab-pane fade">
                    <div class="mb-3 mt-3 form-inline">
-                            <label for="correos" class="form-label mr-2">Correo Electrónico</label>
+                            <label for="correos" class="form-label mr-2" style="max-width: 200px !important;">Correo Electrónico</label>
                             <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" required maxlength="45" oninput="this.value = this.value.replace(/\s/g, '');">
                             
                         </div>
