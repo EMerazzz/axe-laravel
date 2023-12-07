@@ -109,7 +109,7 @@ public function delete_rol(Request $request)
         if($rolUsado == 1) {
             return redirect('/roles')->with('message', [
                 'type' => 'error',
-                'text' => 'El rol asignado a usuarios activos'
+                'text' => 'Rol asignado a usuarios activos'
             ]);
 
         }else{
