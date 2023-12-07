@@ -77,26 +77,20 @@
            
             
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{url('parametros/insertar')}}" method="post">
 
                         @csrf
                        
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="PARAMETRO" class="form-label mr-2">Nuevo Parámetro:</label>
+                            <label for="PARAMETRO" class="form-label mr-2">Parámetro:</label>
                             <input type="text" class="form-control same-width" id="PARAMETRO" name="PARAMETRO" placeholder="Ingrese el parametro" inputmode="text" required  maxlength="100">
                         </div>
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="VALOR" class="form-label mr-2">Nuevo Valor:</label>
+                            <label for="VALOR" class="form-label mr-5">Valor:</label>
                             <input type="text" class="form-control same-width" id="VALOR" name="VALOR" placeholder="Ingrese el valor" inputmode="text" required  maxlength="50">
                         </div>
-
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="USUARIO" class="form-label mr-2">Usuario:</label>
-                        <input type="text" class="form-control same-width" id="USUARIO" name="USUARIO" value="{{$UsuarioValue}}" readonly>
-                         </div> 
-
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -115,7 +109,6 @@
                     <th>#</th> 
                     <th>Parametro</th> 
                     <th>Valor</th>
-                    <th>Usuario</th>
                     <th>Fecha Creación</th>
                     <th>Fecha Modificación</th>    
                     <th>Opciones Tabla</th>
@@ -127,7 +120,6 @@
                         <td>{{ $parametros['COD_PARAMETRO'] }}</td>
                         <td>{{ $parametros['PARAMETRO'] }}</td>
                         <td>{{ $parametros['VALOR'] }}</td>
-                        <td>{{ $parametros['USUARIO'] }}</td>
                         <td>{{date('d, M Y', strtotime($parametros['FECHA_CREADO']))}}</td>
                         <td>{{date('d, M Y', strtotime($parametros['FECHA_MODIFICADO']))}}</td>
                         <td>
@@ -159,19 +151,15 @@
                             @csrf
                             <input type="hidden" class="form-control" name="COD_PARAMETRO" value="{{ $parametros['COD_PARAMETRO'] }}">
                             <div class="mb-3 mt-3 d-flex align-items-center">
-                                <label for="PARAMETRO" class="form-label mr-2">Nuevo Parametro:</label>
+                                <label for="PARAMETRO" class="form-label mr-2">Parametro:</label>
                                 <input type="text" class="form-control" id="PARAMETRO" name="PARAMETRO" placeholder="Ingrese el parametro" value="{{ $parametros['PARAMETRO'] }}" maxlength="100">
                             </div>
 
                             <div class="mb-3 mt-3 d-flex align-items-center">
-                                <label for="VALOR" class="form-label mr-2">Nuevo Valor:</label>
-                                <input type="text" class="form-control" id="VALOR" name="VALOR" placeholder="Ingrese el valor" value="{{ $parametros['VALOR'] }}" maxlength="50">
+                                <label for="VALOR" class="form-label mr-5">Valor:</label>
+                                <input type="text" class="form-control" id="VALOR" name="VALOR" placeholder="Ingrese el valor" value="{{ $parametros['VALOR'] }}" maxlength="100">
                             </div>
 
-                            <div class="mb-3 mt-3 d-flex align-items-center">
-                                <label for="USUARIO" class="form-label mr-2">Nuevo Usuario:</label>
-                                <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" value="{{ $parametros['USUARIO'] }}" maxlength="100">
-                            </div>
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
