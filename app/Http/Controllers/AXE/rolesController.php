@@ -96,23 +96,41 @@ public function delete_rol(Request $request)
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
 
-        $delete_rol = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ])->put('http://82.180.162.18:4000/del_roles/'.$request->input("COD_ROL"));
 
-        // Verificar si la solicitud fue exitosa
-        if ($delete_rol->successful()) {
-            return redirect('/roles')->with('message', [
-                'type' => 'success',
-                'text' => 'Rol eliminado correctamente.'
-            ]);
-        } else {
-            // Manejar casos de error
-            $statusCode = $delete_rol->status();
+        $rolUsado = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post('http://82.180.162.18:4000/rol_en_uso', [
+            "COD_ROL" => $request->input("COD_ROL")
+        ]);
+
+        $rolUsado = json_decode($rolUsado, true);
+        $rolUsado = $rolUsado[0]['EXISTE']; 
+
+        if($rolUsado == 1) {
             return redirect('/roles')->with('message', [
                 'type' => 'error',
-                'text' => "No se puede desactivar el Rol. Código de estado: $statusCode"
+                'text' => 'Rol asignado a usuarios activos'
             ]);
+
+        }else{
+            $delete_rol = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->put('http://82.180.162.18:4000/del_roles/'.$request->input("COD_ROL"));
+    
+            // Verificar si la solicitud fue exitosa
+            if ($delete_rol->successful()) {
+                return redirect('/roles')->with('message', [
+                    'type' => 'success',
+                    'text' => 'Rol eliminado correctamente.'
+                ]);
+            } else {
+                // Manejar casos de error
+                $statusCode = $delete_rol->status();
+                return redirect('/roles')->with('message', [
+                    'type' => 'error',
+                    'text' => "No se puede desactivar el Rol. Código de estado: $statusCode"
+                ]);
+            }
         }
     } catch (\Exception $e) {
         // Manejar excepciones
@@ -120,7 +138,9 @@ public function delete_rol(Request $request)
             'type' => 'error',
             'text' => "Error al intentar eliminar : " . $e->getMessage()
         ]);
+      
     }
+    
 }
 
 }

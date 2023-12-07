@@ -72,12 +72,12 @@
             </div>
             
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{url('nivel_academico/insertar')}}" method="post">
                         @csrf
                 <!-- INICIO --->
-                <div class="mb-3 mt-3">
-                    <label for="descripcion" class="form-label">Nivel académico </label>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="descripcion" class="form-label mr-2">Nivel académico </label>
                     <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el nivel académico" required maxlength="200" oninput="this.value = this.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚ\s]/g, '')">
                 </div>
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -118,13 +118,13 @@
                                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-footer">
-                                <div class="d-grid gap-2 col-6 mx-auto">
+                                <div class="d-grid gap-2 col-12 mx-auto">
                                     <form action="{{url('nivel_academico/actualizar')}}" method="post">
                                         @csrf
                                         <input type="hidden" class="form-control" name="COD_NIVEL_ACADEMICO" value="{{$nivel_academico['COD_NIVEL_ACADEMICO']}}">
                                        
-                                        <div class="mb-3 mt-3">
-                                            <label for="descripcion" class="form-label">Nivel académico </label>
+                                        <div class="mb-3 mt-3 d-flex align-items-center">
+                                            <label for="descripcion" class="form-label mr-2">Nivel académico </label>
                                             <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el nivel académico" required maxlength="200" value="{{$nivel_academico['descripcion']}}"oninput="this.value = this.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚ\s]/g, '')">
                                         </div>
 
@@ -199,7 +199,7 @@
             justify-content: space-between;
         }
     </style>
-<div>
+        <div>
             Copyright © 2023 UNAH.
         </div>
         <div>

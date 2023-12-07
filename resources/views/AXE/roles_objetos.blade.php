@@ -77,12 +77,15 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>   
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{ url('roles_objetos/insertar') }}" method="post">
                         @csrf
                         <!-- INICIO --->
-                        <div class="mb-3 mt-3">
-                            <label for="COD_ROL" class="form-label">Rol: </label>
+                        <div class="form-group col-md-12  d-flex"">
+                            <div class="form-group col-md-2"> 
+                            <label for="COD_ROL"class="form-label mr-2">Rol: </label>
+                        </div>
+                        <div class="form-group col-md-10"> 
                             <select class="selectize" id="COD_ROL" name="COD_ROL" required>
                                 <option value="" disabled selected>Seleccione el rol</option>
                                 @foreach ($rolesArreglo as $roles)
@@ -90,45 +93,69 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
                         <!-- FIN --->
+                        <div class="form-group col-md-12  d-flex"">
+                            <div class="form-group col-md-2"> 
                         <label for="COD_OBJETO" class="form-label">Objeto: </label>
-                            <select class="selectize" id="COD_OBJETO" name="COD_OBJETO" required>
-                                <option value="" disabled selected>Seleccione el objeto</option>
-                                @foreach ($objetosArreglo as $objetos)
-                                    <option value="{{ $objetos['COD_OBJETO'] }}">{{ $objetos['OBJETO'] }}</option>
-                                @endforeach
-                            </select>
+                        </div>
+                                <div class="form-group col-md-10">
+                                    <select class="selectize" id="COD_OBJETO" name="COD_OBJETO" required>
+                                        <option value="" disabled selected>Seleccione el objeto</option>
+                                        @foreach ($objetosArreglo as $objetos)
+                                            <option value="{{ $objetos['COD_OBJETO'] }}">{{ $objetos['OBJETO'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                         </div>
 
-                        <div class="form-row">
-              <div class="form-group col-md-3">
-                <div class="form-check">
-                   <input class="form-check-input" type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="1">
-                   <label class="form-check-label" for="PERMISO_INSERCION">Permiso Insertar</label>
-                 </div>
-              </div>
+                    <div class="form-group col-md-12">
+                        <div class="form-group col-md-4">
+                        
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="PERMISO_CONSULTAR" name="PERMISO_CONSULTAR" value="1" onchange="submitForm(this)">
+                                <label class="form-check-label" for="PERMISO_CONSULTAR">Permiso Consultar</label>
+                            </div>
+                        </div>
+                        </div>
 
-               <div class="form-group col-md-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="PERMISO_ELIMINACION" name="PERMISO_ELIMINACION" value="1" onchange="submitForm(this)>
-                   <label class="form-check-label" for="PERMISO_ELIMINACION">Permiso Eliminar</label>
-                 </div>
-              </div>
+                        <div class="form-group col-md-12">
+                            <div class="form-group col-md-4">
+                        
+                            </div>
+                            <div class="form-group col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="1">
+                                <label class="form-check-label" for="PERMISO_INSERCION">Permiso Insertar</label>
+                            </div>
+                        </div>
+                        </div>
 
-                <div class="form-group col-md-3">
-                    <div class="form-check">
-                     <input class="form-check-input" type="checkbox" id="PERMISO_ACTUALIZACION" name="PERMISO_ACTUALIZACION" value="1" onchange="submitForm(this)>
-                     <label class="form-check-label" for="PERMISO_ACTUALIZACION">Permiso Actualizar</label>
-                    </div>
-                </div>
-    
-                <div class="form-group col-md-3">
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="PERMISO_CONSULTAR" name="PERMISO_CONSULTAR" value="1" onchange="submitForm(this)>
-                    <label class="form-check-label" for="PERMISO_CONSULTAR">Permiso Consultar</label>
-                    </div>
-                    </div>
-                </div>
+                        <div class="form-group col-md-12">
+                            <div class="form-group col-md-4">
+                        
+                            </div>
+                            <div class="form-group col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="PERMISO_ACTUALIZACION" name="PERMISO_ACTUALIZACION" value="1" onchange="submitForm(this)">
+                                <label class="form-check-label" for="PERMISO_ACTUALIZACION">Permiso Actualizar</label>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <div class="form-group col-md-4">
+                        
+                            </div>
+                            <div class="form-group col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="PERMISO_ELIMINACION" name="PERMISO_ELIMINACION" value="1" onchange="submitForm(this)">
+                                <label class="form-check-label" for="PERMISO_ELIMINACION">Permiso Eliminar</label>
+                            </div>
+                            </div>
+                        </div>
 
                 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -146,10 +173,10 @@
                 <th>#</th>
                 <th>Rol</th>
                 <th>Objeto</th>
-                <th>Permiso Insertar</th>
-                <th>Permiso Eliminar</th>
-                <th>Permiso Actualizar</th>
                 <th>Permiso Consultar</th>
+                <th>Permiso Insertar</th>
+                <th>Permiso Actualizar</th>
+                <th>Permiso Eliminar</th>
                 <th>Opciones Tabla</th>
             </tr>
         </thead>
@@ -189,10 +216,24 @@
                             Objeto no encontrado
                         @endif
                     </td>
+                    <td>
+                        @if($roles_objetos['PERMISO_CONSULTAR'] == 1)
+                            Permitido
+                        @elseif($roles_objetos['PERMISO_CONSULTAR'] == 0)
+                            No Permitido
+                        @endif
+                     </td>
                 <td>
                     @if($roles_objetos['PERMISO_INSERCION'] == 1)
                         Permitido
                     @elseif($roles_objetos['PERMISO_INSERCION'] == 0)
+                        No Permitido
+                    @endif
+                 </td>
+                 <td>
+                    @if($roles_objetos['PERMISO_ACTUALIZACION'] == 1)
+                        Permitido
+                    @elseif($roles_objetos['PERMISO_ACTUALIZACION'] == 0)
                         No Permitido
                     @endif
                  </td>
@@ -203,20 +244,7 @@
                         No Permitido
                     @endif
                  </td>
-                <td>
-                    @if($roles_objetos['PERMISO_ACTUALIZACION'] == 1)
-                        Permitido
-                    @elseif($roles_objetos['PERMISO_ACTUALIZACION'] == 0)
-                        No Permitido
-                    @endif
-                 </td>
-                <td>
-                    @if($roles_objetos['PERMISO_CONSULTAR'] == 1)
-                        Permitido
-                    @elseif($roles_objetos['PERMISO_CONSULTAR'] == 0)
-                        No Permitido
-                    @endif
-                 </td>
+
                 <td>
                     <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#roles_objetos-edit-{{ $roles_objetos['COD_ROL_OBJETO'] }}">
@@ -245,12 +273,16 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{ url('roles_objetos/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_ROL_OBJETO" value="{{ $roles_objetos['COD_ROL_OBJETO'] }}">
-                        <div class="mb-3 mt-3">
-                            <label for="COD_ROL" class="form-label">Rol:</label>
+                        
+                        <div class="form-group col-md-12 d-flex"> 
+                            <div class="form-group col-md-2"> 
+                                     <label for="COD_ROL" class="form-label form-inline">Rol:</label>
+                             </div>
+                             <div class="form-group col-md-10"> 
                             <select class="selectize" id="COD_ROL" name="COD_ROL" required>
                                 @foreach ($rolesArreglo as $roles)
                                     <option value="{{ $roles['COD_ROL'] }}" {{ $roles['COD_ROL'] == $roles_objetos['COD_ROL'] ? 'selected' : '' }}>
@@ -259,8 +291,14 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="COD_OBJETO" class="form-label">Objeto:</label>
+                        </div>
+
+
+                        <div class="form-group col-md-12  d-flex""> 
+                            <div class="form-group col-md-2">
+                            <label for="COD_OBJETO" class="form-label mr-2">Objeto:</label>
+                          </div>
+                          <div class="form-group col-md-10"> 
                             <select class="selectize" id="COD_OBJETO" name="COD_OBJETO" required>
                                 @foreach ($objetosArreglo as $objetos)
                                     <option value="{{ $objetos['COD_OBJETO'] }}" {{ $objetos['COD_OBJETO'] == $roles_objetos['COD_OBJETO'] ? 'selected' : '' }}>
@@ -269,27 +307,26 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div>
-                            <input type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="{{ $roles_objetos['PERMISO_INSERCION'] }}" @if($roles_objetos['PERMISO_INSERCION'] == '1') checked @endif>
-<label for="PERMISO_INSERCION">Permiso Insertar</label>
                         </div>
-                             
+                        <div>
+                            <input type="checkbox" id="PERMISO_CONSULTAR" name="PERMISO_CONSULTAR"  value="{{ $roles_objetos['PERMISO_CONSULTAR'] }}" @if($roles_objetos['PERMISO_CONSULTAR'] == '1') checked @endif>
+                            <label for="PERMISO_CONSULTAR">Permiso Consultar</label>
+                             </div>
+                        
+                             <div>
+
+                            <input type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="{{ $roles_objetos['PERMISO_INSERCION'] }}" @if($roles_objetos['PERMISO_INSERCION'] == '1') checked @endif>
+                        <label for="PERMISO_INSERCION">Permiso Insertar</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="PERMISO_ACTUALIZACION" name="PERMISO_ACTUALIZACION"  value="{{ $roles_objetos['PERMISO_ACTUALIZACION'] }}" @if($roles_objetos['PERMISO_ACTUALIZACION'] == '1') checked @endif>
+                            <label for="PERMISO_ACTUALIZACION">Permiso Actualizar</label>
+                            </div>
                             <div>
 
                             <input type="checkbox" id="PERMISO_ELIMINACIONn" name="PERMISO_ELIMINACION" value="{{ $roles_objetos['PERMISO_ELIMINACION'] }}" @if($roles_objetos['PERMISO_ELIMINACION'] == '1') checked @endif>
                             <label for="PERMISO_ELIMINACION">Permiso Eliminar</label>
                              </div>
-
-                            <div>
-                            <input type="checkbox" id="PERMISO_ACTUALIZACION" name="PERMISO_ACTUALIZACION"  value="{{ $roles_objetos['PERMISO_ACTUALIZACION'] }}" @if($roles_objetos['PERMISO_ACTUALIZACION'] == '1') checked @endif>
-                            <label for="PERMISO_ACTUALIZACION">Permiso Actualizar</label>
-                            </div>
-
-                             <div>
-                            <input type="checkbox" id="PERMISO_CONSULTAR" name="PERMISO_CONSULTAR"  value="{{ $roles_objetos['PERMISO_CONSULTAR'] }}" @if($roles_objetos['PERMISO_CONSULTAR'] == '1') checked @endif>
-                            <label for="PERMISO_CONSULTAR">Permiso Consultar</label>
-                             </div>
-        
 
                         <button type="submit" class="btn btn-primary">Editar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

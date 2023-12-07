@@ -14,6 +14,20 @@
   }
 </style>
 
+<style>
+    #sectionCorreo label {
+        max-width: 400px; /* Establece el ancho máximo deseado para la etiqueta */
+        display: inline-block; /* Permite que la etiqueta tenga un ancho máximo */
+    }
+</style>
+
+<style>
+.tamanio-comun label,
+.tamanio-comun select {
+    max-width: 200px; /* Ajusta el ancho máximo según sea necesario */
+    display: inline-block;
+}
+</style>
  <blockquote class="custom-blockquote"> 
     <p class="mb-0">Personas registradas en el sistema AXE.</p>
 </blockquote>
@@ -116,38 +130,37 @@
                         
                     <div id="sectionPersona" class="form-section">
                     
-                    <div class="mb-3 mt-3 form-inline">
+                    <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
                          <label for="NOMBRE" class="col-form-label mr-2">Nombres:</label>
                           <input type="text" class="form-control flex-grow-1" id="NOMBRE" name="NOMBRE" placeholder="Ingrese los nombres de la persona" inputmode="text" required value="{{ old('NOMBRE') }}" maxlength="40">
                         <div id="error-message-nombre" class="error-message" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                     </div>
 
 
-                    <div class="mb-3 mt-3 form-inline">
+                    <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
                             <label for="APELLIDO" class="form-label mr-2">Apellidos:</label>
                             <input type="text" class="form-control flex-grow-1" id="APELLIDO" name="APELLIDO" placeholder="Ingrese los apellidos de la persona" inputmode="text" required value="{{ old('APELLIDO') }}" maxlength="40">
                             <div id="error-message-apellido" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
 
-                        
-                        <div class="mb-3 mt-3 form-inline">
+                        <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
                            <label for="IDENTIDAD" class="form-label mr-2">Número Identidad:</label>
                            <input type="text" class="form-control flex-grow-1" id="IDENTIDAD" name="IDENTIDAD" placeholder="____-____-_____" style="width: auto; max-width: 40%;">
                            <div id="error-message-identidad" style="color: red; display: none;">Solo se permiten números</div>
                         </div>
 
 
-                        <div class="mb-3 mt-3 form-inline">
+                        <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
                             <label for="personas" class="form-label mr-2">Género:</label>
-                            <select class="form-select flex-grow-1" id="GENERO" name="GENERO" style="width: auto; max-width: 40%;">
+                            <select class="form-control ancho-personalizado w-100" id="GENERO" name="GENERO" style="width: auto; max-width: 40%;">
                                 <option value="M" {{ old('GENERO') == 'M' ? 'selected' : '' }}>Masculino</option>
                                 <option value="F" {{ old('GENERO') == 'F' ? 'selected' : '' }}>Femenino</option>
                             </select>
                         </div>
 
-                        <div class="mb-3 mt-3 form-inline">
+                        <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
                             <label for="personas" class="form-label mr-2">Tipo Persona:</label>
-                            <select class="form-select flex-grow-1" id="TIPO_PERSONA" name="TIPO_PERSONA" style="width: auto; max-width: 40%;">
+                            <select class="form-control ancho-personalizado w-100" id="TIPO_PERSONA" name="TIPO_PERSONA" style="width: auto; max-width: 40%;">
                             <option value="Estudiante" {{ old('TIPO_PERSONA') == 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
                             <option value="Docente" {{ old('TIPO_PERSONA') == 'Docente' ? 'selected' : '' }}>Docente</option>
                           <option value="Padre o tutor" {{ old('TIPO_PERSONA') == 'Padre o tutor' ? 'selected' : '' }}>Padre o tutor</option>
@@ -157,7 +170,7 @@
 
 
 
-                       <div class="mb-3 mt-3 form-inline">
+                       <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
                             <label for="personas" class="form-label mr-2">Fecha Nacimiento:</label>
                             @php
                                 $fechaNacimiento = old('FECHA_NACIMIENTO');
@@ -175,11 +188,11 @@
                        <!-- Sección 2: Teléfonos -->
                       <div id="sectionTelefonos" class="tab-pane fade">
                       <div class="mb-3 mt-3 form-inline">
-                        <label for="TELEFONO" class="form-label mr-2">Número Teléfono:</label>
+                        <label for="TELEFONO" class="form-label mr-3">Número Teléfono:</label>
                         <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="____-____" required>
                        </div>
                        <div class="mb-3 mt-3 form-inline">
-                            <label for="TIPO_TELEFONO" class="form-label mr-2">Tipo Teléfono:</label>
+                            <label for="TIPO_TELEFONO" class="form-label mr-5">Tipo Teléfono:</label>
                             <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
                                 <option value="Fijo" selected>Fijo</option>
                                 <option value="Movil">Móvil</option>
@@ -187,48 +200,49 @@
                         </div>
                     </div>
 
+                    
                     <!-- Sección 3: Direcciones -->
-                    <div id="sectionDirecciones" class="tab-pane fade">
-                    <div class="mb-3 mt-3 form-inline">
-                            <label for="PAIS" class="form-label mr-2">País</label>
-                            <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" required maxlength="30" 
-                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
-                        </div>
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="DEPARTAMENTO" class="form-label mr-2">Departamento</label>
-                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" required maxlength="35"
-                            title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
-                        </div>
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="CIUDAD" class="form-label mr-2">Ciudad</label>
-                            <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" required maxlength="30"
-                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
-                            </div>
-                            <div class="mb-3 mt-3 form-inline">
-                              <label for="direcciones" class="form-label mr-2">Dirección</label>
-                             <textarea class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="250" style="width: 300px;"></textarea>
-                            </div>
+               <div id="sectionDirecciones" class="tab-pane fade mb-3 mt-3">
+                  <div class="row flex-column">
+                  <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
+                  <label for="PAIS"class="form-label mr-5">País</label>
+                 <input type="text" class="form-control ml-2" id="PAIS" name="PAIS" placeholder="Ingrese el país" required maxlength="50" title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                </div>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                   <label for="DEPARTAMENTO" class="form-label mr-1">Departamento</label>
+                  <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" required maxlength="50" title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                </div>
+               <div class="mb-3 mt-3 d-flex align-items-center">
+                   <label for="CIUDAD" class="form-label mr-5">Ciudad</label>
+                  <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" required maxlength="50" title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                  </div>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                 <label for="direcciones" class="form-label mr-4">Dirección</label>
+                <textarea class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="250"></textarea>
+        </div>
+    </div>
+</div>
 
-                    </div>
+
                     <!-- Sección 4: Contactos emergencia -->
                     <div id="sectionContacto" class="tab-pane fade">
-                    <div class="mb-3 mt-3 form-inline">
+                    <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
                             <label for="contacto" class="form-label mr-2">Nombre Contacto:</label>
                             <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto"required maxlength="40">
                             <div id="error-message-nombreC" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
-                        <div class="mb-3 mt-3 form-inline">
+                        <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
                             <label for="contacto" class="form-label mr-2">Apellidos Contacto:</label>
                             <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto"required maxlength="40">
                             <div id="error-message-apellidoC" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="contacto" class="form-label mr-2">Teléfono Contacto Emergencia:</label>
+                        <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
+                            <label for="contacto" class="form-label mr-0">Teléfono Contacto Emergencia:</label>
                             <input type="text" class="form-control" id="TELEFONO_CONTACTO" name="TELEFONO_CONTACTO" placeholder="Ingrese el Número de télefono contacto emergencia" required maxlength="15">
                             <div id="error-message-telefono" style="color: red; display: none;">Solo se permiten números</div>
                         </div>
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="contacto" class="form-label mr-2">Relación:</label>
+                        <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
+                            <label for="contacto" class="form-label mr-5">Relación:</label>
                             <input type="text" class="form-control" id="RELACION" name="RELACION" placeholder="Ingrese la relación" required maxlength="25">
                             <div id="error-message-relacion" style="color: red; display: none;">Solo se permiten letras y espacios</div>
                         </div>
@@ -236,8 +250,8 @@
                    </div>
                    <!-- Sección 4: correos -->
                    <div id="sectionCorreo" class="tab-pane fade">
-                   <div class="mb-3 mt-3 form-inline">
-                            <label for="correos" class="form-label mr-2">Correo Electrónico</label>
+                   <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
+                            <label for="correos" class="form-label mr-2"  style="max-width: 600px; display: inline-block;">Correo Electrónico</label>
                             <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" required maxlength="45" oninput="this.value = this.value.replace(/\s/g, '');">
                             
                         </div>
@@ -444,7 +458,7 @@
 
                         <!-- Sección 3: Correo electrónico -->
                         <div id="editSectioncorreos{{$personas['COD_PERSONA']}}" class="tab-pane fade">
-                        <div class="mb-3 mt-3 form-inline">
+                        <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
                             <label for="correos" class="form-label mr-2">Correo electrónico</label>
                             <input type="text" class="form-control" id="CORREO_ELECTRONICO" name="CORREO_ELECTRONICO" placeholder="Ingrese el correo electrónico" value="{{ $personas['CORREO_ELECTRONICO'] }}" required maxlength="45"
                             title="No se permiten espacios" oninput="this.value = this.value.replace( /\s/g, '')" required>
@@ -455,24 +469,24 @@
 
                         <!-- Sección 4: Direcciones -->
                         <div id="editSectiondirecciones{{$personas['COD_PERSONA']}}" class="tab-pane fade">
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="direcciones" class="form-label mr-2">país</label>
+                        <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
+                            <label for="direcciones" class="form-label mr-5">País</label>
                             <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $personas['PAIS'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="direcciones" class="form-label mr-2">Departamento</label>
+                        <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
+                            <label for="direcciones" class="form-label mr-1">Departamento</label>
                             <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" value="{{ $personas['DEPARTAMENTO'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="direcciones" class="form-label mr-2">Ciudad</label>
+                        <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
+                            <label for="direcciones" class="form-label mr-5">Ciudad</label>
                             <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" value="{{ $personas['CIUDAD'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
 
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="direcciones" class="form-label mr-2">Dirección</label>
+                        <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
+                            <label for="direcciones" class="form-label mr-4">Dirección</label>
                             <textarea class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="255">{{ $personas['DIRECCION'] }}</textarea>
                         </div>
 
@@ -482,23 +496,23 @@
                         <!-- Sección 5: Contacto -->
                         <div id="editSectioncontacto{{$personas['COD_PERSONA']}}" class="tab-pane fade">
                           
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="contacto" class="form-label mr-2">Nombre contacto</label>
+                        <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
+                            <label for="contacto" class="form-label mr-5">Nombre contacto</label>
                             <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto " value="{{ $personas['NOMBRE_CONTACTO'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="contacto" class="form-label mr-2">Apellidos Contacto</label>
+                        <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
+                            <label for="contacto" class="form-label mr-5">Apellidos Contacto</label>
                             <input type="text" class="form-control" id="APELLIDO_CONTACTO" name="APELLIDO_CONTACTO" placeholder="Ingrese los apellidos del contacto" value="{{ $personas['APELLIDO_CONTACTO'] }}" maxlength="40"
                              title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="contacto" class="form-label mr-2">Teléfono Contacto Emergencia</label>
+                        <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
+                            <label for="contacto" class="form-label">Teléfono Contacto Emergencia</label>
                             <input type="text" class="form-control" id="TELEFONO_CONTACTOUPD" name="TELEFONO_CONTACTOUPD" placeholder="Ingrese el Número de télefono contacto emergencia" value="{{ $personas['TELEFONO_CONTACTO'] }}" maxlength="15"
                              title="Solo se permiten números"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                         </div>
-                        <div class="mb-3 mt-3 form-inline">
-                            <label for="contacto"class="form-label mr-2">Relación</label>
+                        <div class="mb-3 mt-3 mb-4 d-flex align-items-center">
+                            <label for="contacto"class="form-label mr-5">Relación</label>
                             <input type="text" class="form-control" id="RELACION" name="RELACION" placeholder="Ingrese la relación" value="{{ $personas['RELACION'] }}"maxlength="25"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>

@@ -53,6 +53,15 @@
     }
 </style>
 
+<style>
+        .form-control.ancho-personalizado {
+            width: 400px !important;
+        }
+        
+    </style>
+
+
+
 @if (session('message'))
 <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -81,13 +90,13 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12  mx-auto">
                     <form action="{{url('padres/insertar')}}" method="post">
                         @csrf
                  <!-- INICIO --->
                  <div class="mb-3 mt-3 d-flex align-items-center">
-    <label for="COD_PERSONA" class="form-label mr-2">Encargado: </label>
-    <select class= "selectize form-control w-100" id="COD_PERSONA" name="COD_PERSONA" required>
+    <label for="COD_PERSONA"  class="form-label mr-2">Encargado: </label>
+<select class="form-control ancho-personalizado w-100" id="COD_PERSONA" name="COD_PERSONA" required>
         <option value="" disabled selected>Seleccione una persona</option>
         @foreach ($personasArreglo as $persona)
             @if ($persona['TIPO_PERSONA'] === 'Padre o tutor')
@@ -96,14 +105,15 @@
         @endforeach
     </select>
 </div>
-                        <div class="mb-3 mt-3 form-inline">
-                          <label for="padres" class="form-label mr-2">Ocupación:</label>
-                          <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación del padre o tutor"
-                          title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required maxlength="30">
-                        </div>
+<div class="mb-3 mt-3 d-flex align-items-center">
+    <label for="padres" class="form-label mr-2">Ocupación:</label>
+    <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación del padre o tutor"
+        title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required maxlength="30">
+</div>
 
-                        <div class="mb-3 mt-3 form-inline">
-                         <label for="RELACION_PADRE_ESTUDIANTE" class="form-label mr-2">Relación Estudiante:</label>
+
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                         <label for="RELACION_PADRE_ESTUDIANTE"  class="form-label mr-2" style="width: 100px; display: inline-block;">Relación Estudiante:</label>
                          <input type="text" class="form-control" id="RELACION_PADRE_ESTUDIANTE" name="RELACION_PADRE_ESTUDIANTE" placeholder="Ingrese la relación con el estudiante" 
                          title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
                         </div>
@@ -179,17 +189,17 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{ url('padres/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_PADRE_TUTOR" value="{{ $padres['COD_PADRE_TUTOR'] }}">
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="padres" class="form-label mr-2">Ocupación:</label>
+                            <label for="padres" class="form-label mr-4" style="width: 100px;">Ocupación:</label>
                             <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación" value="{{ $padres['OCUPACION_PADRE_TUTOR'] }}" 
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')"maxlength="30">
                         </div>
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="padres" class="form-label mr-2">Relación Estudiante:</label>
+                            <label for="padres" class="form-label mr-4" style="width: 100px;">Relación Estudiante:</label>
                             <input type="text" class="form-control" id="RELACION_PADRE_ESTUDIANTE" name="RELACION_PADRE_ESTUDIANTE" placeholder="Ingrese la relación con el estudiante" value="{{ $padres['RELACION_PADRE_ESTUDIANTE'] }}"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
                         </div>
@@ -265,6 +275,7 @@
             Todos los derechos reservados.
         </div>
     
+        
 @endsection
 
 @section('css')
@@ -276,6 +287,7 @@
     <link rel="stylesheet" href="https://cdn.example.com/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css">
+    
 @stop
 
 @section('js')

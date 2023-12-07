@@ -83,7 +83,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{ url('telefonos/insertar') }}" method="post">
                         @csrf
                         <!-- INICIO --->
@@ -174,7 +174,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{ url('telefonos/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_TELEFONO" value="{{ $telefonos['COD_TELEFONO'] }}">
@@ -189,13 +189,14 @@
                             </select>
                         </div> -->
 
-                        <div class="mb-3 mt-3 form-inline">
-                        <label for="TELEFONOUPD" class="form-label mr-2">Número Teléfono:</label>
-                        <input type="text" class="form-control" id="TELEFONOUPD" name="TELEFONOUPD" placeholder="_-_" value="{{$telefonos['TELEFONO']}}" required >
-                       </div>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+    <label for="TELEFONOUPD" class="form-label">Número Teléfono:</label>
+    <input type="text" class="form-control" id="TELEFONOUPD" name="TELEFONOUPD" placeholder="_-_" value="{{$telefonos['TELEFONO']}}" required>
+</div>
 
-                        <div class="mb-3">
-                            <label for="TIPO_TELEFONO" class="form-label">Tipo Telefono:</label>
+
+                       <div class="mb-3 mt-3 form-inline">
+                            <label for="TIPO_TELEFONO" class="form-label mr-2">Tipo Telefono:</label>
                             <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
                                 <option value="Fijo" {{ $telefonos['TIPO_TELEFONO'] === 'Fijo' ? 'selected' : '' }}>Fijo</option>
                                 <option value="Movil" {{ $telefonos['TIPO_TELEFONO'] === 'Movil' ? 'selected' : '' }}>Movil</option>

@@ -70,23 +70,24 @@
            
             
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{url('objetos/insertar')}}" method="post">
 
                         @csrf
                        
-                        <div class="mb-3 mt-3">
-                            <label for="OBJETO" class="form-label">Nuevo Objeto :</label>
+            
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="OBJETO" class="form-label mr-3" style="width: 98px;">Objeto:</label>
                             <input type="text" class="form-control same-width" id="OBJETO" name="OBJETO" placeholder="Ingrese el objeto" inputmode="text" required  maxlength="100">
                         </div>
 
-                        <div class="mb-3 mt-3">
-                            <label for="DESCRIPCION" class="form-label">Nueva Descripcion :</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="DESCRIPCION" class="form-label mr-1" style="width: 98px;">Descripción:</label>
                             <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese la descripcion" inputmode="text" required  maxlength="120">
                         </div>
 
-                        <div class="mb-3 mt-3">
-                            <label for="TIPO_OBJETO" class="form-label">Nuevo Tipo Objeto :</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="TIPO_OBJETO" class="form-label mr-3" style="width: 98px;">Tipo Objeto:</label>
                             <input type="text" class="form-control same-width" id="TIPO_OBJETO" name="TIPO_OBJETO" placeholder="Ingrese el tipo objeto" inputmode="text" required  maxlength="15">
                         </div>
 
@@ -146,18 +147,18 @@
                         <form action="{{ url('objetos/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_OBJETO" value="{{ $objetos['COD_OBJETO'] }}">
-                            <div class="mb-3 mt-3">
-                                <label for="OBJETO" class="form-label">Nuevo Objeto:</label>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                                <label for="OBJETO" class="form-label mr-5">Objeto:</label>
                                 <input type="text" class="form-control" id="OBJETO" name="OBJETO" placeholder="Ingrese el objeto" value="{{ $objetos['OBJETO'] }}" maxlength="1200">
                             </div>
 
-                            <div class="mb-3 mt-3">
-                                <label for="DESCRIPCION" class="form-label">Nueva Descripcion:</label>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                                <label for="DESCRIPCION" class="form-label mr-2">Descripción:</label>
                                 <input type="text" class="form-control" id="DESCRIPCION" name="DESCRIPCION" placeholder="Ingrese la descripcion" value="{{ $objetos['DESCRIPCION'] }}" maxlength="120">
                             </div>
 
-                            <div class="mb-3 mt-3">
-                                <label for="TIPO_OBJETO" class="form-label">Nuevo Tipo Objeto:</label>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                                <label for="TIPO_OBJETO" class="form-label mr-5">Objeto:</label>
                                 <input type="text" class="form-control" id="TIPO_OBJETO" name="TIPO_OBJETO" placeholder="Ingrese el tipo objeto" value="{{ $objetos['TIPO_OBJETO'] }}" maxlength="15">
                             </div>
                             <!-- ... otros campos del formulario ... -->

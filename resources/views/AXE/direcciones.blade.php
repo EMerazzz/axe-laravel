@@ -10,6 +10,12 @@
     margin-bottom:-5px; /* Reducción del espacio inferior del bloquequote */
   }
 </style>
+
+<style>
+    .tamanio-comun {
+        width: 400px; /* o cualquier otro valor deseado */
+    }
+</style>
 <blockquote class="custom-blockquote">
     <p class="mb-0">Direcciones registradas en el sistema AXE.</p>
 </blockquote>
@@ -185,13 +191,13 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{ url('direcciones/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_DIRECCION" value="{{ $direcciones['COD_DIRECCION'] }}" required >
-                        <div class="mb-3 mt-3">
-                            <label for="COD_PERSONA" class="form-label">Persona</label>
-                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                        <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
+                            <label for="COD_PERSONA" class="form-label mr-4">Persona</label>
+                            <select class="form-control ancho-personalizado w-100" id="COD_PERSONA" name="COD_PERSONA" required>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}" {{ $persona['COD_PERSONA'] == $direcciones['COD_PERSONA'] ? 'selected' : '' }}>
                                         {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
@@ -199,24 +205,24 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="direcciones" class="form-label mr-2">País</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
+                            <label for="direcciones" class="form-label mr-5">País  </label>
                             <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $direcciones['PAIS'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="direcciones" class="form-label mr-2">Departamento</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
+                            <label for="direcciones" class="form-label mr-1">Departamento</label>
                             <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" placeholder="Ingrese el departamento" value="{{ $direcciones['DEPARTAMENTO'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="direcciones" class="form-label mr-2" >Ciudad</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
+                            <label for="direcciones" class="form-label mr-5" >Ciudad</label>
                             <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" value="{{ $direcciones['CIUDAD'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
 
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="direcciones"  class="form-label mr-2">Dirección</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
+                            <label for="direcciones"  class="form-label mr-4">Dirección</label>
                             <textarea class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="255">{{ $direcciones['DIRECCION'] }}</textarea>
                         </div>
 

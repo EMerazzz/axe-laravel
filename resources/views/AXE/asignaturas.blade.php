@@ -70,13 +70,13 @@
            
             
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{url('asignaturas/insertar')}}" method="post">
 
                         @csrf
                        
-                        <div class="mb-3 mt-3">
-                            <label for="NOMBRE_ASIGNATURA" class="form-label">Nombre Asignatura:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="NOMBRE_ASIGNATURA"  class="form-label mr-2">Nombre Asignatura:</label>
                             <input type="text" class="form-control same-width" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese asignatura" inputmode="text" required  maxlength="30">
                         </div>
 
@@ -132,8 +132,8 @@
                         <form action="{{ url('asignaturas/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ASIGNATURA" value="{{ $asignatura['COD_ASIGNATURA'] }}">
-                            <div class="mb-3 mt-3">
-                                <label for="NOMBRE_ASIGNATURA" class="form-label">Nombre Asignatura</label>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                                <label for="NOMBRE_ASIGNATURA"  class="form-label mr-2">Nombre Asignatura</label>
                                 <input type="text" class="form-control" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" value="{{ $asignatura['NOMBRE_ASIGNATURA'] }}" maxlength="30">
                             </div>
                             <!-- ... otros campos del formulario ... -->
@@ -202,7 +202,7 @@
             justify-content: space-between;
         }
     </style>
-<div>
+        <div>
             Copyright © 2023 UNAH.
         </div>
         <div>

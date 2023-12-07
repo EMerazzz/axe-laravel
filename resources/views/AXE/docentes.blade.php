@@ -9,6 +9,14 @@
     margin-bottom:-5px; /* Reducción del espacio inferior del bloquequote */
   }
 </style>
+
+<style>
+        .form-control.ancho-personalizado {
+            width: 400px !important;
+        }
+        
+    </style>
+
 <blockquote class="custom-blockquote">
     <p class="mb-0">Docentes registrados en el sistema AXE.</p>
 </blockquote>
@@ -40,6 +48,14 @@
         margin-top: 5px; /* Ajusta el valor según tus necesidades */
     }
 </style>
+
+<style>
+        .form-control.ancho-personalizado {
+            width: 500px !important;
+        }
+        
+    </style>
+
 @if (session('message'))
 <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -68,13 +84,13 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{url('docentes/insertar')}}" method="post">
                         @csrf
                  <!-- INICIO --->
-                 <div class="mb-3 mt-3">
-                    <label for="COD_PERSONA" class="form-label">Persona: </label>
-                    <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+                 <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="COD_PERSONA"  class="form-label mr-4">Persona: </label>
+                    <select class="form-control ancho-personalizado w-100"  id="COD_PERSONA" name="COD_PERSONA" required>
                         <option value="" disabled selected>Seleccione Persona</option>
                         @foreach ($personasArreglo as $persona)
                             @if ($persona['TIPO_PERSONA'] === 'Docente')
@@ -83,15 +99,15 @@
                         @endforeach
                     </select>
                 </div>
-                        <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Especialidad:</label>
+                       <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="docentes"  class="form-label mr-1">Asignatura:</label>
                             <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese especialidad del docente"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required maxlength="30">
                         </div>
 
-                        <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Grado Enseñanza: </label>
-                            <select class="selectize" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="docentes"  class="form-label">Grado Enseñanza:</label>
+                            <select class="form-control ancho-personalizado w-100"  id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
                                 <option value="" disabled selected>Seleccione</option>
                                 @foreach ($nivel_academicoArreglo as $nivel_academico) 
                                         <option value="{{ $nivel_academico['descripcion'] }}">{{ $nivel_academico['descripcion'] }}</option> 
@@ -170,18 +186,18 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{ url('docentes/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_DOCENTE" value="{{ $docentes['COD_DOCENTE'] }}">
-                        <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Asignatura impartida:</label>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="docentes"  class="form-label mr-1">Asignatura impartida:</label>
                             <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="GRADO_ENSENIANZA" class="form-label">Grado Enseñanza: </label>
-                            <select class="selectize" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="GRADO_ENSENIANZA"  class="form-label mr-4">Grado Enseñanza: </label>
+                            <select class="form-control ancho-personalizado w-100" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
                                 <option value="" disabled selected>Seleccione</option>
                                 @foreach ($nivel_academicoArreglo as $nivel_academico)
                                     <option value="{{ $nivel_academico['descripcion'] }}"
@@ -191,10 +207,10 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3">
-                            <label for="docentes" class="form-label">Horas semanales:</label>
-                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}"
-                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="docentes"  class="form-label mr-3">Horas semanales:</label>
+                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese Horas semanales" value="{{ $docentes['ESPECIALIDAD'] }}"
+                            title="Solo se permiten dos dígitos numéricos" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2)" maxlength="2">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Editar</button>

@@ -399,14 +399,7 @@ return [
                         'icon' =>"fa fa-address-card",
                         'icon_color' => 'info',
                         'url'  => 'docentes',
-                    ],
-                    [
-                        'text' => 'Asignaturas docentes',
-                        'icon' =>'fa fa-address-book',
-                        'icon_color' => 'info',
-                        'url'  => 'docentesAsignatura',
-                    ],
-                  
+                    ],                  
                 ],
             
             ],
@@ -433,12 +426,6 @@ return [
                     'icon' =>"fa fa-file-pdf",
                     'icon_color' => 'red',
                     'url'  => 'Reportematriculas',
-                ],
-                [
-                    'text' => 'Reportes bitacora',
-                    'icon' =>"fa fa-file-pdf",
-                    'icon_color' => 'red',
-                    'url'  => 'Reportebitacora',
                 ],
                 [
                     'text' => 'Reportes docentes',
@@ -469,7 +456,6 @@ return [
                     'icon_color' => 'info',
                     'url'  => 'usuarios',
                 ],
-
                 [
                     'text' => 'Cambiar contraseña',
                     'icon' =>"fa fa-key",
@@ -493,6 +479,12 @@ return [
                     'url'  => 'bitacora',  // Cambia 'logout' por la URL real de tu función de logout
                     'icon' => 'fa fa-file',  // Icono de "Log Out"
                     'icon_color' => 'info',
+                ],
+                [
+                    'text' => 'Backup',  // Opción "Log Out"
+                    'url'  => 'backuprestore',  // Cambia 'logout' por la URL real de tu función de logout
+                    'icon' => 'fa fa-database',  // Icono de "Log Out"
+                    'icon_color' => 'teal',
                 ],
             ],
         ],
@@ -538,12 +530,6 @@ return [
 
             ],
         
-        ],
-        [
-            'text' => 'Backup',  // Opción "Log Out"
-            'url'  => 'backuprestore',  // Cambia 'logout' por la URL real de tu función de logout
-            'icon' => 'fa fa-database',  // Icono de "Log Out"
-            'icon_color' => 'teal',
         ],
         [
             'text' => 'Cerrar sesión',  // Opción "Log Out"
