@@ -70,14 +70,14 @@
            
             
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{url('preguntas/insertar')}}" method="post">
 
                         @csrf
                        
-                        <div class="mb-3 mt-3">
-                            <label for="PREGUNTA" class="form-label">Nueva Pregunta :</label>
-                            <input type="text" class="form-control same-width" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" inputmode="text" required  maxlength="30">
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="PREGUNTA" class="form-label">Pregunta:</label>
+                            <input type="text" class="form-control same-width" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" inputmode="text" required  maxlength="200">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Añadir</button>
@@ -120,7 +120,7 @@
     </div>
 
     @foreach($preguntasArreglo as $preguntas)
-        <div class="modal fade bd-example-modal-sm" id="preguntas-edit-{{ $preguntas['COD_PREGUNTA'] }}" tabindex="-1">
+        <div class="modal fade bd-example-modal-xl" id="preguntas-edit-{{ $preguntas['COD_PREGUNTA'] }}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -131,8 +131,8 @@
                         <form action="{{ url('preguntas/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_PREGUNTA" value="{{ $preguntas['COD_PREGUNTA'] }}">
-                            <div class="mb-3 mt-3">
-                                <label for="PREGUNTA" class="form-label">Nueva Pregunta:</label>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                                <label for="PREGUNTA" class="form-label">Pregunta:</label>
                                 <input type="text" class="form-control" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" value="{{ $preguntas['PREGUNTA'] }}" maxlength="100">
                             </div>
                             <!-- ... otros campos del formulario ... -->
