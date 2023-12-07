@@ -4,8 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AXE\contactoController;
 
-
-Route::middleware(['checkToken'])->group(function () {
+Route::middleware(['checkToken', 'verificar.usuario:CONTACTO EMERGENCIA'])->group(function () {
     Route::get('',[contactoController::class,'contacto_emergencia']);
     //de aqui 
     Route::post('/insertar',[contactoController::class,'nuevo_contacto_emergencia']);

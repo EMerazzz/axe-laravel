@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AXE\personasController;
 
 
-route::middleware(['checkToken'])->group(function () {
+Route::middleware(['checkToken', 'verificar.usuario:PERSONAS'])->group(function () {
     Route::get('',[personasController::class,'personas']);
     Route::get('ver',[personasController::class,'verpersona']);
     //de aqui 
@@ -14,3 +14,8 @@ route::middleware(['checkToken'])->group(function () {
     //hasta aqui
     Route::post('/delete',[personasController::class,'delete_persona']);
 });
+
+
+
+
+//});

@@ -6,7 +6,7 @@ use App\Http\Controllers\AXE\direccionesController;
 
 
 
-Route::middleware(['checkToken'])->group(function () {
+Route::middleware(['checkToken', 'verificar.usuario:DIRECCIONES'])->group(function () {
     Route::get('',[direccionesController::class,'direcciones']);
     //de aqui 
     Route::post('/insertar',[direccionesController::class,'nueva_direccion']);

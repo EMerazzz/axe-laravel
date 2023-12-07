@@ -6,7 +6,8 @@ use App\Http\Controllers\AXE\telefonosController;
 
 
 //hasta aqui
-route::middleware(['checkToken'])->group(function () {
+
+Route::middleware(['checkToken', 'verificar.usuario:TELEFONOS'])->group(function () {
     Route::get('',[telefonosController::class,'telefonos']);
     //de aqui 
     Route::post('/insertar',[telefonosController::class,'nuevo_telefono']);
