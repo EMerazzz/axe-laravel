@@ -47,6 +47,7 @@ class preguntasController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->post($this->apiUrl,[
         "PREGUNTA" => $request->input("PREGUNTA"),
+        "Estado_registro" => $request->input("Estado"),
         ]);
          // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
          if ($nueva_preguntas ->successful()) {
@@ -70,6 +71,7 @@ class preguntasController extends Controller
         ])->put($this->apiUrl.'/'.$request->input("COD_PREGUNTA"),[
         "COD_PREGUNTA"=> $request->input("COD_PREGUNTA"),
         "PREGUNTA" => $request->input("PREGUNTA"),
+        "Estado_registro" => $request->input("Estado"),
         ]);
        //print_r([$putformatos]);die();
 

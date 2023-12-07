@@ -80,6 +80,16 @@
                             <input type="text" class="form-control same-width" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" inputmode="text" required  maxlength="200">
                         </div>
 
+    
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="MODIFICADO_POR" class="form-label mr-3">Estado:</label>
+                           <select class="form-control same-width" id="MODIFICADO_POR" name="Estado">
+                           <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                          </select>
+                        </div>
+
+
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         </form>
@@ -96,6 +106,7 @@
                 <tr>
                     <th>#</th> 
                     <th>Pregunta</th> 
+                    <th>Estado</th> 
                     <th>Opciones Tabla</th>
                 </tr>
             </thead>
@@ -104,6 +115,7 @@
                     <tr>
                         <td>{{ $preguntas['COD_PREGUNTA'] }}</td>
                         <td>{{ $preguntas['PREGUNTA'] }}</td>
+                        <td>{{ $preguntas['Estado_registro'] }}</td>
                         <td>
                             <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#preguntas-edit-{{ $preguntas['COD_PREGUNTA'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
@@ -135,6 +147,14 @@
                                 <label for="PREGUNTA" class="form-label">Pregunta:</label>
                                 <input type="text" class="form-control" id="PREGUNTA" name="PREGUNTA" placeholder="Ingrese la pregunta" value="{{ $preguntas['PREGUNTA'] }}" maxlength="100">
                             </div>
+
+                         <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="MODIFICADO_POR" class="form-label mr-3">Estado:</label>
+                           <select class="form-control same-width" id="MODIFICADO_POR" name="Estado">
+                           <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                          </select>
+                        </div>
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
