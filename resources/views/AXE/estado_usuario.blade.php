@@ -123,8 +123,8 @@
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ESTADO_USUARIO" value="{{$estado_usuario['COD_ESTADO_USUARIO']}}">
                                     <div class="mb-3 mt-3 d-flex align-items-center">
-                                        <label for="estado_usuario" class="form-label mr-2">Estado:</label>
-                                        <select class="form-select" id="DESCRIPCION" name="DESCRIPCION">
+                                    <label for="estado_usuario" class="form-label mr-2">Estado:</label>
+                                    <select class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION">
                                         <option value="1" {{ $estado_usuario['DESCRIPCION'] === '1' ? 'selected' : '' }}>Activo</option>
                                         <option value="2" {{ $estado_usuario['DESCRIPCION'] === '2' ? 'selected' : '' }}>Inactivo</option>
                                         </select>
