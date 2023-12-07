@@ -161,8 +161,7 @@
                             </div>
                         </div>
 
-
-                        <div class="form-group col-md-12  d-flex"">
+                         <div class="form-group col-md-12  d-flex"">
                             <div class="form-group col-md-3"> 
                                 <label for="MODIFICADO_POR" class="form-label mr-2">Modificado:</label>
                             </div>
