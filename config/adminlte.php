@@ -428,12 +428,6 @@ return [
                     'url'  => 'Reportematriculas',
                 ],
                 [
-                    'text' => 'Reportes bitacora',
-                    'icon' =>"fa fa-file-pdf",
-                    'icon_color' => 'red',
-                    'url'  => 'Reportebitacora',
-                ],
-                [
                     'text' => 'Reportes docentes',
                     'icon' =>"fa fa-file-pdf",
                     'icon_color' => 'red',

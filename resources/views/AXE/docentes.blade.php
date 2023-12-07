@@ -48,6 +48,14 @@
         margin-top: 5px; /* Ajusta el valor según tus necesidades */
     }
 </style>
+
+<style>
+        .form-control.ancho-personalizado {
+            width: 500px !important;
+        }
+        
+    </style>
+
 @if (session('message'))
 <div class="modal fade message-modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -183,12 +191,12 @@
                         @csrf
                         <input type="hidden" class="form-control" name="COD_DOCENTE" value="{{ $docentes['COD_DOCENTE'] }}">
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="docentes"  class="form-label mr-2">Asignatura impartida:</label>
+                            <label for="docentes"  class="form-label mr-1">Asignatura impartida:</label>
                             <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
                         </div>
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="GRADO_ENSENIANZA"  class="form-label mr-2">Grado Enseñanza: </label>
+                            <label for="GRADO_ENSENIANZA"  class="form-label mr-4">Grado Enseñanza: </label>
                             <select class="form-control ancho-personalizado w-100" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
                                 <option value="" disabled selected>Seleccione</option>
                                 @foreach ($nivel_academicoArreglo as $nivel_academico)

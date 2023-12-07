@@ -72,7 +72,7 @@
             </div>
             
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{url('secciones/insertar')}}" method="post">
                         @csrf
                 <!-- INICIO --->
@@ -119,10 +119,9 @@
                                 <h5 class="modal-title">Actualiza Sección</h5>
                                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                            </div>
+                            
                             <div class="modal-footer">
-                                <div class="d-grid gap-2 col-6 mx-auto">
+                                <div class="d-grid gap-2 col-12 mx-auto">
                                     <form action="{{url('secciones/actualizar')}}" method="post">
                                         @csrf
                                         <input type="hidden" class="form-control same-width" name="COD_SECCIONES" value="{{$secciones['COD_SECCIONES']}}">

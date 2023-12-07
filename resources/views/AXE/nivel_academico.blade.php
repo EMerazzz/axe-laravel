@@ -72,7 +72,7 @@
             </div>
             
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{url('nivel_academico/insertar')}}" method="post">
                         @csrf
                 <!-- INICIO --->
@@ -118,7 +118,7 @@
                                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-footer">
-                                <div class="d-grid gap-2 col-6 mx-auto">
+                                <div class="d-grid gap-2 col-12 mx-auto">
                                     <form action="{{url('nivel_academico/actualizar')}}" method="post">
                                         @csrf
                                         <input type="hidden" class="form-control" name="COD_NIVEL_ACADEMICO" value="{{$nivel_academico['COD_NIVEL_ACADEMICO']}}">
@@ -199,7 +199,7 @@
             justify-content: space-between;
         }
     </style>
-<div>
+        <div>
             Copyright © 2023 UNAH.
         </div>
         <div>
