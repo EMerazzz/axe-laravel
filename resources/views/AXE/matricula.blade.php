@@ -95,21 +95,24 @@
             <form action="{{ url('matricula/insertar') }}" method="post">
                 @csrf
                 <div class="modal-body" style="background-color: #fff; padding: 12px;">
-                <div class="mb-3 mt-3 d-flex align-items-center">
-                    <label for="COD_PERSONA" class="form-label mr-3">Estudiante: </label>
-                    <select class="form-control ancho-personalizado w-100" id="COD_PERSONA" name="COD_PERSONA" required style="width: 300px;">
-                        <option value="" disabled selected>Seleccione una persona</option>
-                        @foreach ($personasArreglo as $persona)
-                            @php
-                                $matriculasColeccion = collect($matriculaArreglo);
-                            @endphp
 
-                            @if ($persona['TIPO_PERSONA'] === 'Estudiante' && !$matriculasColeccion->contains('COD_PERSONA', $persona['COD_PERSONA']))
-                                <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
+                <div class="mb-3 mt-3 row">
+    <label for="COD_PERSONA" class="col-md-3 col-form-label text-md-end">Personal:</label>
+    <div class="col-md-9">
+        <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+            <option value="" disabled selected>Seleccione una persona</option>
+            @foreach ($personasArreglo as $persona)
+                @php
+                    $matriculasColeccion = collect($matriculaArreglo);
+                @endphp
+
+                @if ($persona['TIPO_PERSONA'] === 'Estudiante' && !$matriculasColeccion->contains('COD_PERSONA', $persona['COD_PERSONA']))
+                    <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}</option>
+                @endif
+            @endforeach
+        </select>
+    </div>
+</div>
 
 
                         <!-- FIN --->
