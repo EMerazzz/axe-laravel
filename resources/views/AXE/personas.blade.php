@@ -169,7 +169,6 @@
                        </div>
 
 
-
                        <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="personas" class="form-label mr-0">Fecha Nacimiento:</label>
                             @php
@@ -183,7 +182,17 @@
                             <input type="date" class="form-control same-width" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="{{ $fechaNacimiento }}" max="{{ $fechaMaxima }} style="width: 100%;">
                         </div>
                  </div>
-                     </div>
+
+                 <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="Estado" class="form-label mr-5 ">Estado:</label>
+                    <select class="form-control ancho-personalizado w-100 ml-1" id="MODIFICADO_POR" name="Estado">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                      </select>
+                    
+                </div>
+
+            </div>
 
                        <!-- Sección 2: Teléfonos -->
                       <div id="sectionTelefonos" class="tab-pane fade">
@@ -433,6 +442,15 @@
 
                             echo '<input type="date" class="form-control" id="FECHA_NACIMIENTO" name="FECHA_NACIMIENTO" value="' . $fecha_nacimiento_formateada . '" max="' . $fecha_maxima . '">';
                         ?>
+                        </div>
+
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="Estado" class="form-label mr-5 ">Estado:</label>
+                            <select class="form-control ancho-personalizado w-100 ml-1" id="MODIFICADO_POR" name="Estado">
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                              </select>
+                            
                         </div>
                         </div>
                         <!-- Fin Sección 1 -->

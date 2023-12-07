@@ -110,6 +110,7 @@ class PersonasController extends Controller
         $edad = $this->calcularEdad($fecha_nacimiento);
     
         // Enviar la solicitud POST a la API para agregar la nueva persona
+        //post('http://82.180.162.18:4000/INSpersonas', [
         $nueva_persona = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->post('http://82.180.162.18:4000/INSpersonas', [
@@ -136,6 +137,7 @@ class PersonasController extends Controller
             "RELACION"=> $request->input("RELACION"),
             //correos
             "CORREO_ELECTRONICO"=> $request->input("CORREO_ELECTRONICO"),
+            "Estado_registro"=> $request->input("Estado"),
         ]);
     
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -198,6 +200,7 @@ class PersonasController extends Controller
               "RELACION"=> $request->input("RELACION"),
               //correos
               "CORREO_ELECTRONICO"=> $request->input("CORREO_ELECTRONICO"),
+              "Estado_registro"=> $request->input("Estado"),
         ]);
         //dd($request->input("COD_PERSONA"));
         if ($modificar_persona->successful()) {
