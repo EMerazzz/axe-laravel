@@ -74,54 +74,76 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <form action="{{url('usuarios/insertar')}}" method="post">
+                <div class="d-grid gap-2 col-12 mx-auto">
+                    <form action="{{url('usuarios/insertar')}}" method="post"> 
                         @csrf
-                <!-- INICIO -->
-                <div class="mb-3 mt-3 d-flex align-items-center">
-                    <label for="usuarios" class="form-label mr-2">Usuario:</label>
-                    <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                        <!-- INICIO -->
+                      
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                                <div class="col-md-3">
+                                <label for="usuarios" class="form-label mr-4">Usuario: </label>
+                                </div>
+                                <div class="col-md-9">
+                                <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <div class="col-md-3">
+                            <label for="usuarios" class="form-label mr-1">Contraseña:</label>
+                        </div>
+                            <div class="col-md-9">
+                            <input type="password" class="form-control" id="CONTRASENA" name="CONTRASENA" placeholder="Ingrese la contraseña" pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?" required>
+                        </div>
                     </div>
 
+        
+<div class="mb-3 mt-3 d-flex align-items-center">
+    <div class="col-md-3">
+        <label for="COD_PERSONA" class="form-label">Personal: </label>
+    </div>
+    <div class="col-md-9">
+        <select class="form-control same-width" id="COD_PERSONA" name="COD_PERSONA" required>
+            <option class="form-group" value="" disabled selected>Seleccione una persona</option>
+            @foreach ($personasArreglo as $persona)
+                @php
+                    $usuariosColeccion = collect($usuariosArreglo);
+                @endphp
 
-                <div class="mb-3 mt-3 d-flex align-items-center">
-                 <label for="usuarios" class="form-label mr-2">Contraseña:</label>
-                 <input type="password" class="form-control" id="CONTRASENA" name="CONTRASENA" placeholder="Ingrese la contraseña" pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?" required>
-                 </div>
+                @if ($persona['TIPO_PERSONA'] === 'Personal Administrativo' && !$usuariosColeccion->contains('COD_PERSONA', $persona['COD_PERSONA']))
+                    <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}</option>
+                @endif
+            @endforeach
+        </select>
+    </div>
+</div>
 
-                 <div class="mb-3 mt-3 d-flex align-items-center">
-                    <label for="COD_PERSONA" class="form-label mr-2">Personal: </label>
-                    <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-                        <option value="" disabled selected>Seleccione una persona</option>
-                        @foreach ($personasArreglo as $persona)
-                            @php
-                                $usuariosColeccion = collect($usuariosArreglo);
-                            @endphp
+<div class="mb-3 mt-3 d-flex align-items-center">
+    <div class="col-md-3">
+        <label for="COD_ROL" class="form-label">Rol: </label>
+    </div>
+    <div class="col-md-9">
+        <select class="form-control same-width" id="COD_ROL" name="COD_ROL" required>
+            <option value="" disabled selected>Seleccione el Rol</option>
+            @foreach ($rolesArreglo as $roles)
+                <option value="{{ $roles['COD_ROL'] }}">{{ $roles['DESCRIPCION'] }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
 
-                            @if ($persona['TIPO_PERSONA'] === 'Personal Administrativo' && !$usuariosColeccion->contains('COD_PERSONA', $persona['COD_PERSONA']))
-                                <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
+<div class="mb-3 mt-3 d-flex align-items-center">
+    <div class="col-md-3">
+        <label for="COD_ESTADO_USUARIO" class="form-label mr-2">Estado usuario:</label>
+    </div>
+    <div class="col-md-9">
+        <select class="form-control same-width" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO">
+            <option value="1" selected>Activo</option>
+            <option value="2">Inactivo</option>
+        </select>
+    </div>
+</div>
 
-                <div class="mb-3 mt-3 d-flex align-items-center">
-                <label for="COD_ROL" class="form-label mr-2">Rol: </label>
-                    <select class="selectize" id="COD_ROL" name="COD_ROL" required>
-                    <option value="" disabled selected>Seleccione el Rol</option>
-                    @foreach ($rolesArreglo as $roles)
-                    <option value="{{ $roles['COD_ROL'] }}">{{ $roles['DESCRIPCION'] }}</option>
-                    @endforeach
-                    </select>
-                </div>
-                <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="COD_ESTADO_USUARIO"class="form-label mr-2">Estado usuario:</label>
-                        <select class="form-control same-width" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO">
-                        <option value="1" selected>Activo</option>
-                        <option value="2">Inactivo</option>
-                        </select>
-                        </div>
-   
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -141,7 +163,6 @@
                 <th>Primer Ingreso</th>
                 <th>Número Intentos</th>
                 <th>Estado de usuario</th>
-                <th>Modificado Por</th>
 
                
                 <!-- <th>Estado</th> -->
@@ -187,7 +208,6 @@
                         Inactivo
                     @endif
                  </td>
-                <td>{{ $usuarios['MODIFICADO_POR'] }}</td>
                     
                 <td>
                     <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
@@ -202,12 +222,6 @@
                </button>
                      <!-- boton eliminar-->
                 </td>
-
-
-               
-              
-
-             
             </tr>
             @endforeach
         </tbody>
@@ -249,14 +263,14 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{ url('usuarios/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_USUARIO" value="{{ $usuarios['COD_USUARIO'] }}">
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="usuarios"class="form-label mr-2">Usuario:</label>
-                        <input type="text" class="form-control" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" value="{{ $usuarios['USUARIO'] }}"
+                        <label for="usuarios"class="form-label mr-4">Usuario:</label>
+                        <input type="text" class="form-control ml-2" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" value="{{ $usuarios['USUARIO'] }}"
                         pattern="^[A-Za-z0-9]+$" title="Solo se permiten letras y números">
                         </div>
                         

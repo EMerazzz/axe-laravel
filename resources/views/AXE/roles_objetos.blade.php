@@ -98,42 +98,62 @@
                         <div class="form-group col-md-12  d-flex"">
                             <div class="form-group col-md-2"> 
                         <label for="COD_OBJETO" class="form-label">Objeto: </label>
-                    </div>
-                    <div class="form-group col-md-10">
-                            <select class="selectize" id="COD_OBJETO" name="COD_OBJETO" required>
-                                <option value="" disabled selected>Seleccione el objeto</option>
-                                @foreach ($objetosArreglo as $objetos)
-                                    <option value="{{ $objetos['COD_OBJETO'] }}">{{ $objetos['OBJETO'] }}</option>
-                                @endforeach
-                            </select>
                         </div>
+                                <div class="form-group col-md-10">
+                                    <select class="selectize" id="COD_OBJETO" name="COD_OBJETO" required>
+                                        <option value="" disabled selected>Seleccione el objeto</option>
+                                        @foreach ($objetosArreglo as $objetos)
+                                            <option value="{{ $objetos['COD_OBJETO'] }}">{{ $objetos['OBJETO'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                         </div>
 
                     <div class="form-group col-md-12">
+                        <div class="form-group col-md-4">
+                        
+                        </div>
+                        <div class="form-group col-md-6">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="PERMISO_CONSULTAR" name="PERMISO_CONSULTAR" value="1" onchange="submitForm(this)">
                                 <label class="form-check-label" for="PERMISO_CONSULTAR">Permiso Consultar</label>
                             </div>
                         </div>
+                        </div>
 
                         <div class="form-group col-md-12">
+                            <div class="form-group col-md-4">
+                        
+                            </div>
+                            <div class="form-group col-md-6">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="PERMISO_INSERCION" name="PERMISO_INSERCION" value="1">
                                 <label class="form-check-label" for="PERMISO_INSERCION">Permiso Insertar</label>
                             </div>
                         </div>
+                        </div>
 
                         <div class="form-group col-md-12">
+                            <div class="form-group col-md-4">
+                        
+                            </div>
+                            <div class="form-group col-md-6">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="PERMISO_ACTUALIZACION" name="PERMISO_ACTUALIZACION" value="1" onchange="submitForm(this)">
                                 <label class="form-check-label" for="PERMISO_ACTUALIZACION">Permiso Actualizar</label>
                             </div>
                         </div>
+                        </div>
 
                         <div class="form-group col-md-12">
+                            <div class="form-group col-md-4">
+                        
+                            </div>
+                            <div class="form-group col-md-6">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="PERMISO_ELIMINACION" name="PERMISO_ELIMINACION" value="1" onchange="submitForm(this)">
                                 <label class="form-check-label" for="PERMISO_ELIMINACION">Permiso Eliminar</label>
+                            </div>
                             </div>
                         </div>
 

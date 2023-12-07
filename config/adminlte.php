@@ -399,14 +399,7 @@ return [
                         'icon' =>"fa fa-address-card",
                         'icon_color' => 'info',
                         'url'  => 'docentes',
-                    ],
-                    [
-                        'text' => 'Asignaturas docentes',
-                        'icon' =>'fa fa-address-book',
-                        'icon_color' => 'info',
-                        'url'  => 'docentesAsignatura',
-                    ],
-                  
+                    ],                  
                 ],
             
             ],
