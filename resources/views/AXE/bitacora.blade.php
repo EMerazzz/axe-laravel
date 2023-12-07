@@ -23,6 +23,21 @@
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
 </div>--->
+<div class="d-flex align-items-center justify-content-center mb-4">
+    <!-- Grupo de PDF y Excel -->
+    <div class="d-inline-block align-items-center">
+        <button id="export-pdf" class="btn btn-danger" onclick="generarPDF()" style="margin-right: 8px;">
+            <i class="far fa-file-pdf"></i> Exportar a PDF
+        </button>
+
+        <button id="export-excel" class="btn btn-success" onclick="exportToExcel()" style="margin-left: 8px;">
+            <i class="far fa-file-excel"></i> Exportar a Excel
+        </button>
+    </div>
+</div>
+
+
+
 <style>
         /* Agrega margen derecho al botón */
         .btn-with-margin {
@@ -298,6 +313,137 @@ $(document).ready(function() {
 
     setCheckboxState(); 
 });
+</script>
+
+
+<script>
+//pdf
+function generarPDF() {
+    const printWindow = window.open('', '_blank');
+    const tableContent = document.getElementById('miTabla').outerHTML;
+
+    // Ruta de la imagen local (reemplaza 'TU_RUTA_DE_IMAGEN_LOCAL' con la ruta correcta)
+    const imagePath = 'vendor/adminlte/dist/img/axe.png';
+
+    // Convertir la imagen local a base64 de forma asíncrona
+    const getBase64ImageAsync = (imgPath, callback) => {
+        const img = new Image();
+        img.onload = function () {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+
+            const dataURL = canvas.toDataURL('image/png');
+            callback(dataURL.replace(/^data:image\/(png|jpg);base64,/, ''));
+        };
+
+        img.src = imgPath;
+    };
+
+    // Obtener la base64 de la imagen
+    getBase64ImageAsync(imagePath, (logoBase64) => {
+        printWindow.document.open();
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Reporte Bitácoras</title>
+                <style>
+                    table {
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+
+                    th, td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        text-align: left;
+                    }
+                </style>
+            </head>
+            <body>
+                <div>
+                    <img src="data:image/png;base64, ${logoBase64}" alt="Logo" style="width: 50px; height: 50px; margin: 10px;">
+                    <h1 style="text-align: center;">Reportes Bitácoras</h1>
+                </div>
+                ${tableContent}
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+
+        // Espera a que se cargue el contenido antes de llamar al método print
+        printWindow.onload = function () {
+            printWindow.print();
+            printWindow.onafterprint = function () {
+                printWindow.close();
+            };
+        };
+    });
+}
+
+
+
+
+
+
+function exportToExcel() {
+    const tableData = [];
+    const headerData = [];
+
+    // Obtén los datos del encabezado de la tabla (excluyendo la columna "Opciones de la Tabla")
+    const tableHeader = document.querySelectorAll('#miTabla thead th');
+    tableHeader.forEach(headerCell => {
+        if (headerCell.textContent !== 'Opciones de la Tabla') {
+            headerData.push(headerCell.textContent);
+        }
+    });
+
+    // Obtén todos los datos de la tabla, incluyendo todas las páginas
+    const table = $('#miTabla').DataTable();
+    const allData = table.rows().data();
+    
+    allData.each(function (rowData) {
+        const row = [];
+        rowData.forEach((cell, index) => {
+            // Excluir la última columna y la columna "Opciones de la Tabla"
+            if (index !== rowData.length - 1) {
+                row.push(cell);
+            }
+        });
+        tableData.push(row);
+    });
+
+    const worksheetData = [headerData, ...tableData];
+
+    // Crear un objeto WorkBook y hoja de cálculo
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(worksheetData);
+
+    // Agregar la hoja de cálculo al WorkBook
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    // Generar el archivo Excel como una matriz binaria
+    const excelBinary = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+    // Convertir la matriz binaria en un Blob
+    const excelBlob = new Blob([s2ab(excelBinary)], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    });
+
+    // Descargar el archivo usando la biblioteca FileSaver.js
+    saveAs(excelBlob, 'ReporteBitacora.xlsx');
+}
+
+// Función para convertir una cadena binaria en una matriz de bytes
+function s2ab(s) {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+    return view;
+}
 </script>
 
 
