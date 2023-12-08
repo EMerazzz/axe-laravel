@@ -652,8 +652,9 @@
                  <!-- FIN-->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+    <button type="button" class="btn btn-primary" onclick="imprimirModal('{{ $personas['COD_PERSONA'] }}')">Imprimir</button>
+</div>
         </div>
     </div>
 </div>
@@ -759,6 +760,21 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js"></script>
 
+    <script>
+    function imprimirModal(codPersona) {
+        // Abre una nueva ventana para imprimir el contenido del modal
+        var ventanaImpresion = window.open('', '_blank');
+        
+        // Obtiene el contenido HTML del modal
+        var contenidoModal = document.getElementById('ver-persona-modal-' + codPersona).innerHTML;
+        
+        // Agrega el contenido al cuerpo de la nueva ventana
+        ventanaImpresion.document.body.innerHTML = contenidoModal;
+
+        // Imprime la ventana
+        ventanaImpresion.print();
+    }
+</script>
 
     <!-- Script personalizado para inicializar DataTables -->
     <script>
