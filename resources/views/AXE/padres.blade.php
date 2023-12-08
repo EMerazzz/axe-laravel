@@ -79,9 +79,9 @@
 </div>
 @endif
 
-<div class="spacer"></div>
+ <!--<div class="spacer"></div>
 <button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#padres">+ Nuevo</button>
-<div class="spacer"></div>
+<div class="spacer"></div> -->
 <div class="modal fade bd-example-modal-sm" id="padres" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -143,8 +143,10 @@
             <tr>
                 <th>#</th>
                 <th>Nombre completo</th>
-                <th>Ocupación</th>
+                
                 <th>Relación Estudiante</th>
+                <th>Teléfono</th>
+                <th>Estado</th>
                 <th>Opciones Tabla</th>
             </tr>
         </thead>
@@ -162,16 +164,17 @@
             <tr>
                 <td>{{ $padres['COD_PADRE_TUTOR'] }}</td>
                 <td>
-                        @if ($persona !== null)
-                            {{ $persona['NOMBRE'] . ' ' . $persona['APELLIDO'] }}
-                        @else
-                            Persona no encontrada
-                        @endif
+                {{ $padres['NOMBRE_PADRE_TUTOR'] . ' ' . $padres['APELLIDO_PADRE_TUTOR'] }}   
                 </td>
-
-                 <td>{{ $padres['OCUPACION_PADRE_TUTOR'] }}</td>
-               
-                    <td>{{ $padres['RELACION_PADRE_ESTUDIANTE'] }}</td>
+                <td>{{ $padres['RELACION_PADRE_ESTUDIANTE'] }}</td>
+                <td>{{ $padres['TELEFONO'] }}</td>
+                <td>
+                    @if($padres['Estado_registro'] == 1)
+                        Activo
+                    @elseif($padres['Estado_registro'] == 0)
+                        inactivo
+                    @endif
+                 </td>
                 <td>
                     <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#padres-edit-{{ $padres['COD_PADRE_TUTOR'] }}">

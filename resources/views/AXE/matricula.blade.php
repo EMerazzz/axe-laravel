@@ -123,7 +123,7 @@
                                 @foreach ($nivel_academicoArreglo as $nivel_academico)
                                     <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}"
                                             {{ old('COD_NIVEL_ACADEMICO') == $nivel_academico['COD_NIVEL_ACADEMICO'] ? 'selected' : '' }}>
-                                        {{ $nivel_academico['descripcion'] }}
+                                        {{ $nivel_academico['DESCRIPCION'] }}
                                     </option>
                                 @endforeach
                             </select>
@@ -277,7 +277,7 @@
                 </td>
                  <td>
                         @if ($nivel_academico !== null)
-                            {{ $nivel_academico['descripcion']}}
+                            {{ $nivel_academico['DESCRIPCION']}}
                         @else
                              no encontrado
                         @endif
@@ -300,16 +300,21 @@
                              no encontrado
                         @endif
                  </td>
-                <td>
-                    <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
+                 <td>
+            
+            <!-- Botones -->
+            <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#matricula-edit-{{ $matricula['COD_MATRICULA'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
-                    <button id="botonEliminar_1" value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
-                            data-target="#matricula-delete-{{$matricula['COD_MATRICULA']}}">
-                           <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
-                    </button>
-                </td>
+
+                  <button title="Ver" class="btn btn-outline-info ver-btn" type="button" data-toggle="modal" data-target="#ver-estudiante-modal-{{ $matricula['COD_MATRICULA'] }}">
+                      <i class='fas fa-eye' style='font-size:13px;color:blue'></i> 
+                  </button>
+
+              </div>
+          </td>
+
             </tr>
             @endforeach
         </tbody>
@@ -352,7 +357,7 @@
                                 @foreach ($nivel_academicoArreglo as $nivel_academico)
                                     <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}"
                                         {{ $nivel_academico['COD_NIVEL_ACADEMICO'] == $matricula['COD_NIVEL_ACADEMICO'] ? 'selected' : '' }}>
-                                        {{ $nivel_academico['descripcion'] }}
+                                        {{ $nivel_academico['DESCRIPCION'] }}
                                     </option>
                                 @endforeach
                             </select>
@@ -446,6 +451,111 @@
     </div>
   </div>
 </div>
+         
+
+
+<!-- Modal para mostrar detalles de la persona -->
+<div class="modal fade" id="ver-estudiante-modal-{{ $matricula['COD_MATRICULA'] }}" tabindex="-1" role="dialog" aria-labelledby="verEstudianteModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="verPersonaModal">Ficha estudiante</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="background-color: #fff; padding: 20px;">
+                @php
+                    $estudiante = null;
+                    foreach ($estudianteArreglo as $e) {
+                        if ($e['COD_PERSONA'] === $matricula['COD_PERSONA']) {
+                            $estudiante = $e;
+                            break;
+                        }
+                    }
+                @endphp
+                <p style="text-align: center;"><strong>Datos personales</strong></p>
+                <p><strong>Nombre Completo:</strong>
+                        @if ($estudiante !== null)
+                            {{ $estudiante['NOMBRE'] }} {{ $estudiante['APELLIDO'] }}
+                        @endif
+                    </p>
+
+                <div style="column-count: 2;">
+                <p><strong>Identidad:</strong>
+                        @if ($estudiante !== null)
+                            {{ $estudiante['IDENTIDAD'] }}
+                        @endif
+                    </p>
+                    <p><strong>F. Nac.:</strong>
+                        @if ($estudiante !== null)
+                            {{ date('d, M Y', strtotime($estudiante['FECHA_NACIMIENTO'])) }}
+                        @endif
+                    </p>
+                   
+                    <p><strong>Teléfono estudiante:</strong>
+                        @if ($estudiante !== null)
+                            {{ $estudiante['TELEFONO'] }}
+                        @endif
+                    </p>
+                   
+                    <p><strong>Género:</strong>
+                        @if ($estudiante !== null)
+                            {{ $estudiante['GENERO'] }}
+                        @endif
+                    </p>
+                  
+                    <p><strong>Edad:</strong>
+                        @if ($estudiante !== null)
+                            {{ date_diff(date_create($estudiante['FECHA_NACIMIENTO']), date_create('today'))->y }}
+                        @endif
+                    </p>
+                    <p><strong>Correo:</strong>
+                        @if ($estudiante !== null)
+                        {{ $estudiante['CORREO_ELECTRONICO']}}
+                        @endif
+                    </p>
+                   
+                 
+                </div>
+                
+                <p><strong>Dirección:</strong>
+                        @if ($estudiante !== null)
+                            {{ $estudiante['PAIS'] }}, {{ $estudiante['DEPARTAMENTO'] }},
+                            {{ $estudiante['CIUDAD'] }}, {{ $estudiante['DIRECCION'] }}
+                        @endif
+                </p>
+                    <p style="text-align: center;"><strong>Encargado</strong></p>
+                    <p><strong>Encargado:</strong>
+                        @if ($estudiante !== null)
+                            {{ $estudiante['NOMBRE_PADRE_TUTOR'] }} {{ $estudiante['APELLIDO_PADRE_TUTOR'] }}
+                        @endif
+                    </p>
+                    <div style="column-count: 2;">
+                    <p><strong>Telefono Encargado:</strong>
+                        @if ($estudiante !== null)
+                            {{ $estudiante['TELEFONO PADRE'] }} 
+                        @endif
+                        </p>
+                        <p><strong>Relación:</strong>
+                        @if ($estudiante !== null)
+                            {{ $estudiante['RELACION'] }} 
+                        @endif
+                        </p>
+                    </div> 
+                    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="imprimirModal('{{ $matricula['COD_MATRICULA'] }}')">Imprimir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- modal ver-->     
 @endforeach
 
 @stop
@@ -512,6 +622,76 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/vfs_fonts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <!-- Script personalizado para inicializar DataTables -->
+    <style>
+@media print {
+    /* Oculta los botones y la "X" durante la impresión */
+    .modal-footer {
+        display: none !important;
+    }
+
+    /* Ajusta el estilo para centrar el encabezado */
+    #ver-persona-modal .modal-header {
+        text-align: center;
+    }
+}
+</style>
+<style>
+@media print {
+    /* Oculta los botones y la "X" durante la impresión */
+    .modal-footer {
+        display: none !important;
+    }
+
+    /* Ajusta el estilo para centrar el encabezado */
+    #ver-persona-modal .modal-header {
+        text-align: center;
+    }
+
+    /* Oculta la "X" del botón de cerrar en el encabezado */
+    #ver-persona-modal .close {
+        display: none !important;
+    }
+}
+</style>
+
+<script>
+function imprimirModal(codPersona) {
+    // Abre una nueva ventana para imprimir el contenido del modal
+    var ventanaImpresion = window.open('', '_blank');
+
+    // Obtiene el contenido HTML del modal
+    var contenidoModal = document.getElementById('ver-persona-modal-' + codPersona).cloneNode(true);
+
+    // Elimina botones y la "X" del modal clonado
+    var botonesX = contenidoModal.querySelectorAll('.modal-footer, .close');
+    botonesX.forEach(function(elemento) {
+        elemento.remove();
+    });
+
+    // Agrega un encabezado
+    var encabezado = document.createElement('div');
+    encabezado.innerHTML = '<h1 style="text-align: center; font-size: 30px; margin-bottom: 5px;">Ficha Persona</h1><img src="vendor/adminlte/dist/img/axe.png" alt="Logo" style="width: 80px; height: 80px; float: right; margin-top: -15px;">';
+    contenidoModal.insertBefore(encabezado, contenidoModal.firstChild);
+
+    // Ajusta el estilo del texto de "Detalles Personas"
+    var detallesPersonas = contenidoModal.querySelector('.modal-title');
+    detallesPersonas.style.fontSize = '22px';
+    detallesPersonas.style.marginBottom = '0';  // Reduce el espacio inferior
+
+    // Ajusta el margen inferior del texto de "Detalles Personas" para cuadrarlo con el texto de abajo
+    var contenidoText = contenidoModal.querySelector('.modal-body');
+    contenidoText.style.marginBottom = '0';
+
+    // Agrega el contenido al cuerpo de la nueva ventana
+    ventanaImpresion.document.body.innerHTML = contenidoModal.innerHTML;
+
+    // Imprime la ventana
+    ventanaImpresion.print();
+}
+
+</script>
+
+
     <script>
     $(document).ready(function() {
         $('#miTabla').DataTable({

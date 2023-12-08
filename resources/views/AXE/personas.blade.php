@@ -350,12 +350,9 @@
                     <button title="Ver" class="btn btn-outline-info ver-btn" type="button" data-toggle="modal" data-target="#ver-persona-modal-{{ $personas['COD_PERSONA'] }}">
                         <i class='fas fa-eye' style='font-size:13px;color:blue'></i> 
                     </button>
-                    <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
-                          data-target="#personas-delete-{{$personas['COD_PERSONA']}}">
-                           <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> 
-                   </button>
-                </div>
 
+                </div>
+            </td>
                    
              
         <!-- Modal de Edición con Pestañas -->
@@ -800,7 +797,7 @@ function imprimirModal(codPersona) {
     var ventanaImpresion = window.open('', '_blank');
 
     // Obtiene el contenido HTML del modal
-    var contenidoModal = document.getElementById('ver-persona-modal-' + codPersona).cloneNode(true);
+    var contenidoModal = document.getElementById('ver-estudiante-modal-' + codPersona).cloneNode(true);
 
     // Elimina botones y la "X" del modal clonado
     var botonesX = contenidoModal.querySelectorAll('.modal-footer, .close');
