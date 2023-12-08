@@ -206,7 +206,7 @@
                             </select>
                         </div>
                         <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
-                            <label for="direcciones" class="form-label mr-5">País  </label>
+                            <label for="direcciones" class="form-label>País  </label>
                             <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $direcciones['PAIS'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
