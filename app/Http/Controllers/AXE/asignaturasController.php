@@ -50,6 +50,7 @@ class asignaturasController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->post($this->apiUrl,[
         "NOMBRE_ASIGNATURA" => $request->input("NOMBRE_ASIGNATURA"),
+        "Estado_registro" => $request->input("Estado"),
         ]);
          // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
          if ($nueva_asignatura ->successful()) {
@@ -73,6 +74,7 @@ class asignaturasController extends Controller
         ])->put($this->apiUrl.'/'.$request->input("COD_ASIGNATURA"),[
         "COD_ASIGNATURA"=> $request->input("COD_ASIGNATURA"),
         "NOMBRE_ASIGNATURA" => $request->input("NOMBRE_ASIGNATURA"),
+        "Estado_registro" => $request->input("Estado"),
         ]);
        //print_r([$putformatos]);die();
 

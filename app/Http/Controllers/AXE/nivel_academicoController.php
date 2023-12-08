@@ -43,7 +43,7 @@ class nivel_academicoController extends Controller
             $niveles_lista = $todosNiveles->json();
     
             foreach ($niveles_lista as $niveles) {
-                if ($niveles["descripcion"] === $DESCRIPCION) {
+                if ($niveles["DESCRIPCION"] === $DESCRIPCION) {
                     // La persona ya existe, generar mensaje de error
                     return redirect('/nivel_academico')->with('message', [
                         'type' => 'error',
@@ -58,7 +58,8 @@ class nivel_academicoController extends Controller
         $nuevo_nivel_academico = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->post($this->apiUrl, [
-            "descripcion" => $request->input("descripcion"),
+            "DESCRIPCION" => $request->input("descripcion"),
+            "Estado_registro" => $request->input("Estado"),
         ]);
 
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -84,7 +85,8 @@ class nivel_academicoController extends Controller
         $modificar_nivel_academico = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_NIVEL_ACADEMICO"), [
-            "descripcion" => $request->input("descripcion"),
+            "DESCRIPCION" => $request->input("descripcion"),
+            "Estado_registro" => $request->input("Estado"),
             
         ]);
         if ($modificar_nivel_academico->successful()) {

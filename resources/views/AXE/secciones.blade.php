@@ -81,7 +81,14 @@
                     <input type="text" class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES" placeholder="Ingrese la sección" required maxlength="200" pattern="^[A-Za-z\s]+$">
                     <small id="errorMessage" style="color: red; display: none;">Solo se permiten letras.</small>
                 </div>
-
+                   
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="MODIFICADO_POR" class="form-label mr-3">Estado:</label>
+                           <select class="form-control same-width" id="MODIFICADO_POR" name="Estado">
+                           <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                          </select>
+                </div>
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -96,6 +103,7 @@
     <thead>
         <th>#</th> 
         <th>Sección Académica</th> 
+        <th>Estado</th> 
         <th>Opciones Tabla</th>
     </thead>
     <tbody>
@@ -103,6 +111,13 @@
         <tr>
             <td>{{$secciones['COD_SECCIONES']}}</td>
             <td>{{$secciones['DESCRIPCION_SECCIONES']}}</td>
+            <td>
+            @if($secciones['Estado_registro'] == 1)
+            Activo
+            @elseif($secciones['Estado_registro'] == 0)
+            Inactivo
+            @endif 
+            </td>
             <td>
                 <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#secciones-edit-{{$secciones['COD_SECCIONES']}}">
                     <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
@@ -130,6 +145,14 @@
                                             <label for="DESCRIPCION_SECCIONES" class="form-label mr-2">Sección </label>
                                             <input type="text" class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES" placeholder="Ingrese la sección" required maxlength="200" pattern="^[A-Za-z\s]+$" 
                                             value="{{$secciones['DESCRIPCION_SECCIONES']}}">
+                                        </div>
+
+                                        <div class="mb-3 mt-3 d-flex align-items-center">
+                                        <label for="Estado_registro" class="form-label mr-3">Estado:</label>
+                                        <select class="form-control same-width" id="Estado_registro" name="Estado">
+                                        <option value="1" {{ $secciones['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
+                                        <option value="0" {{ $secciones['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
+                                        </select>
                                         </div>
 
                                         <!-- ... otros campos del formulario ... -->
