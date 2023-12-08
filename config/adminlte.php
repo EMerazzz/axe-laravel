@@ -253,7 +253,7 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        [
+              [
             'type' => 'sidebar-menu-search',
             'text' => 'Busqueda',
         ],
