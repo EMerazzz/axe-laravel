@@ -760,21 +760,78 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js"></script>
 
-    <script>
-    function imprimirModal(codPersona) {
-        // Abre una nueva ventana para imprimir el contenido del modal
-        var ventanaImpresion = window.open('', '_blank');
-        
-        // Obtiene el contenido HTML del modal
-        var contenidoModal = document.getElementById('ver-persona-modal-' + codPersona).innerHTML;
-        
-        // Agrega el contenido al cuerpo de la nueva ventana
-        ventanaImpresion.document.body.innerHTML = contenidoModal;
+   
 
-        // Imprime la ventana
-        ventanaImpresion.print();
+    <style>
+@media print {
+    /* Oculta los botones y la "X" durante la impresión */
+    .modal-footer {
+        display: none !important;
     }
+
+    /* Ajusta el estilo para centrar el encabezado */
+    #ver-persona-modal .modal-header {
+        text-align: center;
+    }
+}
+</style>
+<style>
+@media print {
+    /* Oculta los botones y la "X" durante la impresión */
+    .modal-footer {
+        display: none !important;
+    }
+
+    /* Ajusta el estilo para centrar el encabezado */
+    #ver-persona-modal .modal-header {
+        text-align: center;
+    }
+
+    /* Oculta la "X" del botón de cerrar en el encabezado */
+    #ver-persona-modal .close {
+        display: none !important;
+    }
+}
+</style>
+
+<script>
+function imprimirModal(codPersona) {
+    // Abre una nueva ventana para imprimir el contenido del modal
+    var ventanaImpresion = window.open('', '_blank');
+
+    // Obtiene el contenido HTML del modal
+    var contenidoModal = document.getElementById('ver-persona-modal-' + codPersona).cloneNode(true);
+
+    // Elimina botones y la "X" del modal clonado
+    var botonesX = contenidoModal.querySelectorAll('.modal-footer, .close');
+    botonesX.forEach(function(elemento) {
+        elemento.remove();
+    });
+
+    // Agrega un encabezado
+    var encabezado = document.createElement('div');
+    encabezado.innerHTML = '<h1 style="text-align: center; font-size: 30px; margin-bottom: 5px;">Ficha Persona</h1><img src="vendor/adminlte/dist/img/axe.png" alt="Logo" style="width: 80px; height: 80px; float: right; margin-top: -15px;">';
+    contenidoModal.insertBefore(encabezado, contenidoModal.firstChild);
+
+    // Ajusta el estilo del texto de "Detalles Personas"
+    var detallesPersonas = contenidoModal.querySelector('.modal-title');
+    detallesPersonas.style.fontSize = '22px';
+    detallesPersonas.style.marginBottom = '0';  // Reduce el espacio inferior
+
+    // Ajusta el margen inferior del texto de "Detalles Personas" para cuadrarlo con el texto de abajo
+    var contenidoText = contenidoModal.querySelector('.modal-body');
+    contenidoText.style.marginBottom = '0';
+
+    // Agrega el contenido al cuerpo de la nueva ventana
+    ventanaImpresion.document.body.innerHTML = contenidoModal.innerHTML;
+
+    // Imprime la ventana
+    ventanaImpresion.print();
+}
+
 </script>
+
+
 
     <!-- Script personalizado para inicializar DataTables -->
     <script>
