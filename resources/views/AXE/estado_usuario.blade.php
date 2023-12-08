@@ -70,12 +70,9 @@
                     <form action="{{ url('estado_usuario/insertar') }}" method="post">
                         @csrf
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="estado_usuario" class="form-label mr-2">Estado:</label>
-                        <select class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION">
-                        <option value="1" selected>Activo</option>
-                        <option value="2" selected>Inactivo</option>
-                        </select>
-                        </div>
+                        <label for="DESCRIPCION" class="form-label mr-2">Estado:</label>
+                        <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION">
+                         </div>
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -122,13 +119,10 @@
                         <form action="{{ url('estado_usuario/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ESTADO_USUARIO" value="{{$estado_usuario['COD_ESTADO_USUARIO']}}">
-                                    <div class="mb-3 mt-3 d-flex align-items-center">
-                                    <label for="estado_usuario" class="form-label mr-2">Estado:</label>
-                                    <select class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION">
-                                        <option value="1" {{ $estado_usuario['DESCRIPCION'] === '1' ? 'selected' : '' }}>Activo</option>
-                                        <option value="2" {{ $estado_usuario['DESCRIPCION'] === '2' ? 'selected' : '' }}>Inactivo</option>
-                                        </select>
-                                </div>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="DESCRIPCION" class="form-label mr-2">Estado:</label>
+                            <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" value="{{ $estado_usuario['DESCRIPCION'] }}">
+                            </div>
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
