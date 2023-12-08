@@ -135,7 +135,13 @@
                         <td>{{ $objetos['OBJETO'] }}</td>
                         <td>{{ $objetos['DESCRIPCION'] }}</td>
                         <td>{{ $objetos['TIPO_OBJETO'] }}</td>
-                        <td>{{ $objetos['Estado_registro'] }}</td>
+                        <td>
+                        @if($objetos['Estado_registro'] == 1)
+                        Activo
+                    @elseif($objetos['Estado_registro'] == 0)
+                        Inactivo
+                    @endif 
+                        </td>
                         <td>
                             <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#objetos-edit-{{ $objetos['COD_OBJETO'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar

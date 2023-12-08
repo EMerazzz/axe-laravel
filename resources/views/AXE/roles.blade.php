@@ -134,7 +134,13 @@
                     <tr>
                         <td>{{ $roles['COD_ROL'] }}</td>
                         <td>{{ $roles['DESCRIPCION'] }}</td>
-                        <td>{{ $roles['Estado_registro'] }}</td>
+                        <td> 
+                        @if($roles['Estado_registro'] == 1)
+                        Activo
+                    @elseif($roles['Estado_registro'] == 0)
+                        Inactivo
+                    @endif 
+                        </td>
                         <td>{{date('d, M Y', strtotime($roles['FECHA_CREACION']))}}</td>
                         <td>{{date('d, M Y', strtotime($roles['FECHA_MODIFICACION']))}}</td>
                         <!-- <td>{{$UsuarioValue}}</td> -->

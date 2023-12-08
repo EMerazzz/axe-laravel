@@ -115,7 +115,13 @@
                     <tr>
                         <td>{{ $preguntas['COD_PREGUNTA'] }}</td>
                         <td>{{ $preguntas['PREGUNTA'] }}</td>
-                        <td>{{ $preguntas['Estado_registro'] }}</td>
+                        <td>
+                        @if($preguntas['Estado_registro'] == 1)
+                        Activo
+                    @elseif($preguntas['Estado_registro'] == 0)
+                        Inactivo
+                    @endif 
+                        </td>
                         <td>
                             <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#preguntas-edit-{{ $preguntas['COD_PREGUNTA'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
