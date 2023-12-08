@@ -92,6 +92,14 @@
                             <input type="text" class="form-control same-width" id="VALOR" name="VALOR" placeholder="Ingrese el valor" inputmode="text" required  maxlength="50">
                         </div>
 
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="MODIFICADO_POR" class="form-label mr-4 ml-2">Estado:</label>
+                           <select class="form-control same-width" id="MODIFICADO_POR" name="Estado">
+                           <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                          </select>
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         </form>
@@ -110,7 +118,8 @@
                     <th>Parametro</th> 
                     <th>Valor</th>
                     <th>Fecha Creación</th>
-                    <th>Fecha Modificación</th>    
+                    <th>Fecha Modificación</th>
+                    <th>Estado</th>  
                     <th>Opciones Tabla</th>
                 </tr>
             </thead>
@@ -122,6 +131,7 @@
                         <td>{{ $parametros['VALOR'] }}</td>
                         <td>{{date('d, M Y', strtotime($parametros['FECHA_CREADO']))}}</td>
                         <td>{{date('d, M Y', strtotime($parametros['FECHA_MODIFICADO']))}}</td>
+                        <td>{{ $parametros['Estado_registro'] }}</td>
                         <td>
                             <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#parametros-edit-{{ $parametros['COD_PARAMETRO'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
@@ -158,6 +168,14 @@
                             <div class="mb-3 mt-3 d-flex align-items-center">
                                 <label for="VALOR" class="form-label mr-5">Valor:</label>
                                 <input type="text" class="form-control" id="VALOR" name="VALOR" placeholder="Ingrese el valor" value="{{ $parametros['VALOR'] }}" maxlength="100">
+                            </div>
+
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                               <label for="Estado_registro" class="form-label mr-4 ml-2">Estado:</label>
+                               <select class="form-control same-width" id="Estado" name="Estado">
+                               <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                                </select>
                             </div>
 
                             <!-- ... otros campos del formulario ... -->

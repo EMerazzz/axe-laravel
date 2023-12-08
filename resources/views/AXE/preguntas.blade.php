@@ -149,8 +149,8 @@
                             </div>
 
                          <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="MODIFICADO_POR" class="form-label mr-3">Estado:</label>
-                           <select class="form-control same-width" id="MODIFICADO_POR" name="Estado">
+                            <label for="Estado_registro" class="form-label mr-3">Estado:</label>
+                           <select class="form-control same-width" id="Estado_registro" name="Estado">
                            <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
                           </select>

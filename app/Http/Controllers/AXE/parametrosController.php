@@ -50,6 +50,7 @@ class parametrosController extends Controller
         "USUARIO" => $request->input("USUARIO"),
         //"FECHA_CREADO" => $request->input("FECHA_CREADO"),
         //"FECHA_MODIFICADO" => $request->input("FECHA_MODIFICADO"),
+        "Estado_registro" => $request->input("Estado"),
     ]);
 
     // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -81,6 +82,7 @@ class parametrosController extends Controller
             "USUARIO" => $request->input("USUARIO"),
             //"FECHA_CREADO" => $request->input("FECHA_CREADO"),
             //"FECHA_MODIFICADO" => $request->input("FECHA_MODIFICADO"),
+            "Estado_registro" => $request->input("Estado"),
             
         ]);
         if ($modificar_parametro->successful()) {
