@@ -70,7 +70,7 @@
            
             
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-12 mx-auto">
+                <div class="d-grid gap-2 col-12">
                     <form action="{{url('objetos/insertar')}}" method="post">
 
                         @csrf
@@ -91,6 +91,21 @@
                             <input type="text" class="form-control same-width" id="TIPO_OBJETO" name="TIPO_OBJETO" placeholder="Ingrese el tipo objeto" inputmode="text" required  maxlength="15">
                         </div>
 
+                        
+                            <div class="form-group col-md-12 d-flex">
+                              <label for="Estado" class="form-label mr-4">Estado:</label>
+
+                              <div class="form-group col-md-10">
+                                <select class="form-control same-width" id="MODIFICADO_POR" name="Estado">
+                                    <option value="1">Activo</option>
+                                    <option value="0">Inactivo</option>
+                                </select>
+                            </div>
+
+                        </div>
+        
+                        
+
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         </form>
@@ -109,6 +124,7 @@
                     <th>Objeto</th>
                     <th>Descripción</th>
                     <th>Tipo Objeto</th>
+                    <th>Estado</th>
                     <th>Opciones Tabla</th>
                 </tr>
             </thead>
@@ -119,6 +135,7 @@
                         <td>{{ $objetos['OBJETO'] }}</td>
                         <td>{{ $objetos['DESCRIPCION'] }}</td>
                         <td>{{ $objetos['TIPO_OBJETO'] }}</td>
+                        <td>{{ $objetos['Estado_registro'] }}</td>
                         <td>
                             <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#objetos-edit-{{ $objetos['COD_OBJETO'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
@@ -161,6 +178,19 @@
                                 <label for="TIPO_OBJETO" class="form-label mr-5">Objeto:</label>
                                 <input type="text" class="form-control" id="TIPO_OBJETO" name="TIPO_OBJETO" placeholder="Ingrese el tipo objeto" value="{{ $objetos['TIPO_OBJETO'] }}" maxlength="15">
                             </div>
+
+                            <div class="form-group col-md-12 d-flex">
+                                <label for="Estado" class="form-label mr-4">Estado:</label>
+  
+                                <div class="form-group col-md-10">
+                                  <select class="form-control same-width" id="MODIFICADO_POR" name="Estado">
+                                      <option value="1">Activo</option>
+                                      <option value="0">Inactivo</option>
+                                  </select>
+                              </div>
+  
+                          </div>
+          
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

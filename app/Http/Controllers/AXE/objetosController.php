@@ -43,12 +43,14 @@ class objetosController extends Controller
     public function nuevo_objetos(Request $request ){
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
+
         $nuevo_objeto = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->post($this->apiUrl,[
         "OBJETO" => $request->input("OBJETO"),
         "DESCRIPCION" => $request->input("DESCRIPCION"),
         "TIPO_OBJETO" => $request->input("TIPO_OBJETO"),
+        "Estado_registro" => $request->input("Estado"),
         ]);
          // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
          if ($nuevo_objeto ->successful()) {
@@ -76,6 +78,8 @@ class objetosController extends Controller
         "OBJETO" => $request->input("OBJETO"),
         "DESCRIPCION" => $request->input("DESCRIPCION"),
         "TIPO_OBJETO" => $request->input("TIPO_OBJETO"),
+        "Estado_registro" => $request->input("Estado"),
+
     ]);
     
     if ($modificar_objetos->successful()) {
