@@ -46,6 +46,8 @@ class docentesController extends Controller
         return view('AXE.docentes', compact('personasArreglo', 'docentesArreglo','nivel_academicoArreglo', 'permisosDisponibles'));
     }
 
+    //INSERT
+
     public function nuevo_docente(Request $request)
     {
         $cookieEncriptada = request()->cookie('token');
@@ -65,10 +67,10 @@ class docentesController extends Controller
                 'Authorization' => 'Bearer ' . $token,
             ])->post($this->apiUrl, [
                 "COD_PERSONA" => $request->input("COD_PERSONA"),
-                "NOMBRE_DOCENTE" => $personaSeleccionadaData[0]['NOMBRE']. ' ' . $personaSeleccionadaData[0]['APELLIDO'],
-                "ESPECIALIDAD" => $request->input("ESPECIALIDAD"),
-                "GRADO_ENSENIANZA" => $request->input("GRADO_ENSENIANZA"),
+                "CARGO_ACTUAL" => $request->input("CARGO_ACTUAL"),
+                "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES"),
                 "USUARIO_MODIFICADOR" => $UsuarioValue,
+                "Estado_registro" => $request->input("Estado_registro"),
             ]);
 
             // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -85,7 +87,7 @@ class docentesController extends Controller
             }
     }
     
-
+   //MODIFICAR
     public function modificar_docente(Request $request)
     {
         $cookieEncriptada = request()->cookie('token');
@@ -95,10 +97,10 @@ class docentesController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'. $request->input("COD_DOCENTE"), [
             "COD_PERSONA" => $request->input("COD_PERSONA"),
-            "NOMBRE_DOCENTE" => $request->input("NOMBRE_DOCENTE"),
-            "ESPECIALIDAD" => $request->input("ESPECIALIDAD"),
-            "GRADO_ENSENIANZA" => $request->input("GRADO_ENSENIANZA"),
+            "CARGO_ACTUAL" => $request->input("CARGO_ACTUAL"),
+            "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES"),
             "USUARIO_MODIFICADOR" => $UsuarioValue,
+            "Estado_registro" => $request->input("Estado_registro"),
         ]);
 
        // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -115,6 +117,8 @@ class docentesController extends Controller
     }
     }
 
+
+    //DELETE
     public function delete_docente(Request $request)
 {
     $cookieEncriptada = request()->cookie('token');

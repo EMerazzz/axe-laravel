@@ -100,20 +100,26 @@
                     </select>
                 </div>
                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="docentes"  class="form-label mr-1">Asignatura:</label>
-                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese especialidad del docente"
+                            <label for="docentes"  class="form-label mr-1">Cargo Actual:</label>
+                            <input type="text" class="form-control" id="CARGO_ACTUAL" name="CARGO_ACTUAL" placeholder="Ingrese especialidad el cargo del docente"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required maxlength="30">
                         </div>
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="docentes"  class="form-label">Grado Enseñanza:</label>
-                            <select class="form-control ancho-personalizado w-100"  id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
-                                <option value="" disabled selected>Seleccione</option>
-                                @foreach ($nivel_academicoArreglo as $nivel_academico) 
-                                        <option value="{{ $nivel_academico['descripcion'] }}">{{ $nivel_academico['descripcion'] }}</option> 
-                                @endforeach
-                            </select>
+                             <label for="docentes" class="form-label mr-1">Horas semanales:</label>
+                             <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese horas semanales del docente"
+                             title="Solo se permiten números y máximo dos cifras" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if (this.value.length > 2) this.value = this.value.slice(0, 2);" required maxlength="2">
+                       </div>
+
+
+                       <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="Estado_registro" class="form-label mr-3">Estado:</label>
+                           <select class="form-control same-width" id="Estado_registro" name="Estado_registro">
+                           <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                          </select>
                         </div>
+
  
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -129,9 +135,10 @@
             <tr>
                 <th>#</th>
                 <th>Nombre completo</th>
-                <th>Asignatura impartida</th>
-                <th>Grado enseñanza</th>
+                <th>Cargo Actual</th>
+                <th>Fecha Inicio Empleo</th>
                 <th>Horas semanales</th>
+                <th>Estado Registro</th>
                 <th>Opciones Tabla</th>
             </tr>
         </thead>
@@ -156,20 +163,28 @@
                         @endif
                 </td>
 
-                 <td>{{ $docentes['ESPECIALIDAD'] }}</td>
+                   <td>{{ $docentes['CARGO_ACTUAL'] }}</td>
                
-                    <td>{{ $docentes['GRADO_ENSENIANZA'] }}</td>
+                    <td>{{date('d, M Y', strtotime($docentes['FECHA_INICIO_EMPLEO']))}}</td>
                     <td>{{ $docentes['HORAS_SEMANALES'] }}</td>
+                    <td>
+                    @if($docentes['Estado_registro'] == 1)
+                        Activo
+                    @elseif($docentes['Estado_registro'] == 0)
+                        Inactivo
+                    @endif
+                 </td>
+
                 <td>
                     <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#docentes-edit-{{ $docentes['COD_DOCENTE'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
 
-                    <button id="botonEliminar_1" value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
+                    <!--<button id="botonEliminar_1" value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
                             data-target="#docentes-delete-{{$docentes['COD_DOCENTE']}}">
                            <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
-                </button>
+                </button> -->
                 </td>
             </tr>
             @endforeach
@@ -190,28 +205,48 @@
                     <form action="{{ url('docentes/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_DOCENTE" value="{{ $docentes['COD_DOCENTE'] }}">
+
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="docentes"  class="form-label mr-1">Asignatura impartida:</label>
-                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese el correo electrónico" value="{{ $docentes['ESPECIALIDAD'] }}"
-                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
-                        </div>
+    <label for="COD_PERSONA" class="form-label mr-4">Docente:</label>
+    <select class="selectize" style="width: 400px;" id="COD_PERSONA" name="COD_PERSONA" required style="width: 300px;">
+        <option value="" disabled>Seleccioa Un Docente</option>
+        @foreach ($personasArreglo as $persona)
+            @if ($persona['TIPO_PERSONA'] === 'Docentes')
+                @if ($persona['COD_PERSONA'] == $docentes['COD_PERSONA'])
+                    <option value="{{ $persona['COD_PERSONA'] }}" selected>
+                        {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
+                    </option>
+                @else
+                    <option value="{{ $persona['COD_PERSONA'] }}">
+                        {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
+                    </option>
+                @endif
+            @endif
+        @endforeach
+    </select>
+</div>
+
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="GRADO_ENSENIANZA"  class="form-label mr-4">Grado Enseñanza: </label>
-                            <select class="form-control ancho-personalizado w-100" id="GRADO_ENSENIANZA" name="GRADO_ENSENIANZA" required>
-                                <option value="" disabled selected>Seleccione</option>
-                                @foreach ($nivel_academicoArreglo as $nivel_academico)
-                                    <option value="{{ $nivel_academico['descripcion'] }}"
-                                        {{ $nivel_academico['descripcion'] == $docentes['GRADO_ENSENIANZA'] ? 'selected' : '' }}>
-                                        {{ $nivel_academico['descripcion'] }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <label for="docentes"  class="form-label mr-1">Cargo Actual:</label>
+                            <input type="text" class="form-control" id="CARGO_ACTUAL" name="CARGO_ACTUAL" placeholder="Ingrese especialidad el cargo del docente" value="{{ $docentes['CARGO_ACTUAL'] }}"
+                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required maxlength="30">
                         </div>
+
+                        
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="docentes"  class="form-label mr-3">Horas semanales:</label>
-                            <input type="text" class="form-control" id="ESPECIALIDAD" name="ESPECIALIDAD" placeholder="Ingrese Horas semanales" value="{{ $docentes['ESPECIALIDAD'] }}"
+                            <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese Horas semanales" value="{{ $docentes['HORAS_SEMANALES'] }}"
                             title="Solo se permiten dos dígitos numéricos" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2)" maxlength="2">
                         </div>
+
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                        <label for="docentes" class="form-label mr-5">Estado Registro:</label>
+                        <select class="form-control same-width" id="Estado_registro" name="Estado_registro">
+                            <option value="1" {{ $docentes['FECHA_INICIO_EMPLEO'] === '1' ? 'selected' : '' }}>Activo</option>
+                            <option value="0" {{ $docentes['FECHA_INICIO_EMPLEO'] === '0' ? 'selected' : '' }}>Inactivo</option>
+                        </select>
+                        </div>
+
 
                         <button type="submit" class="btn btn-primary">Editar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -424,6 +459,7 @@ modeToggle.addEventListener('click', () => {
         $('.selectize').selectize({
             placeholder: 'Seleccione',
             allowClear: true // Permite borrar la selección
+            searchField: ['text', 'IDENTIDAD'], // Habilita la búsqueda por nombre, apellido e ID
         });
     });
 </script>
