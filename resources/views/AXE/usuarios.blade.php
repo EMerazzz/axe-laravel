@@ -267,6 +267,27 @@
                         <input type="hidden" class="form-control" name="COD_USUARIO" value="{{ $usuarios['COD_USUARIO'] }}">
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
+    <label for="COD_PERSONA" class="form-label mr-4">Personal:</label>
+    <select class="selectize" style="width: 400px;" id="COD_PERSONA" name="COD_PERSONA" required style="width: 300px;">
+        <option value="" disabled>Seleccione un estudiante</option>
+        @foreach ($personasArreglo as $persona)
+            @if ($persona['TIPO_PERSONA'] === 'Personal Administrativo')
+                @if ($persona['COD_PERSONA'] == $usuarios['COD_PERSONA'])
+                    <option value="{{ $persona['COD_PERSONA'] }}" selected>
+                        {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
+                    </option>
+                @else
+                    <option value="{{ $persona['COD_PERSONA'] }}">
+                        {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
+                    </option>
+                @endif
+            @endif
+        @endforeach
+    </select>
+</div>
+
+
+                        <div class="mb-3 mt-3 d-flex align-items-center">
                         <label for="usuarios"class="form-label mr-4">Usuario:</label>
                         <input type="text" class="form-control ml-2" id="USUARIO" name="USUARIO" placeholder="Ingrese el usuario" value="{{ $usuarios['USUARIO'] }}"
                         pattern="^[A-Za-z0-9]+$" title="Solo se permiten letras y números">
@@ -486,6 +507,7 @@ modeToggle.addEventListener('click', () => {
     }
    
 </script>
+
 <script>
   // Obtener el elemento de entrada
   var inputUsuario = document.getElementById('USUARIO');

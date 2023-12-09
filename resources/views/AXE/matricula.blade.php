@@ -336,19 +336,25 @@
                         @csrf
                         <input type="hidden" class="form-control" name="COD_MATRICULA" value="{{ $matricula['COD_MATRICULA'] }}">
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="COD_PERSONA"  class="form-label mr-4">Estudiante:</label>
-                        <select class="form-control ancho-personalizado w-100"id="COD_PERSONA" name="COD_PERSONA"  required style="width: 300px;">
-                            <option value="" disabled>Seleccione un estudiante</option>
-                            @foreach ($personasArreglo as $persona)
-                                @if ($persona['TIPO_PERSONA'] === 'Estudiante')
-                                    <option value="{{ $persona['COD_PERSONA'] }}"
-                                        @if ($persona['COD_PERSONA'] == $matricula['COD_PERSONA']) selected @endif>
-                                        {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
-                                    </option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
+                            <label for="COD_PERSONA" class="form-label mr-4">Estudiante:</label>
+                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required style="width: 300px;">
+                                <option value="" disabled>Seleccione un estudiante</option>
+                                @foreach ($personasArreglo as $persona)
+                                    @if ($persona['TIPO_PERSONA'] === 'Estudiante')
+                                        @php
+                                            $isChosen = collect($matriculaArreglo)->contains('COD_PERSONA', $persona['COD_PERSONA']);
+                                        @endphp
+                                        @if (!$isChosen)
+                                            <option value="{{ $persona['COD_PERSONA'] }}"
+                                                @if ($persona['COD_PERSONA'] == $matricula['COD_PERSONA']) selected @endif>
+                                                {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
+                                            </option>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+
 
                     <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="COD_NIVEL_ACADEMICO" class="form-label mr-2">Nivel Académico: </label>

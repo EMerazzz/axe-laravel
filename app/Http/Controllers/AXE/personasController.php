@@ -49,7 +49,13 @@ class PersonasController extends Controller
         ])->get('http://82.180.162.18:4000/GETpersonas');
         $personasArreglo = json_decode($personas, true);
         //dd ($personasArreglo);
-        return view('AXE.personas', compact('personasArreglo','telefonosArreglo','correosArreglo','direccionesArreglo','contactosArreglo'));
+         // dd ( $UsuarioValue);
+         $personas1 = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('http://82.180.162.18:4000/personas');
+        $personas1Arreglo = json_decode($personas1, true);
+
+        return view('AXE.personas', compact('personasArreglo','$personas1Arreglo ','telefonosArreglo','correosArreglo','direccionesArreglo','contactosArreglo'));
     }
 
     public function verpersona($COD_PERSONAS)
