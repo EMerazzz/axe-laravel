@@ -324,6 +324,7 @@
         <th>Fecha nacimiento</th>
         <th>Edad</th>
         <th>Fecha registro</th>
+        <th>Estado registro</th>
         <th>Opciones Tabla</th>
     </thead>
     <tbody>
@@ -338,6 +339,14 @@
             <td>{{date('d, M Y', strtotime($personas['FECHA_NACIMIENTO']))}}</td>
             <td>{{date_diff(date_create($personas['FECHA_NACIMIENTO']), date_create('today'))->y}}</td>
             <td>{{date('d, M Y', strtotime($personas['FECHA_REGISTRO']))}}</td>
+
+                 <td>
+                    @if($personas['Estado_registro'] == 1)
+                        Activo
+                    @elseif($personas['Estado_registro'] == 0)
+                        Inactivo
+                    @endif
+                </td>
             
             <td>
             

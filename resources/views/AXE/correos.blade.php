@@ -118,6 +118,7 @@
                 <th>Nombre completo</th>
                 <th>Correo electrónico</th>
                 <th>Fecha registro</th>
+                <th>Estado Registro</th>
                 <th>Opciones Tabla</th>
             </tr>
         </thead>
@@ -144,6 +145,14 @@
                 <td>{{ $correos['CORREO_ELECTRONICO'] }}</td>
                
                 <td>{{ date('d, M Y', strtotime($correos['FECHA'])) }}</td>
+
+                <td>
+                    @if($correos['Estado_registro'] == 1)
+                        Activo
+                    @elseif($correos['Estado_registro'] == 0)
+                        Inactivo
+                    @endif
+                 </td>
                 <td>
                     <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#correos-edit-{{ $correos['COD_CORREO'] }}">
