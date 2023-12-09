@@ -131,7 +131,14 @@
                         <td>{{ $parametros['VALOR'] }}</td>
                         <td>{{date('d, M Y', strtotime($parametros['FECHA_CREADO']))}}</td>
                         <td>{{date('d, M Y', strtotime($parametros['FECHA_MODIFICADO']))}}</td>
-                        <td>{{ $parametros['Estado_registro'] }}</td>
+                        <td>
+                    @if($parametros['Estado_registro'] == 1)
+                        Activo
+                    @elseif($parametros['Estado_registro'] == 0)
+                        Inactivo
+                    @endif
+                 </td>
+                       
                         <td>
                             <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#parametros-edit-{{ $parametros['COD_PARAMETRO'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar

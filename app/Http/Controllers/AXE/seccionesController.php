@@ -60,6 +60,7 @@ class seccionesController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->post($this->apiUrl, [
             "DESCRIPCION_SECCIONES" => $request->input("DESCRIPCION_SECCIONES"),
+            "Estado_registro" => $request->input("Estado"),
         ]);
     
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -86,6 +87,7 @@ class seccionesController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_SECCIONES"), [
             "DESCRIPCION_SECCIONES" => $request->input("DESCRIPCION_SECCIONES"),
+            "Estado_registro" => $request->input("Estado"),
             
         ]);
         if ($modificar_seccion->successful()) {

@@ -134,7 +134,13 @@
                     <tr>
                         <td>{{ $roles['COD_ROL'] }}</td>
                         <td>{{ $roles['DESCRIPCION'] }}</td>
-                        <td>{{ $roles['Estado_registro'] }}</td>
+                        <td> 
+                        @if($roles['Estado_registro'] == 1)
+                        Activo
+                    @elseif($roles['Estado_registro'] == 0)
+                        Inactivo
+                    @endif 
+                        </td>
                         <td>{{date('d, M Y', strtotime($roles['FECHA_CREACION']))}}</td>
                         <td>{{date('d, M Y', strtotime($roles['FECHA_MODIFICACION']))}}</td>
                         <!-- <td>{{$UsuarioValue}}</td> -->
@@ -168,7 +174,7 @@
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ROL" value="{{ $roles['COD_ROL'] }}">
 
-                        <div class="form-group col-md-12  d-flex"">
+                        <div class="form-group col-md-12  d-flex">
                             <div class="form-group col-md-3"> 
                                 <label for="DESCRIPCION" class="form-label mr-2">Rol:</label>
                             </div>
@@ -180,7 +186,7 @@
                         </div>
 
 
-                         <div class="form-group col-md-12  d-flex"">
+                         <div class="form-group col-md-12  d-flex">
                             <div class="form-group col-md-3"> 
                                 <label for="MODIFICADO_POR" class="form-label mr-2">Modificado:</label>
                             </div>
@@ -196,7 +202,7 @@
                             </div>
                           
                             <div class="form-group col-md-9">
-                              <select class="form-control same-width" id="MODIFICADO_POR" name="MODIFICADO_POR">
+                              <select class="form-control same-width" id="Estado_registro" name="Estado_registro">
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
                               </select>

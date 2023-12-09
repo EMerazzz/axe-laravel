@@ -661,12 +661,12 @@
 </style>
 
 <script>
-function imprimirModal(codPersona) {
+function imprimirModal(COD_MATRICULA) {
     // Abre una nueva ventana para imprimir el contenido del modal
     var ventanaImpresion = window.open('', '_blank');
 
     // Obtiene el contenido HTML del modal
-    var contenidoModal = document.getElementById('ver-persona-modal-' + codPersona).cloneNode(true);
+    var contenidoModal = document.getElementById('ver-estudiante-modal-' + COD_MATRICULA).cloneNode(true);
 
     // Elimina botones y la "X" del modal clonado
     var botonesX = contenidoModal.querySelectorAll('.modal-footer, .close');
@@ -676,13 +676,14 @@ function imprimirModal(codPersona) {
 
     // Agrega un encabezado
     var encabezado = document.createElement('div');
-    encabezado.innerHTML = '<h1 style="text-align: center; font-size: 30px; margin-bottom: 5px;">Ficha Persona</h1><img src="vendor/adminlte/dist/img/axe.png" alt="Logo" style="width: 80px; height: 80px; float: right; margin-top: -15px;">';
+    encabezado.innerHTML = '<h1 style="text-align: center; font-size: 30px; margin-bottom: 5px;"></h1><img src="vendor/adminlte/dist/img/axe.png" alt="Logo" style="width: 80px; height: 80px; float: right; margin-top: -15px;">';
     contenidoModal.insertBefore(encabezado, contenidoModal.firstChild);
 
     // Ajusta el estilo del texto de "Detalles Personas"
-    var detallesPersonas = contenidoModal.querySelector('.modal-title');
-    detallesPersonas.style.fontSize = '22px';
-    detallesPersonas.style.marginBottom = '0';  // Reduce el espacio inferior
+    var detallesMatricula = contenidoModal.querySelector('.modal-title');
+    detallesMatricula.style.fontSize = '22px';
+    detallesMatricula.style.marginBottom = '0';  // Reduce el espacio inferior
+    detallesMatricula.style.textAlign = 'center';  // Centra el texto
 
     // Ajusta el margen inferior del texto de "Detalles Personas" para cuadrarlo con el texto de abajo
     var contenidoText = contenidoModal.querySelector('.modal-body');
@@ -694,8 +695,8 @@ function imprimirModal(codPersona) {
     // Imprime la ventana
     ventanaImpresion.print();
 }
-
 </script>
+
 
 
     <script>

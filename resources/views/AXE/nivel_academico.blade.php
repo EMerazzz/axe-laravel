@@ -80,6 +80,14 @@
                     <label for="descripcion" class="form-label mr-2">Nivel académico </label>
                     <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el nivel académico" required maxlength="200" oninput="this.value = this.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚ\s]/g, '')">
                 </div>
+
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="MODIFICADO_POR" class="form-label mr-3">Estado:</label>
+                           <select class="form-control same-width" id="MODIFICADO_POR" name="Estado">
+                           <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                          </select>
+                </div>
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         </form>
@@ -95,13 +103,21 @@
     <thead>
         <th>#</th> 
         <th>Nivel Académico</th> 
+        <th>Estado</th> 
         <th>Opciones Tabla</th>
     </thead>
     <tbody>
         @foreach($nivel_academicoArreglo as $nivel_academico)
         <tr>
             <td>{{$nivel_academico['COD_NIVEL_ACADEMICO']}}</td>
-            <td>{{$nivel_academico['descripcion']}}</td>
+            <td>{{$nivel_academico['DESCRIPCION']}}</td>
+            <td>
+                        @if($nivel_academico['Estado_registro'] == 1)
+                        Activo
+                    @elseif($nivel_academico['Estado_registro'] == 0)
+                        Inactivo
+                    @endif 
+            </td>
             <td>
                 <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#nivel_academico-edit-{{$nivel_academico['COD_NIVEL_ACADEMICO']}}">
                     <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
@@ -125,8 +141,16 @@
                                        
                                         <div class="mb-3 mt-3 d-flex align-items-center">
                                             <label for="descripcion" class="form-label mr-2">Nivel académico </label>
-                                            <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el nivel académico" required maxlength="200" value="{{$nivel_academico['descripcion']}}"oninput="this.value = this.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚ\s]/g, '')">
+                                            <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el nivel académico" required maxlength="200" value="{{$nivel_academico['DESCRIPCION']}}"oninput="this.value = this.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚ\s]/g, '')">
                                         </div>
+
+                                       <div class="mb-3 mt-3 d-flex align-items-center">
+                                       <label for="Estado_registro" class="form-label mr-3">Estado:</label>
+                                       <select class="form-control same-width" id="Estado_registro" name="Estado">
+                                       <option value="1" {{ $nivel_academico['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
+                                       <option value="0" {{ $nivel_academico['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
+                                       </select>
+                                       </div>
 
                                         <!-- ... otros campos del formulario ... -->
                                         <button type="submit" class="btn btn-primary">Editar</button>
