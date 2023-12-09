@@ -178,12 +178,12 @@
                             </div>
 
                             <div class="mb-3 mt-3 d-flex align-items-center">
-                               <label for="Estado_registro" class="form-label mr-4 ml-2">Estado:</label>
-                               <select class="form-control same-width" id="Estado" name="Estado">
-                               <option value="1">Activo</option>
-                                <option value="0">Inactivo</option>
-                                </select>
-                            </div>
+                            <label for="Estado_registro" class="form-label mr-3">Estado:</label>
+                           <select class="form-control same-width" id="Estado_registro" name="Estado">
+                           <option value="1" {{ $parametros['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
+                           <option value="0" {{ $parametros['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
+                          </select>
+                           </div>
 
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>

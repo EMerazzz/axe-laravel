@@ -120,9 +120,12 @@
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ESTADO_USUARIO" value="{{$estado_usuario['COD_ESTADO_USUARIO']}}">
                             <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="DESCRIPCION" class="form-label mr-2">Estado:</label>
-                            <input type="text" class="form-control same-width" id="DESCRIPCION" name="DESCRIPCION" value="{{ $estado_usuario['DESCRIPCION'] }}">
-                            </div>
+                            <label for="Estado_registro" class="form-label mr-3">Estado:</label>
+                           <select class="form-control same-width" id="Estado_registro" name="Estado">
+                           <option value="1" {{ $estado_usuario['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
+                           <option value="0" {{ $estado_usuario['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
+                          </select>
+                           </div>
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

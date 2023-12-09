@@ -146,12 +146,11 @@
                             <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#objetos-edit-{{ $objetos['COD_OBJETO'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
-                            <!--< 
 
                             <button id="botonEliminar_1" value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
                                data-target="#objetos-delete-{{$objetos['COD_OBJETO']}}">
                                <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
-                            </button>-->
+                            </button>
                         </td>
                     </tr>
                 @endforeach
@@ -186,17 +185,13 @@
                                 <input type="text" class="form-control" id="TIPO_OBJETO" name="TIPO_OBJETO" placeholder="Ingrese el tipo objeto" value="{{ $objetos['TIPO_OBJETO'] }}" maxlength="15">
                             </div>
 
-                            <div class="form-group col-md-12 d-flex">
-                                <label for="Estado" class="form-label mr-4">Estado:</label>
-  
-                                <div class="form-group col-md-10">
-                                  <select class="form-control same-width" id="MODIFICADO_POR" name="Estado">
-                                      <option value="1">Activo</option>
-                                      <option value="0">Inactivo</option>
-                                  </select>
-                              </div>
-  
-                          </div>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="Estado_registro" class="form-label mr-3">Estado:</label>
+                           <select class="form-control same-width" id="Estado_registro" name="Estado">
+                           <option value="1" {{ $objetos['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
+                           <option value="0" {{ $objetos['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
+                          </select>
+                           </div>
           
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
