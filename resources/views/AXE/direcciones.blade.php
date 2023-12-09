@@ -138,6 +138,7 @@
                 <th>Ciudad</th>
                 <th>Pais</th>
                 <th>Fecha Registro</th>
+                <th>Estado Registro</th>
                 <th>Opciones Tabla</th>
             </tr>
         </thead>
@@ -166,6 +167,14 @@
                 <td>{{ $direcciones['CIUDAD'] }}</td>
                 <td>{{ $direcciones['PAIS'] }}</td>
                 <td>{{ date('d, M Y', strtotime($direcciones['FECHA'])) }}</td>
+
+                <td>
+                    @if($direcciones['Estado_registro'] == 1)
+                        Activo
+                    @elseif($direcciones['Estado_registro'] == 0)
+                        Inactivo
+                    @endif
+                 </td>
                 <td>
     <div class="d-flex">
         <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info mr-2" type="button" data-toggle="modal"

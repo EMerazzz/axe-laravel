@@ -132,6 +132,7 @@
                 <th>Número Telefono Contacto</th>
                 <th>Relación</th>
                 <th>Fecha Registro</th>
+                <th>Estado Registro</th>
                 <th>Opciones Tabla</th>
             </tr>
         </thead>
@@ -160,6 +161,16 @@
                 <td>{{ $contacto['TELEFONO'] }}</td>
                 <td>{{ $contacto['RELACION'] }}</td>
                 <td>{{ date('d, M Y', strtotime($contacto['FECHA'])) }}</td>
+
+            
+                <td>
+                    @if($contacto['Estado_registro'] == 1)
+                        Activo
+                    @elseif($contacto['Estado_registro'] == 0)
+                        Inactivo
+                    @endif
+                 </td>
+
                 <td>
                     <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#contacto-edit-{{ $contacto['COD_CONTACTO_EMERGENCIA'] }}">
