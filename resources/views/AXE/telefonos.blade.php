@@ -189,10 +189,10 @@
                             </select>
                         </div> -->
 
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-    <label for="TELEFONOUPD" class="form-label">Número Teléfono:</label>
-    <input type="text" class="form-control" id="TELEFONOUPD" name="TELEFONOUPD" placeholder="_-_" value="{{$telefonos['TELEFONO']}}" required>
-</div>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                                <label for="TELEFONOUPD" class="form-label">Número Teléfono:</label>
+                                <input type="text" class="form-control" id="TELEFONOUPD" name="TELEFONOUPD" placeholder="_-_" value="{{$telefonos['TELEFONO']}}" required>
+                            </div>
 
 
                        <div class="mb-3 mt-3 form-inline">

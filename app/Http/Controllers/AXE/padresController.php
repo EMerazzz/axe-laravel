@@ -80,7 +80,7 @@ class padresController extends Controller
         $UsuarioValue = $_COOKIE["Usuario"];
         $modificar_padre=Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->put($this->apiUrl.'/'. $request->input("COD_PADRE_TUTOR"), [
+        ])->put($this->apiUrl.'/'. $request->input("COD_PERSONA"), [
             "NOMBRE_PADRE_TUTOR" => $request->input("NOMBRE_PADRE_TUTOR"),
             "APELLIDO_PADRE_TUTOR" => $request->input("APELLIDO_PADRE_TUTOR"),
             "TELEFONO" => $request->input("TELEFONO"),

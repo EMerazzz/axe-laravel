@@ -177,7 +177,7 @@
                  </td>
                 <td>
                     <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
-                        data-target="#padres-edit-{{ $padres['COD_PADRE_TUTOR'] }}">
+                        data-target="#padres-edit-{{ $padres['COD_PERSONA'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
                     <!--< 
@@ -193,7 +193,7 @@
 </div>
 
 @foreach($padresArreglo as $padres)
-<div class="modal fade bd-example-modal-sm" id="padres-edit-{{ $padres['COD_PADRE_TUTOR'] }}" tabindex="-1">
+<div class="modal fade bd-example-modal-sm" id="padres-edit-{{ $padres['COD_PERSONA'] }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -204,17 +204,30 @@
                 <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{ url('padres/actualizar') }}" method="post">
                         @csrf
-                        <input type="hidden" class="form-control" name="COD_PADRE_TUTOR" value="{{ $padres['COD_PADRE_TUTOR'] }}">
+                        <input type="hidden" class="form-control" name="COD_PERSONA" value="{{ $padres['COD_PERSONA'] }}">
+
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="padres" class="form-label mr-4" style="width: 100px;">Ocupación:</label>
-                            <input type="text" class="form-control" id="OCUPACION_PADRE_TUTOR" name="OCUPACION_PADRE_TUTOR" placeholder="Ingrese la ocupación" value="{{ $padres['OCUPACION_PADRE_TUTOR'] }}" 
+                            <label for="padres" class="form-label mr-4" style="width: 100px;">Nombres</label>
+                            <input type="text" class="form-control" id="NOMBRE_PADRE_TUTOR" name="NOMBRE_PADRE_TUTOR" placeholder="Ingrese la ocupación" value="{{ $padres['NOMBRE_PADRE_TUTOR'] }}" 
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')"maxlength="30">
                         </div>
+
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="padres" class="form-label mr-4" style="width: 100px;">Relación Estudiante:</label>
+                            <label for="padres" class="form-label mr-4" style="width: 100px;">Apellidos</label>
+                            <input type="text" class="form-control" id="APELLIDO_PADRE_TUTOR" name="APELLIDO_PADRE_TUTOR" placeholder="Ingrese la ocupación" value="{{ $padres['APELLIDO_PADRE_TUTOR'] }}" 
+                            title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')"maxlength="30">
+                        </div>
+
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="padres" class="form-label mr-4" style="width: 100px;">Relación Estudiante</label>
                             <input type="text" class="form-control" id="RELACION_PADRE_ESTUDIANTE" name="RELACION_PADRE_ESTUDIANTE" placeholder="Ingrese la relación con el estudiante" value="{{ $padres['RELACION_PADRE_ESTUDIANTE'] }}"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" maxlength="30">
                         </div>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="TELEFONO" class="form-label">Número Teléfono:</label>
+                            <input type="text" class="form-control" id="TELEFONO" name="TELEFONO" placeholder="_-_" value="{{$padres['TELEFONO']}}" required>
+                        </div>
+
 
                         <button type="submit" class="btn btn-primary">Editar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -532,5 +545,32 @@ function s2ab(s) {
     return view;
 }
 
+</script>
+<script>
+// Asegúrate de que jQuery esté cargado y disponible
+$(document).ready(function () {
+    // Aplica el formato deseado con inputmask.js
+    $('#TELEFONO').inputmask('9999-9999');
+
+
+});
+</script>
+<script>
+function formatTelefono(input) {
+    // Elimina cualquier guión o caracteres no numéricos del valor del campo
+    let value = input.value.replace(/-/g, '').replace(/\D/g, '');
+
+    // Formatea el valor con guiones después de cada grupo de 4 caracteres
+    let formattedValue = "";
+    for (let i = 0; i < value.length; i++) {
+        if (i === 4) {
+            formattedValue += '-';
+        }
+        formattedValue += value.charAt(i);
+    }
+
+    // Asigna el valor formateado de vuelta al campo de entrada
+    input.value = formattedValue;
+}
 </script>
 @stop
