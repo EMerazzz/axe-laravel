@@ -9,7 +9,7 @@
     margin-bottom:-5px; /* Reducción del espacio inferior del bloquequote */
   }
 </style>
-<<blockquote class="custom-blockquote">
+<blockquote class="custom-blockquote">
     <p class="mb-0">Usuarios registrados en el sistema AXE.</p>
 </blockquote>
 
