@@ -196,18 +196,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group col-md-12 d-flex">
-                            <div class="form-group col-md-3">
-                              <label for="Estado" class="form-label mr-2">Estado:</label>
-                            </div>
-                          
-                            <div class="form-group col-md-9">
-                              <select class="form-control same-width" id="Estado_registro" name="Estado_registro">
-                                <option value="1">Activo</option>
-                                <option value="0">Inactivo</option>
-                              </select>
-                            </div>
-                          </div>
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="Estado_registro" class="form-label mr-3">Estado:</label>
+                           <select class="form-control same-width" id="Estado_registro" name="Estado">
+                           <option value="1" {{ $roles['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
+                           <option value="0" {{ $roles['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
+                          </select>
+                        </div>
+                           
                           
 
                             <!-- ... otros campos del formulario ... -->
