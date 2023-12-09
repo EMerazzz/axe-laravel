@@ -202,7 +202,7 @@
                             </div>
                           
                             <div class="form-group col-md-9">
-                              <select class="form-control same-width" id="Estado_registro" name="Estado_registro">
+                              <select class="form-control same-width" id="Estado_registro" name="Estado">
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
                               </select>
