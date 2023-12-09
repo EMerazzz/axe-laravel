@@ -126,7 +126,7 @@ class usuariosController extends Controller
             "COD_PERSONA" => $request->input("COD_PERSONA"),
             "MODIFICADO_POR" =>  $UsuarioValue,
             
-        ]); dd($request->input("COD_ROL"));
+        ]); //dd($request->input("COD_ROL"));
         if ($modificar_usuario->successful()) {
             return redirect('/usuarios')->with('message', [
                 'type' => 'success',

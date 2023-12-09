@@ -316,19 +316,20 @@
                          pattern="^[A-Za-z0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?" value="{{ $usuarios['CONTRASENA'] }}">
                         </div>
 
+                     
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                        <div class="col-md-3">
-                        <label for="COD_ROL" class="form-label">Rol: </label>
-                        </div>
-                    <div class="col-md-9">
-                        <select class="Selectize selectize-select" id="COD_ROL" name="COD_ROL" required>
+                        <label for="COD_ROL" class="form-label mr-4">Personal:</label>
+                        <select class="selectize" style="width: 400px;" id="COD_ROL" name="COD_ROL" required style="width: 300px;">
                             <option value="" disabled selected>Seleccione el Rol</option>
                             @foreach ($rolesArreglo as $roles)
-                                <option value="{{ $roles['COD_ROL'] }}">{{ $roles['DESCRIPCION'] }}</option>
+                            <option value="{{ $roles['COD_ROL'] }}"
+                                        @if ($roles['COD_ROL'] == $usuarios['COD_ROL']) selected @endif>
+                                        {{ $roles['DESCRIPCION'] }}
+                                    </option>
                             @endforeach
                         </select>
                     </div>
-                </div>
+                
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
                         <label for="PRIMER_INGRESO" class="form-label mr-2">Primer Ingreso:</label>
