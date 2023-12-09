@@ -186,16 +186,16 @@
                     <form action="{{ url('contacto/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_CONTACTO_EMERGENCIA" value="{{ $contacto['COD_CONTACTO_EMERGENCIA'] }}">
-                        <div class="mb-3 mt-3 d-flex align-items-center">
+                       <!-- <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="COD_PERSONA" class="form-label mr-5">Persona</label>
-                            <select class="form-control ancho-personalizado w-100" id="COD_PERSONA" name="COD_PERSONA" required>
+                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
                                 @foreach ($personasArreglo as $persona)
                                     <option value="{{ $persona['COD_PERSONA'] }}" {{ $persona['COD_PERSONA'] == $contacto['COD_PERSONA'] ? 'selected' : '' }}>
                                         {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> -->
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="contacto" class="form-label mr-2 ml-1">Nombre contacto</label>
                             <input type="text" class="form-control" id="NOMBRE_CONTACTO" name="NOMBRE_CONTACTO" placeholder="Ingrese el nombre del contacto " value="{{ $contacto['NOMBRE_CONTACTO'] }}" maxlength="40"

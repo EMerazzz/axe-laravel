@@ -195,7 +195,7 @@
                     <form action="{{ url('direcciones/actualizar') }}" method="post">
                         @csrf
                         <input type="hidden" class="form-control" name="COD_DIRECCION" value="{{ $direcciones['COD_DIRECCION'] }}" required >
-                        <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
+                      <!--  <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
                             <label for="COD_PERSONA" class="form-label mr-4">Persona</label>
                             <select class="form-control ancho-personalizado w-100" id="COD_PERSONA" name="COD_PERSONA" required>
                                 @foreach ($personasArreglo as $persona)
@@ -204,9 +204,9 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> -->
                         <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
-                            <label for="direcciones" class="form-label>País  </label>
+                            <label for="direcciones" class="form-label mr-5">País  </label>
                             <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $direcciones['PAIS'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>

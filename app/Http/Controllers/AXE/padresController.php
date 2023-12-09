@@ -9,7 +9,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class padresController extends Controller
 {
-    private $apiUrl = 'http://82.180.162.18:4000/padres_tutores'; // Declaración de la variable de la URL de la API
+    private $apiUrl = 'http://82.180.162.18:4000/padres_tutores';
+    private $Url = 'http://82.180.162.18:4000/'; // Declaración de la variable de la URL de la API
     public function padres()
     {
         $cookieEncriptada = request()->cookie('token');
@@ -80,8 +81,9 @@ class padresController extends Controller
         $modificar_padre=Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'. $request->input("COD_PADRE_TUTOR"), [
-           
-            "OCUPACION_PADRE_TUTOR" => $request->input("OCUPACION_PADRE_TUTOR"),
+            "NOMBRE_PADRE_TUTOR" => $request->input("NOMBRE_PADRE_TUTOR"),
+            "APELLIDO_PADRE_TUTOR" => $request->input("APELLIDO_PADRE_TUTOR"),
+            "TELEFONO" => $request->input("TELEFONO"),
             "RELACION_PADRE_ESTUDIANTE" => $request->input("RELACION_PADRE_ESTUDIANTE"),
             "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
