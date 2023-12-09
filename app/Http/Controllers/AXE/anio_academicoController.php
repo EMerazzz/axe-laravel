@@ -38,6 +38,7 @@ class anio_academicoController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->post($this->apiUrl, [
             "descripcion" => $request->input("descripcion"),
+            "Estado_registro" => $request->input("Estado"),
         ]);
     
         // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
@@ -63,7 +64,7 @@ class anio_academicoController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_ANIO_ACADEMICO"), [
             "descripcion" => $request->input("descripcion"),
-            
+            "Estado_registro" => $request->input("Estado"),
         ]);
         if ($modificar_anio_academico->successful()) {
             return redirect('/anio_academico')->with('message', [

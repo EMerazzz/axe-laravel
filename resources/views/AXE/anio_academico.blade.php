@@ -71,14 +71,22 @@
             </div>
             
             <div class="modal-footer">
-                <div class="d-grid gap-2 col-6 mx-auto">
+                <div class="d-grid gap-2 col-12 mx-auto">
                     <form action="{{url('anio_academico/insertar')}}" method="post">
                         @csrf
                 <!-- INICIO --->
-                <div class="mb-3 mt-3">
-                              <label for="descripcion" class="form-label">Año académico </label>
-                              <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el año académico" required maxlength="15">
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                              <label for="descripcion" class="form-label mr-3">Año académico </label>
+                              <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el año académico" required maxlength="255">
                  </div>
+
+                 <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="MODIFICADO_POR" class="form-label mr-5">Estado:</label>
+                   <select class="form-control same-width" id="MODIFICADO_POR" name="Estado">
+                   <option value="1">Activo</option>
+                    <option value="0">Inactivo</option>
+                  </select>
+        </div>
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -93,6 +101,7 @@
     <thead>
         <th>#</th> 
         <th>Año Académico</th> 
+        <th>Estado</th> 
         <th>Opciones Tabla</th>
     </thead>
     <tbody>
@@ -100,6 +109,13 @@
         <tr>
             <td>{{$anio_academico['COD_ANIO_ACADEMICO']}}</td>
             <td>{{$anio_academico['descripcion']}}</td>
+            <td>
+                @if($anio_academico['Estado_registro'] == 1)
+                Activo
+                @elseif($anio_academico['Estado_registro'] == 0)
+                    Inactivo
+                @endif 
+         </td>
             <td>
                 <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#anio_academico-edit-{{$anio_academico['COD_ANIO_ACADEMICO']}}">
                     <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
@@ -116,22 +132,30 @@
                                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-footer">
-                                <div class="d-grid gap-2 col-6 mx-auto">
+                                <div class="d-grid gap-2 col-12 mx-auto">
                                     <form action="{{url('anio_academico/actualizar')}}" method="post">
                                         @csrf
                                         <input type="hidden" class="form-control" name="COD_ANIO_ACADEMICO" value="{{$anio_academico['COD_ANIO_ACADEMICO']}}">
                                        
-                                        <div class="mb-3 mt-3">
-                                                    <label for="descripcion" class="form-label">Año académico </label>
-                                                    <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el año académico" required maxlength="15" value="{{$anio_academico['descripcion']}}" >
+                                        <div class="mb-3 mt-3 d-flex align-items-center">
+                                                    <label for="descripcion" class="form-label mr-3">Año académico </label>
+                                                    <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el año académico" required maxlength="255" value="{{$anio_academico['descripcion']}}" >
                                         </div>
+
+                                        <div class="mb-3 mt-3 d-flex align-items-center">
+                                            <label for="Estado_registro" class="form-label mr-5">Estado:</label>
+                                            <select class="form-control same-width" id="Estado_registro" name="Estado">
+                                                <option value="1" {{ $anio_academico['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
+                                                <option value="0" {{ $anio_academico['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
+                                            </select>
+                                         </div>
 
                                         <!-- ... otros campos del formulario ... -->
                                         <button type="submit" class="btn btn-primary">Editar</button>
                                        
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">cancelar</button>
           </form>
-          </div><!-- DIV PARA CENTRAR FORMULARIO--->
+         </div><!-- DIV PARA CENTRAR FORMULARIO--->
        
       </div>
     </div>
