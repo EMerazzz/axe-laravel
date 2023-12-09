@@ -124,11 +124,11 @@
                             <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#asignaturas-edit-{{ $asignaturas['COD_ASIGNATURA'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
-
+                            <!--< 
                             <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
                                 data-target="#asignaturas-delete-{{$asignaturas['COD_ASIGNATURA']}}">
                                <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
-                           </button>
+                           </button>-->
                         </td>
                     </tr>
                 @endforeach

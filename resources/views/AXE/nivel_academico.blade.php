@@ -122,10 +122,11 @@
                 <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#nivel_academico-edit-{{$nivel_academico['COD_NIVEL_ACADEMICO']}}">
                     <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                 </button>
+                <!--< 
                 <button value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
                             data-target="#nivel_academico-delete-{{$nivel_academico['COD_NIVEL_ACADEMICO']}}">
                            <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
-                </button>
+                </button>-->
                 <div class="modal fade bd-example-modal-sm" id="nivel_academico-edit-{{$nivel_academico['COD_NIVEL_ACADEMICO']}}" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">

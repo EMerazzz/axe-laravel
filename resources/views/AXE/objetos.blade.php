@@ -146,11 +146,12 @@
                             <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#objetos-edit-{{ $objetos['COD_OBJETO'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
+                            <!--< 
 
                             <button id="botonEliminar_1" value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
                                data-target="#objetos-delete-{{$objetos['COD_OBJETO']}}">
                                <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
-                            </button>
+                            </button>-->
                         </td>
                     </tr>
                 @endforeach

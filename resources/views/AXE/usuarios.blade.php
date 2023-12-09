@@ -230,12 +230,11 @@
                     <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
                     
-                   <!-- boton eliminar-->
+                   <!-- boton eliminar-
                    <button value="Eliminar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
                    data-target="#usuarios-delete-{{ $usuarios['COD_USUARIO'] }}" id="botonEliminar_{{ $usuarios['COD_USUARIO'] }}">
                    <i class="fas fa-trash-alt" style="font-size: 13px; color: danger;"></i> Eliminar
-               </button>
-                     <!-- boton eliminar-->
+               </button>->
                 </td>
             </tr>
             @endforeach

@@ -250,12 +250,11 @@
                         data-target="#roles_objetos-edit-{{ $roles_objetos['COD_ROL_OBJETO'] }}">
                         <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
                     </button>
-                    <!-- boton eliminar-->
+                    <!-- boton eliminar
                     <button id="botonEliminar_1" value="editar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
                      data-target="#roles_objetos-delete-{{$roles_objetos['COD_ROL_OBJETO']}}">
                      <i class='fas fa-trash-alt' style='font-size:13px;color:danger'></i> Eliminar
-                    </button>
-                     <!-- boton eliminar-->
+                    </button>-->
                     
                 </td>
             </tr>
