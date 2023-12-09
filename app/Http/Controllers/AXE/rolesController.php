@@ -71,24 +71,44 @@ class rolesController extends Controller
         $UsuarioValue = $request->cookie('Usuario');
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
-        
-        $modificar_rol = Http::withHeaders([
+
+       
+        $rolUsado = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->put($this->apiUrl.'/'.$request->input("COD_ROL"), [
-            "DESCRIPCION" => $request->input("DESCRIPCION"),
-            "MODIFICADO_POR" => $request->input("MODIFICADO_POR"),
-            "Estado_registro"  => $request->input("ESTADO"),
+        ])->post('http://82.180.162.18:4000/rol_en_uso', [
+            "COD_ROL" => $request->input("COD_ROL")
         ]);
-        if ($modificar_rol->successful()) {
-            return redirect('/roles')->with('message', [
-                'type' => 'success',
-                'text' => 'Rol modificado exitosamente.'
-            ]);
-        } else {
+
+        $rolUsado = json_decode($rolUsado, true);
+        $rolUsado = $rolUsado[0]['EXISTE']; 
+        
+        
+        if($rolUsado == 1) {
             return redirect('/roles')->with('message', [
                 'type' => 'error',
-                'text' => 'No se pudo modificar el Rol.'
+                'text' => 'Rol asignado a usuarios activos'
             ]);
+
+        }else{
+
+            $modificar_rol = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->put($this->apiUrl.'/'.$request->input("COD_ROL"), [
+                "DESCRIPCION" => $request->input("DESCRIPCION"),
+                "MODIFICADO_POR" => $request->input("MODIFICADO_POR"),
+                "Estado_registro"  => $request->input("Estado"),
+            ]);
+            if ($modificar_rol->successful()) {
+                return redirect('/roles')->with('message', [
+                    'type' => 'success',
+                    'text' => 'Rol modificado exitosamente.'
+                ]);
+            } else {
+                return redirect('/roles')->with('message', [
+                    'type' => 'error',
+                    'text' => 'No se pudo modificar el Rol.'
+                ]);
+            }
         }
     }
 

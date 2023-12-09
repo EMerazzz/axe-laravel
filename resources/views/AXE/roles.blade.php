@@ -196,6 +196,7 @@
                             </div>
                         </div>
 
+
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="Estado_registro" class="form-label mr-3">Estado:</label>
                            <select class="form-control same-width" id="Estado_registro" name="Estado">
@@ -204,8 +205,6 @@
                           </select>
                         </div>
                            
-                          
-
                             <!-- ... otros campos del formulario ... -->
                             <button type="submit" class="btn btn-primary">Editar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
