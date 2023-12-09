@@ -114,7 +114,7 @@ class usuariosController extends Controller
     {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
-        
+        $UsuarioValue = $_COOKIE["Usuario"];
         $modificar_usuario = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'.$request->input("COD_USUARIO"), [
@@ -124,7 +124,9 @@ class usuariosController extends Controller
             "COD_ESTADO_USUARIO" => $request->input("COD_ESTADO_USUARIO"),
             "COD_ROL" => $request->input("COD_ROL"),
             "COD_PERSONA" => $request->input("COD_PERSONA"),
-        ]); //dd($request->input("COD_ESTADO_USUARIO"));
+            "MODIFICADO_POR" =>  $UsuarioValue,
+            
+        ]); dd($request->input("COD_ROL"));
         if ($modificar_usuario->successful()) {
             return redirect('/usuarios')->with('message', [
                 'type' => 'success',

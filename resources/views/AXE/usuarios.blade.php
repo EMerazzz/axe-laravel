@@ -79,6 +79,23 @@
                         @csrf
                         <!-- INICIO -->
                       
+   <div class="mb-3 mt-3 row">
+    <label for="COD_PERSONA" class="col-md-3 col-form-label text-md-end">Personal:</label>
+    <div class="col-md-9">
+        <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+            <option value="" disabled selected>Seleccione una persona</option>
+            @foreach ($personasArreglo as $persona)
+                @php
+                    $usuariosColeccion = collect($usuariosArreglo);
+                @endphp
+
+                @if ($persona['TIPO_PERSONA'] === 'Personal Administrativo' && !$usuariosColeccion->contains('COD_PERSONA', $persona['COD_PERSONA']))
+                    <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}</option>
+                @endif
+            @endforeach
+        </select>
+    </div>
+</div>
                             <div class="mb-3 mt-3 d-flex align-items-center">
                                 <div class="col-md-3">
                                 <label for="usuarios" class="form-label mr-4">Usuario: </label>
@@ -98,37 +115,20 @@
                     </div>
 
 
-   <div class="mb-3 mt-3 row">
-    <label for="COD_PERSONA" class="col-md-3 col-form-label text-md-end">Personal:</label>
-    <div class="col-md-9">
-        <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
-            <option value="" disabled selected>Seleccione una persona</option>
-            @foreach ($personasArreglo as $persona)
-                @php
-                    $usuariosColeccion = collect($usuariosArreglo);
-                @endphp
 
-                @if ($persona['TIPO_PERSONA'] === 'Personal Administrativo' && !$usuariosColeccion->contains('COD_PERSONA', $persona['COD_PERSONA']))
-                    <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}</option>
-                @endif
-            @endforeach
-        </select>
-    </div>
-</div>
-
-<div class="mb-3 mt-3 d-flex align-items-center">
-    <div class="col-md-3">
-        <label for="COD_ROL" class="form-label">Rol: </label>
-    </div>
-    <div class="col-md-9">
-        <select class="form-control same-width" id="COD_ROL" name="COD_ROL" required>
-            <option value="" disabled selected>Seleccione el Rol</option>
-            @foreach ($rolesArreglo as $roles)
-                <option value="{{ $roles['COD_ROL'] }}">{{ $roles['DESCRIPCION'] }}</option>
-            @endforeach
-        </select>
-    </div>
-</div>
+                    <div class="mb-3 mt-3 d-flex align-items-center">
+                    <div class="col-md-3">
+                        <label for="COD_ROL" class="form-label">Rol: </label>
+                    </div>
+                    <div class="col-md-9">
+                        <select class="Selectize selectize-select" id="COD_ROL" name="COD_ROL" required>
+                            <option value="" disabled selected>Seleccione el Rol</option>
+                            @foreach ($rolesArreglo as $roles)
+                                <option value="{{ $roles['COD_ROL'] }}">{{ $roles['DESCRIPCION'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
 
 <div class="mb-3 mt-3 d-flex align-items-center">
     <div class="col-md-3">
@@ -158,6 +158,7 @@
                 <th>#</th>
                 <th>Nombre completo</th>
                 <th>Usuario</th>
+                <th>Rol</th>
                 <th>Primer Ingreso</th>
                 <th>Número Intentos</th>
                 <th>Estado de usuario</th>
@@ -178,7 +179,16 @@
                         }
                     }    
             @endphp
-
+    
+            @php
+                    $rol = null;
+                    foreach ($rolesArreglo as $r) {
+                        if ($r['COD_ROL'] === $usuarios['COD_ROL']) {
+                            $rol = $r;
+                            break;
+                        }
+                    }    
+            @endphp
     
 
             <tr>
@@ -192,6 +202,13 @@
                 </td>
                 <td>{{ $usuarios['USUARIO'] }}</td>
                 <td>
+                        @if ($rol !== null)
+                            {{ $rol['DESCRIPCION'] }} 
+                        @else
+                        
+                        @endif
+                </td>
+                <td>
                     @if($usuarios['PRIMER_INGRESO'] == 1)
                         Realizado
                     @elseif($usuarios['PRIMER_INGRESO'] == 0)
@@ -202,7 +219,7 @@
                 <td>
                     @if($usuarios['COD_ESTADO_USUARIO'] == 1)
                         Activo
-                    @elseif($usuarios['COD_ESTADO_USUARIO'] == 0)
+                    @elseif($usuarios['COD_ESTADO_USUARIO'] == 2)
                         Inactivo
                     @endif
                  </td>
@@ -299,6 +316,19 @@
                          pattern="^[A-Za-z0-9!@#$%^&*()-_+=<>?]+$" title="Se permiten letras, números y caracteres especiales: !@#$%^&*()-_+=<>?" value="{{ $usuarios['CONTRASENA'] }}">
                         </div>
 
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                        <div class="col-md-3">
+                        <label for="COD_ROL" class="form-label">Rol: </label>
+                        </div>
+                    <div class="col-md-9">
+                        <select class="Selectize selectize-select" id="COD_ROL" name="COD_ROL" required>
+                            <option value="" disabled selected>Seleccione el Rol</option>
+                            @foreach ($rolesArreglo as $roles)
+                                <option value="{{ $roles['COD_ROL'] }}">{{ $roles['DESCRIPCION'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
                         <label for="PRIMER_INGRESO" class="form-label mr-2">Primer Ingreso:</label>
@@ -308,13 +338,14 @@
                         </select>
                         </div>
 
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="COD_ESTADO_USUARIO" class="form-label mr-2">Estado usuario:</label>
-                        <select class="form-control same-width" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO">
-                        <option value="1" selected>Activo</option>
-                        <option value="2">Inactivo</option>
-                        </select>
-                        </div>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="COD_ESTADO_USUARIO" class="form-label mr-2">Estado usuario:</label>
+                    <select class="form-control same-width" id="COD_ESTADO_USUARIO" name="COD_ESTADO_USUARIO">
+                        <option value="1" {{ $usuarios['COD_ESTADO_USUARIO'] == 1 ? 'selected' : '' }}>Activo</option>
+                        <option value="2" {{ $usuarios['COD_ESTADO_USUARIO'] == 2 ? 'selected' : '' }}>Inactivo</option>
+                    </select>
+                </div>
+
 
                         
                         <button type="submit" class="btn btn-primary">Editar</button>
@@ -499,6 +530,12 @@ modeToggle.addEventListener('click', () => {
             allowClear: true, // Permite borrar la selección
             searchField: ['text', 'IDENTIDAD'], // Habilita la búsqueda por nombre, apellido e ID
         });
+        $('.selectize-select').selectize({
+            placeholder: 'Seleccione',
+            allowClear: true, // Permite borrar la selección
+            searchField: ['text'], // Habilita la búsqueda por nombre, apellido e ID
+        });
+
     });
     function personaEstaSeleccionada(personas, usuarios) {
         // Implementa la lógica aquí para verificar si la persona ya está seleccionada en $usuarios
