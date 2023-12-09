@@ -143,13 +143,6 @@
                                 </select>
                             </div>
 
-                            <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="matricula" class="form-label mr-1">Estado Matricula:</label>
-                            <select class="form-control ancho-personalizado w-100" id="ESTADO_MATRICULA" name="ESTADO_MATRICULA" required style="width: 300px;">
-                            <option value="Activo" {{ old('ESTADO_MATRICULA') == 'Activo' ? 'selected' : '' }}>Activo</option>
-                            <option value="Inactivo"{{ old('ESTADO_MATRICULA') == 'Inactivo' ? 'selected' : '' }}>Inactivo</option>
-                            </select>
-                            </div>
 
                             <div class="mb-3 mt-3 d-flex align-items-center">
                         <label for="estudiantes" class="form-label mr-5">Jornada: </label>
@@ -220,8 +213,8 @@
                 <th>Año Académico</th>
                 <th>Sección</th>
                 <th>Jornada</th>
-                <th>Estado Matricula</th>
-                <th>Fecha Matricula </th>
+                <th>Año Matricula </th>
+
                 <th>Encargado </th>
                 <th>Opciones Tabla</th>
             </tr>
@@ -291,8 +284,7 @@
                  </td>
                  <td>{{ $matricula['SECCION'] }}</td>
                  <td>{{ $matricula['JORNADA'] }}</td>
-                 <td>{{ $matricula['ESTADO_MATRICULA'] }}</td>
-                 <td>{{date('d, M Y', strtotime($matricula['FECHA_MATRICULA']))}}</td>
+                 <td>{{ $matricula['AÑO_MATRICULA'] }}</td>
                  <td>
                         @if ($padres !== null)
                             {{ $padres['NOMBRE_PADRE_TUTOR']. ' ' .$padres['APELLIDO_PADRE_TUTOR']}}
@@ -305,7 +297,7 @@
             <!-- Botones -->
             <button id="botonEditar_1" value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal"
                         data-target="#matricula-edit-{{ $matricula['COD_MATRICULA'] }}">
-                        <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> Editar
+                        <i class="fas fa-edit" style="font-size: 13px; color: cyan;"></i> 
                     </button>
 
                   <button title="Ver" class="btn btn-outline-info ver-btn" type="button" data-toggle="modal" data-target="#ver-estudiante-modal-{{ $matricula['COD_MATRICULA'] }}">
@@ -336,24 +328,20 @@
                         @csrf
                         <input type="hidden" class="form-control" name="COD_MATRICULA" value="{{ $matricula['COD_MATRICULA'] }}">
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="COD_PERSONA" class="form-label mr-4">Estudiante:</label>
-                            <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required style="width: 300px;">
-                                <option value="" disabled>Seleccione un estudiante</option>
-                                @foreach ($personasArreglo as $persona)
-                                    @if ($persona['TIPO_PERSONA'] === 'Estudiante')
-                                        @php
-                                            $isChosen = collect($matriculaArreglo)->contains('COD_PERSONA', $persona['COD_PERSONA']);
-                                        @endphp
-                                        @if (!$isChosen)
-                                            <option value="{{ $persona['COD_PERSONA'] }}"
-                                                @if ($persona['COD_PERSONA'] == $matricula['COD_PERSONA']) selected @endif>
-                                                {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
-                                            </option>
-                                        @endif
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
+                        <label for="COD_PERSONA"  class="form-label mr-4">Estudiante:</label>
+                        <select class="form-control ancho-personalizado w-100"id="COD_PERSONA" name="COD_PERSONA"  required style="width: 300px;">
+                            <option value="" disabled>Seleccione un estudiante</option>
+                            @foreach ($personasArreglo as $persona)
+                                @if ($persona['TIPO_PERSONA'] === 'Estudiante')
+                                    <option value="{{ $persona['COD_PERSONA'] }}"
+                                        @if ($persona['COD_PERSONA'] == $matricula['COD_PERSONA']) selected @endif>
+                                        {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
 
 
                     <div class="mb-3 mt-3 d-flex align-items-center">
@@ -382,14 +370,6 @@
                             </select>
                         </div>
 
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="ESTADO_MATRICULA" class="form-label mr-1">Estado Matrícula:</label>
-                            <select class="form-control ancho-personalizado w-100"id="ESTADO_MATRICULA" name="ESTADO_MATRICULA"  required style="width: 300px;">
-                                <option value="Activo" {{ $matricula['ESTADO_MATRICULA'] == 'Activo' ? 'selected' : '' }}>Activo</option>
-                                <option value="Inactivo" {{ $matricula['ESTADO_MATRICULA'] == 'Inactivo' ? 'selected' : '' }}>Inactivo</option>
-                                
-                            </select>
-                        </div>
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="JORNADA" class="form-label mr-5">Jornada:</label>
@@ -471,85 +451,87 @@
                 </button>
             </div>
             <div class="modal-body" style="background-color: #fff; padding: 20px;">
-                @php
-                    $estudiante = null;
-                    foreach ($estudianteArreglo as $e) {
-                        if ($e['COD_PERSONA'] === $matricula['COD_PERSONA']) {
-                            $estudiante = $e;
-                            break;
-                        }
-                    }
-                @endphp
+    
                 <p style="text-align: center;"><strong>Datos personales</strong></p>
                 <p><strong>Nombre Completo:</strong>
-                        @if ($estudiante !== null)
-                            {{ $estudiante['NOMBRE'] }} {{ $estudiante['APELLIDO'] }}
-                        @endif
+                            {{ $matricula['NOMBRE'] }} {{ $matricula['APELLIDO'] }}
                     </p>
 
                 <div style="column-count: 2;">
                 <p><strong>Identidad:</strong>
-                        @if ($estudiante !== null)
-                            {{ $estudiante['IDENTIDAD'] }}
-                        @endif
+                     
+                            {{ $matricula['IDENTIDAD'] }}
+                    
                     </p>
                     <p><strong>F. Nac.:</strong>
-                        @if ($estudiante !== null)
-                            {{ date('d, M Y', strtotime($estudiante['FECHA_NACIMIENTO'])) }}
-                        @endif
+                       
+                            {{ date('d, M Y', strtotime($matricula['FECHA_NACIMIENTO'])) }}
+                     
                     </p>
                    
                     <p><strong>Teléfono estudiante:</strong>
-                        @if ($estudiante !== null)
-                            {{ $estudiante['TELEFONO'] }}
-                        @endif
+                      
+                            {{ $matricula['TELEFONO'] }}
+                    
                     </p>
                    
                     <p><strong>Género:</strong>
-                        @if ($estudiante !== null)
-                            {{ $estudiante['GENERO'] }}
-                        @endif
+                       
+                            {{ $matricula['GENERO'] }}
+                    
                     </p>
                   
                     <p><strong>Edad:</strong>
-                        @if ($estudiante !== null)
-                            {{ date_diff(date_create($estudiante['FECHA_NACIMIENTO']), date_create('today'))->y }}
-                        @endif
+                      
+                            {{ date_diff(date_create($matricula['FECHA_NACIMIENTO']), date_create('today'))->y }}
+                       
                     </p>
                     <p><strong>Correo:</strong>
-                        @if ($estudiante !== null)
-                        {{ $estudiante['CORREO_ELECTRONICO']}}
-                        @endif
+                      
+                        {{ $matricula['CORREO_ELECTRONICO']}}
+                    
                     </p>
                    
                  
                 </div>
                 
                 <p><strong>Dirección:</strong>
-                        @if ($estudiante !== null)
-                            {{ $estudiante['PAIS'] }}, {{ $estudiante['DEPARTAMENTO'] }},
-                            {{ $estudiante['CIUDAD'] }}, {{ $estudiante['DIRECCION'] }}
-                        @endif
+                       
+                            {{ $matricula['PAIS'] }}, {{ $matricula['DEPARTAMENTO'] }},
+                            {{ $matricula['CIUDAD'] }}, {{ $matricula['DIRECCION'] }}
+                     
                 </p>
                     <p style="text-align: center;"><strong>Encargado</strong></p>
                     <p><strong>Encargado:</strong>
-                        @if ($estudiante !== null)
-                            {{ $estudiante['NOMBRE_PADRE_TUTOR'] }} {{ $estudiante['APELLIDO_PADRE_TUTOR'] }}
-                        @endif
+                      
+                            {{ $matricula['NOMBRE_PADRE_TUTOR'] }} {{ $matricula['APELLIDO_PADRE_TUTOR'] }}
+                     
                     </p>
                     <div style="column-count: 2;">
                     <p><strong>Telefono Encargado:</strong>
-                        @if ($estudiante !== null)
-                            {{ $estudiante['TELEFONO PADRE'] }} 
-                        @endif
-                        </p>
+                      {{ $matricula['TELEFONO PADRE'] }} </p>
+
                         <p><strong>Relación:</strong>
-                        @if ($estudiante !== null)
-                            {{ $estudiante['RELACION'] }} 
-                        @endif
+                        {{ $matricula['RELACION'] }} 
                         </p>
                     </div> 
-                    
+                    <p style="text-align: center;"><strong>Datos académicos</strong></p>
+                 
+                    <p><strong>Curso:</strong>
+                    {{ $matricula['GRADO'] }}, {{ $matricula['NIVEL'] }}
+                        </p>
+                    <div style="column-count: 2;">
+                    <p><strong>Sección:</strong>
+                    {{ $matricula['SECCION'] }}
+                   </p>
+                   <p><strong>Jornada:</strong>
+                   {{ $matricula['JORNADA'] }}
+                   </p>
+                   </div> 
+                   <p><strong>Año:</strong>
+                    {{ $matricula['AÑO_MATRICULA'] }}
+                   </p>
+                   
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

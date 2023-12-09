@@ -17,11 +17,7 @@ class matriculaController extends Controller
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
         // Obtener los datos de personas desde el controlador PersonasController
-        $personasController = new personasController();
-        $personas = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ])->get($this->apiUrl.'/personas');
-        $personasArreglo = json_decode($personas, true);
+
         // Obtener los datos de nivel academico desde el controlador nivel_academicoController
         $nivel_academicoController = new nivel_academicoController();
         $nivel_academico = Http::withHeaders([
@@ -57,17 +53,23 @@ class matriculaController extends Controller
             $padresArreglo = json_decode($padres, true);
             
         // Obtener los datos de matricula
-        $matricula = Http::withHeaders([
+     /*   $matricula = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl.'/matricula');
-        $matriculaArreglo = json_decode($matricula, true);
-          
+        $matriculaArreglo = json_decode($matricula, true);*/
+
+        $personasController = new personasController();
+        $personas = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get($this->apiUrl.'/personas');
+        $personasArreglo = json_decode($personas, true);
         // Obtener los datos de matricula
-        $estudiante = Http::withHeaders([
+        $matricula = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl.'/verEstudiante');
-        $estudianteArreglo = json_decode($estudiante, true);
+        $matriculaArreglo = json_decode($matricula, true);
         //dd($estudianteArreglo);
+
         $UsuarioValue = $_COOKIE["Usuario"];
         $OBJETO = "MATRICULA";
         $permisos = Http::post($this->apiUrl.'/permisos_usuario',[
@@ -77,7 +79,7 @@ class matriculaController extends Controller
         $permisosDisponibles = json_decode($permisos, true);
        
         // Retornar la vista con ambos conjuntos de datos
-        return view('AXE.matricula', compact('estudianteArreglo','personasArreglo','nivel_academicoArreglo','anio_academicoArreglo','jornadasArreglo','seccionesArreglo','matriculaArreglo','padresArreglo', 'permisosDisponibles'));
+    return view('AXE.matricula', compact('matriculaArreglo','permisosDisponibles','personasArreglo','nivel_academicoArreglo','anio_academicoArreglo','jornadasArreglo','seccionesArreglo','matriculaArreglo','padresArreglo'));
     }
    
 

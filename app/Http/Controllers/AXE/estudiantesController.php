@@ -58,7 +58,7 @@ class estudiantesController extends Controller
         // Obtener los datos de matricula
         $matricula = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get($this->apiUrl.'/matricula');
+        ])->get($this->apiUrl.'/verEstudiante');
         $matriculaArreglo = json_decode($matricula, true);
 
         $UsuarioValue = $_COOKIE["Usuario"];

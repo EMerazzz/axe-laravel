@@ -70,76 +70,30 @@
                 <th>Año Académico</th>
                 <th>Sección</th>
                 <th>Jornada</th>
+                <th>Año matricula</th>
               
             
             </tr>
         </thead>
         <tbody>
             @foreach($matriculaArreglo as $matricula)
-            
-            @php
-                    $persona = null;
-                    foreach ($personasArreglo as $p) {
-                        if ($p['COD_PERSONA'] === $matricula['COD_PERSONA']) {
-                            $persona = $p;
-                            break;
-                        }
-                    }
-                @endphp
-              @php
-                    $nivel_academico = null;
-                    foreach ($nivel_academicoArreglo as $n) {
-                        if ($n['COD_NIVEL_ACADEMICO'] === $matricula['COD_NIVEL_ACADEMICO']) {
-                            $nivel_academico = $n;
-                            break;
-                        }
-                    }
-                @endphp
-                @php
-                    $anio_academico = null;
-                    foreach ($anio_academicoArreglo as $a) {
-                        if ($a['COD_ANIO_ACADEMICO'] === $matricula['COD_ANIO_ACADEMICO']) {
-                            $anio_academico = $a;
-                            break;
-                        }
-                    }
-                @endphp
-
-             
-                @php
-                    $padres = null;
-                    foreach ($padresArreglo as $p) {
-                        if ($p['COD_PADRE_TUTOR'] === $matricula['COD_PADRE_TUTOR']) {
-                            $padres = $p;
-                            break;
-                        }
-                    }
-                @endphp
             <tr>
                 <td>
-                        @if ($persona !== null)
-                            {{ $persona['NOMBRE']. ' ' . $persona['APELLIDO'] }}
-                        @else
-                            
-                        @endif
-                </td>
+                       
+                            {{ $matricula['NOMBRE']. ' ' . $matricula['APELLIDO'] }}
+                       
                  <td>
-                        @if ($nivel_academico !== null)
-                            {{ $nivel_academico['descripcion']}}
-                        @else
-                             no encontrado
-                        @endif
+                            {{ $matricula['NIVEL']}}
                  </td> 
                  <td>
-                        @if ($anio_academico !== null)
-                            {{ $anio_academico['descripcion']}}
-                        @else
-                             no encontrado
-                        @endif
+                   
+                            {{ $matricula['GRADO']}}
+                     
                  </td>
             
                  <td>{{ $matricula['SECCION'] }}</td>
                  <td>{{ $matricula['JORNADA'] }}</td>
+                 <td>{{ $matricula['AÑO_MATRICULA'] }}</td>
                  
                  
             

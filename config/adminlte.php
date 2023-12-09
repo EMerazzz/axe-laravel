@@ -382,12 +382,12 @@ return [
                         'icon_color' => 'info',
                         'url'  => 'nivel_academico',
                     ],
-                    /*[
+                    [
                         'text' => 'Año Académico',
                         'icon' =>'fa fa-calendar',
                         'icon_color' => 'info',
                         'url'  => 'anio_academico',
-                    ],*/
+                    ],
                 ],
             
             ],
