@@ -488,7 +488,7 @@ return [
                     'text' => 'Backup',  // Opción "Log Out"
                     'url'  => 'backuprestore',  // Cambia 'logout' por la URL real de tu función de logout
                     'icon' => 'fa fa-database',  // Icono de "Log Out"
-                    'icon_color' => 'teal',
+                    'icon_color' => 'info',
                 ],
             ],
         ],
