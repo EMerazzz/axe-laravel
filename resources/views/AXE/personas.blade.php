@@ -797,7 +797,7 @@ function imprimirModal(codPersona) {
     var ventanaImpresion = window.open('', '_blank');
 
     // Obtiene el contenido HTML del modal
-    var contenidoModal = document.getElementById('ver-estudiante-modal-' + codPersona).cloneNode(true);
+    var contenidoModal = document.getElementById('ver-persona-modal-' + codPersona).cloneNode(true);
 
     // Elimina botones y la "X" del modal clonado
     var botonesX = contenidoModal.querySelectorAll('.modal-footer, .close');
@@ -807,17 +807,13 @@ function imprimirModal(codPersona) {
 
     // Agrega un encabezado
     var encabezado = document.createElement('div');
-    encabezado.innerHTML = '<h1 style="text-align: center; font-size: 30px; margin-bottom: 5px;">Ficha Persona</h1><img src="vendor/adminlte/dist/img/axe.png" alt="Logo" style="width: 80px; height: 80px; float: right; margin-top: -15px;">';
+    encabezado.innerHTML = '<h1 style="text-align: center; font-size: 30px; margin-bottom: 15px; margin-top: 15px;">Ficha Persona</h1><img src="vendor/adminlte/dist/img/axe.png" alt="Logo" style="width: 80px; height: 80px; float: right; margin-top: -15px;">';
     contenidoModal.insertBefore(encabezado, contenidoModal.firstChild);
 
     // Ajusta el estilo del texto de "Detalles Personas"
     var detallesPersonas = contenidoModal.querySelector('.modal-title');
     detallesPersonas.style.fontSize = '22px';
-    detallesPersonas.style.marginBottom = '0';  // Reduce el espacio inferior
-
-    // Ajusta el margen inferior del texto de "Detalles Personas" para cuadrarlo con el texto de abajo
-    var contenidoText = contenidoModal.querySelector('.modal-body');
-    contenidoText.style.marginBottom = '0';
+    detallesPersonas.style.marginBottom = '10px';  // Ajusta el espacio inferior
 
     // Agrega el contenido al cuerpo de la nueva ventana
     ventanaImpresion.document.body.innerHTML = contenidoModal.innerHTML;
