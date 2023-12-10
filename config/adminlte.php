@@ -366,12 +366,6 @@ return [
                        'icon_color' => 'secondary',
                         'submenu' => [
                             [
-                                'text' => 'AQUI AGREGAS LAS DEMAS',
-                                'icon' =>"fa fa-user",
-                                'icon_color' => 'info',
-                                'url'  => 'usuarios',
-                            ],
-                            [
                                 'text' => 'Nivel Academico y Asignatura',
                                 'icon' =>'fa fa-calendar',
                                 'icon_color' => 'info',
