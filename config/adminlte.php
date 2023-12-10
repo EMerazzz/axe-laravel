@@ -360,7 +360,7 @@ return [
                 'submenu' => [
                     [
                         'text'        => 'Principal',
-                        'label'       => 5,
+                        'label'       => 2,
                        'label_color' => 'success',
                         'icon' =>"fa fa-suitcase",
                        'icon_color' => 'secondary',
@@ -371,13 +371,19 @@ return [
                                 'icon_color' => 'info',
                                 'url'  => 'usuarios',
                             ],
+                            [
+                                'text' => 'Nivel Academico y Asignatura',
+                                'icon' =>'fa fa-calendar',
+                                'icon_color' => 'info',
+                                'url'  => 'rel_nivacad_anioacad',
+                            ],
                     ],
                
                 ],
                       //  -------------------------
                 [
                     'text'        => 'Mantenimientos',
-                    'label'       => 6,
+                    'label'       => 5,
                    'label_color' => 'success',
                     'icon' =>"fa fa-cogs",
                    'icon_color' => 'secondary',
@@ -413,12 +419,6 @@ return [
                             'url'  => 'anio_academico',
                         ],
 
-                        [
-                            'text' => 'Nivel Academico y Asignatura',
-                            'icon' =>'fa fa-calendar',
-                            'icon_color' => 'info',
-                            'url'  => 'rel_nivacad_anioacad',
-                        ],
                     ],
                ],
 

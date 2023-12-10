@@ -48,10 +48,12 @@
 <thead>
             <tr>
                 <th>#</th>
-                <th>Nombre Completo</th>
-                <th>Especialidad</th>
-                <th>Grado Enseñanza</th>
-                <th></th>
+                <th>Nombre completo</th>
+                <th>Cargo Actual</th>
+                <th>Fecha Inicio Empleo</th>
+                <th>Horas semanales</th>
+                <th>Estado Registro</th>
+                <th>Opciones Tabla</th>
             </tr>
         </thead>
         <tbody>
@@ -75,10 +77,19 @@
                         @endif
                 </td>
 
-                 <td>{{ $docentes['ESPECIALIDAD'] }}</td>
+                   <td>{{ $docentes['CARGO_ACTUAL'] }}</td>
                
-                    <td>{{ $docentes['GRADO_ENSENIANZA'] }}</td>
-                    <td></td>
+                    <td>{{date('d, M Y', strtotime($docentes['FECHA_INICIO_EMPLEO']))}}</td>
+                    <td>{{ $docentes['HORAS_SEMANALES'] }}</td>
+                    <td>
+                    @if($docentes['Estado_registro'] == 1)
+                        Activo
+                    @elseif($docentes['Estado_registro'] == 0)
+                        Inactivo
+                    @endif
+                 </td>
+
+                <td>
             </tr>
             @endforeach
         </tbody>
