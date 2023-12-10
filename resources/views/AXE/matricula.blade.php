@@ -329,7 +329,7 @@
                         <input type="hidden" class="form-control" name="COD_MATRICULA" value="{{ $matricula['COD_MATRICULA'] }}">
                         <div class="mb-3 mt-3 d-flex align-items-center">
                         <label for="COD_PERSONA"  class="form-label mr-4">Estudiante:</label>
-                        <select class="form-control ancho-personalizado w-100"id="COD_PERSONA" name="COD_PERSONA"  required style="width: 300px;">
+                        <select class="selectize"id="COD_PERSONA" name="COD_PERSONA"  required style="width: 300px;">
                             <option value="" disabled>Seleccione un estudiante</option>
                             @foreach ($personasArreglo as $persona)
                                 @if ($persona['TIPO_PERSONA'] === 'Estudiante')
@@ -346,7 +346,7 @@
 
                     <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="COD_NIVEL_ACADEMICO" class="form-label mr-2">Nivel Académico: </label>
-                            <select class="form-control ancho-personalizado w-100" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO"  required style="width: 300px;">
+                            <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO"  required style="width: 300px;">
                                 <option value="" disabled selected>Seleccione el nivel académico</option>
                                 @foreach ($nivel_academicoArreglo as $nivel_academico)
                                     <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}"
@@ -359,7 +359,7 @@
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="COD_ANIO_ACADEMICO" class="form-label mr-3">Año Académico: </label>
-                            <select class="form-control ancho-personalizado w-100" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO"  required style="width: 300px;">
+                            <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO"  required style="width: 300px;">
                                 <option value="" disabled selected>Seleccione el año académico</option>
                                 @foreach ($anio_academicoArreglo as $anio_academico)
                                     <option value="{{ $anio_academico['COD_ANIO_ACADEMICO'] }}"
@@ -373,7 +373,7 @@
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="JORNADA" class="form-label mr-5">Jornada:</label>
-                            <select class="form-control ancho-personalizado w-100" id="JORNADA" name="JORNADA"  required style="width: 300px;">
+                            <select class="selectize" id="JORNADA" name="JORNADA"  required style="width: 300px;">
                                 <option value="Matutina" {{ $matricula['JORNADA'] == 'Matutina' ? 'selected' : '' }}>Matutina</option>
                                 <option value="Vespertina" {{ $matricula['JORNADA'] == 'Vespertina' ? 'selected' : '' }}>Vespertina</option>
                                 <option value="Nocturna" {{ $matricula['JORNADA'] == 'Nocturna' ? 'selected' : '' }}>Nocturna</option>
@@ -382,7 +382,7 @@
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="SECCION" class="form-label mr-5">Sección: </label>
-                            <select class="form-control ancho-personalizado w-100" id="SECCION" name="SECCION"  required style="width: 300px;">
+                            <select class="selectize" id="SECCION" name="SECCION"  required style="width: 300px;">
                                 <option value="" disabled selected>Seleccione la sección académica</option>
                                 @foreach ($seccionesArreglo as $seccion)
                                     <option value="{{ $seccion['DESCRIPCION_SECCIONES'] }}"
@@ -394,7 +394,7 @@
                         </div>
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="COD_PADRE_TUTOR" class="form-label mr-4">Encargado: </label>
-                            <select class="form-control ancho-personalizado w-100" id="COD_PADRE_TUTOR" name="COD_PADRE_TUTOR"  required style="width: 300px;">
+                            <select class="selectize" id="COD_PADRE_TUTOR" name="COD_PADRE_TUTOR"  required style="width: 300px;">
                                 <option value="" disabled>Seleccione un padre o encargado</option>
                                 @foreach ($padresArreglo as $padre)
                                     <option value="{{ $padre['COD_PADRE_TUTOR'] }}"
