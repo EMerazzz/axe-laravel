@@ -215,7 +215,7 @@
                             </select>
                         </div> -->
                         <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
-                            <label for="direcciones" class="form-label mr-5">País  </label>
+                            <label for="direcciones" class="form-label mr-5 ml-4">País  </label>
                             <input type="text" class="form-control" id="PAIS" name="PAIS" placeholder="Ingrese el país" value="{{ $direcciones['PAIS'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
@@ -225,13 +225,13 @@
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
                         <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
-                            <label for="direcciones" class="form-label mr-5" >Ciudad</label>
+                            <label for="direcciones" class="form-label mr-5 ml-2">Ciudad</label>
                             <input type="text" class="form-control" id="CIUDAD" name="CIUDAD" placeholder="Ingrese la ciudad" value="{{ $direcciones['CIUDAD'] }}" maxlength="40"
                             title="Solo se permiten letras y espacios"   oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required>
                         </div>
 
                         <div class="mb-3 mt-3 d-flex align-items-center tamanio-comun">
-                            <label for="direcciones"  class="form-label mr-4">Dirección</label>
+                            <label for="direcciones"  class="form-label mr-4 ml-2">Dirección</label>
                             <textarea class="form-control" id="DIRECCION" name="DIRECCION" placeholder="Ingrese la dirección" required maxlength="255">{{ $direcciones['DIRECCION'] }}</textarea>
                         </div>
 

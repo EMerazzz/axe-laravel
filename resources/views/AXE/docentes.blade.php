@@ -89,7 +89,7 @@
                         @csrf
                  <!-- INICIO --->
                  <div class="mb-3 mt-3 d-flex align-items-center">
-                    <label for="COD_PERSONA"  class="form-label mr-4">Persona: </label>
+                    <label for="COD_PERSONA"  class="form-label mr-4 ml-2">Persona: </label>
                     <select class="form-control ancho-personalizado w-100"  id="COD_PERSONA" name="COD_PERSONA" required>
                         <option value="" disabled selected>Seleccione Persona</option>
                         @foreach ($personasArreglo as $persona)
@@ -100,7 +100,7 @@
                     </select>
                 </div>
                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="docentes"  class="form-label mr-1">Cargo Actual:</label>
+                            <label for="docentes"  class="form-label mr-4">Cargo Actual:</label>
                             <input type="text" class="form-control" id="CARGO_ACTUAL" name="CARGO_ACTUAL" placeholder="Ingrese especialidad el cargo del docente"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required maxlength="30">
                         </div>
@@ -113,7 +113,7 @@
 
 
                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="Estado_registro" class="form-label mr-3">Estado:</label>
+                            <label for="Estado_registro" class="form-label mr-5">Estado:</label>
                            <select class="form-control same-width" id="Estado_registro" name="Estado_registro">
                            <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
@@ -234,17 +234,18 @@
 
                         
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="docentes"  class="form-label mr-3">Horas semanales:</label>
+                            <label for="docentes"  class="form-label">Horas semanales:</label>
                             <input type="text" class="form-control" id="HORAS_SEMANALES" name="HORAS_SEMANALES" placeholder="Ingrese Horas semanales" value="{{ $docentes['HORAS_SEMANALES'] }}"
                             title="Solo se permiten dos dígitos numéricos" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2)" maxlength="2">
                         </div>
 
+                        
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="docentes" class="form-label mr-5">Estado Registro:</label>
-                        <select class="form-control same-width" id="Estado_registro" name="Estado_registro">
-                            <option value="1" {{ $docentes['FECHA_INICIO_EMPLEO'] === '1' ? 'selected' : '' }}>Activo</option>
-                            <option value="0" {{ $docentes['FECHA_INICIO_EMPLEO'] === '0' ? 'selected' : '' }}>Inactivo</option>
-                        </select>
+                                            <label for="Estado_registro" class="form-label mr-5">Estado:</label>
+                                            <select class="form-control same-width" id="Estado_registro" name="Estado">
+                                                <option value="1" {{ $docentes['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
+                                                <option value="0" {{ $docentes['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
+                                            </select>
                         </div>
 
 

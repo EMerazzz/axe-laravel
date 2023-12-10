@@ -77,12 +77,12 @@
                         @csrf
                 <!-- INICIO --->
                 <div class="mb-3 mt-3 d-flex align-items-center">
-                    <label for="descripcion" class="form-label mr-2">Nivel académico </label>
+                    <label for="descripcion" class="form-label ml-2">Nivel académico </label>
                     <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el nivel académico" required maxlength="200" oninput="this.value = this.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚ\s]/g, '')">
                 </div>
 
                 <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="MODIFICADO_POR" class="form-label mr-3">Estado:</label>
+                            <label for="MODIFICADO_POR" class="form-label mr-5">Estado:</label>
                            <select class="form-control same-width" id="MODIFICADO_POR" name="Estado">
                            <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
@@ -141,12 +141,12 @@
                                         <input type="hidden" class="form-control" name="COD_NIVEL_ACADEMICO" value="{{$nivel_academico['COD_NIVEL_ACADEMICO']}}">
                                        
                                         <div class="mb-3 mt-3 d-flex align-items-center">
-                                            <label for="descripcion" class="form-label mr-2">Nivel académico </label>
+                                            <label for="descripcion" class="form-label ml-2">Nivel académico </label>
                                             <input type="text" class="form-control same-width" id="descripcion" name="descripcion" placeholder="Ingrese el nivel académico" required maxlength="200" value="{{$nivel_academico['DESCRIPCION']}}"oninput="this.value = this.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚ\s]/g, '')">
                                         </div>
 
                                        <div class="mb-3 mt-3 d-flex align-items-center">
-                                       <label for="Estado_registro" class="form-label mr-3">Estado:</label>
+                                       <label for="Estado_registro" class="form-label mr-5">Estado:</label>
                                        <select class="form-control same-width" id="Estado_registro" name="Estado">
                                        <option value="1" {{ $nivel_academico['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
                                        <option value="0" {{ $nivel_academico['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>

@@ -76,12 +76,12 @@
                         @csrf
                        
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="NOMBRE_ASIGNATURA"  class="form-label mr-2">Nombre Asignatura:</label>
+                            <label for="NOMBRE_ASIGNATURA"  class="form-label">Nombre Asignatura:</label>
                             <input type="text" class="form-control same-width" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese asignatura" inputmode="text" required  maxlength="30">
                         </div>
                         
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="Estado_registro" class="form-label mr-3">Estado:</label>
+                            <label for="Estado_registro" class="form-label mr-5">Estado:</label>
                            <select class="form-control same-width" id="Estado_registro" name="Estado">
                            <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
@@ -149,12 +149,12 @@
                             @csrf
                             <input type="hidden" class="form-control" name="COD_ASIGNATURA" value="{{ $asignatura['COD_ASIGNATURA'] }}">
                             <div class="mb-3 mt-3 d-flex align-items-center">
-                                <label for="NOMBRE_ASIGNATURA"  class="form-label mr-2">Nombre Asignatura</label>
+                                <label for="NOMBRE_ASIGNATURA"  class="form-label">Nombre Asignatura</label>
                                 <input type="text" class="form-control" id="NOMBRE_ASIGNATURA" name="NOMBRE_ASIGNATURA" placeholder="Ingrese la asignatura" value="{{ $asignatura['NOMBRE_ASIGNATURA'] }}" maxlength="30">
                             </div>
 
                             <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="Estado_registro" class="form-label mr-3">Estado:</label>
+                            <label for="Estado_registro" class="form-label mr-5">Estado:</label>
                            <select class="form-control same-width" id="Estado_registro" name="Estado">
                            <option value="1" {{ $asignatura['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
                            <option value="0" {{ $asignatura['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>

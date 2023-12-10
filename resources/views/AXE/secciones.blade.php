@@ -77,7 +77,7 @@
                         @csrf
                 <!-- INICIO --->
                 <div class="mb-3 mt-3 d-flex align-items-center">
-                    <label for="DESCRIPCION_SECCIONES" class="form-label mr-2">Sección</label>
+                    <label for="DESCRIPCION_SECCIONES" class="form-label mr-3">Sección</label>
                     <input type="text" class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES" placeholder="Ingrese la sección" required maxlength="200" pattern="^[A-Za-z\s]+$">
                     <small id="errorMessage" style="color: red; display: none;">Solo se permiten letras.</small>
                 </div>
@@ -143,7 +143,7 @@
                                         <input type="hidden" class="form-control same-width" name="COD_SECCIONES" value="{{$secciones['COD_SECCIONES']}}">
                                        
                                         <div class="mb-3 mt-3 d-flex align-items-center">
-                                            <label for="DESCRIPCION_SECCIONES" class="form-label mr-2">Sección </label>
+                                            <label for="DESCRIPCION_SECCIONES" class="form-label mr-3">Sección </label>
                                             <input type="text" class="form-control same-width" id="DESCRIPCION_SECCIONES" name="DESCRIPCION_SECCIONES" placeholder="Ingrese la sección" required maxlength="200" pattern="^[A-Za-z\s]+$" 
                                             value="{{$secciones['DESCRIPCION_SECCIONES']}}">
                                         </div>

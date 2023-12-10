@@ -204,8 +204,8 @@
                             </div>
 
 
-                       <div class="mb-3 mt-3 form-inline">
-                            <label for="TIPO_TELEFONO" class="form-label mr-2">Tipo Telefono:</label>
+                            <div class="mb-3 mt-3 d-flex align-items-center">
+                            <label for="TIPO_TELEFONO" class="form-label mr-3">Tipo Telefono:</label>
                             <select class="form-control same-width" id="TIPO_TELEFONO" name="TIPO_TELEFONO">
                                 <option value="Fijo" {{ $telefonos['TIPO_TELEFONO'] === 'Fijo' ? 'selected' : '' }}>Fijo</option>
                                 <option value="Movil" {{ $telefonos['TIPO_TELEFONO'] === 'Movil' ? 'selected' : '' }}>Movil</option>
