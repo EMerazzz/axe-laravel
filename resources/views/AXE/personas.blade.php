@@ -184,8 +184,8 @@
                  </div>
 
                  <div class="mb-3 mt-3 d-flex align-items-center">
-                    <label for="Estado" class="form-label mr-5 ">Estado:</label>
-                    <select class="form-control ancho-personalizado w-100 ml-1" id="MODIFICADO_POR" name="Estado">
+                    <label for="Estado_registro" class="form-label mr-5 ">Estado:</label>
+                    <select class="form-control ancho-personalizado w-100 ml-1" id="Estado_registro" name="Estado_registro">
                         <option value="1">Activo</option>
                         <option value="0">Inactivo</option>
                       </select>

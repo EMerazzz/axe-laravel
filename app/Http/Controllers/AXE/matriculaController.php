@@ -93,7 +93,7 @@ class matriculaController extends Controller
         // Obtener todas las matrículas desde la API
         $todas_las_matriculas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get($this->apiUrl.'/matricula');
+        ])->get($this->apiUrl.'/verEstudiante');
     
         if ($todas_las_matriculas->successful()) {
             $matriculas_lista = $todas_las_matriculas->json();
@@ -136,6 +136,7 @@ class matriculaController extends Controller
     "SECCION"=> $request->input("SECCION"),
     "COD_PADRE_TUTOR"=> $request->input("COD_PADRE_TUTOR"),
     "USUARIO_MODIFICADOR" => $UsuarioValue,
+    "Estado_registro"=> $request->input("Estado_registro"),
    // "SEGUNDO_ENCARGADO"=> $request->input("COD_PADRE_TUTOR2"),
         ]);
         
