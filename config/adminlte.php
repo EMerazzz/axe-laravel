@@ -359,35 +359,64 @@ return [
                 'icon_color' => 'teal',
                 'submenu' => [
                     [
-                        'text' => 'Asignaturas',
-                        'icon' =>"fa fa-book",
-                        'icon_color' => 'info',
-                        'url'  => 'asignaturas',
+                        'text'        => 'Principal',
+                        'label'       => 5,
+                       'label_color' => 'success',
+                        'icon' =>"fa fa-suitcase",
+                       'icon_color' => 'secondary',
+                        'submenu' => [
+                            [
+                                'text' => 'AQUI AGREGAS LAS DEMAS',
+                                'icon' =>"fa fa-user",
+                                'icon_color' => 'info',
+                                'url'  => 'usuarios',
+                            ],
                     ],
-                    [
-                        'text' => 'Secciones',
-                        'icon' =>'fa fa-bars',
-                        'icon_color' => 'info',
-                        'url'  => 'secciones',
+               
+                ],
+                      //  -------------------------
+                [
+                    'text'        => 'Mantenimientos',
+                    'label'       => 5,
+                   'label_color' => 'success',
+                    'icon' =>"fa fa-cogs",
+                   'icon_color' => 'secondary',
+                    'submenu' => [
+                        [
+                            'text' => 'Asignaturas',
+                            'icon' =>"fa fa-book",
+                            'icon_color' => 'info',
+                            'url'  => 'asignaturas',
+                        ],
+                        [
+                            'text' => 'Secciones',
+                            'icon' =>'fa fa-bars',
+                            'icon_color' => 'info',
+                            'url'  => 'secciones',
+                        ],
+                       /* [
+                            'text' => 'Jornadas',
+                            'icon' =>'fa fa-clock',
+                            'icon_color' => 'info',
+                            'url'  => 'jornadas',
+                        ],*/
+                        [
+                            'text' => 'Nivel académico',
+                            'icon' =>'fa fa-university',
+                            'icon_color' => 'info',
+                            'url'  => 'nivel_academico',
+                        ],
+                        [
+                            'text' => 'Año Académico',
+                            'icon' =>'fa fa-calendar',
+                            'icon_color' => 'info',
+                            'url'  => 'anio_academico',
+                        ],
                     ],
-                   /* [
-                        'text' => 'Jornadas',
-                        'icon' =>'fa fa-clock',
-                        'icon_color' => 'info',
-                        'url'  => 'jornadas',
-                    ],*/
-                    [
-                        'text' => 'Nivel académico',
-                        'icon' =>'fa fa-university',
-                        'icon_color' => 'info',
-                        'url'  => 'nivel_academico',
-                    ],
-                    [
-                        'text' => 'Año Académico',
-                        'icon' =>'fa fa-calendar',
-                        'icon_color' => 'info',
-                        'url'  => 'anio_academico',
-                    ],
+               ],
+
+               
+                // -------------------------
                 ],
             
             ],
@@ -453,6 +482,13 @@ return [
            'label_color' => 'success',
             'icon' =>"fa fa-lock",
            'icon_color' => 'teal',
+            'submenu' =>[
+            [
+            'text'        => 'Principal',
+            'label'       => 5,
+           'label_color' => 'success',
+            'icon' =>"fa fa-suitcase",
+           'icon_color' => 'secondary',
             'submenu' => [
                 [
                     'text' => 'usuarios',
@@ -492,48 +528,54 @@ return [
                 ],
             ],
         ],
-        [
-            'text'        => 'Mantenimientos',
-            'label'       => 5,
-           'label_color' => 'success',
-            'icon' =>"fa fa-cogs",
-           'icon_color' => 'teal',
-            'submenu' => [
+                //  -------------------------
                 [
-                    'text' => 'Preguntas',
-                    'icon' =>"fa fa-user",
-                    'icon_color' => 'info',
-                    'url'  => 'preguntas',
-                ],
-
-                [
-                    'text' => 'Objetos',
-                    'icon' =>"fa fa-user",
-                    'icon_color' => 'info',
-                    'url'  => 'objetos',
-                ],
-
-                [
-                    'text' => 'Parametros',
-                    'icon' =>"fa fa-user",
-                    'icon_color' => 'info',
-                    'url'  => 'parametros',
-                ],              
-                [
-                    'text' => 'Estado usuarios',
-                    'icon' =>"fa fa-user-times",
-                    'icon_color' => 'info',
-                    'url'  => 'estado_usuario',
-                ],
-                [
-                    'text' => 'Estado Roles',
-                    'icon' =>"fa fa-user-times",
-                    'icon_color' => 'info',
-                    'url'  => 'estado_rol',
-                ],
-
-            ],
+                    'text'        => 'Mantenimientos',
+                    'label'       => 5,
+                   'label_color' => 'success',
+                    'icon' =>"fa fa-cogs",
+                   'icon_color' => 'secondary',
+                    'submenu' => [
+                        [
+                            'text' => 'Preguntas',
+                            'icon' =>"fa fa-user",
+                            'icon_color' => 'info',
+                            'url'  => 'preguntas',
+                        ],
         
+                        [
+                            'text' => 'Objetos',
+                            'icon' =>"fa fa-user",
+                            'icon_color' => 'info',
+                            'url'  => 'objetos',
+                        ],
+        
+                        [
+                            'text' => 'Parametros',
+                            'icon' =>"fa fa-user",
+                            'icon_color' => 'info',
+                            'url'  => 'parametros',
+                        ],              
+                        [
+                            'text' => 'Estado usuarios',
+                            'icon' =>"fa fa-user-times",
+                            'icon_color' => 'info',
+                            'url'  => 'estado_usuario',
+                        ],
+                        /*
+                        [
+                            'text' => 'Estado Roles',
+                            'icon' =>"fa fa-user-times",
+                            'icon_color' => 'info',
+                            'url'  => 'estado_rol',
+                        ],
+                        */
+                    ],
+               ],
+
+
+                // -------------------------
+            ],
         ],
         [
             'text' => 'Cerrar sesión',  // Opción "Log Out"
