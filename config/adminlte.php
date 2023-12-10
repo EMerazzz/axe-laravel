@@ -377,7 +377,7 @@ return [
                       //  -------------------------
                 [
                     'text'        => 'Mantenimientos',
-                    'label'       => 5,
+                    'label'       => 6,
                    'label_color' => 'success',
                     'icon' =>"fa fa-cogs",
                    'icon_color' => 'secondary',
@@ -411,6 +411,13 @@ return [
                             'icon' =>'fa fa-calendar',
                             'icon_color' => 'info',
                             'url'  => 'anio_academico',
+                        ],
+
+                        [
+                            'text' => 'Nivel Academico y Asignatura',
+                            'icon' =>'fa fa-calendar',
+                            'icon_color' => 'info',
+                            'url'  => 'rel_nivacad_anioacad',
                         ],
                     ],
                ],
