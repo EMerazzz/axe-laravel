@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Nivel & Año Academico ')
+@section('title', 'Asignatura y grado ')
 @section('content_header')
 <style>
   .custom-blockquote {
@@ -58,126 +58,98 @@
 @endif
 
 <div class="spacer"></div>
-<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#rel_nivacad_anioacad">+ Nuevo</button>
+
+<button type="button" class="btn btn-success btn-custom" data-toggle="modal" data-target="#rel_asignaturas">+ Nuevo</button>
+
 <div class="spacer"></div>
-<div class="modal fade bd-example-modal-sm" id="rel_nivacad_anioacad" tabindex="-1">
+<div class="modal fade bd-example-modal-sm" id="rel_asignaturas" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Ingresa</h4>
+                <h4 class="modal-title">Ingresa</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-           
             
-            <div class="modal-footer">
-                <div class="d-grid gap-2 col-12 mx-auto">
-                    <form action="{{url('rel_nivacad_anioacad/insertar')}}" method="post">
+            <form action="{{ url('rel_asignaturas/insertar') }}" method="post">
+                @csrf
 
-                        @csrf
-                       
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <div class="form-group mr-2"> 
-                            <label for="COD_NIVEL_ACADEMICO"class="form-label mr-2">Nivel Academico: </label>
-                        </div>
-                        <div class="form-group col-md-10"> 
-                            <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
-                                <option value="" disabled selected>Seleccione el nivel academico</option>
-                                @foreach ($nivel_academicoArreglo as $nivel_academico)
-                                    <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}">{{ $nivel_academico['DESCRIPCION'] }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                        
-                    <div class="mb-3 mt-3 d-flex align-items-center">
-                            <div class="form-group mr-1"> 
-                            <label for="COD_ANIO_ACADEMICO"class="form-label mr-2">Año Academico: </label>
-                        </div>
-                        <div class="form-group col-md-10"> 
-                            <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required>
-                                <option value="" disabled selected>Seleccione el año academico:</option>
-                                @foreach ($anio_academicoArreglo as $anio_academico)
-                                    <option value="{{ $anio_academico['COD_ANIO_ACADEMICO'] }}">{{ $anio_academico['descripcion'] }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                        
-                        
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="Estado_registro" class="form-label mr-5">Estado:</label>
-                           <select class="form-control same-width" id="Estado_registro" name="Estado">
-                           <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
-                          </select>
-                        </div>
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="COD_ASIGNATURA" class="form-label mr-2">Asignatura: </label>
+                    <select class="selectize" id="COD_ASIGNATURA" name="COD_ASIGNATURA" required style="width: 300px;">
+                        <option value="" disabled selected>Seleccione una asignatura</option>
+                        @foreach ($asignaturasArreglo as $asignatura)
+                            <option value="{{ $asignatura['COD_ASIGNATURA'] }}">
+                                {{ $asignatura['NOMBRE_ASIGNATURA'] }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="COD_NIVACAD_ANIOACAD" class="form-label mr-4">Grado:</label>
+                    <select class="selectize" style="width: 400px;" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" required style="width: 300px;">
+                        <option value="" disabled selected>Seleccione</option>
+                        @foreach ($rel_asignaturasArreglo as $rel_asignatura)
+                            <option value="{{ $rel_asignatura['COD_NIVACAD_ANIOACAD'] }}">
+                                {{ $rel_asignatura['Grado Academico'] }} , {{ $rel_asignatura['Nivel Academico'] }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                    <label for="Estado_registro" class="form-label mr-5">Estado:</label>
+                    <select class="selectize" style="width: 400px;" id="Estado_registro" name="Estado_registro">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+
+                <!-- Otros campos del formulario -->
+
+                <div class="modal-footer">
+                    <div class="d-grid gap-2 col-12 mx-auto">
                         <button type="submit" class="btn btn-primary">Añadir</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        </form>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+
     
     <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
         
             <thead>
                 <tr>
-                    <th>Código</th> 
-                    <th>Nivel Academico</th> 
-                    <th>Año Academico</th>
+                    <th>#</th> 
+                    <th>Asignatura</th> 
+                    <th>Nivel Académico</th>
+                    <th>Grado Académico</th>
                     <th>Estado</th>
                     <th>Opciones Tabla</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($rel_nivacad_anioacadArreglo as $rel_nivacad_anioacad)
-                @php
-                $nivel = null;
-                    foreach ($nivel_academicoArreglo as $n) {
-                        if ($n['COD_NIVEL_ACADEMICO'] === $rel_nivacad_anioacad['COD_NIVEL_ACADEMICO']) {
-                            $nivel = $n;
-                            break;
-                        }
-                    }
-                @endphp
-                @php
-                    $anio = null;
-                    foreach ($anio_academicoArreglo as $a) {
-                        if ($a['COD_ANIO_ACADEMICO'] === $rel_nivacad_anioacad['COD_ANIO_ACADEMICO']) {
-                            $anio = $a;
-                            break;
-                        }
-                    }
-                @endphp
+            @foreach($rel_asignaturasArreglo as $rel_asignaturas)
                     <tr>
-                        <td>{{ $rel_nivacad_anioacad['COD_NIVACAD_ANIOACAD'] }}</td>
-                        <td>
-                        @if ($nivel !== null)
-                            {{ $nivel['DESCRIPCION'] }}
-                        @else
-                            Nivel no encontrado
-                        @endif
-                        </td>
-                        <td>
-                        @if ($anio !== null)
-                            {{ $anio['descripcion'] }}
-                        @else
-                            Año no encontrado
-                        @endif
-                    </td>
-                        <td>
-                        @if($rel_nivacad_anioacad['Estado_registro'] == 1)
+                    <td> {{ $rel_asignaturas['COD_REL_ASIG'] }}</td>
+                    <td> {{ $rel_asignaturas['ASIGNATURA'] }}</td>
+                    <td> {{ $rel_asignaturas['Nivel Academico'] }}</td>
+                    <td> {{ $rel_asignaturas['Grado Academico'] }}</td>
+                    <td>
+                        @if($rel_asignaturas['Estado_registro'] == 1)
                         Activo
-                    @elseif($rel_nivacad_anioacad['Estado_registro'] == 0)
+                    @elseif($rel_asignaturas['Estado_registro'] == 0)
                         Inactivo
                     @endif 
                         </td>
+                        
                         <td>
-                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#rel_nivacad_anioacad-edit-{{ $rel_nivacad_anioacad['COD_NIVACAD_ANIOACAD'] }}" >
+                            <button value="Editar" title="Editar" class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#rel_asignaturas-edit-{{ $rel_asignaturas['COD_REL_ASIG'] }}" >
                                 <i class='fas fa-edit' style='font-size:13px;color:cyan'></i> Editar
                             </button>
                         </td>
@@ -187,68 +159,64 @@
         </table>
     </div>
 
-    @foreach($rel_nivacad_anioacadArreglo as $rel_nivacad_anioacad)
-    <div class="modal fade bd-example-modal-sm" id="rel_nivacad_anioacad-edit-{{ $rel_nivacad_anioacad['COD_NIVACAD_ANIOACAD'] }}" tabindex="-1">
+    @foreach($rel_asignaturasArreglo as $rel_asignaturas)
+    <div class="modal fade bd-example-modal-sm" id="rel_asignaturas-edit-{{ $rel_asignaturas['COD_REL_ASIG'] }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header" >
+            <div class="modal-header">
                 <h5 class="modal-title">Actualiza Asignatura</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" style="background-color: #fff;">
-                <form action="{{ url('rel_nivacad_anioacad/actualizar') }}" method="post">
+            <div class="modal-body" style="background-color: #fff; padding: 20px;">
+                <form action="{{ url('rel_asignaturas/actualizar') }}" method="post">
                     @csrf
-                    <input type="hidden" class="form-control" name="COD_NIVACAD_ANIOACAD" value="{{ $rel_nivacad_anioacad['COD_NIVACAD_ANIOACAD'] }}">
+                    <input type="hidden" class="form-control" name="COD_REL_ASIG" value="{{ $rel_asignaturas['COD_REL_ASIG'] }}">
                     
                     <div class="mb-3 mt-3 d-flex align-items-center">
-                        <div class="form-group col-md-2"> 
-                            <label for="COD_NIVEL_ACADEMICO" class="form-label mr-2">Nivel Academico</label>
-                        </div>
-                        <div class="form-group col-md-10"> 
-                            <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
-                                @foreach ($nivel_academicoArreglo as $nivel_academico)
-                                    <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}" {{ $nivel_academico['COD_NIVEL_ACADEMICO'] == $rel_nivacad_anioacad['COD_NIVEL_ACADEMICO'] ? 'selected' : '' }}>
-                                        {{ $nivel_academico['DESCRIPCION'] }} 
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-3 mt-3 d-flex align-items-center">
-                        <div class="form-group col-md-2"> 
-                            <label for="COD_ANIO_ACADEMICO" class="form-label mr-2">Año Academico</label>
-                        </div>
-                        <div class="form-group col-md-10"> 
-                            <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required>
-                                @foreach ($anio_academicoArreglo as $anio_academico)
-                                    <option value="{{ $anio_academico['COD_ANIO_ACADEMICO'] }}" {{ $anio_academico['COD_ANIO_ACADEMICO'] == $rel_nivacad_anioacad['COD_ANIO_ACADEMICO'] ? 'selected' : '' }}>
-                                        {{ $anio_academico['descripcion'] }} 
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+    <label for="COD_ASIGNATURA" class="form-label mr-2">Asignatura: </label>
+    <select class="selectize" style="width: 400px;" id="COD_ASIGNATURA" name="COD_ASIGNATURA" required style="width: 300px;">
+        <option value="" disabled>Seleccione una asignatura</option>
+        @foreach ($asignaturasArreglo as $asignatura)
+            <option value="{{ $asignatura['COD_ASIGNATURA'] }}"
+                @if ($rel_asignaturas['COD_ASIGNATURA'] == $asignatura['COD_ASIGNATURA']) selected @endif>
+                {{ $asignatura['NOMBRE_ASIGNATURA'] }}
+            </option>
+        @endforeach
+    </select>
+</div>
+<div class="mb-3 mt-3 d-flex align-items-center">
+    <label for="COD_NIVACAD_ANIOACAD" class="form-label mr-4">Grado:</label>
+    <select class="selectize" style="width: 400px;" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" required style="width: 300px;">
+        <option value="" disabled>Seleccione</option>
+        @foreach ($rel_nivacad_anioacadArreglo as $rel_nivacad_anioacad)
+            <option value="{{ $rel_nivacad_anioacad['COD_NIVACAD_ANIOACAD'] }}" 
+            @if ($rel_asignaturas['COD_NIVACAD_ANIOACAD'] == $rel_nivacad_anioacad['COD_NIVACAD_ANIOACAD'] ) selected @endif>
+                {{ $rel_nivacad_anioacad['DESCRIPCION_ANIO'] }} , {{ $rel_nivacad_anioacad['DESCRIPCION_NIVEL'] }}
+            </option>
+        @endforeach
+    </select>
+</div>
 
-                    <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="Estado_registro" class="form-label mr-4 ml-2">Estado:</label>
-                        <select class="form-control same-width" id="Estado_registro" name="Estado">
-                            <option value="1" {{ $rel_nivacad_anioacad['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
-                            <option value="0" {{ $rel_nivacad_anioacad['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
-                        </select>
-                    </div>
-                    <!-- ... otros campos del formulario ... -->
-                </form>
+
+<div class="mb-3 mt-3 d-flex align-items-center">
+    <label for="Estado_registro" class="form-label mr-5">Estado:</label>
+    <select class="selectize" style="width: 400px;" id="Estado_registro" name="Estado_registro">
+        <option value="1" {{ $rel_asignatura['Estado_registro'] == 1 ? 'selected' : '' }}>Activo</option>
+        <option value="0" {{ $rel_asignatura['Estado_registro']== 0 ? 'selected' : '' }}>Inactivo</option>
+    </select>
+</div>
+
+
+                
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Editar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-
-
 
     @endforeach
     

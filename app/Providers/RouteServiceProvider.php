@@ -160,7 +160,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('rel_nivacad_anioacad')
             ->group(base_path('routes/rel_nivacad_anioacad.php'));
-
+            
+            Route::middleware('web')
+            ->prefix('rel_asignaturas')
+            ->group(base_path('routes/rel_asignaturas.php'));
         });
     }
 
