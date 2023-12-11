@@ -158,22 +158,9 @@
                             <select class="selectize-select" id="SECCION" name="SECCION" required style="width: 300px;">
                                 <option value="" disabled selected>Seleccione la sección académica</option>
                                 @foreach ($seccionesArreglo as $seccion)
-                                    <option value="{{ $seccion['DESCRIPCION_SECCIONES'] }}"
+                                    <option value="{{ $seccion['COD_SECCIONES'] }}"
                                             {{ old('SECCION') == $seccion['DESCRIPCION_SECCIONES'] ? 'selected' : '' }}>
                                         {{ $seccion['DESCRIPCION_SECCIONES'] }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="COD_PADRE_TUTOR" class="form-label mr-4">Encargado: </label>
-                            <select  class="selectize-select"  id="COD_PADRE_TUTOR" name="COD_PADRE_TUTOR" required style="width: 300px;">
-                                <option value="" disabled selected>Seleccione un padre o encargado</option>
-                                @foreach ($padresArreglo as $padre)
-                                    <option value="{{ $padre['COD_PADRE_TUTOR'] }}"
-                                            {{ old('COD_PADRE_TUTOR') == $padre['COD_PADRE_TUTOR'] ? 'selected' : '' }}>
-                                        {{ $padre['NOMBRE_PADRE_TUTOR'] }} {{ $padre['APELLIDO_PADRE_TUTOR'] }}
                                     </option>
                                 @endforeach
                             </select>
@@ -393,25 +380,23 @@
                             <select class="selectize" id="SECCION" name="SECCION"  required style="width: 300px;">
                                 <option value="" disabled selected>Seleccione la sección académica</option>
                                 @foreach ($seccionesArreglo as $seccion)
-                                    <option value="{{ $seccion['DESCRIPCION_SECCIONES'] }}"
+                                    <option value="{{ $seccion['COD_SECCIONES'] }}"
                                         @if ($seccion['DESCRIPCION_SECCIONES'] == $matricula['SECCION']) selected @endif>
                                         {{ $seccion['DESCRIPCION_SECCIONES'] }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="COD_PADRE_TUTOR" class="form-label mr-4">Encargado: </label>
-                            <select class="selectize" id="COD_PADRE_TUTOR" name="COD_PADRE_TUTOR"  required style="width: 300px;">
-                                <option value="" disabled>Seleccione un padre o encargado</option>
-                                @foreach ($padresArreglo as $padre)
-                                    <option value="{{ $padre['COD_PADRE_TUTOR'] }}"
-                                        @if ($padre['COD_PADRE_TUTOR'] == $matricula['COD_PADRE_TUTOR']) selected @endif>
-                                        {{ $padre['NOMBRE_PADRE_TUTOR'] }} {{ $padre['APELLIDO_PADRE_TUTOR'] }}
-                                    </option>
-                                @endforeach 
-                            </select>
-                        </div>
+                       
+
+                              <div class="mb-3 mt-3 d-flex align-items-center">
+                                <label for="Estado_registro" class="form-label mr-5">Estado:</label>
+                               <select class="form-control same-width" id="Estado_registro" name="Estado">
+                               <option value="1" {{ $matricula['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
+                               <option value="0" {{ $matricula['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
+                              </select>
+                               </div>
+
                         <button id="botonEditar_1" type="submit" class="btn btn-primary">Editar</button>
                         <button id="botonEliminar_1" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </form>
@@ -757,6 +742,29 @@ function imprimirModal(COD_MATRICULA) {
     // Acceder a los elementos del array
 </script>
     
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ArregloRelacion = <?php echo json_encode($arregloRelacion_nivel_anio); ?>;
+        var ArregloNiveles = <?php echo json_encode($nivel_academicoArreglo); ?>;
+        var ArregleAnios = <?php echo json_encode($anio_academicoArreglo); ?>;
+
+        var selectNivelAcademico = document.getElementById('COD_NIVEL_ACADEMICO');
+
+        selectNivelAcademico.addEventListener('change', function () {
+            var valorSeleccionado = this.value;
+          
+            // Puedes realizar otras acciones con el valor seleccionado aquí
+        });
+
+
+    alert(selectNivelAcademico);
+
+    });
+
+</script>
+
+
+
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>
 const modeToggle = document.getElementById('mode-toggle');
@@ -789,6 +797,28 @@ modeToggle.addEventListener('click', () => {
 });
 
 </script>
+
+<script>
+    // Espera a que el documento esté completamente cargado
+    document.addEventListener("DOMContentLoaded", function() {
+        // Obtener el elemento select por su ID
+        var selectElement = document.getElementById("COD_NIVEL_ACADEMICO");
+
+        // Guardar el valor inicial
+        var valorInicial = selectElement.value;
+
+        // Agregar un event listener para detectar cambios en el select
+        selectElement.addEventListener("change", function(event) {
+            // Obtener el nuevo valor seleccionado
+            var nuevoValor = event.target.value;
+
+            // Guardar o hacer lo que necesites con el nuevo valor
+            console.log("Valor actual seleccionado:", nuevoValor);
+            // Aquí podrías enviar el nuevo valor a través de una solicitud AJAX o guardarlo en alguna variable, base de datos, etc.
+        });
+    });
+</script>
+
 <script>
         $(document).ready(function() {
             $('#messageModal').modal('show');

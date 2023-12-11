@@ -68,6 +68,11 @@ class matriculaController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl.'/verEstudiante');
         $matriculaArreglo = json_decode($matricula, true);
+
+        $rel_nivel_anio = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('http://82.180.162.18:4000/rel_nivel_anio');
+        $arregloRelacion_nivel_anio = json_decode($rel_nivel_anio,true);
         //dd($estudianteArreglo);
 
         $UsuarioValue = $_COOKIE["Usuario"];
@@ -79,7 +84,7 @@ class matriculaController extends Controller
         $permisosDisponibles = json_decode($permisos, true);
        
         // Retornar la vista con ambos conjuntos de datos
-    return view('AXE.matricula', compact('matriculaArreglo','permisosDisponibles','personasArreglo','nivel_academicoArreglo','anio_academicoArreglo','jornadasArreglo','seccionesArreglo','matriculaArreglo','padresArreglo'));
+    return view('AXE.matricula', compact('matriculaArreglo','permisosDisponibles','personasArreglo','nivel_academicoArreglo','anio_academicoArreglo','jornadasArreglo','seccionesArreglo','matriculaArreglo','padresArreglo', 'arregloRelacion_nivel_anio'));
     }
    
 
@@ -94,6 +99,11 @@ class matriculaController extends Controller
         $todas_las_matriculas = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl.'/verEstudiante');
+
+        $rel_nivel_anio = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get('http://82.180.162.18:4000/rel_nivel_anio');
+        $arregloRelacion_nivel_anio = json_decode($rel_nivel_anio,true);
     
         if ($todas_las_matriculas->successful()) {
             $matriculas_lista = $todas_las_matriculas->json();
@@ -114,6 +124,8 @@ class matriculaController extends Controller
                 'text' => 'No se pudo obtener la lista de matrículas.'
             ]);
         }
+
+
         $nivelacademico = $request->input("COD_NIVEL_ACADEMICO");
         $aniocademico = $request->input("COD_ANIO_ACADEMICO");
        // dd($request->input("COD_ANIO_ACADEMICO"));
@@ -124,17 +136,16 @@ class matriculaController extends Controller
                 'text' => 'Ciclo común solo llega a noveno.'
             ])->withInput(); // Agregar esta línea para mantener los datos ingresados
         }
+
         
     $nueva_matricula = Http::withHeaders([
         'Authorization' => 'Bearer ' . $token,
     ])->post($this->apiUrl.'/matricula',[    
-    "COD_PERSONA" => $request->input("COD_PERSONA"),
+    "COD_ESTUDIANTE" => $request->input("COD_PERSONA"),
     "COD_NIVEL_ACADEMICO"=> $request->input("COD_NIVEL_ACADEMICO"),
     "COD_ANIO_ACADEMICO"=> $request->input("COD_ANIO_ACADEMICO"),
-    "ESTADO_MATRICULA"=> $request->input("ESTADO_MATRICULA"),
+    "COD_SECCIONES"=> $request->input("SECCION"),
     "JORNADA"=> $request->input("JORNADA"),
-    "SECCION"=> $request->input("SECCION"),
-    "COD_PADRE_TUTOR"=> $request->input("COD_PADRE_TUTOR"),
     "USUARIO_MODIFICADOR" => $UsuarioValue,
     "Estado_registro"=> $request->input("Estado_registro"),
    // "SEGUNDO_ENCARGADO"=> $request->input("COD_PADRE_TUTOR2"),
@@ -159,17 +170,17 @@ class matriculaController extends Controller
         $token = decrypt($cookieEncriptada);
 
         $UsuarioValue = $_COOKIE["Usuario"];
+
         $modificar_matricula = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/matricula'.'/'.$request->input("COD_MATRICULA"),[
-            
+            "COD_ESTUDIANTE" => $request->input("COD_PERSONA"),
             "COD_NIVEL_ACADEMICO"=> $request->input("COD_NIVEL_ACADEMICO"),
             "COD_ANIO_ACADEMICO"=> $request->input("COD_ANIO_ACADEMICO"),
-            "ESTADO_MATRICULA"=> $request->input("ESTADO_MATRICULA"),
+            "COD_SECCIONES"=> $request->input("SECCION"),
             "JORNADA"=> $request->input("JORNADA"),
-            "SECCION"=> $request->input("SECCION"),
-            "COD_PADRE_TUTOR"=> $request->input("COD_PADRE_TUTOR"),
             "USUARIO_MODIFICADOR" => $UsuarioValue,
+            "Estado_registro"=> $request->input("Estado_registro"),
         ]);
       
         if ($modificar_matricula ->successful()) {
