@@ -246,346 +246,293 @@ return [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
-
+    
         // Sidebar items:
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-              [
+        [
             'type' => 'sidebar-menu-search',
             'text' => 'Busqueda',
         ],
-        
         [
             'text'        => 'Personas',
-            //'url'         => 'personas',
             'label'       => 5,
             'label_color' => 'success',
-            'icon' =>'fa fa-id-card',
-            'icon_color' => 'teal',
-            'submenu' => [
+            'icon'        => 'fa fa-id-card',
+            'icon_color'  => 'teal',
+            'submenu'     => [
                 [
-                    'text' => 'Personas',
-                    'icon' =>'fa fa-user',
+                    'text'       => 'Personas',
+                    'icon'       => 'fa fa-user',
                     'icon_color' => 'info',
-                    'url'  => 'personas',
+                    'url'        => 'personas',
                 ],
                 [
-                    'text' => 'Telefonos',
-                    'icon' =>'fa fa-phone-square',
+                    'text'       => 'Telefonos',
+                    'icon'       => 'fa fa-phone-square',
                     'icon_color' => 'info',
-                    'url'  => 'telefonos',
+                    'url'        => 'telefonos',
                 ],
                 [
-                    'text' => 'Correos',
-                    'icon' =>'fa fa-envelope',
+                    'text'       => 'Correos',
+                    'icon'       => 'fa fa-envelope',
                     'icon_color' => 'info',
-                    'url'  => 'correos',
+                    'url'        => 'correos',
                 ],
                 [
-                    'text' => 'Direcciones',
-                    'icon' =>'fa fa-map',
+                    'text'       => 'Direcciones',
+                    'icon'       => 'fa fa-map',
                     'icon_color' => 'info',
-                    'url'  => 'direcciones',
+                    'url'        => 'direcciones',
                 ],
                 [
-                    'text' => 'Contactos de Emergencia',
-                    'icon' =>'fa fa-phone',
+                    'text'       => 'Contactos de Emergencia',
+                    'icon'       => 'fa fa-phone',
                     'icon_color' => 'info',
-                    'url'  => 'contacto',
+                    'url'        => 'contacto',
                 ],
             ],
-        ],  
-
+        ],
+    
         [
             'text'        => 'Padres o encargados',
-            //'label'       => 3,
             'label_color' => 'success',
-            'icon' =>"fa fa-users",
-            'icon_color' => 'teal',
-            'url'  => 'padres',
-        
-        ], 
-
+            'icon'        => 'fa fa-users',
+            'icon_color'  => 'teal',
+            'url'         => 'padres',
+        ],
+    
         [
             'text'        => 'Matrícula',
-            //'label'       => 3,
             'label_color' => 'success',
-            'icon' =>"fa fa-user-plus",
-            'icon_color' => 'teal',
-            'url'  => 'matricula',
-        
-        ], 
-
-        [ 
+            'icon'        => 'fa fa-user-plus',
+            'icon_color'  => 'teal',
+            'url'         => 'matricula',
+        ],
+    
+        [
             'text'        => 'Estudiantes',
-        //'label'       => 2,
-        'label_color' => 'success',
-        'icon' =>"fa fa-users",
-        'icon_color' => 'teal',
-        'url'  => 'estudiantes',
-        ], 
-          /*  [
-                'text'        => 'Estudiantes',
-                'label'       => 2,
-                'label_color' => 'success',
-                'icon' =>"fa fa-graduation-cap",
-                'icon_color' => 'teal',
-                'submenu' => [
-                    [
-                        'text' => 'Padres o tutores',
-                        'icon' =>"fa fa-users",
-                        'icon_color' => 'info',
-                        'url'  => 'padres',
+            'label_color' => 'success',
+            'icon'        => 'fa fa-users',
+            'icon_color'  => 'teal',
+            'url'         => 'estudiantes',
+        ],
+    
+        [
+            'text'        => 'Académico',
+            'label'       => 3,
+            'label_color' => 'success',
+            'icon'        => 'fa fa-university',
+            'icon_color'  => 'teal',
+            'submenu'     => [
+                [
+                    'text'        => 'Principal',
+                    'label'       => 2,
+                    'label_color' => 'success',
+                    'icon'        => 'fa fa-suitcase',
+                    'icon_color'  => 'secondary',
+                    'submenu'     => [
+                        [
+                            'text'       => 'Grados',
+                            'icon'       => 'fa fa-calendar',
+                            'icon_color' => 'info',
+                            'url'        => 'rel_nivacad_anioacad',
+                        ],
+                        [
+                            'text'       => 'Grados & Asignatura',
+                            'icon'       => 'fa fa-calendar',
+                            'icon_color' => 'info',
+                            'url'        => 'rel_asignaturas',
+                        ],
                     ],
-                    [
-                        'text' => 'Estudiantes',
-                        'icon' =>'fa fa-male',
-                        'icon_color' => 'info',
-                        'url'  => 'estudiantes',
-                    ],
-                  
                 ],
-            
-            ],*/
-           
-            [
-                'text'        => 'Académico',
-                'label'       => 3,
-                'label_color' => 'success',
-                'icon' =>"fa fa-university",
-                'icon_color' => 'teal',
-                'submenu' => [
-                    [
-                        'text'        => 'Principal',
-                        'label'       => 2,
-                       'label_color' => 'success',
-                        'icon' =>"fa fa-suitcase",
-                       'icon_color' => 'secondary',
-                        'submenu' => [
-                            [
-                                'text' => 'Nivel Academico y Asignatura',
-                                'icon' =>'fa fa-calendar',
-                                'icon_color' => 'info',
-                                'url'  => 'rel_nivacad_anioacad',
-                            ],
-                    ],
-               
-                ],
-                      //  -------------------------
                 [
                     'text'        => 'Mantenimientos',
                     'label'       => 5,
-                   'label_color' => 'success',
-                    'icon' =>"fa fa-cogs",
-                   'icon_color' => 'secondary',
-                    'submenu' => [
+                    'label_color' => 'success',
+                    'icon'        => 'fa fa-cogs',
+                    'icon_color'  => 'secondary',
+                    'submenu'     => [
                         [
-                            'text' => 'Asignaturas',
-                            'icon' =>"fa fa-book",
+                            'text'       => 'Asignaturas',
+                            'icon'       => 'fa fa-book',
                             'icon_color' => 'info',
-                            'url'  => 'asignaturas',
+                            'url'        => 'asignaturas',
                         ],
                         [
-                            'text' => 'Secciones',
-                            'icon' =>'fa fa-bars',
+                            'text'       => 'Secciones',
+                            'icon'       => 'fa fa-bars',
                             'icon_color' => 'info',
-                            'url'  => 'secciones',
-                        ],
-                       /* [
-                            'text' => 'Jornadas',
-                            'icon' =>'fa fa-clock',
-                            'icon_color' => 'info',
-                            'url'  => 'jornadas',
-                        ],*/
-                        [
-                            'text' => 'Nivel académico',
-                            'icon' =>'fa fa-university',
-                            'icon_color' => 'info',
-                            'url'  => 'nivel_academico',
+                            'url'        => 'secciones',
                         ],
                         [
-                            'text' => 'Año Académico',
-                            'icon' =>'fa fa-calendar',
+                            'text'       => 'Nivel académico',
+                            'icon'       => 'fa fa-university',
                             'icon_color' => 'info',
-                            'url'  => 'anio_academico',
+                            'url'        => 'nivel_academico',
                         ],
-
+                        [
+                            'text'       => 'Año Académico',
+                            'icon'       => 'fa fa-calendar',
+                            'icon_color' => 'info',
+                            'url'        => 'anio_academico',
+                        ],
                     ],
-               ],
-
-               
-                // -------------------------
-                ],
-            
+                ],  
             ],
-            [
-                'text'        => 'Docentes',
-                'label'       => 2,
-                'label_color' => 'success',
-                'icon' =>"fa fa-graduation-cap",
-                'icon_color' => 'teal',
-                'submenu' => [
-                    [
-                        'text' => 'Docentes',
-                        'icon' =>"fa fa-address-card",
-                        'icon_color' => 'info',
-                        'url'  => 'docentes',
-                    ],                  
-                ],
-            
-            ],
-
-
-      
+        ],
+    
        
+    
+        [
+            'text'        => 'Docentes',
+            'label'       => 2,
+            'label_color' => 'success',
+            'icon'        => 'fa fa-graduation-cap',
+            'icon_color'  => 'teal',
+            'submenu'     => [
+                [
+                    'text'       => 'Docentes',
+                    'icon'       => 'fa fa-address-card',
+                    'icon_color' => 'info',
+                    'url'        => 'docentes',
+                ],
+            ],
+        ],
+    
         [
             'text'        => 'Reportes',
             'label'       => 5,
-           'label_color' => 'success',
-            'icon' =>"fa fa-book",
-           'icon_color' => 'teal',
-            'submenu' => [
+            'label_color' => 'success',
+            'icon'        => 'fa fa-book',
+            'icon_color'  => 'teal',
+            'submenu'     => [
                 [
-                    'text' => 'Reportes personas',
-                    'icon' =>"fa fa-file-pdf",
+                    'text'       => 'Reportes personas',
+                    'icon'       => 'fa fa-file-pdf',
                     'icon_color' => 'red',
-                    'url'  => 'Reportepersonas',
-                ],
-              
-                [
-                    'text' => 'Reportes Matricula',
-                    'icon' =>"fa fa-file-pdf",
-                    'icon_color' => 'red',
-                    'url'  => 'Reportematriculas',
+                    'url'        => 'Reportepersonas',
                 ],
                 [
-                    'text' => 'Reportes docentes',
-                    'icon' =>"fa fa-file-pdf",
+                    'text'       => 'Reportes Matricula',
+                    'icon'       => 'fa fa-file-pdf',
                     'icon_color' => 'red',
-                    'url'  => 'Reportedocentes',
+                    'url'        => 'Reportematriculas',
                 ],
                 [
-                    'text' => 'Reportes Padres',
-                    'icon' =>"fa fa-file-pdf",
+                    'text'       => 'Reportes docentes',
+                    'icon'       => 'fa fa-file-pdf',
                     'icon_color' => 'red',
-                    'url'  => 'Reportepadres',
+                    'url'        => 'Reportedocentes',
                 ],
-              
+                [
+                    'text'       => 'Reportes Padres',
+                    'icon'       => 'fa fa-file-pdf',
+                    'icon_color' => 'red',
+                    'url'        => 'Reportepadres',
+                ],
             ],
-        
         ],
+    
         [
             'text'        => 'Seguridad',
             'label'       => 5,
-           'label_color' => 'success',
-            'icon' =>"fa fa-lock",
-           'icon_color' => 'teal',
-            'submenu' =>[
-            [
-            'text'        => 'Principal',
-            'label'       => 5,
-           'label_color' => 'success',
-            'icon' =>"fa fa-suitcase",
-           'icon_color' => 'secondary',
-            'submenu' => [
+            'label_color' => 'success',
+            'icon'        => 'fa fa-lock',
+            'icon_color'  => 'teal',
+            'submenu'     => [
                 [
-                    'text' => 'usuarios',
-                    'icon' =>"fa fa-user",
-                    'icon_color' => 'info',
-                    'url'  => 'usuarios',
+                    'text'        => 'Principal',
+                    'label'       => 5,
+                    'label_color' => 'success',
+                    'icon'        => 'fa fa-suitcase',
+                    'icon_color'  => 'secondary',
+                    'submenu'     => [
+                        [
+                            'text'       => 'usuarios',
+                            'icon'       => 'fa fa-user',
+                            'icon_color' => 'info',
+                            'url'        => 'usuarios',
+                        ],
+                        [
+                            'text'       => 'Cambiar contraseña',
+                            'icon'       => 'fa fa-key',
+                            'icon_color' => 'info',
+                            'url'        => 'cambiarContrasena',
+                        ],
+                        [
+                            'text'       => 'Roles Objetos',
+                            'icon'       => 'fa fa-user',
+                            'icon_color' => 'info',
+                            'url'        => 'roles_objetos',
+                        ],
+                        [
+                            'text'       => 'Roles',
+                            'icon'       => 'fa fa-users',
+                            'icon_color' => 'info',
+                            'url'        => 'roles',
+                        ],
+                        [
+                            'text'       => 'Bitacora',
+                            'url'        => 'bitacora',
+                            'icon'       => 'fa fa-file',
+                            'icon_color' => 'info',
+                        ],
+                        [
+                            'text'       => 'Backup',
+                            'url'        => 'backuprestore',
+                            'icon'       => 'fa fa-database',
+                            'icon_color' => 'info',
+                        ],
+                    ],
                 ],
-                [
-                    'text' => 'Cambiar contraseña',
-                    'icon' =>"fa fa-key",
-                    'icon_color' => 'info',
-                    'url'  => 'cambiarContrasena',
-                ],
-                [
-                    'text' => 'Roles Objetos',
-                    'icon' =>"fa fa-user",
-                    'icon_color' => 'info',
-                    'url'  => 'roles_objetos',
-                ],
-                [
-                    'text' => 'Roles',
-                    'icon' =>"fa fa-users",
-                    'icon_color' => 'info',
-                    'url'  => 'roles',
-                ],
-                [
-                    'text' => 'Bitacora',  // Opción "Log Out"
-                    'url'  => 'bitacora',  // Cambia 'logout' por la URL real de tu función de logout
-                    'icon' => 'fa fa-file',  // Icono de "Log Out"
-                    'icon_color' => 'info',
-                ],
-                [
-                    'text' => 'Backup',  // Opción "Log Out"
-                    'url'  => 'backuprestore',  // Cambia 'logout' por la URL real de tu función de logout
-                    'icon' => 'fa fa-database',  // Icono de "Log Out"
-                    'icon_color' => 'info',
-                ],
-            ],
-        ],
-                //  -------------------------
                 [
                     'text'        => 'Mantenimientos',
                     'label'       => 5,
-                   'label_color' => 'success',
-                    'icon' =>"fa fa-cogs",
-                   'icon_color' => 'secondary',
-                    'submenu' => [
+                    'label_color' => 'success',
+                    'icon'        => 'fa fa-cogs',
+                    'icon_color'  => 'secondary',
+                    'submenu'     => [
                         [
-                            'text' => 'Preguntas',
-                            'icon' =>"fa fa-user",
+                            'text'       => 'Preguntas',
+                            'icon'       => 'fa fa-user',
                             'icon_color' => 'info',
-                            'url'  => 'preguntas',
+                            'url'        => 'preguntas',
                         ],
-        
                         [
-                            'text' => 'Objetos',
-                            'icon' =>"fa fa-user",
+                            'text'       => 'Objetos',
+                            'icon'       => 'fa fa-user',
                             'icon_color' => 'info',
-                            'url'  => 'objetos',
+                            'url'        => 'objetos',
                         ],
-        
                         [
-                            'text' => 'Parametros',
-                            'icon' =>"fa fa-user",
+                            'text'       => 'Parametros',
+                            'icon'       => 'fa fa-user',
                             'icon_color' => 'info',
-                            'url'  => 'parametros',
-                        ],              
-                        [
-                            'text' => 'Estado usuarios',
-                            'icon' =>"fa fa-user-times",
-                            'icon_color' => 'info',
-                            'url'  => 'estado_usuario',
+                            'url'        => 'parametros',
                         ],
-                        /*
                         [
-                            'text' => 'Estado Roles',
-                            'icon' =>"fa fa-user-times",
+                            'text'       => 'Estado usuarios',
+                            'icon'       => 'fa fa-user-times',
                             'icon_color' => 'info',
-                            'url'  => 'estado_rol',
+                            'url'        => 'estado_usuario',
                         ],
-                        */
                     ],
-               ],
-
-
-                // -------------------------
+                ],
             ],
         ],
+    
         [
-            'text' => 'Cerrar sesión',  // Opción "Log Out"
-            'url'  => 'login/logout',  // Cambia 'logout' por la URL real de tu función de logout
-            'icon' => 'fas fa-fw fa-sign-out-alt',  // Icono de "Log Out"
+            'text'       => 'Cerrar sesión',
+            'url'        => 'login/logout',
+            'icon'       => 'fas fa-fw fa-sign-out-alt',
             'icon_color' => 'red',
         ],
-      
     ],
+    
 
     /*
     |--------------------------------------------------------------------------
