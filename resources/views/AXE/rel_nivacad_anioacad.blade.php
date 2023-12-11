@@ -75,15 +75,34 @@
 
                         @csrf
                        
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="COD_NIVEL_ACADEMICO"  class="form-label">Ingrese</label>
-                            <input type="text" class="form-control same-width" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" placeholder="Ingrese Cod" inputmode="text" required  maxlength="30">
+                        <div class="form-group col-md-12  d-flex"">
+                            <div class="form-group col-md-2"> 
+                            <label for="COD_NIVEL_ACADEMICO"class="form-label mr-2">Nivel Academico: </label>
                         </div>
-
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="COD_ANIO_ACADEMICO"  class="form-label">Ingrese</label>
-                            <input type="text" class="form-control same-width" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" placeholder="Ingrese Cod" inputmode="text" required  maxlength="30">
+                        <div class="form-group col-md-10"> 
+                            <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
+                                <option value="" disabled selected>Seleccione el nivel academico</option>
+                                @foreach ($nivel_academicoArreglo as $nivel_academico)
+                                    <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}">{{ $nivel_academico['DESCRIPCION'] }}</option>
+                                @endforeach
+                            </select>
                         </div>
+                    </div>
+                        
+                    <div class="form-group col-md-12  d-flex"">
+                            <div class="form-group col-md-2"> 
+                            <label for="COD_ANIO_ACADEMICO"class="form-label mr-2">Año Academico: </label>
+                        </div>
+                        <div class="form-group col-md-10"> 
+                            <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required>
+                                <option value="" disabled selected>Seleccione el año academico:</option>
+                                @foreach ($anio_academicoArreglo as $anio_academico)
+                                    <option value="{{ $anio_academico['COD_ANIO_ACADEMICO'] }}">{{ $anio_academico['descripcion'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                        
                         
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="Estado_registro" class="form-label mr-5">Estado:</label>
@@ -115,11 +134,41 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($citaArreglo as $rel_nivacad_anioacad)
+                @foreach($rel_nivacad_anioacadArreglo as $rel_nivacad_anioacad)
+                @php
+                $nivel = null;
+                    foreach ($nivel_academicoArreglo as $n) {
+                        if ($n['COD_NIVEL_ACADEMICO'] === $rel_nivacad_anioacad['COD_NIVEL_ACADEMICO']) {
+                            $nivel = $n;
+                            break;
+                        }
+                    }
+                @endphp
+                @php
+                    $anio = null;
+                    foreach ($anio_academicoArreglo as $a) {
+                        if ($a['COD_ANIO_ACADEMICO'] === $rel_nivacad_anioacad['COD_ANIO_ACADEMICO']) {
+                            $anio = $a;
+                            break;
+                        }
+                    }
+                @endphp
                     <tr>
                         <td>{{ $rel_nivacad_anioacad['COD_NIVACAD_ANIOACAD'] }}</td>
-                        <td>{{ $rel_nivacad_anioacad['DESCRIPCION_NIVEL'] }}</td>
-                        <td>{{ $rel_nivacad_anioacad['DESCRIPCION_ANIO'] }}</td>
+                        <td>
+                        @if ($nivel !== null)
+                            {{ $nivel['DESCRIPCION'] }}
+                        @else
+                            Nivel no encontrado
+                        @endif
+                        </td>
+                        <td>
+                        @if ($anio !== null)
+                            {{ $anio['descripcion'] }}
+                        @else
+                            Año no encontrado
+                        @endif
+                    </td>
                         <td>
                         @if($rel_nivacad_anioacad['Estado_registro'] == 1)
                         Activo
@@ -138,7 +187,7 @@
         </table>
     </div>
 
-    @foreach($citaArreglo as $rel_nivacad_anioacad)
+    @foreach($rel_nivacad_anioacadArreglo as $rel_nivacad_anioacad)
         <div class="modal fade bd-example-modal-sm" id="rel_nivacad_anioacad-edit-{{ $rel_nivacad_anioacad['COD_NIVACAD_ANIOACAD'] }}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -150,15 +199,36 @@
                         <form action="{{ url('rel_nivacad_anioacad/actualizar') }}" method="post">
                             @csrf
                             <input type="hidden" class="form-control" name="COD_NIVACAD_ANIOACAD" value="{{ $rel_nivacad_anioacad['COD_NIVACAD_ANIOACAD'] }}">
-                            <div class="mb-3 mt-3 d-flex align-items-center">
-                                <label for="COD_NIVEL_ACADEMICO"  class="form-label"></label>Nivel Academico
-                                <input type="text" class="form-control" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" placeholder="Ingrese la asignatura" value="{{ $rel_nivacad_anioacad['COD_NIVEL_ACADEMICO'] }}" maxlength="30">
-                            </div>
-
-                            <div class="mb-3 mt-3 d-flex align-items-center">
-                                <label for="COD_ANIO_ACADEMICO"  class="form-label"></label>Año Academico
-                                <input type="text" class="form-control" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" placeholder="Ingrese la asignatura" value="{{ $rel_nivacad_anioacad['COD_ANIO_ACADEMICO'] }}" maxlength="30">
-                            </div>
+                            
+                            <div class="form-group col-md-12 d-flex"> 
+                            <div class="form-group col-md-2"> 
+                                     <label for="COD_NIVEL_ACADEMICO" class="form-label form-inline">Nivel Academico :</label>
+                             </div>
+                             <div class="form-group col-md-10"> 
+                            <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
+                                @foreach ($nivel_academicoArreglo as $nivel_academico)
+                                    <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}" {{ $nivel_academico['COD_NIVEL_ACADEMICO'] == $rel_nivacad_anioacad['COD_NIVEL_ACADEMICO'] ? 'selected' : '' }}>
+                                        {{ $nivel_academico['DESCRIPCION'] }} 
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        </div>
+                        
+                        <div class="form-group col-md-12 d-flex"> 
+                            <div class="form-group col-md-2"> 
+                                     <label for="COD_ANIO_ACADEMICO" class="form-label form-inline">Año Academico :</label>
+                             </div>
+                             <div class="form-group col-md-10"> 
+                            <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required>
+                                @foreach ($anio_academicoArreglo as $anio_academico)
+                                    <option value="{{ $anio_academico['COD_ANIO_ACADEMICO'] }}" {{ $anio_academico['COD_ANIO_ACADEMICO'] == $rel_nivacad_anioacad['COD_ANIO_ACADEMICO'] ? 'selected' : '' }}>
+                                        {{ $anio_academico['descripcion'] }} 
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        </div>
 
                             <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="Estado_registro" class="form-label mr-5">Estado:</label>
