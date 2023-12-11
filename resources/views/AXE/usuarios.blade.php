@@ -330,13 +330,14 @@
                     </div>
                 
 
-                        <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="PRIMER_INGRESO" class="form-label mr-2">Primer Ingreso:</label>
-                        <select class="form-control same-width" id="PRIMER_INGRESO" name="PRIMER_INGRESO">
-                        <option value="1" selected>No Realizado</option>
-                        <option value="2">Realizado</option>
-                        </select>
-                        </div>
+                    <div class="mb-3 mt-3 d-flex align-items-center">
+    <label for="PRIMER_INGRESO" class="form-label mr-2">Primer Ingreso:</label>
+    <select class="form-control same-width" id="PRIMER_INGRESO" name="PRIMER_INGRESO">
+        <option value="1" {{ $usuarios['PRIMER_INGRESO'] == 0 ? 'selected' : '' }}>No Realizado</option>
+        <option value="2" {{ $usuarios['PRIMER_INGRESO'] == 1 ? 'selected' : '' }}>Realizado</option>
+    </select>
+</div>
+
 
                 <div class="mb-3 mt-3 d-flex align-items-center">
                     <label for="COD_ESTADO_USUARIO" class="form-label mr-2">Estado usuario:</label>
