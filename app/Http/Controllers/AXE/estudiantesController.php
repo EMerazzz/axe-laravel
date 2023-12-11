@@ -60,7 +60,7 @@ class estudiantesController extends Controller
             'Authorization' => 'Bearer ' . $token,
         ])->get($this->apiUrl.'/verEstudiante');
         $matriculaArreglo = json_decode($matricula, true);
-
+         //dd($matriculaArreglo);
         $UsuarioValue = $_COOKIE["Usuario"];
        /* $OBJETO = "MATRICULA";
         $permisos = Http::post($this->apiUrl.'/permisos_usuario',[

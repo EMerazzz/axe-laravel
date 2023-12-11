@@ -47,6 +47,7 @@
                 <th>Sección</th>
                 <th>Jornada</th>
                 <th>Año matricula</th>
+                <th>Estado</th>
             </tr>
         </thead>
         <tbody>
@@ -58,6 +59,13 @@
                 <td>{{ $matricula['SECCION'] }}</td>
                 <td>{{ $matricula['JORNADA'] }}</td>
                 <td>{{ $matricula['AÑO_MATRICULA'] }}</td>
+                <td>
+                        @if($matricula['Estado_registro'] == 1)
+                        Activo
+                    @elseif($matricula['Estado_registro'] == 0)
+                        Inactivo
+                    @endif 
+                        </td>
             </tr>
             @endforeach
         </tbody>

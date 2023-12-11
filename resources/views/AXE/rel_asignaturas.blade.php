@@ -10,7 +10,7 @@
   }
 </style>
 <blockquote class="custom-blockquote">
-    <p class="mb-0">Tabla Relacción en el sistema AXE.</p>
+    <p class="mb-0">Clases por grado.</p>
 </blockquote>
 
 @stop
@@ -279,10 +279,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
    <!-- Enlace a selectize-->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
+   <!-- Incluye jQuery y DataTables -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.25/features/searchHighlight/dataTables.searchHighlight.min.js"></script>
+
     <!-- Script personalizado para inicializar DataTables -->
     <script>
     $(document).ready(function() {
-        $('#miTabla').DataTable({
+        var table = $('#miTabla').DataTable({
             "language": {
                 "search": "Buscar: ",
                 "lengthMenu": "Mostrar _MENU_ registros por página",
@@ -294,12 +301,43 @@
                     "last": ""
                 }
             },
-            "lengthMenu": [5, 10, 30, 50,100,200], // Opciones disponibles en el menú
-            "pageLength": 5, // Establece la longitud de página predeterminada en 5
-            "order": [[0, 'desc']] // Ordenar por la primera columna de forma descendente
+            "lengthMenu": [5, 10, 30, 50, 100, 200],
+            "pageLength": 5,
+            "order": [[0, 'desc']]
+        });
+
+        $('#miTabla thead th').each(function(index) {
+            var title = $(this).text();
+            if (index !== $('#miTabla thead th').length - 1) { // Excluir la última columna
+                $(this).html('<div class="filtroColumna"><span>' + title + '</span><select class="filtroSelect"><option value="">' + title + '</option></select></div>');
+            }
+        });
+
+        table.columns().every(function(index) {
+            var column = this;
+            var select = $(this.header()).find('.filtroSelect');
+
+            if (select.hasClass('filtroSelect')) {
+                column.data().unique().sort().each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>');
+                });
+            }
+
+            select.on('change', function() {
+                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                // Aplicar el filtro solo si no es la última columna (columna de opciones)
+                if (index !== table.columns().indexes().length - 1) {
+                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                }
+            });
         });
     });
 </script>
+
+
+
+
  
    <!-- Script personalizado para CAMBIAR MODO -->
    <script>
