@@ -75,8 +75,8 @@
 
                         @csrf
                        
-                        <div class="form-group col-md-12  d-flex"">
-                            <div class="form-group col-md-2"> 
+                        <div class="mb-3 mt-3 d-flex align-items-center">
+                            <div class="form-group mr-2"> 
                             <label for="COD_NIVEL_ACADEMICO"class="form-label mr-2">Nivel Academico: </label>
                         </div>
                         <div class="form-group col-md-10"> 
@@ -89,8 +89,8 @@
                         </div>
                     </div>
                         
-                    <div class="form-group col-md-12  d-flex"">
-                            <div class="form-group col-md-2"> 
+                    <div class="mb-3 mt-3 d-flex align-items-center">
+                            <div class="form-group mr-1"> 
                             <label for="COD_ANIO_ACADEMICO"class="form-label mr-2">Año Academico: </label>
                         </div>
                         <div class="form-group col-md-10"> 
@@ -200,9 +200,9 @@
                             @csrf
                             <input type="hidden" class="form-control" name="COD_NIVACAD_ANIOACAD" value="{{ $rel_nivacad_anioacad['COD_NIVACAD_ANIOACAD'] }}">
                             
-                            <div class="form-group col-md-12 d-flex"> 
+                            <div class="mb-3 mt-3 d-flex align-items-center">
                             <div class="form-group col-md-2"> 
-                                     <label for="COD_NIVEL_ACADEMICO" class="form-label form-inline">Nivel Academico :</label>
+                                     <label for="COD_NIVEL_ACADEMICO" class="form-label mr-2">Nivel Academico</label>
                              </div>
                              <div class="form-group col-md-10"> 
                             <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required>
@@ -215,9 +215,9 @@
                         </div>
                         </div>
                         
-                        <div class="form-group col-md-12 d-flex"> 
+                        <div class="mb-3 mt-3 d-flex align-items-center">
                             <div class="form-group col-md-2"> 
-                                     <label for="COD_ANIO_ACADEMICO" class="form-label form-inline">Año Academico :</label>
+                                     <label for="COD_ANIO_ACADEMICO" class="form-label mr-2">Año Academico</label>
                              </div>
                              <div class="form-group col-md-10"> 
                             <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required>
@@ -231,7 +231,7 @@
                         </div>
 
                             <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="Estado_registro" class="form-label mr-5">Estado:</label>
+                            <label for="Estado_registro" class="form-label mr-4 ml-2">Estado:</label>
                            <select class="form-control same-width" id="Estado_registro" name="Estado">
                            <option value="1" {{ $rel_nivacad_anioacad['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
                            <option value="0" {{ $rel_nivacad_anioacad['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
