@@ -317,7 +317,7 @@
 
                      
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="COD_ROL" class="form-label mr-4">Personal:</label>
+                        <label for="COD_ROL" class="form-label mr-4">Rol:</label>
                         <select class="selectize" style="width: 400px;" id="COD_ROL" name="COD_ROL" required style="width: 300px;">
                             <option value="" disabled selected>Seleccione el Rol</option>
                             @foreach ($rolesArreglo as $roles)
