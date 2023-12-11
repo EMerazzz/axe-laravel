@@ -192,6 +192,15 @@ function generarlista() {
     const table = $('#miTabla').DataTable();
     const filteredData = table.rows({ search: 'applied' }).data();
 
+    // Información adicional arriba de la tabla
+    const additionalInfo = [
+        { text: `Nivel Académico: ${filteredData[0][1]}`, bold: true },
+        { text: `Año Académico: ${filteredData[0][2]}`, bold: true },
+        { text: `Sección: ${filteredData[0][3]}`, bold: true },
+        { text: `Jornada: ${filteredData[0][4]}`, bold: true },
+        { text: `Año Matrícula: ${filteredData[0][5]}`, bold: true },
+    ];
+
     filteredData.each(function (rowData) {
         const row = [{ text: rowData[0], bold: true }]; // Poner en negrita el dato real de la primera columna
 
@@ -216,6 +225,8 @@ function generarlista() {
                 alignment: 'center',
                 margin: [0, 0, 0, 10]
             },
+            // Información adicional arriba de la tabla
+            ...additionalInfo,
             {
                 table: {
                     headerRows: 1,
@@ -236,6 +247,7 @@ function generarlista() {
 }
 
 </script>
+
 
 
 <script>
