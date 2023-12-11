@@ -22,6 +22,18 @@
         <i class="fas fa-adjust"></i> Cambiar Modo
     </button>
 </div>--->
+
+
+<div class="text-center mt-3">
+    <!-- Grupo de PDF -->
+    <div class="d-inline-block align-items-center">
+        <button id="export-pdf" class="btn btn-danger" onclick="generarPDF()" style="margin-right: 8px;">
+            <i class="far fa-file-pdf"></i> Exportar a PDF
+        </button>
+    </div>
+</div>
+
+
 <style>
     .same-width {
         width: 100%; /* El combobox ocupará el mismo ancho que el textbox */
@@ -387,5 +399,87 @@ modeToggle.addEventListener('click', () => {
             allowClear: true // Permite borrar la selección
         });
     });
+</script>
+
+
+<script>
+     //pdf
+     function generarPDF() {
+    const printWindow = window.open('', '_blank');
+    const tableContent = document.getElementById('miTabla').cloneNode(true);
+
+    // Elimina la última columna que contiene botones de eliminar y editar
+    const rows = tableContent.querySelectorAll('tr');
+    rows.forEach(row => {
+        const lastCell = row.lastElementChild;
+        lastCell.parentNode.removeChild(lastCell);
+    });
+
+    // Ruta de la imagen local (reemplaza 'TU_RUTA_DE_IMAGEN_LOCAL' con la ruta correcta)
+    const imagePath = 'vendor/adminlte/dist/img/axe.png';
+
+    // Convertir la imagen local a base64 de forma asíncrona
+    const getBase64ImageAsync = (imgPath, callback) => {
+        const img = new Image();
+        img.onload = function () {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+
+            const dataURL = canvas.toDataURL('image/png');
+            callback(dataURL.replace(/^data:image\/(png|jpg);base64,/, ''));
+        };
+
+        img.src = imgPath;
+    };
+
+    // Obtener la base64 de la imagen
+    getBase64ImageAsync(imagePath, (logoBase64) => {
+        printWindow.document.open();
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>ReporteAsignaturaGrado</title>
+                <style>
+                    table {
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+
+                    th, td {
+                        border: 1px solid black;
+                        padding: 8px;
+                        text-align: left;
+                    }
+                </style>
+            </head>
+            <body>
+                <div>
+                    <img src="data:image/png;base64, ${logoBase64}" alt="Logo" style="width: 50px; height: 50px; margin: 10px;">
+                    <h1 style="text-align: center;">Reportes Asignatura Grado</h1>
+                </div>
+                ${tableContent.outerHTML}
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+
+        // Espera a que se cargue el contenido antes de llamar al método print
+        printWindow.onload = function () {
+            printWindow.print();
+            printWindow.onafterprint = function () {
+                printWindow.close();
+            };
+        };
+    });
+}
+
+
+
+//Excel
+
 </script>
 @stop
