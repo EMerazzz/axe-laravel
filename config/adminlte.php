@@ -400,6 +400,13 @@ return [
                     'icon_color' => 'info',
                     'url'        => 'docentes',
                 ],
+
+                [
+                    'text'       => 'Docentes & Asignaturas',
+                    'icon'       => 'fa fa-address-card',
+                    'icon_color' => 'info',
+                    'url'        => 'rel_docentes_asig',
+                ],
             ],
         ],
     
