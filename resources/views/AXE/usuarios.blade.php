@@ -234,7 +234,7 @@
                    <button value="Eliminar" title="Eliminar" class="btn btn-outline-danger" type="button" data-toggle="modal"
                    data-target="#usuarios-delete-{{ $usuarios['COD_USUARIO'] }}" id="botonEliminar_{{ $usuarios['COD_USUARIO'] }}">
                    <i class="fas fa-trash-alt" style="font-size: 13px; color: danger;"></i> Eliminar
-               </button>->
+               </button>-->
                 </td>
             </tr>
             @endforeach
@@ -360,6 +360,7 @@
 @endforeach
 
 @stop
+
 @section('footer')
 <style>
         body, html {
@@ -486,37 +487,6 @@
     // Acceder a los elementos del array
 </script>
 
-   <script>
-const modeToggle = document.getElementById('mode-toggle');
-const body = document.body;
-const table = document.getElementById('miTabla');
-const modals = document.querySelectorAll('.modal-content'); // Select all modal content elements
-
-// Check if the selected theme is already stored in localStorage
-const storedTheme = localStorage.getItem('theme');
-if (storedTheme) {
-    body.classList.add(storedTheme); // Apply the stored theme class
-    table.classList.toggle('table-dark', storedTheme === 'dark-mode');
-    modals.forEach(modal => {
-        modal.classList.toggle('dark-mode', storedTheme === 'dark-mode');
-    });
-}
-
-modeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    table.classList.toggle('table-dark');
-    
-    // Toggle the dark-mode class on modal content elements
-    modals.forEach(modal => {
-        modal.classList.toggle('dark-mode');
-    });
-
-    // Store the selected theme in localStorage
-    const theme = body.classList.contains('dark-mode') ? 'dark-mode' : '';
-    localStorage.setItem('theme', theme);
-});
-
-</script>
 <script>
         $(document).ready(function() {
             $('#messageModal').modal('show');
@@ -537,6 +507,7 @@ modeToggle.addEventListener('click', () => {
         });
 
     });
+
     function personaEstaSeleccionada(personas, usuarios) {
         // Implementa la lógica aquí para verificar si la persona ya está seleccionada en $usuarios
         // Por ejemplo, podrías verificar si el código de la persona está presente en $usuarios.

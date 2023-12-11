@@ -19,8 +19,8 @@
 <div class="container">
     <div class="d-flex align-items-center mb-4">
         <div class="d-inline-block align-items-center">
-            <button class="btn btn-danger" onclick="generarlista()" style="margin-right: 8px;">
-                <i class="far fa-file-pdf"></i> generar lista
+            <button class="btn btn-info" onclick="generarlista()" style="margin-right: 8px;">
+                <i class="fa fa-address-book"></i> generar lista
             </button>
         </div>
         <div class="d-inline-block align-items-center">
