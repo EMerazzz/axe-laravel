@@ -178,8 +178,8 @@
                             </div>
 
                             <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="Estado_registro" class="form-label mr-5">Estado:</label>
-                           <select class="form-control same-width" id="Estado_registro" name="Estado">
+                            <label for="Estado_registro" class="form-label mr-4 ml-1">Estado:</label>
+                           <select class="form-control same-width"  style="width: 400px;" id="Estado_registro" name="Estado">
                            <option value="1" {{ $parametros['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
                            <option value="0" {{ $parametros['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
                           </select>

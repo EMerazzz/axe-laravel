@@ -166,6 +166,8 @@
         </div>
     </div>
 </div>
+</div>
+
 
 <!-- empieza modal eliminar -->
 <div class="modal fade bd-example-modal-sm" id="secciones-delete-{{$secciones['COD_SECCIONES']}}" tabindex="-1">

@@ -114,11 +114,11 @@
     </div>
 </div>
 
-
                         <!-- FIN --->
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="COD_NIVEL_ACADEMICO" class="form-label mr-2">Nivel Adémico: </label>
-                            <select class="selectize-select" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required style="width: 300px;">
+                            <label for="COD_NIVEL_ACADEMICO" class="form-label mr-3">Nivel Adémico: </label>
+               
+                            <select class="selectize-select" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO" required style="width: 350px;">
                                 <option value="" disabled selected>Seleccione el nivel académico</option>
                                 @foreach ($nivel_academicoArreglo as $nivel_academico)
                                     <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}"
@@ -128,25 +128,21 @@
                                 @endforeach
                             </select>
                         </div>
-
+                                             
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                                <label for="COD_ANIO_ACADEMICO" class="form-label mr-2">Año Académico: </label>
-                                <select class="selectize-select" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" required style="width: 300px;">
-                                    <option value="" disabled selected>Seleccione el año académico</option>
-                                    @foreach ($anio_academicoArreglo as $anio_academico)
-                                        <option value="{{ $anio_academico['COD_ANIO_ACADEMICO'] }}"
-                                                {{ old('COD_ANIO_ACADEMICO') == $anio_academico['COD_ANIO_ACADEMICO'] ? 'selected' : '' }}>
-                                            {{ $anio_academico['descripcion'] }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            <label for="COD_ANIO_ACADEMICO" class="form-label mr-2">Año Académico: </label>
+                            <select id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO" class="form-select" style="width: 350px;">
+                                <option value="" disabled >Seleccione el año académico</option>
+                                <!-- Las opciones se llenarán dinámicamente con JavaScript -->
+                            </select>
+                        </div>
+                        
 
 
                             <div class="mb-3 mt-3 d-flex align-items-center">
                         <label for="estudiantes" class="form-label mr-5">Jornada: </label>
-                        <select class="selectize-select" id="JORNADA" name="JORNADA" required style="width: 300px;">
+                        <select class="selectize-select ml-2" id="JORNADA" name="JORNADA" required style="width: 350px;">
                             <option value="Matutina" {{ old('JORNADA_ESTUDIANTE') == 'Matutina' ? 'selected' : '' }}>Matutina</option>
                             <option value="Vespertina"{{ old('JORNADA_ESTUDIANTE') == 'Vespertina' ? 'selected' : '' }}>Vespertina</option>
                             <option value="Nocturna"{{ old('JORNADA_ESTUDIANTE') == 'Nocturna' ? 'selected' : '' }}>Nocturna</option>
@@ -155,7 +151,7 @@
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="SECCION" class="form-label mr-5">Sección: </label>
-                            <select class="selectize-select" id="SECCION" name="SECCION" required style="width: 300px;">
+                            <select class="selectize-select ml-2" id="SECCION" name="SECCION" required style="width: 350px;" >
                                 <option value="" disabled selected>Seleccione la sección académica</option>
                                 @foreach ($seccionesArreglo as $seccion)
                                     <option value="{{ $seccion['COD_SECCIONES'] }}"
@@ -168,7 +164,7 @@
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
                     <label for="Estado" class="form-label mr-5 ">Estado:</label>
-                    <select class="form-control ancho-personalizado w-100 ml-1" id="Estado_registro" name="Estado_registro">
+                    <select class="selectize-select ml-3" id="Estado_registro" name="Estado_registro" style="width: 350px;">
                         <option value="1">Activo</option>
                         <option value="0">Inactivo</option>
                       </select>
@@ -204,13 +200,15 @@
             <tr>
                 <th>#</th>
                 <th>Estudiante</th>
+                 <th>Encargado </th>
                 <th>Nivel Académico</th>
                 <th>Año Académico</th>
                 <th>Sección</th>
                 <th>Jornada</th>
                 <th>Año Matricula </th>
 
-                <th>Encargado </th>
+               
+                 <th>Estado </th>
                 <th>Opciones Tabla</th>
             </tr>
         </thead>
@@ -263,6 +261,13 @@
                             Persona no encontrada
                         @endif
                 </td>
+                <td>
+                    @if ($padres !== null)
+                        {{ $padres['NOMBRE_PADRE_TUTOR']. ' ' .$padres['APELLIDO_PADRE_TUTOR']}}
+                    @else
+                         no encontrado
+                    @endif
+             </td>
                  <td>
                         @if ($nivel_academico !== null)
                             {{ $nivel_academico['DESCRIPCION']}}
@@ -280,13 +285,15 @@
                  <td>{{ $matricula['SECCION'] }}</td>
                  <td>{{ $matricula['JORNADA'] }}</td>
                  <td>{{ $matricula['AÑO_MATRICULA'] }}</td>
+                 
+
                  <td>
-                        @if ($padres !== null)
-                            {{ $padres['NOMBRE_PADRE_TUTOR']. ' ' .$padres['APELLIDO_PADRE_TUTOR']}}
-                        @else
-                             no encontrado
-                        @endif
-                 </td>
+                    @if($matricula['Estado_registro'] == 1)
+                    Activo
+                @elseif($matricula['Estado_registro'] == 0)
+                    Inactivo
+                @endif 
+                    </td>
                  <td>
             
             <!-- Botones -->
@@ -324,7 +331,7 @@
                         <input type="hidden" class="form-control" name="COD_MATRICULA" value="{{ $matricula['COD_MATRICULA'] }}">
                         <div class="mb-3 mt-3 d-flex align-items-center">
                         <label for="COD_PERSONA"  class="form-label mr-4">Estudiante:</label>
-                        <select class="selectize"id="COD_PERSONA" name="COD_PERSONA"  required style="width: 300px;">
+                        <select class="selectize ml-4"id="COD_PERSONA" name="COD_PERSONA"  required style="width: 350px;">
                             <option value="" disabled>Seleccione un estudiante</option>
                             @foreach ($personasArreglo as $persona)
                                 @if ($persona['TIPO_PERSONA'] === 'Estudiante')
@@ -341,7 +348,8 @@
 
                     <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="COD_NIVEL_ACADEMICO" class="form-label mr-2">Nivel Académico: </label>
-                            <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO"  required style="width: 300px;">
+
+                            <select class="selectize" id="COD_NIVEL_ACADEMICO" name="COD_NIVEL_ACADEMICO"  required style="width: 350px;">
                                 <option value="" disabled selected>Seleccione el nivel académico</option>
                                 @foreach ($nivel_academicoArreglo as $nivel_academico)
                                     <option value="{{ $nivel_academico['COD_NIVEL_ACADEMICO'] }}"
@@ -354,7 +362,7 @@
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="COD_ANIO_ACADEMICO" class="form-label mr-3">Año Académico: </label>
-                            <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO"  required style="width: 300px;">
+                            <select class="selectize" id="COD_ANIO_ACADEMICO" name="COD_ANIO_ACADEMICO"  required style="width: 350px;">
                                 <option value="" disabled selected>Seleccione el año académico</option>
                                 @foreach ($anio_academicoArreglo as $anio_academico)
                                     <option value="{{ $anio_academico['COD_ANIO_ACADEMICO'] }}"
@@ -368,7 +376,7 @@
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="JORNADA" class="form-label mr-5">Jornada:</label>
-                            <select class="selectize" id="JORNADA" name="JORNADA"  required style="width: 300px;">
+                            <select class="selectize ml-3" id="JORNADA" name="JORNADA"  required style="width: 340px;">
                                 <option value="Matutina" {{ $matricula['JORNADA'] == 'Matutina' ? 'selected' : '' }}>Matutina</option>
                                 <option value="Vespertina" {{ $matricula['JORNADA'] == 'Vespertina' ? 'selected' : '' }}>Vespertina</option>
                                 <option value="Nocturna" {{ $matricula['JORNADA'] == 'Nocturna' ? 'selected' : '' }}>Nocturna</option>
@@ -377,7 +385,7 @@
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="SECCION" class="form-label mr-5">Sección: </label>
-                            <select class="selectize" id="SECCION" name="SECCION"  required style="width: 300px;">
+                            <select class="selectize ml-3" id="SECCION" name="SECCION"  required style="width: 340px;">
                                 <option value="" disabled selected>Seleccione la sección académica</option>
                                 @foreach ($seccionesArreglo as $seccion)
                                     <option value="{{ $seccion['COD_SECCIONES'] }}"
@@ -391,7 +399,7 @@
 
                               <div class="mb-3 mt-3 d-flex align-items-center">
                                 <label for="Estado_registro" class="form-label mr-5">Estado:</label>
-                               <select class="form-control same-width" id="Estado_registro" name="Estado">
+                               <select class="form-control same-width ml-4" id="Estado_registro" name="Estado" style="width: 340px;">
                                <option value="1" {{ $matricula['Estado_registro'] === 1 ? 'selected' : '' }}>Activo</option>
                                <option value="0" {{ $matricula['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
                               </select>
@@ -591,6 +599,7 @@
 @section('js')
     
     <script> console.log('Hi!'); </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Agregar scripts para DataTables -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -670,31 +679,62 @@ function imprimirModal(COD_MATRICULA) {
     // Imprime la ventana
     ventanaImpresion.print();
 }
+
+
 </script>
+<!-- JavaScript -->
 
+<script>
+    var ArregloRelacion = <?php echo json_encode($arregloRelacion_nivel_anio); ?>;
+    var ArregleAnios = <?php echo json_encode($anio_academicoArreglo); ?>;
+    var valorSeleccionado = ''; // Variable global para almacenar el valor seleccionado
 
-
-    <script>
     $(document).ready(function() {
-        $('#miTabla').DataTable({
-            "language": {
-                "search": "Buscar: ",
-                "lengthMenu": "Mostrar _MENU_ registros por página",
-                "info": "Mostrando página _PAGE_ de _PAGES_",
-                "paginate": {
-                    "previous": "Anterior",
-                    "next": "Siguiente",
-                    "first": "Primero",
-                    "last": ""
+        // Función para actualizar valorSeleccionado
+        function actualizarValorSeleccionado() {
+            var codigosAniosCumplenCondicion = []; 
+            valorSeleccionado = $('#COD_NIVEL_ACADEMICO').val();
+            $('#COD_ANIO_ACADEMICO').empty();
+           for (var i = 0; i < ArregloRelacion.length; i++) {
+                if (ArregloRelacion[i]['COD_NIVEL_ACADEMICO'] == valorSeleccionado) {
+                    for (var j = 0; j < ArregleAnios.length; j++) {
+                        if (ArregleAnios[j]['COD_ANIO_ACADEMICO'] == ArregloRelacion[i]['COD_ANIO_ACADEMICO']) {
+                            codigosAniosCumplenCondicion.push(ArregleAnios[j]['COD_ANIO_ACADEMICO']);
+                        }
+                    }
                 }
-            },
-            "lengthMenu": [5, 10, 30, 50,100,200], // Opciones disponibles en el menú
-            "pageLength": 5, // Establece la longitud de página predeterminada en 5
-            "order": [[0, 'desc']] // Ordenar por la primera columna de forma descendente
+            }
+
+            codigosAniosCumplenCondicion.sort();
+
+            for (var i = 0; i < ArregleAnios.length; i++) {
+                for (var j = 0; j < codigosAniosCumplenCondicion.length; j++) {
+                    if (ArregleAnios[i]['COD_ANIO_ACADEMICO'] == codigosAniosCumplenCondicion[j]) {
+                        const selectAnioAcademico = document.getElementById("COD_ANIO_ACADEMICO");
+                        
+                        const nuevoOption = document.createElement("option");
+                        nuevoOption.value = ArregleAnios[i]['COD_ANIO_ACADEMICO'];
+                        nuevoOption.text = ArregleAnios[i]['descripcion'];
+
+                        selectAnioAcademico.appendChild(nuevoOption);
+                        break; // Rompe el bucle interno si se cumple la condición para evitar duplicados
+                        
+                    }
+                }
+            }
+            // Puedes realizar otras acciones con valorSeleccionado aquí
+        }
+
+        // Llamar a la función para obtener el valor inicial
+        actualizarValorSeleccionado();
+
+        // Escuchar el evento de cambio en el select y actualizar valorSeleccionado
+        $('#COD_NIVEL_ACADEMICO').change(function() {
+            actualizarValorSeleccionado();
         });
     });
 </script>
- 
+
 <script>
     // Ejemplo de permisosDisponibles obtenido desde PHP
     var permisosDisponibles = <?php echo json_encode($permisosDisponibles); ?>;
@@ -742,31 +782,9 @@ function imprimirModal(COD_MATRICULA) {
     // Acceder a los elementos del array
 </script>
     
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var ArregloRelacion = <?php echo json_encode($arregloRelacion_nivel_anio); ?>;
-        var ArregloNiveles = <?php echo json_encode($nivel_academicoArreglo); ?>;
-        var ArregleAnios = <?php echo json_encode($anio_academicoArreglo); ?>;
-
-        var selectNivelAcademico = document.getElementById('COD_NIVEL_ACADEMICO');
-
-        selectNivelAcademico.addEventListener('change', function () {
-            var valorSeleccionado = this.value;
-          
-            // Puedes realizar otras acciones con el valor seleccionado aquí
-        });
-
-
-    alert(selectNivelAcademico);
-
-    });
-
-</script>
-
-
 
    <!-- Script personalizado para CAMBIAR MODO -->
-   <script>
+<script>
 const modeToggle = document.getElementById('mode-toggle');
 const body = document.body;
 const table = document.getElementById('miTabla');
@@ -798,26 +816,7 @@ modeToggle.addEventListener('click', () => {
 
 </script>
 
-<script>
-    // Espera a que el documento esté completamente cargado
-    document.addEventListener("DOMContentLoaded", function() {
-        // Obtener el elemento select por su ID
-        var selectElement = document.getElementById("COD_NIVEL_ACADEMICO");
 
-        // Guardar el valor inicial
-        var valorInicial = selectElement.value;
-
-        // Agregar un event listener para detectar cambios en el select
-        selectElement.addEventListener("change", function(event) {
-            // Obtener el nuevo valor seleccionado
-            var nuevoValor = event.target.value;
-
-            // Guardar o hacer lo que necesites con el nuevo valor
-            console.log("Valor actual seleccionado:", nuevoValor);
-            // Aquí podrías enviar el nuevo valor a través de una solicitud AJAX o guardarlo en alguna variable, base de datos, etc.
-        });
-    });
-</script>
 
 <script>
         $(document).ready(function() {

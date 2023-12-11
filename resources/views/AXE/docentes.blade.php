@@ -88,10 +88,10 @@
                     <form action="{{url('docentes/insertar')}}" method="post">
                         @csrf
                  <!-- INICIO --->
-                 <div class="mb-3 mt-3 row">
-    <label for="COD_PERSONA" class="col-md-3 col-form-label text-md-end">docente:</label>
+                 <div class="mb-3 mt-3 d-flex align-items-center">
+    <label for="COD_PERSONA"  class="form-label mr-4">Docente:</label>
     <div class="col-md-9">
-        <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+        <select class="selectize"  style="width: 365px;"  id="COD_PERSONA" name="COD_PERSONA" required>
             <option value="" disabled selected>Seleccione una persona</option>
             @foreach ($personasArreglo as $persona)
                 @php
@@ -234,7 +234,7 @@
 </div>
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                            <label for="docentes"  class="form-label mr-1">Cargo Actual:</label>
+                            <label for="docentes"  class="form-label mr-3">Cargo Actual:</label>
                             <input type="text" class="form-control" id="CARGO_ACTUAL" name="CARGO_ACTUAL" placeholder="Ingrese especialidad el cargo del docente" value="{{ $docentes['CARGO_ACTUAL'] }}"
                             title="Solo se permiten letras y espacios" oninput="this.value = this.value.replace(/[^A-Za-záéíóúÁÉÍÓÚñÑ ]/g, '')" required maxlength="30">
                         </div>
