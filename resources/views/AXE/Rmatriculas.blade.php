@@ -41,19 +41,22 @@
 </div>
 
 
+
 <div class="table-responsive">
 <table id="miTabla" class="table table-hover table-light table-striped mt-1" style="border:2px solid lime;">
-<thead>
+        <thead>
             <tr>
                 <th>#</th>
                 <th>Estudiante</th>
+                 <th>Encargado </th>
                 <th>Nivel Académico</th>
                 <th>Año Académico</th>
                 <th>Sección</th>
                 <th>Jornada</th>
-                <th>Estado Matrícula</th>
-                <th>Fecha Matrícula </th>
-                <th>Encargado </th>
+                <th>Año Matricula </th>
+
+               
+                 <th>Estado </th>
                
             </tr>
         </thead>
@@ -106,9 +109,16 @@
                             Persona no encontrada
                         @endif
                 </td>
+                <td>
+                    @if ($padres !== null)
+                        {{ $padres['NOMBRE_PADRE_TUTOR']. ' ' .$padres['APELLIDO_PADRE_TUTOR']}}
+                    @else
+                         no encontrado
+                    @endif
+             </td>
                  <td>
                         @if ($nivel_academico !== null)
-                            {{ $nivel_academico['descripcion']}}
+                            {{ $nivel_academico['DESCRIPCION']}}
                         @else
                              no encontrado
                         @endif
@@ -122,15 +132,19 @@
                  </td>
                  <td>{{ $matricula['SECCION'] }}</td>
                  <td>{{ $matricula['JORNADA'] }}</td>
-                 <td>{{ $matricula['ESTADO_MATRICULA'] }}</td>
-                 <td>{{date('d, M Y', strtotime($matricula['FECHA_MATRICULA']))}}</td>
+                 <td>{{ $matricula['AÑO_MATRICULA'] }}</td>
+                 
+
                  <td>
-                        @if ($padres !== null)
-                            {{ $padres['NOMBRE_PADRE_TUTOR']. ' ' .$padres['APELLIDO_PADRE_TUTOR']}}
-                        @else
-                             no encontrado
-                        @endif
-                 </td>
+                    @if($matricula['Estado_registro'] == 1)
+                    Activo
+                @elseif($matricula['Estado_registro'] == 0)
+                    Inactivo
+                @endif 
+                    </td>
+              
+        
+
             </tr>
             @endforeach
         </tbody>
