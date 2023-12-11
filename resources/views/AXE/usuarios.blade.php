@@ -118,10 +118,10 @@
 
                     <div class="mb-3 mt-3 d-flex align-items-center">
                     <div class="col-md-3">
-                        <label for="COD_ROL" class="form-label">Rol: </label>
+                        <label for="COD_ROL" class="form-label">Rol:</label>
                     </div>
                     <div class="col-md-9">
-                        <select class="Selectize selectize-select" id="COD_ROL" name="COD_ROL" required>
+                        <select class="Selectize selectize-select" style="width: 328px;" id="COD_ROL" name="COD_ROL" required>
                             <option value="" disabled selected>Seleccione el Rol</option>
                             @foreach ($rolesArreglo as $roles)
                                 <option value="{{ $roles['COD_ROL'] }}">{{ $roles['DESCRIPCION'] }}</option>
@@ -317,8 +317,8 @@
 
                      
                         <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="COD_ROL" class="form-label mr-4">Rol:</label>
-                        <select class="selectize" style="width: 400px;" id="COD_ROL" name="COD_ROL" required style="width: 300px;">
+                        <label for="COD_ROL" class="form-label mr-5 ml-3">Rol:</label>
+                        <select class="selectize" style="width: 370px;" id="COD_ROL" name="COD_ROL" required style="width: 300px;">
                             <option value="" disabled selected>Seleccione el Rol</option>
                             @foreach ($rolesArreglo as $roles)
                             <option value="{{ $roles['COD_ROL'] }}"
