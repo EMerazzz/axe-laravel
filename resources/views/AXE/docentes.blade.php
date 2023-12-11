@@ -88,17 +88,24 @@
                     <form action="{{url('docentes/insertar')}}" method="post">
                         @csrf
                  <!-- INICIO --->
-                 <div class="mb-3 mt-3 d-flex align-items-center">
-                    <label for="COD_PERSONA"  class="form-label mr-4 ml-2">Persona: </label>
-                    <select class="form-control ancho-personalizado w-100"  id="COD_PERSONA" name="COD_PERSONA" required>
-                        <option value="" disabled selected>Seleccione Persona</option>
-                        @foreach ($personasArreglo as $persona)
-                            @if ($persona['TIPO_PERSONA'] === 'Docente')
-                                <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
+                 <div class="mb-3 mt-3 row">
+    <label for="COD_PERSONA" class="col-md-3 col-form-label text-md-end">docente:</label>
+    <div class="col-md-9">
+        <select class="selectize" id="COD_PERSONA" name="COD_PERSONA" required>
+            <option value="" disabled selected>Seleccione una persona</option>
+            @foreach ($personasArreglo as $persona)
+                @php
+                    $docentesColeccion = collect($docentesArreglo);
+                @endphp
+
+                @if ($persona['TIPO_PERSONA'] === 'Docente' && !$docentesColeccion->contains('COD_PERSONA', $persona['COD_PERSONA']))
+                    <option value="{{ $persona['COD_PERSONA'] }}">{{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}</option>
+                @endif
+            @endforeach
+        </select>
+    </div>
+</div>
+                
                        <div class="mb-3 mt-3 d-flex align-items-center">
                             <label for="docentes"  class="form-label mr-4">Cargo Actual:</label>
                             <input type="text" class="form-control" id="CARGO_ACTUAL" name="CARGO_ACTUAL" placeholder="Ingrese especialidad el cargo del docente"
@@ -207,11 +214,11 @@
                         <input type="hidden" class="form-control" name="COD_DOCENTE" value="{{ $docentes['COD_DOCENTE'] }}">
 
                         <div class="mb-3 mt-3 d-flex align-items-center">
-    <label for="COD_PERSONA" class="form-label mr-4">Docente:</label>
+    <label for="COD_PERSONA" class="form-label mr-4">Personal:</label>
     <select class="selectize" style="width: 400px;" id="COD_PERSONA" name="COD_PERSONA" required style="width: 300px;">
-        <option value="" disabled>Seleccioa Un Docente</option>
+        <option value="" disabled>Seleccione una persona</option>
         @foreach ($personasArreglo as $persona)
-            @if ($persona['TIPO_PERSONA'] === 'Docentes')
+            @if ($persona['TIPO_PERSONA'] === 'Docente')
                 @if ($persona['COD_PERSONA'] == $docentes['COD_PERSONA'])
                     <option value="{{ $persona['COD_PERSONA'] }}" selected>
                         {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
@@ -455,14 +462,26 @@ modeToggle.addEventListener('click', () => {
         });
     </script>
     <!-- scripts para selectize-->
-     <script>
+    <script>
     $(document).ready(function() {
         $('.selectize').selectize({
             placeholder: 'Seleccione',
-            allowClear: true // Permite borrar la selección
+            allowClear: true, // Permite borrar la selección
             searchField: ['text', 'IDENTIDAD'], // Habilita la búsqueda por nombre, apellido e ID
         });
+        $('.selectize-select').selectize({
+            placeholder: 'Seleccione',
+            allowClear: true, // Permite borrar la selección
+            searchField: ['text'], // Habilita la búsqueda por nombre, apellido e ID
+        });
+
     });
+    function personaEstaSeleccionada(personas, usuarios) {
+        // Implementa la lógica aquí para verificar si la persona ya está seleccionada en $usuarios
+        // Por ejemplo, podrías verificar si el código de la persona está presente en $usuarios.
+        return usuarios.some(usuario => usuarios['COD_PERSONA'] === personas['COD_PERSONA']);
+    }
+   
 </script>
     <!-- scripts para generar reportes excel y pdf-->
 <script>

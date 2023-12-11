@@ -93,6 +93,30 @@ class docentesController extends Controller
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
         $UsuarioValue = $_COOKIE["Usuario"];
+        $Docenteselecionado = $request->input("COD_PERSONA");
+        //dd($Docente);
+            // Obtener todas las personas desde la API
+            $todosDocentes = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->get($this->apiUrl);
+            
+        if ($todosDocentes->successful()) {
+            $docentes_lista = $todosDocentes->json();
+            
+            foreach ($docentes_lista as $docentes) {
+               //dd ($docentes["COD_PERSONA"]);
+               // dd ($Docenteselecionado);
+               if ((string)$docentes["COD_PERSONA"] === (string)$Docenteselecionado) {
+                  
+                    // La persona ya existe, generar mensaje de error
+                    return redirect('docentes')->with('message', [
+                        'type' => 'error',
+                        'text' => 'Este docente ya está regisrado.'
+                    ])->withInput(); // Agregar esta línea para mantener los datos ingresados
+                }
+                
+            }
+        }
         $modificar_docente= Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'. $request->input("COD_DOCENTE"), [

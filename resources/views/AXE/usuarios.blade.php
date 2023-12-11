@@ -285,7 +285,7 @@
                         <div class="mb-3 mt-3 d-flex align-items-center">
     <label for="COD_PERSONA" class="form-label mr-4">Personal:</label>
     <select class="selectize" style="width: 400px;" id="COD_PERSONA" name="COD_PERSONA" required style="width: 300px;">
-        <option value="" disabled>Seleccione un estudiante</option>
+        <option value="" disabled>Seleccione una persona</option>
         @foreach ($personasArreglo as $persona)
             @if ($persona['TIPO_PERSONA'] === 'Personal Administrativo')
                 @if ($persona['COD_PERSONA'] == $usuarios['COD_PERSONA'])
