@@ -74,7 +74,7 @@
                 @csrf
 
                 <div class="mb-3 mt-3 d-flex align-items-center">
-                    <label for="COD_ASIGNATURA" class="form-label mr-2">Asignatura: </label>
+                    <label for="COD_ASIGNATURA" class="form-label mr-3 ml-1">Asignatura: </label>
                     <select class="selectize" id="COD_ASIGNATURA" name="COD_ASIGNATURA" required style="width: 300px;">
                         <option value="" disabled selected>Seleccione una asignatura</option>
                         @foreach ($asignaturasArreglo as $asignatura)
@@ -86,8 +86,8 @@
                 </div>
 
                 <div class="mb-3 mt-3 d-flex align-items-center">
-                    <label for="COD_NIVACAD_ANIOACAD" class="form-label mr-4">Grado:</label>
-                    <select class="selectize" style="width: 400px;" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" required style="width: 300px;">
+                    <label for="COD_NIVACAD_ANIOACAD" class="form-label mr-5 ml-2">Grado:</label>
+                    <select class="selectize" style="width: 300px;" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" required style="width: 300px;">
                         <option value="" disabled selected>Seleccione</option>
                         @foreach ($rel_asignaturasArreglo as $rel_asignatura)
                             <option value="{{ $rel_asignatura['COD_NIVACAD_ANIOACAD'] }}">
@@ -98,8 +98,8 @@
                 </div>
 
                 <div class="mb-3 mt-3 d-flex align-items-center">
-                    <label for="Estado_registro" class="form-label mr-5">Estado:</label>
-                    <select class="selectize" style="width: 400px;" id="Estado_registro" name="Estado_registro">
+                    <label for="Estado_registro" class="form-label mr-5 ml-1">Estado:</label>
+                    <select class="selectize" style="width: 300px;" id="Estado_registro" name="Estado_registro">
                         <option value="1">Activo</option>
                         <option value="0">Inactivo</option>
                     </select>
@@ -173,7 +173,7 @@
                     <input type="hidden" class="form-control" name="COD_REL_ASIG" value="{{ $rel_asignaturas['COD_REL_ASIG'] }}">
                     
                     <div class="mb-3 mt-3 d-flex align-items-center">
-    <label for="COD_ASIGNATURA" class="form-label mr-2">Asignatura: </label>
+    <label for="COD_ASIGNATURA" class="form-label mr-3">Asignatura:</label>
     <select class="selectize" style="width: 400px;" id="COD_ASIGNATURA" name="COD_ASIGNATURA" required style="width: 300px;">
         <option value="" disabled>Seleccione una asignatura</option>
         @foreach ($asignaturasArreglo as $asignatura)
@@ -185,7 +185,7 @@
     </select>
 </div>
 <div class="mb-3 mt-3 d-flex align-items-center">
-    <label for="COD_NIVACAD_ANIOACAD" class="form-label mr-4">Grado:</label>
+    <label for="COD_NIVACAD_ANIOACAD" class="form-label mr-5">Grado:</label>
     <select class="selectize" style="width: 400px;" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" required style="width: 300px;">
         <option value="" disabled>Seleccione</option>
         @foreach ($rel_nivacad_anioacadArreglo as $rel_nivacad_anioacad)
