@@ -71,7 +71,7 @@ class docentesController extends Controller
                 "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES"),
                 "USUARIO_MODIFICADOR" => $UsuarioValue,
                 "Estado_registro" => $request->input("Estado_registro"),
-            ]);
+            ]); //dd($request->input("Estado_registro"));
 
             // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
             if ($nuevo_docente ->successful()) {
@@ -100,23 +100,26 @@ class docentesController extends Controller
                 'Authorization' => 'Bearer ' . $token,
             ])->get($this->apiUrl);
             
-        if ($todosDocentes->successful()) {
-            $docentes_lista = $todosDocentes->json();
+         /*   if ($todosDocentes->successful()) {
+                $docentes_lista = $todosDocentes->json();
             
-            foreach ($docentes_lista as $docentes) {
-               //dd ($docentes["COD_PERSONA"]);
-               // dd ($Docenteselecionado);
-               if ((string)$docentes["COD_PERSONA"] === (string)$Docenteselecionado) {
-                  
-                    // La persona ya existe, generar mensaje de error
-                    return redirect('docentes')->with('message', [
-                        'type' => 'error',
-                        'text' => 'Este docente ya está regisrado.'
-                    ])->withInput(); // Agregar esta línea para mantener los datos ingresados
+                foreach ($docentes_lista as $docente) {
+                    if ((string)$docente["COD_PERSONA"] === (string)$Docenteselecionado) {
+                        // Si encontramos al docente actualmente seleccionado
+                        continue; // Saltar a la siguiente iteración del bucle
+                    }
+            
+                    // Verificar si el COD_PERSONA ya está registrado para otro docente
+                    if ((string)$docente["COD_PERSONA"] === (string)$Docenteselecionado) {
+                        // La persona ya existe, generar mensaje de error
+                        return redirect('docentes')->with('message', [
+                            'type' => 'error',
+                            'text' => 'El COD_PERSONA ya está registrado para otro docente.'
+                        ])->withInput(); // Agregar esta línea para mantener los datos ingresados
+                    }
                 }
-                
-            }
-        }
+            }*/
+            
         $modificar_docente= Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->put($this->apiUrl.'/'. $request->input("COD_DOCENTE"), [
@@ -125,7 +128,7 @@ class docentesController extends Controller
             "HORAS_SEMANALES" => $request->input("HORAS_SEMANALES"),
             "USUARIO_MODIFICADOR" => $UsuarioValue,
             "Estado_registro" => $request->input("Estado_registro"),
-        ]);
+        ]);//dd($request->input("Estado_registro"));
 
        // Verificar si la solicitud fue exitosa y redireccionar con mensaje de éxito o error
        if ($modificar_docente->successful()) {
