@@ -170,7 +170,10 @@
                       </select>
                     
                 </div>
-                 
+                <div class="mb-3 mt-3 d-flex align-items-center">
+                <label for="Estado" class="form-label mr-4">Año:</label>
+                <span class="ml-5">{{ date('Y') }}</span>
+            </div>
                    <!-- <button type="button" class="btn btn-primary" id="btnAgregarCampo" style="margin-bottom: 20px;">Agregar otro encargado</button>
 
                    Nuevo bloque oculto inicialmente 
