@@ -213,8 +213,8 @@
 <div class="mb-3 mt-3 d-flex align-items-center">
     <label for="Estado_registro" class="form-label mr-5">Estado:</label>
     <select class="selectize" style="width: 400px;" id="Estado_registro" name="Estado_registro">
-        <option value="1" {{ $rel_asignatura['Estado_registro'] == 1 ? 'selected' : '' }}>Activo</option>
-        <option value="0" {{ $rel_asignatura['Estado_registro']== 0 ? 'selected' : '' }}>Inactivo</option>
+        <option value="1" {{ $rel_asignaturas['Estado_registro'] == 1 ? 'selected' : '' }}>Activo</option>
+        <option value="0" {{ $rel_asignaturas['Estado_registro']== 0 ? 'selected' : '' }}>Inactivo</option>
     </select>
 </div>
 
