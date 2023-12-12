@@ -101,9 +101,9 @@
                     <label for="COD_NIVACAD_ANIOACAD" class="form-label mr-5 ml-2">Grado:</label>
                     <select class="selectize" style="width: 300px;" id="COD_NIVACAD_ANIOACAD" name="COD_NIVACAD_ANIOACAD" required style="width: 300px;">
                         <option value="" disabled selected>Seleccione</option>
-                        @foreach ($rel_asignaturasArreglo as $rel_asignatura)
-                            <option value="{{ $rel_asignatura['COD_NIVACAD_ANIOACAD'] }}">
-                                {{ $rel_asignatura['Grado Academico'] }} , {{ $rel_asignatura['Nivel Academico'] }}
+                        @foreach ($rel_nivacad_anioacadArreglo as $rel_nivacad_anioacad)
+                            <option value="{{ $rel_nivacad_anioacad['COD_NIVACAD_ANIOACAD'] }}">
+                                {{ $rel_nivacad_anioacad['DESCRIPCION_NIVEL'] }} , {{ $rel_nivacad_anioacad['DESCRIPCION_ANIO'] }}
                             </option>
                         @endforeach
                     </select>
