@@ -64,7 +64,7 @@ class rel_nivacad_anioacadController extends Controller
         try {
             $cookieEncriptada = request()->cookie('token');
             $token = decrypt($cookieEncriptada);
-
+    
             $nueva_rel_nivacad_anioacad = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
             ])->post($this->apiUrl, [
@@ -72,23 +72,23 @@ class rel_nivacad_anioacadController extends Controller
                 "COD_ANIO_ACADEMICO" => $request->input("COD_ANIO_ACADEMICO"),
                 "Estado_registro" => $request->input("Estado"),
             ]);
-            
-
+    
             if ($nueva_rel_nivacad_anioacad->successful()) {
                 return redirect('/rel_nivacad_anioacad')->with('message', [
                     'type' => 'success',
                     'text' => 'Agregado exitosamente.'
                 ]);
-            } 
-        } catch (ApiException $exception) {
+            } else {
+                return redirect('/rel_nivacad_anioacad')->with('message', [
+                    'type' => 'error',
+                    'text' => 'No se pudo agregar.'
+                ]);
+            }
+        } catch (\Exception $e) {
+            // Manejar la excepción, por ejemplo, registrándola o redirigiendo a una página de error.
             return redirect('/rel_nivacad_anioacad')->with('message', [
                 'type' => 'error',
-                'text' => $exception->getMessage(),
-            ]);
-        } catch (\Exception $exception) {
-            return redirect('/rel_nivacad_anioacad')->with('message', [
-                'type' => 'error',
-                'text' => $exception->getMessage(),
+                'text' => 'Error al procesar la solicitud.'
             ]);
         }
     }
@@ -111,20 +111,19 @@ class rel_nivacad_anioacadController extends Controller
             if ($modificar_rel_nivacad_anioacad->successful()) {
                 return redirect('/rel_nivacad_anioacad')->with('message', [
                     'type' => 'success',
-                    'text' => 'Modificado exitosamente.'
+                    'text' => 'Agregado exitosamente.'
                 ]);
             } else {
-                throw new ApiException($modificar_rel_nivacad_anioacad->json()['error']['message'] ?? 'No se pudo modificar.');
+                return redirect('/rel_nivacad_anioacad')->with('message', [
+                    'type' => 'error',
+                    'text' => 'No se pudo editar.'
+                ]);
             }
-        } catch (ApiException $exception) {
+        } catch (\Exception $e) {
+            // Manejar la excepción, por ejemplo, registrándola o redirigiendo a una página de error.
             return redirect('/rel_nivacad_anioacad')->with('message', [
                 'type' => 'error',
-                'text' => $exception->getMessage(),
-            ]);
-        } catch (\Exception $exception) {
-            return redirect('/rel_nivacad_anioacad')->with('message', [
-                'type' => 'error',
-                'text' => $exception->getMessage(),
+                'text' => 'Error al procesar la solicitud.'
             ]);
         }
     }

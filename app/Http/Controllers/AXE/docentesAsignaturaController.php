@@ -39,6 +39,7 @@ class docentesAsignaturaController extends Controller
 
     public function nuevo_docentesAsignatura(Request $request)
     {
+        try {
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
         $UsuarioValue = $_COOKIE["Usuario"];
@@ -51,22 +52,29 @@ class docentesAsignaturaController extends Controller
             "USUARIO_MODIFICADOR" => $UsuarioValue,
         ]);
 
-       // dd(json_decode($nuevo_docentesAsignatura));
         if ($nuevo_docentesAsignatura->successful()) {
-            return redirect('/docentesAsignatura')->with('message', [
+            return redirect('/rel_nivacad_anioacad')->with('message', [
                 'type' => 'success',
                 'text' => 'Agregado exitosamente.'
             ]);
         } else {
-            return redirect('/docentesAsignatura')->with('message', [
+            return redirect('/rel_nivacad_anioacad')->with('message', [
                 'type' => 'error',
-                'text' => 'No se pudo Agregar.'
+                'text' => 'No se pudo editar.'
             ]);
         }
+    } catch (\Exception $e) {
+        // Manejar la excepción, por ejemplo, registrándola o redirigiendo a una página de error.
+        return redirect('/rel_nivacad_anioacad')->with('message', [
+            'type' => 'error',
+            'text' => 'Error al procesar la solicitud.'
+        ]);
+    }
     }
 
     public function modificar_docentesAsignatura(Request $request)
     {
+        try{
         $cookieEncriptada = request()->cookie('token');
         $token = decrypt($cookieEncriptada);
         $UsuarioValue = $_COOKIE["Usuario"];
@@ -79,16 +87,23 @@ class docentesAsignaturaController extends Controller
         ]);
      
         if ($modificar_docentesAsignatura->successful()) {
-            return redirect('/docentesAsignatura')->with('message', [
+            return redirect('/rel_nivacad_anioacad')->with('message', [
                 'type' => 'success',
-                'text' => 'Modificado exitosamente.'
+                'text' => 'Agregado exitosamente.'
             ]);
         } else {
-            return redirect('/docentesAsignatura')->with('message', [
+            return redirect('/rel_nivacad_anioacad')->with('message', [
                 'type' => 'error',
-                'text' => 'No se pudo modificar.'
+                'text' => 'No se pudo editar.'
             ]);
         }
+    } catch (\Exception $e) {
+        // Manejar la excepción, por ejemplo, registrándola o redirigiendo a una página de error.
+        return redirect('/rel_nivacad_anioacad')->with('message', [
+            'type' => 'error',
+            'text' => 'Error al procesar la solicitud.'
+        ]);
+    }
     }
   
     

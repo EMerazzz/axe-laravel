@@ -191,7 +191,7 @@
     <div class="modal fade bd-example-modal-sm" id="rel_nivacad_anioacad-edit-{{ $rel_nivacad_anioacad['COD_NIVACAD_ANIOACAD'] }}" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header" >
+            <div class="modal-header">
                 <h5 class="modal-title">Actualiza Asignatura</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -237,12 +237,12 @@
                             <option value="0" {{ $rel_nivacad_anioacad['Estado_registro'] === 0 ? 'selected' : '' }}>Inactivo</option>
                         </select>
                     </div>
-                    <!-- ... otros campos del formulario ... -->
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Editar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Editar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
