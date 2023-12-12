@@ -115,21 +115,19 @@ class rel_docentes_asigController extends Controller
                 "Estado_registro" => $request->input("Estado"),
             ]);
 
-            if ($modificar_rel_docente_asig->successful()) {
-                return redirect('/rel_docentes_asig')->with('message', [
+            if ($nueva_rel_nivacad_anioacad->successful()) {
+                return redirect('/rel_nivacad_anioacad')->with('message', [
                     'type' => 'success',
-                    'text' => 'Modificado exitosamente.'
+                    'text' => 'Agregado exitosamente.'
                 ]);
-            } else {
-                throw new ApiException($modificar_rel_docente_asig->json()['error']['message'] ?? 'No se pudo modificar.');
-            }
+            } 
         } catch (ApiException $exception) {
-            return redirect('/rel_docentes_asig')->with('message', [
+            return redirect('/rel_nivacad_anioacad')->with('message', [
                 'type' => 'error',
                 'text' => $exception->getMessage(),
             ]);
         } catch (\Exception $exception) {
-            return redirect('/rel_docentes_asig')->with('message', [
+            return redirect('/rel_nivacad_anioacad')->with('message', [
                 'type' => 'error',
                 'text' => $exception->getMessage(),
             ]);

@@ -96,9 +96,9 @@
                         <div class="form-group col-md-10"> 
                             <select class="selectize" id="COD_DOCENTE" name="COD_DOCENTE" required>
                                 <option value="" disabled selected>Seleccione el docente:</option>
-                                @foreach ($docentesArreglo as $docentes)
-                                    <option value="{{ $docentes['COD_DOCENTE'] }}">
-                                    {{$docentes['COD_PERSONA']}}
+                                @foreach ($rel_docentes_asigArreglo as $rel_docentes_asig)
+                                    <option value="{{ $rel_docentes_asig['COD_DOCENTE'] }}">
+                                    {{ $rel_docentes_asig['NOMBRE'] }} {{ $rel_docentes_asig['APELLIDO'] }}
                                     </option>
                                 @endforeach
                             </select>
@@ -147,17 +147,16 @@
                         }
                     }
                 @endphp
+
                
                     <tr>
                         <td>{{ $rel_docentes_asig['COD_DOCEN_ASIG'] }}</td>
-                        <td>{{ $rel_docentes_asig['COD_DOCENTE'] }}</td>
                         <td>
-                        @if ($asig !== null)
-                            {{ $asig['NOMBRE_ASIGNATURA'] }}
-                        @else
-                            Asignatura no encontrada
-                        @endif
+                            {{ $rel_docentes_asig['NOMBRE'] }} {{ $rel_docentes_asig['APELLIDO'] }}
+                      
                         </td>
+                        <td>{{ $rel_docentes_asig['ASIGNATURA IMPARTIDA'] }}</td>
+                        
                         <td>
                         @if($rel_docentes_asig['Estado_registro'] == 1)
                         Activo
@@ -190,6 +189,25 @@
                     <input type="hidden" class="form-control" name="COD_DOCEN_ASIG" value="{{ $rel_docentes_asig['COD_DOCEN_ASIG'] }}">
 
                     <div class="mb-3 mt-3 d-flex align-items-center">
+    <div class="form-group mr-1"> 
+        <label for="COD_DOCENTE" class="form-label mr-2">Docente: </label>
+    </div>
+    <div class="form-group col-md-10"> 
+        <select class="selectize" id="COD_DOCENTE" name="COD_DOCENTE" required>
+            <option value="" disabled selected>Seleccione el docente:</option>
+            @foreach ($docentesArreglo as $docente)
+                <option value="{{ $docente['COD_DOCENTE'] }}" 
+                    {{ $docente['COD_DOCENTE'] == $rel_docentes_asig['COD_DOCENTE'] ? 'selected' : '' }}>
+                    {{ $rel_docentes_asig['NOMBRE'] }} {{ $rel_docentes_asig['APELLIDO'] }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+</div>
+
+
+                        
+                    <div class="mb-3 mt-3 d-flex align-items-center">
                         <div class="form-group col-md-2"> 
                             <label for="COD_ASIGNATURA" class="form-label mr-2">Asignatura</label>
                         </div>
@@ -204,25 +222,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-3 mt-3 d-flex align-items-center">
-                        <label for="COD_PERSONA" class="form-label mr-4">Personal:</label>
-                        <select class="selectize" style="width: 400px;" id="COD_DOCENTE" name="COD_DOCENTE" required style="width: 300px;">
-                            <option value="" disabled>Seleccione un docente</option>
-                            @foreach ($personasArreglo as $persona)
-                                @if ($persona['TIPO_PERSONA'] === 'Docente')
-                                    @if ($persona['COD_PERSONA'] == $docentes['COD_PERSONA'])
-                                        <option value="{{ $persona['COD_PERSONA'] }}" selected>
-                                            {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
-                                        </option>
-                                    @else
-                                        <option value="{{ $persona['COD_PERSONA'] }}">
-                                            {{ $persona['NOMBRE'] }} {{ $persona['APELLIDO'] }} - {{ $persona['IDENTIDAD'] }}
-                                        </option>
-                                    @endif
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
+                 
 
                     <div class="mb-3 mt-3 d-flex align-items-center">
                         <label for="Estado_registro" class="form-label mr-4 ml-2">Estado:</label>
